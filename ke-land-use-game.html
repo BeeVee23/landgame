@@ -1,4 +1,4 @@
-<!-- v3.1.2 -->
+<!-- v3.2.0 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -73,10 +73,27 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 .final-grade { font-size: 15px; font-weight: 500; margin-top: 6px; }
 .source { font-size: 11px; color: var(--text-secondary); margin-top: 1.5rem; line-height: 1.8; }
 .source a { color: var(--text-secondary); text-decoration: underline; }
+
+.lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  font-size: 11px;
+  background: var(--bg-primary);
+  border: 0.5px solid var(--border-md);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  color: var(--text-secondary);
+  float: right;
+  margin-top: -2px;
+}
+.lang-toggle:hover { background: var(--bg-secondary); color: var(--text-primary); }
 </style>
 </head>
 <body>
 <div class="page">
+    <button class="lang-toggle" id="lang-btn" onclick="toggleLang()" title="Switch language"></button>
   <h1>🇰🇪 How is Kenya's land actually used?</h1>
   <p class="subtitle">Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Kenyan land for each category — sliders are capped at 100% total. Kenya is East Africa's most advanced energy market and a world leader in geothermal power.</p>
 
@@ -317,6 +334,71 @@ document.getElementById('rst-btn').addEventListener('click', function() {
   document.getElementById('sub-btn').disabled = false;
   buildCards(); updateTotal(); setTimeout(drawMap, 50);
 });
+// ── LANGUAGE TOGGLE ──
+const STRINGS = {
+  en: {
+    h1: '🇰🇪 How is Kenya\\'s land actually used?',
+    subtitle: 'Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark\\'s YouTube short</a>. Guess the percentage of Kenyan land for each category — sliders are capped at 100% total. Kenya is East Africa\\'s most advanced energy market and a world leader in geothermal power.',
+    submit: 'Submit all guesses',
+    play_again: 'Play again',
+    score: 'Score',
+    land_used: 'Land used',
+    remaining: 'Remaining',
+    map_guess: 'Your guesses — proportional area map (updates as you slide)',
+    map_answer: 'Actual Kenyan land use — proportional area map',
+    allocated: '/ 100%% allocated',
+    reveal: 'Revealed after you submit.',
+    out_of: 'points out of 800',
+  },
+  local: {
+    h1: '🇰🇪 Ardhi ya Kenya inatumiwaje?',
+    subtitle: 'Ilipata msukumo kutoka <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">video fupi ya Dkt. Simon Clark kwenye YouTube</a> (kwa Kiingereza). Kadiria asilimia ya ardhi ya Kenya kwa kila kategoria — vitetemeko vimewekewa kikomo cha 100% jumla.',
+    submit: 'Wasilisha makadirio yako',
+    play_again: 'Cheza tena',
+    score: 'Alama',
+    land_used: 'Ardhi iliyotumika',
+    remaining: 'Iliyobaki',
+    map_guess: 'Makadirio yako — ramani ya uwiano (inasasishwa unapotelezesha)',
+    map_answer: 'Matumizi halisi ya ardhi ya Kenya — ramani ya uwiano',
+    allocated: '/ 100% imegawanywa',
+    reveal: 'Itafunuliwa baada ya kuwasilisha.',
+    out_of: 'alama kati ya 800',
+  }
+};
+let currentLang = 'local';
+function applyLang(lang) {
+  const s = STRINGS[lang];
+  document.querySelector('h1').innerHTML = s.h1;
+  document.querySelector('.subtitle').innerHTML = s.subtitle;
+  const subBtn = document.getElementById('sub-btn');
+  if (subBtn && !subBtn.disabled) subBtn.textContent = s.submit;
+  const rstBtn = document.getElementById('rst-btn');
+  if (rstBtn) rstBtn.innerHTML = '<i class="ti ti-refresh"></i> ' + s.play_again;
+  document.querySelector('.metric:nth-child(1) .lbl').textContent = s.score;
+  document.querySelector('.metric:nth-child(2) .lbl').textContent = s.land_used;
+  document.querySelector('.metric:nth-child(3) .lbl').textContent = s.remaining;
+  const mapTitle = document.getElementById('map-title');
+  if (mapTitle) mapTitle.textContent = submitted ? s.map_answer : s.map_guess;
+  const totLabel = document.getElementById('tot-label');
+  if (totLabel) { const pct = totLabel.textContent.split('/')[0].trim(); totLabel.textContent = pct + ' ' + s.allocated; }
+  const hint = document.getElementById('rl-hint-sol100');
+  if (hint && hint.style.display !== 'none') hint.textContent = s.reveal;
+  const finalSub = document.querySelector('.final-sub');
+  if (finalSub) finalSub.textContent = s.out_of;
+  const btn = document.getElementById('lang-btn');
+  if (btn) btn.textContent = lang === 'en' ? 'Kiswahili' : 'English';
+}
+function toggleLang() {
+  currentLang = currentLang === 'en' ? 'local' : 'en';
+  applyLang(currentLang);
+}
+// Init button label
+document.addEventListener('DOMContentLoaded', () => {
+  applyLang('local');
+  const btn = document.getElementById('lang-btn');
+  if (btn) btn.textContent = 'Kiswahili';
+});
+
 buildCards(); updateTotal(); setTimeout(drawMap, 50);
 window.addEventListener('resize', drawMap);
 </script>
