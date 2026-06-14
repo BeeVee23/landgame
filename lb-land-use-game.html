@@ -1,4 +1,4 @@
-<!-- v3.1.2 -->
+<!-- v3.2.0 -->
 <!DOCTYPE html>
 <html lang="ar" dir="ltr">
 <head>
@@ -76,10 +76,27 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 .final-sub { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
 .final-grade { font-size: 15px; font-weight: 500; margin-top: 6px; }
 .source { font-size: 11px; color: var(--text-secondary); margin-top: 1.5rem; line-height: 1.6; }
+
+.lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  font-size: 11px;
+  background: var(--bg-primary);
+  border: 0.5px solid var(--border-md);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  color: var(--text-secondary);
+  float: right;
+  margin-top: -2px;
+}
+.lang-toggle:hover { background: var(--bg-secondary); color: var(--text-primary); }
 </style>
 </head>
 <body>
 <div class="page">
+    <button class="lang-toggle" id="lang-btn" onclick="toggleLang()" title="Switch language"></button>
   <h1>🇱🇧 How is Lebanon's land actually used?</h1>
   <p class="subtitle">Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Lebanese land for each category — sliders are capped at 100% total. Lebanon is tiny (~1M ha, smaller than Yorkshire) so percentages feel very different here.</p>
 
@@ -404,6 +421,71 @@ All values as % of Lebanon total land area (~1.04M ha). solar includes rooftop a
   this.textContent = '↻ Update figures';
 });
 */
+
+// ── LANGUAGE TOGGLE ──
+const STRINGS = {
+  en: {
+    h1: '🇱🇧 How is Lebanon\\'s land actually used?',
+    subtitle: 'Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark\\'s YouTube short</a>. Guess the percentage of Lebanese land for each category — sliders are capped at 100% total. Lebanon is tiny (~1M ha, smaller than Yorkshire) so percentages feel very different here.',
+    submit: 'Submit all guesses',
+    play_again: 'Play again',
+    score: 'Score',
+    land_used: 'Land used',
+    remaining: 'Remaining',
+    map_guess: 'Your guesses — proportional area map (updates as you slide)',
+    map_answer: 'Actual Lebanese land use — proportional area map',
+    allocated: '/ 100%% allocated',
+    reveal: 'Revealed after you submit.',
+    out_of: 'points out of 800',
+  },
+  local: {
+    h1: '🇱🇧 كيف تُستخدم أراضي لبنان؟',
+    subtitle: 'مستوحى من <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">فيديو الدكتور سايمون كلارك على يوتيوب</a> (بالإنجليزية). خمّن نسبة الأراضي اللبنانية لكل فئة — الشرائح محدودة بـ 100% إجمالاً.',
+    submit: 'إرسال تخميناتي',
+    play_again: 'العب مجدداً',
+    score: 'النتيجة',
+    land_used: 'الأرض المستخدمة',
+    remaining: 'المتبقي',
+    map_guess: 'تخميناتك — خريطة نسبية (تتحدث أثناء التمرير)',
+    map_answer: 'الاستخدام الفعلي للأراضي اللبنانية',
+    allocated: '/ 100% موزّعة',
+    reveal: 'يُكشف بعد الإرسال.',
+    out_of: 'نقطة من أصل 800',
+  }
+};
+let currentLang = 'local';
+function applyLang(lang) {
+  const s = STRINGS[lang];
+  document.querySelector('h1').innerHTML = s.h1;
+  document.querySelector('.subtitle').innerHTML = s.subtitle;
+  const subBtn = document.getElementById('sub-btn');
+  if (subBtn && !subBtn.disabled) subBtn.textContent = s.submit;
+  const rstBtn = document.getElementById('rst-btn');
+  if (rstBtn) rstBtn.innerHTML = '<i class="ti ti-refresh"></i> ' + s.play_again;
+  document.querySelector('.metric:nth-child(1) .lbl').textContent = s.score;
+  document.querySelector('.metric:nth-child(2) .lbl').textContent = s.land_used;
+  document.querySelector('.metric:nth-child(3) .lbl').textContent = s.remaining;
+  const mapTitle = document.getElementById('map-title');
+  if (mapTitle) mapTitle.textContent = submitted ? s.map_answer : s.map_guess;
+  const totLabel = document.getElementById('tot-label');
+  if (totLabel) { const pct = totLabel.textContent.split('/')[0].trim(); totLabel.textContent = pct + ' ' + s.allocated; }
+  const hint = document.getElementById('rl-hint-sol100');
+  if (hint && hint.style.display !== 'none') hint.textContent = s.reveal;
+  const finalSub = document.querySelector('.final-sub');
+  if (finalSub) finalSub.textContent = s.out_of;
+  const btn = document.getElementById('lang-btn');
+  if (btn) btn.textContent = lang === 'en' ? 'العربية' : 'English';
+}
+function toggleLang() {
+  currentLang = currentLang === 'en' ? 'local' : 'en';
+  applyLang(currentLang);
+}
+// Init button label
+document.addEventListener('DOMContentLoaded', () => {
+  applyLang('local');
+  const btn = document.getElementById('lang-btn');
+  if (btn) btn.textContent = 'العربية';
+});
 
 buildCards();
 updateTotal();

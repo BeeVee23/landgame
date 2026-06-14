@@ -372,7 +372,7 @@ html, body {
       <span class="site-title">How is land actually used?</span>
       <div class="site-right">
         <span class="site-tag">A guessing game</span>
-        <a href="changelog.html" class="site-version" style="text-decoration:none;">v3.1.2</a>
+        <a href="changelog.html" class="site-version" style="text-decoration:none;">v3.2.0</a>
       </div>
     </div>
   </div>
@@ -415,7 +415,7 @@ html, body {
   <nav class="game-nav">
     <button class="back-btn" id="back-btn">← Map</button>
     <span class="game-nav-title" id="game-nav-title"></span>
-    <a href="changelog.html" class="version-badge" target="_blank" style="text-decoration:none;">v3.1.2</a>
+    <a href="changelog.html" class="version-badge" target="_blank" style="text-decoration:none;">v3.2.0</a>
   </nav>
   <iframe id="game-iframe" src="" title="Land use game"></iframe>
 </div>
@@ -556,7 +556,15 @@ function setActiveCountry(iso) {
   }
 }
 
-function loadGame(iso, game) {
+function showMap() {
+  gameView.style.display = 'none';
+  gameIframe.src = '';
+  landing.style.display = 'flex';
+  setActiveCountry(null);
+  window.scrollTo(0, 0);
+}
+
+function loadGame(iso, game, pushState = true) {
   setActiveCountry(iso);
   gameNavTitle.textContent = game.title;
   gameIframe.src = game.file;
@@ -564,14 +572,30 @@ function loadGame(iso, game) {
   gameView.style.display = 'flex';
   tooltip.style.opacity = '0';
   window.scrollTo(0, 0);
+  if (pushState) {
+    history.pushState({ iso }, '', '#' + iso);
+  }
 }
 
+// Handle browser back/forward
+window.addEventListener('popstate', (e) => {
+  if (e.state && e.state.iso && GAMES_BY_ISO[e.state.iso]) {
+    loadGame(e.state.iso, GAMES_BY_ISO[e.state.iso], false);
+  } else {
+    showMap();
+  }
+});
+
+// On load, check if there's a hash to restore
+window.addEventListener('DOMContentLoaded', () => {
+  const hash = window.location.hash.replace('#', '').padStart(3, '0');
+  if (hash && GAMES_BY_ISO[hash]) {
+    loadGame(hash, GAMES_BY_ISO[hash], false);
+  }
+});
+
 document.getElementById('back-btn').addEventListener('click', () => {
-  gameView.style.display = 'none';
-  gameIframe.src = '';
-  landing.style.display = 'flex';
-  setActiveCountry(null);
-  window.scrollTo(0, 0);
+  history.back();
 });
 
 // Dropdown toggle
