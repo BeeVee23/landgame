@@ -1,10 +1,10 @@
-<!-- v3.2.0 -->
+<!-- v4.0.0 -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mg">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Madagascar Land Use — Guessing Game — Guessing Game</title>
+<title>🇲🇬 How is Madagascar's land actually used? — Guessing Game</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -27,10 +27,23 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 .subtitle { font-size: 14px; color: var(--text-secondary); margin-bottom: 0.75rem; line-height: 1.5; }
 .disclaimer { font-size: 11px; color: var(--text-secondary); background: var(--bg-secondary); border-left: 3px solid var(--border-md); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 0.6rem 0.9rem; margin-bottom: 1rem; line-height: 1.7; }
 .disclaimer strong { color: var(--text-primary); }
+.lang-toggle {
+  font-family: inherit;
+  font-size: 11px;
+  padding: 3px 9px;
+  background: var(--bg-primary);
+  border: 0.5px solid var(--border-md);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  color: var(--text-secondary);
+  float: right;
+  margin: 2px 0 0 8px;
+}
+.lang-toggle:hover { background: var(--bg-secondary); color: var(--text-primary); }
+
 .data-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 1.25rem; flex-wrap: wrap; }
 .data-info { font-size: 11px; color: var(--text-secondary); flex: 1; min-width: 160px; }
 .data-info strong { color: var(--text-primary); }
-#update-status { font-size: 11px; color: var(--text-secondary); width: 100%; min-height: 14px; }
 .score-bar { display: flex; gap: 10px; margin-bottom: 1.25rem; flex-wrap: wrap; }
 .metric { background: var(--bg-secondary); border-radius: var(--radius-md); padding: .6rem .9rem; flex: 1; min-width: 80px; }
 .metric .lbl { font-size: 11px; color: var(--text-secondary); margin-bottom: 2px; }
@@ -73,37 +86,18 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 .final-grade { font-size: 15px; font-weight: 500; margin-top: 6px; }
 .source { font-size: 11px; color: var(--text-secondary); margin-top: 1.5rem; line-height: 1.8; }
 .source a { color: var(--text-secondary); text-decoration: underline; }
-
-.lang-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 10px;
-  font-size: 11px;
-  background: var(--bg-primary);
-  border: 0.5px solid var(--border-md);
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  color: var(--text-secondary);
-  float: right;
-  margin-top: -2px;
-}
-.lang-toggle:hover { background: var(--bg-secondary); color: var(--text-primary); }
 </style>
 </head>
 <body>
 <div class="page">
-    <button class="lang-toggle" id="lang-btn" onclick="toggleLang()" title="Switch language"></button>
+  <button class="lang-toggle" id="lang-btn" onclick="toggleLang()">English</button>
   <h1>🇲🇬 How is Madagascar's land actually used?</h1>
   <p class="subtitle">Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Malagasy land for each category — sliders are capped at 100% total. Madagascar is one of the world's most biodiverse islands, yet also one of the most heavily deforested.</p>
-
-  <div class="disclaimer">
-    <strong>Note:</strong> The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. Madagascar's grid is extremely limited — fewer than 20% of the population has access to electricity. A realistic energy future will require a mix of hydro (significant potential), solar, and wind, alongside major grid investment. Deforestation driven by slash-and-burn agriculture (tavy) is the country's most urgent land use crisis. Land use figures are approximate and sourced from World Bank and FAO data.
-  </div>
+  
+  <div class="disclaimer"><strong>Note:</strong> The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. Madagascar's grid is extremely limited — fewer than 20% of the population has access to electricity. A realistic energy future will require a mix of hydro, solar, and wind, alongside major grid investment. Deforestation driven by slash-and-burn agriculture (tavy) is the country's most urgent land use crisis. Land use figures are approximate and sourced from World Bank and FAO data.</div>
 
   <div class="data-bar">
-    <span class="data-info">Data: <strong id="data-date">2022–2023</strong> · <span id="data-src">World Bank · FAO FAOSTAT · IRENA</span></span>
-    <span id="update-status"></span>
+    <span class="data-info">Data: <strong>2022–2023</strong> · World Bank · FAO · IRENA</span>
   </div>
 
   <div class="score-bar">
@@ -127,10 +121,10 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 
   <div class="btn-row">
     <button id="sub-btn">Submit all guesses</button>
-    <button id="rst-btn"><i class="ti ti-refresh"></i> Play again</button>
+    <button id="rst-btn" style="display:none"><i class="ti ti-refresh"></i> Play again</button>
   </div>
 
-  <div class="final" id="final">
+  <div class="final" id="final" style="display:none">
     <div class="final-num" id="final-n">0</div>
     <div class="final-sub">points out of 800</div>
     <div class="final-grade" id="final-g"></div>
@@ -138,22 +132,121 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 
   <p class="source">Sources: <a href="https://data.worldbank.org/country/MG" target="_blank">World Bank Development Indicators 2023</a> · <a href="https://www.fao.org/countryprofiles/index/en/?iso3=MDG" target="_blank">FAO Country Profile Madagascar</a> · <a href="https://www.irena.org/Energy-Transition/Country-Profiles/Madagascar" target="_blank">IRENA Madagascar country profile</a> · Madagascar total land area ~58.7M ha.</p>
 </div>
-
 <script>
-let CATS = [
-  {id:'past', icon:'🐄', name:'Pastures & grazing', desc:"Permanent meadows and rough grazing — dominant land use across the central highlands", answer:48.8, color:'#a8c46e', max:65, step:0.5},
-  {id:'agri', icon:'🌾', name:'Arable & permanent crops', desc:"Rice paddies, cassava, vanilla, cloves and other crops in lowlands and coastal zones", answer:16.2, color:'#639922', max:30, step:0.5},
-  {id:'forest', icon:'🌲', name:'Forest', desc:"Remaining natural forest — once covered the whole island, now only eastern and western strips survive", answer:21.3, color:'#3B6D11', max:40, step:0.5},
-  {id:'scrub', icon:'🌿', name:'Shrubland & degraded', desc:"Savanna, degraded land, lavaka erosion gullies and areas recovering from slash-and-burn", answer:10.2, color:'#888780', max:20, step:0.5},
-  {id:'urban', icon:'🏙️', name:'Urban & infrastructure', desc:"Antananarivo and other cities, roads, and built infrastructure", answer:2.0, color:'#73726c', max:8, step:0.1},
-  {id:'water', icon:'💧', name:'Inland water', desc:"Lakes, rivers and reservoirs — Lake Alaotra is the largest rice-growing area", answer:1.5, color:'#378ADD', max:6, step:0.1},
-  {id:'solar', icon:'☀️🔋', name:'Solar+battery (current)', desc:"Utility-scale grid-connected solar PV — nascent sector, mostly small off-grid installations (~100 MW total)", answer:0.0003, color:'#EF9F27', max:0.1, step:0.0001, isSolar:true, answerHa:180, solarNote:"Hint: Madagascar's grid-scale solar is tiny — the grid barely exists"},
-  {id:'sol100', icon:'⚡🔋', name:'Solar+battery for 100% electricity', desc:"Land needed for utility-scale solar+battery to power a fully functioning national grid 24/7 — Madagascar's electricity demand is very low (~3 TWh/yr)", answer:0.003, color:'#BA7517', max:0.1, step:0.001, isSolar:true, answerHa:1800, readOnly:true}
+
+// ── LANGUAGE SYSTEM ──
+const CATS_EN = [
+  {id:'past', icon:`🐄`, name:`Pastures & grazing`, desc:`Permanent meadows and rough grazing — dominant land use across the central highlands`, answer:48.8, color:'#a8c46e', max:65, step:0.5},
+  {id:'agri', icon:`🌾`, name:`Arable & permanent crops`, desc:`Rice paddies, cassava, vanilla, cloves and other crops in lowlands and coastal zones`, answer:16.2, color:'#639922', max:30, step:0.5},
+  {id:'forest', icon:`🌲`, name:`Forest`, desc:`Remaining natural forest — once covered the whole island, now only eastern and western strips survive`, answer:21.3, color:'#3B6D11', max:40, step:0.5},
+  {id:'scrub', icon:`🌿`, name:`Shrubland & degraded`, desc:`Savanna, degraded land, lavaka erosion gullies and areas recovering from slash-and-burn`, answer:10.2, color:'#888780', max:20, step:0.5},
+  {id:'urban', icon:`🏙️`, name:`Urban & infrastructure`, desc:`Antananarivo and other cities, roads, and built infrastructure`, answer:2.0, color:'#73726c', max:8, step:0.1},
+  {id:'water', icon:`💧`, name:`Inland water`, desc:`Lakes, rivers and reservoirs — Lake Alaotra is the largest rice-growing area`, answer:1.5, color:'#378ADD', max:6, step:0.1},
+  {id:'solar', icon:`☀️🔋`, name:`Solar+battery (current)`, desc:`Utility-scale grid-connected solar PV — nascent sector, mostly small off-grid installations (~100 MW total)`, answer:0.0003, color:'#EF9F27', max:0.1, step:0.0001, isSolar:true, answerHa:180, solarNote:`Hint: Madagascar's grid-scale solar is tiny — the grid barely exists`},
+  {id:'sol100', icon:`⚡🔋`, name:`Solar+battery for 100% electricity`, desc:`Land needed for utility-scale solar+battery to power a fully functioning national grid 24/7 — Madagascar's electricity demand is very low (~3 TWh/yr)`, answer:0.003, color:'#BA7517', max:0.1, step:0.001, isSolar:true, answerHa:1800, readOnly:true}
+];
+const CATS_LO = [
+  {id:'past', icon:`🐄`, name:`Ahitra sy toeram-pifehezana`, desc:`Ahitra maharitra sy fiandrasana biby — fampiasana tany lehibe indrindra any amin'ny Havoana Afovoany`, answer:48.8, color:'#a8c46e', max:65, step:0.5},
+  {id:'agri', icon:`🌾`, name:`Tanimboly sy voly maharitra`, desc:`Tanimbary, manioka, vanila, jirofo ary voly hafa any amin'ny faritra ambany sy morontsiraka`, answer:16.2, color:'#639922', max:30, step:0.5},
+  {id:'forest', icon:`🌲`, name:`Ala`, desc:`Ala voajanahary sisa — efa nanarona ny nosy manontolo, ankehitriny sisa mangina amin'ny andrefana sy atsinanana ihany`, answer:21.3, color:'#3B6D11', max:40, step:0.5},
+  {id:'scrub', icon:`🌿`, name:`Hazo madinika sy tany simba`, desc:`Savana, tany simba, lavaka ary faritra manavao taorian'ny tavy`, answer:10.2, color:'#888780', max:20, step:0.5},
+  {id:'urban', icon:`🏙️`, name:`Tanana sy fotodrafitrasa`, desc:`Antananarivo sy tanàna hafa, lalana, ary fotodrafitrasa`, answer:2.0, color:'#73726c', max:8, step:0.1},
+  {id:'water', icon:`💧`, name:`Rano anatiny`, desc:`Farihy, renirano ary tahiry — Lac Alaotra no toerana lehibe indrindra amin'ny fambolena vary`, answer:1.5, color:'#378ADD', max:6, step:0.1},
+  {id:'solar', icon:`☀️🔋`, name:`Solar+bateria (ankehitriny)`, desc:`Solar fotovoltaika lehibe mifandray amin'ny tambajotrana — setrasetra kely, ankamaroan'ny fametrahana kely tsy mifandray (~100 MW)`, answer:0.0003, color:'#EF9F27', max:0.1, step:0.0001, isSolar:true, answerHa:180, solarNote:`Torohevitra: ny solar lehibe eto Madagasikara dia kely dia kely — saika tsy misy tambajotrana`},
+  {id:'sol100', icon:`⚡🔋`, name:`Solar+bateria ho an'ny herinaratra 100%`, desc:`Tany ilaina ho an'ny solar+bateria lehibe hamelona tambajotran'ny firenen-kerana 24h/7 — ny filana herinaratra ao Madagasikara dia ambany be (~3 TWh/taona)`, answer:0.003, color:'#BA7517', max:0.1, step:0.001, isSolar:true, answerHa:1800, readOnly:true}
 ];
 
-let MAIN_CATS = CATS.filter(c => !c.readOnly);
+const STRINGS = {
+  en: {
+    h1: `🇲🇬 How is Madagascar's land actually used?`,
+    subtitle: `Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Malagasy land for each category — sliders are capped at 100% total. Madagascar is one of the world's most biodiverse islands, yet also one of the most heavily deforested.`,
+    disclaimer: `The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. Madagascar's grid is extremely limited — fewer than 20% of the population has access to electricity. A realistic energy future will require a mix of hydro, solar, and wind, alongside major grid investment. Deforestation driven by slash-and-burn agriculture (tavy) is the country's most urgent land use crisis. Land use figures are approximate and sourced from World Bank and FAO data.`,
+    submit: `Submit all guesses`,
+    play_again: `Play again`,
+    score: `Score`,
+    land_used: `Land used`,
+    remaining: `Remaining`,
+    map_guess: `Your guesses — proportional area map (updates as you slide)`,
+    map_answer: `Actual Malagasy land use — proportional area map`,
+    allocated: `/ 100% allocated`,
+    reveal: `Revealed after you submit.`,
+    out_of: `points out of 800`,
+    sol100_reveal: `storage overcapacity for nights and cloudy days doubles the land needed vs panels alone. Madagascar's grid barely exists — solar+battery could leapfrog the need for a conventional grid.`,
+    grades: [
+    [650, `🏆 Madagascar expert — you know this extraordinary island intimately!`],
+    [490, `🌳 Very strong — sharp sense of Madagascar's fragile landscape.`],
+    [320, `🦎 Not bad! Madagascar's deforestation story is one of the world's most urgent.`],
+    [160, `🌿 Over 70% agricultural — but most is threatened by erosion and slash-and-burn.`],
+    [0, `🤔 Surprising? Madagascar has lost over 90% of its original forest to deforestation.`]
+  ],
+    btn_label: `Malagasy`,
+  },
+  local: {
+    h1: `🇲🇬 Ahoana no ampiasana ny tany eto Madagasikara?`,
+    subtitle: `Nomen'ny <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">video fohy nataon'ny Dr. Simon Clark</a> (amin'ny teny anglisy). Andrandrao ny tahan'ny tany malagasy ho an'ny sokajy tsirairay — voafetra amin'ny 100% ny totalin'ny slider.`,
+    disclaimer: `Ny isa solar+bateria dia fanatanjahan-tsaina nataon'ny AI, fa tsy torohevitry ny fanjakana. Ny isa rehetra dia mikasika rafitra solar-bateria lehibe mifandray amin'ny tambajotram-pamoahana herinaratra. Voafetra be ny tambajotran'i Madagasikara — latsaky ny 20% ny mponina no mahazo herinaratra.`,
+    submit: `Alefa ny fanontaniana`,
+    play_again: `Hilalao indray`,
+    score: `Isa`,
+    land_used: `Tany nampiasana`,
+    remaining: `Sisa`,
+    map_guess: `Ny andrandrainao — sarintany mifandraika (miova rehefa mameha)`,
+    map_answer: `Fampiasana tany tena misy eto Madagasikara`,
+    allocated: `/ 100% nozaraina`,
+    reveal: `Haseho aorian'ny fandefasana.`,
+    out_of: `amin'ny 800`,
+    sol100_reveal: `ny fitahirizana mitombo amin'ny alina sy andro rahona dia manohina indroa ny habaka ilaina raha oharina amin'ny panel irery. Saika tsy misy tambajotran'i Madagasikara — ny solar+bateria dia afaka manitsaka ny filàna tambajotran'andalan'ny fanaovana.`,
+    grades: [
+    [650, `🏆 Manam-pahaizana momba an'i Madagasikara — fantatrao tsara io nosy manokana io!`],
+    [490, `🌳 Tsara be — mahay tsara ny toe-piainana mora simba ao Madagasikara.`],
+    [320, `🦎 Tsy ratsy! Ny fiainana voajanahary very eto Madagasikara dia isan'ny maika indrindra eran-tany.`],
+    [160, `🌿 Mihoatra ny 70% fambolena — fa ankamaroan'ny dia osavin'ny fihemorana sy ny tavy.`],
+    [0, `🤔 Mahagaga? I Madagasikara dia very mihoatra ny 90% ny alany tany am-boalohany.`]
+  ],
+    btn_label: `English`,
+  },
+};
+
+let currentLang = 'local';
 let submitted = false;
 let totalScore = 0;
+let CATS = currentLang === 'local' ? [...CATS_LO] : [...CATS_EN];
+let MAIN_CATS = CATS.filter(c => !c.readOnly);
+
+function applyLang(lang) {
+  const s = STRINGS[lang];
+  CATS = lang === 'local' ? [...CATS_LO] : [...CATS_EN];
+  MAIN_CATS = CATS.filter(c => !c.readOnly);
+  document.querySelector('h1').innerHTML = s.h1;
+  document.querySelector('.subtitle').innerHTML = s.subtitle;
+  const disc = document.querySelector('.disclaimer');
+  if (disc && s.disclaimer) disc.innerHTML = '<strong>Note:</strong> ' + s.disclaimer;
+  if (!submitted) buildCards();
+  const subBtn = document.getElementById('sub-btn');
+  if (subBtn && !subBtn.disabled) subBtn.textContent = s.submit;
+  const rstBtn = document.getElementById('rst-btn');
+  if (rstBtn) rstBtn.innerHTML = '<i class="ti ti-refresh"></i> ' + s.play_again;
+  document.querySelectorAll('.metric .lbl')[0].textContent = s.score;
+  document.querySelectorAll('.metric .lbl')[1].textContent = s.land_used;
+  document.querySelectorAll('.metric .lbl')[2].textContent = s.remaining;
+  const mapTitle = document.getElementById('map-title');
+  if (mapTitle) mapTitle.textContent = submitted ? s.map_answer : s.map_guess;
+  const totLabel = document.getElementById('tot-label');
+  if (totLabel) { const pct = totLabel.textContent.split('/')[0].trim(); totLabel.textContent = pct + ' ' + s.allocated; }
+  const hint = document.getElementById('rl-hint-sol100');
+  if (hint && hint.style.display !== 'none') hint.textContent = s.reveal;
+  const finalSub = document.querySelector('.final-sub');
+  if (finalSub) finalSub.textContent = s.out_of;
+  const btn = document.getElementById('lang-btn');
+  if (btn) btn.textContent = s.btn_label;
+  drawMap();
+}
+
+function toggleLang() {
+  currentLang = currentLang === 'en' ? 'local' : 'en';
+  applyLang(currentLang);
+}
+
 
 function getVal(cat) {
   if (cat.readOnly) return 0;
@@ -182,7 +275,7 @@ function clampAll(changedId) {
     if (!el) return;
     const cur = parseFloat(el.value);
     const share = (i === others.length - 1) ? remaining : Math.min(cur, (cur / othersTotal) * over);
-    const newVal = Math.max(0, parseFloat((cur - share).toFixed(3)));
+    const newVal = Math.max(0, parseFloat((cur - share).toFixed(4)));
     remaining -= (cur - newVal);
     el.value = newVal;
     document.getElementById('sv-' + cat.id).textContent = newVal.toFixed(cat.isSolar ? 3 : 1) + '%';
@@ -197,7 +290,7 @@ function updateTotal() {
   fill.style.width = tD + '%';
   const p = tD / 100;
   fill.style.background = `rgb(${Math.round(99*p+59*(1-p))},${Math.round(105*p+153*(1-p))},${Math.round(34*p+17*(1-p))})`;
-  document.getElementById('tot-label').textContent = tD.toFixed(1) + ' / 100% allocated';
+  document.getElementById('tot-label').textContent = tD.toFixed(1) + ' ' + STRINGS[currentLang].allocated;
 }
 function drawMap() {
   const tm = document.getElementById('treemap');
@@ -205,7 +298,7 @@ function drawMap() {
   if (submitted) {
     cats = CATS.filter(c => !c.readOnly).map(c => ({...c, pct: c.answer}));
     const s = CATS.find(c => c.id === 'sol100');
-    cats.push({...s, pct: s.answer});
+    if (s) cats.push({...s, pct: s.answer});
   } else {
     cats = MAIN_CATS.map(c => ({...c, pct: getVal(c)}));
   }
@@ -215,23 +308,22 @@ function drawMap() {
   cats.forEach(cat => {
     const block = document.createElement('div');
     block.className = 'tm-block';
-    block.title = `${cat.name}: ${cat.pct < 0.01 ? cat.pct.toFixed(4) : cat.pct.toFixed(1)}%`;
+    const pctStr = cat.pct < 0.01 ? cat.pct.toFixed(4) : cat.pct.toFixed(1);
+    block.title = cat.name + ': ' + pctStr + '%';
     block.style.cssText = `background:${cat.color};flex:${cat.pct} 1 0%;min-width:2px;height:100%`;
     const estW = (cat.pct / total) * (tm.clientWidth || 680);
     if (estW > 22) {
       const lbl = document.createElement('div');
       lbl.className = 'tm-label';
-      lbl.innerHTML = estW > 44 ? `${cat.icon}<br>${cat.pct < 0.01 ? cat.pct.toFixed(4) : cat.pct.toFixed(1)}%` : cat.icon;
+      lbl.innerHTML = estW > 44 ? cat.icon + '<br>' + pctStr + '%' : cat.icon;
       block.appendChild(lbl);
     }
     tm.appendChild(block);
   });
-  buildLegend(cats);
-}
-function buildLegend(cats) {
-  document.getElementById('legend').innerHTML = cats.map(c =>
-    `<span class="leg-item"><span class="leg-dot" style="background:${c.color}"></span>${c.name} ${c.pct < 0.01 ? c.pct.toFixed(4) : c.pct.toFixed(1)}%</span>`
-  ).join('');
+  document.getElementById('legend').innerHTML = cats.map(c => {
+    const pctStr = c.pct < 0.01 ? c.pct.toFixed(4) : c.pct.toFixed(1);
+    return `<span class="leg-item"><span class="leg-dot" style="background:${c.color}"></span>${c.name} ${pctStr}%</span>`;
+  }).join('');
 }
 function buildCards() {
   const container = document.getElementById('cards');
@@ -240,20 +332,20 @@ function buildCards() {
     const div = document.createElement('div');
     div.className = 'card' + (cat.isSolar ? ' solar-card' : '');
     if (cat.readOnly) {
-      div.innerHTML = `
-        <div class="card-head"><span class="card-icon">${cat.icon}</span><span class="card-name">${cat.name}</span></div>
+      div.innerHTML = `<div class="card-head"><span class="card-icon">${cat.icon}</span><span class="card-name">${cat.name}</span></div>
         <div class="card-desc">${cat.desc}</div>
-        <div class="readout-text" id="rl-hint-sol100">Revealed after you submit.</div>
+        <div class="readout-text" id="rl-hint-sol100">${STRINGS[currentLang].reveal}</div>
         <div class="res-line" id="rl-${cat.id}"></div>`;
     } else {
-      div.innerHTML = `
-        <div class="card-head"><span class="card-icon">${cat.icon}</span><span class="card-name">${cat.name}</span></div>
+      const dp = cat.isSolar ? 3 : 1;
+      const initVal = '0.' + '0'.repeat(dp);
+      div.innerHTML = `<div class="card-head"><span class="card-icon">${cat.icon}</span><span class="card-name">${cat.name}</span></div>
         <div class="card-desc">${cat.desc}</div>
         <div class="sl-row">
-          <input type="range" min="0" max="${cat.max}" step="${cat.step}" value="0" id="sl-${cat.id}" aria-label="Guess for ${cat.name}">
-          <span class="sl-val" id="sv-${cat.id}">0${cat.isSolar ? '.000' : '.0'}%</span>
+          <input type="range" min="0" max="${cat.max}" step="${cat.step}" value="0" id="sl-${cat.id}" aria-label="${cat.name}">
+          <span class="sl-val" id="sv-${cat.id}">${initVal}%</span>
         </div>
-        ${cat.isSolar ? `<div class="solar-note">${cat.solarNote || 'Hint: utility-scale grid-connected only'}</div>` : ''}
+        ${cat.isSolar && cat.solarNote ? '<div class="solar-note">' + cat.solarNote + '</div>' : ''}
         <div class="res-line" id="rl-${cat.id}"></div>`;
     }
     container.appendChild(div);
@@ -277,10 +369,8 @@ function scoreGuess(guess, answer) {
   return Math.max(0, Math.round(10 - (rel - 0.8) * 8));
 }
 function gradeLabel(s) {
-  const labels = [[650, "🏆 Madagascar expert — you know this extraordinary island intimately!"], [490, "🌳 Very strong — sharp sense of Madagascar's fragile landscape."], [320, "🦎 Not bad! Madagascar's deforestation story is one of the world's most urgent."], [160, "🌿 Over 70% agricultural — but most is threatened by erosion and slash-and-burn."], [0, "🤔 Surprising? Madagascar has lost over 90% of its original forest to deforestation."]];
-  for (const [threshold, label] of labels) {
-    if (s >= threshold) return label;
-  }
+  const labels = STRINGS[currentLang].grades;
+  for (const [t, l] of labels) { if (s >= t) return l; }
   return labels[labels.length - 1][1];
 }
 document.getElementById('sub-btn').addEventListener('click', function() {
@@ -294,8 +384,8 @@ document.getElementById('sub-btn').addEventListener('click', function() {
     if (cat.readOnly) {
       const hint = document.getElementById('rl-hint-sol100');
       if (hint) hint.style.display = 'none';
-      const haStr = cat.answerHa ? ` (~${Math.round(cat.answerHa / 1000)}k ha)` : '';
-      rl.innerHTML = `<span style="color:var(--text-secondary)">Answer: <strong style="color:#BA7517">${cat.answer}%</strong>${haStr} — storage overcapacity for nights and cloudy days doubles the land needed vs panels alone. Madagascar\'s grid barely exists — solar+battery could leapfrog the need for a conventional grid.</span>`;
+      const haStr = cat.answerHa ? ' (~' + (cat.answerHa >= 1000000 ? (cat.answerHa/1000000).toFixed(1)+'M' : Math.round(cat.answerHa/1000)+'k') + ' ha)' : '';
+      rl.innerHTML = '<span style="color:var(--text-secondary)">Answer: <strong style="color:#BA7517">' + cat.answer + '%</strong>' + haStr + ' — ' + STRINGS[currentLang].sol100_reveal + '</span>';
       return;
     }
     const guess = getVal(cat);
@@ -304,101 +394,42 @@ document.getElementById('sub-btn').addEventListener('click', function() {
     const diff = guess - cat.answer;
     const sign = diff >= 0 ? '+' : '';
     const dp = cat.isSolar ? 3 : 1;
-    const diffStr = Math.abs(diff) < (cat.isSolar ? 0.002 : 0.3) ? 'spot on!' : `${sign}${diff.toFixed(dp)}% off`;
+    const diffStr = Math.abs(diff) < (cat.isSolar ? 0.002 : 0.3) ? STRINGS[currentLang].spot_on || 'spot on!' : sign + diff.toFixed(dp) + '% off';
     const col = pts >= 80 ? '#3b6d11' : pts >= 40 ? '#ba7517' : '#a32d2d';
-    const haStr = cat.answerHa ? ` (~${Math.round(cat.answerHa / 1000)}k ha)` : '';
-    rl.innerHTML = `<span style="color:var(--text-secondary)">Answer: <strong style="color:var(--text-primary)">${cat.answer < 0.01 ? cat.answer.toFixed(4) : cat.answer}%</strong>${haStr}</span> <span style="color:${col};font-weight:500">${diffStr} → ${pts}pts</span>`;
+    const haStr = cat.answerHa ? ' (~' + (cat.answerHa >= 1000000 ? (cat.answerHa/1000000).toFixed(1)+'M' : Math.round(cat.answerHa/1000)+'k') + ' ha)' : '';
+    const answerStr = cat.answer < 0.01 ? cat.answer.toFixed(4) : String(cat.answer);
+    rl.innerHTML = '<span style="color:var(--text-secondary)">Answer: <strong style="color:var(--text-primary)">' + answerStr + '%</strong>' + haStr + '</span> <span style="color:' + col + ';font-weight:500">' + diffStr + ' → ' + pts + 'pts</span>';
     const sl = document.getElementById('sl-' + cat.id);
     if (sl) sl.disabled = true;
   });
   document.getElementById('score-v').textContent = totalScore;
-  document.getElementById('map-title').textContent = 'Actual Malagasy land use — proportional area map';
+  document.getElementById('map-title').textContent = STRINGS[currentLang].map_answer;
   document.getElementById('final').style.display = 'block';
   document.getElementById('final-n').textContent = totalScore;
   document.getElementById('final-g').textContent = gradeLabel(totalScore);
-  document.getElementById('rst-btn').style.display = 'block';
+  document.getElementById('rst-btn').style.display = 'inline-flex';
   this.disabled = true;
   drawMap();
 });
 document.getElementById('rst-btn').addEventListener('click', function() {
   submitted = false; totalScore = 0;
+  CATS = currentLang === 'local' ? [...CATS_LO] : [...CATS_EN];
+  MAIN_CATS = CATS.filter(c => !c.readOnly);
   document.getElementById('score-v').textContent = '0';
   document.getElementById('total-v').textContent = '0%';
   document.getElementById('remain-v').textContent = '100%';
   document.getElementById('final').style.display = 'none';
-  document.getElementById('map-title').textContent = 'Your guesses — proportional area map (updates as you slide)';
+  document.getElementById('map-title').textContent = STRINGS[currentLang].map_guess;
   document.getElementById('tot-fill').style.width = '0%';
-  document.getElementById('tot-label').textContent = '0 / 100% allocated';
+  document.getElementById('tot-label').textContent = '0 ' + STRINGS[currentLang].allocated;
   this.style.display = 'none';
   document.getElementById('sub-btn').disabled = false;
   buildCards(); updateTotal(); setTimeout(drawMap, 50);
 });
-// ── LANGUAGE TOGGLE ──
-const STRINGS = {
-  en: {
-    h1: '🇲🇬 How is Madagascar\\'s land actually used?',
-    subtitle: 'Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark\\'s YouTube short</a>. Guess the percentage of Malagasy land for each category — sliders are capped at 100% total. Madagascar is one of the world\\'s most biodiverse islands, yet also one of the most heavily deforested.',
-    submit: 'Submit all guesses',
-    play_again: 'Play again',
-    score: 'Score',
-    land_used: 'Land used',
-    remaining: 'Remaining',
-    map_guess: 'Your guesses — proportional area map (updates as you slide)',
-    map_answer: 'Actual Malagasy land use — proportional area map',
-    allocated: '/ 100%% allocated',
-    reveal: 'Revealed after you submit.',
-    out_of: 'points out of 800',
-  },
-  local: {
-    h1: '🇲🇬 Ahoana no ampiasana ny tany eto Madagasikara?',
-    subtitle: 'Avy amin\'ny <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">horonantsary fohy nataon\'i Dr. Simon Clark</a> (amin\'ny teny anglisy). Andrandrao ny tahan\'ny tany malagasy ho an\'ny sokajy tsirairay — voafetra amin\'ny 100% ny totalin\'ny slider.',
-    submit: 'Alefa ny andrandrako',
-    play_again: 'Hilalao indray',
-    score: 'Isa',
-    land_used: 'Tany nampiasana',
-    remaining: 'Sisa',
-    map_guess: 'Ny andrandrainao — sarintany m釟omantsika (miova rehefa mameha)',
-    map_answer: 'Fampiasana teny tena misy eto Madagasikara',
-    allocated: '/ 100% nozaraina',
-    reveal: 'Haseho aorian\'ny fandefasana.',
-    out_of: 'amin\'ny 800',
-  }
-};
-let currentLang = 'local';
-function applyLang(lang) {
-  const s = STRINGS[lang];
-  document.querySelector('h1').innerHTML = s.h1;
-  document.querySelector('.subtitle').innerHTML = s.subtitle;
-  const subBtn = document.getElementById('sub-btn');
-  if (subBtn && !subBtn.disabled) subBtn.textContent = s.submit;
-  const rstBtn = document.getElementById('rst-btn');
-  if (rstBtn) rstBtn.innerHTML = '<i class="ti ti-refresh"></i> ' + s.play_again;
-  document.querySelector('.metric:nth-child(1) .lbl').textContent = s.score;
-  document.querySelector('.metric:nth-child(2) .lbl').textContent = s.land_used;
-  document.querySelector('.metric:nth-child(3) .lbl').textContent = s.remaining;
-  const mapTitle = document.getElementById('map-title');
-  if (mapTitle) mapTitle.textContent = submitted ? s.map_answer : s.map_guess;
-  const totLabel = document.getElementById('tot-label');
-  if (totLabel) { const pct = totLabel.textContent.split('/')[0].trim(); totLabel.textContent = pct + ' ' + s.allocated; }
-  const hint = document.getElementById('rl-hint-sol100');
-  if (hint && hint.style.display !== 'none') hint.textContent = s.reveal;
-  const finalSub = document.querySelector('.final-sub');
-  if (finalSub) finalSub.textContent = s.out_of;
-  const btn = document.getElementById('lang-btn');
-  if (btn) btn.textContent = lang === 'en' ? 'Malagasy' : 'English';
-}
-function toggleLang() {
-  currentLang = currentLang === 'en' ? 'local' : 'en';
-  applyLang(currentLang);
-}
-// Init button label
-document.addEventListener('DOMContentLoaded', () => {
-  applyLang('local');
-  const btn = document.getElementById('lang-btn');
-  if (btn) btn.textContent = 'Malagasy';
-});
-
-buildCards(); updateTotal(); setTimeout(drawMap, 50);
+buildCards();
+updateTotal();
+setTimeout(drawMap, 50);
+applyLang("local");
 window.addEventListener('resize', drawMap);
 </script>
 </body>

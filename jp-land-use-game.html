@@ -1,10 +1,10 @@
-<!-- v3.2.0 -->
+<!-- v4.0.0 -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Japan Land Use — Guessing Game</title>
+<title>🇯🇵 How is Japan's land actually used? — Guessing Game</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -27,10 +27,23 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 .subtitle { font-size: 14px; color: var(--text-secondary); margin-bottom: 0.75rem; line-height: 1.5; }
 .disclaimer { font-size: 11px; color: var(--text-secondary); background: var(--bg-secondary); border-left: 3px solid var(--border-md); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 0.6rem 0.9rem; margin-bottom: 1rem; line-height: 1.7; }
 .disclaimer strong { color: var(--text-primary); }
+.lang-toggle {
+  font-family: inherit;
+  font-size: 11px;
+  padding: 3px 9px;
+  background: var(--bg-primary);
+  border: 0.5px solid var(--border-md);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  color: var(--text-secondary);
+  float: right;
+  margin: 2px 0 0 8px;
+}
+.lang-toggle:hover { background: var(--bg-secondary); color: var(--text-primary); }
+
 .data-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 1.25rem; flex-wrap: wrap; }
 .data-info { font-size: 11px; color: var(--text-secondary); flex: 1; min-width: 160px; }
 .data-info strong { color: var(--text-primary); }
-#update-status { font-size: 11px; color: var(--text-secondary); width: 100%; min-height: 14px; }
 .score-bar { display: flex; gap: 10px; margin-bottom: 1.25rem; flex-wrap: wrap; }
 .metric { background: var(--bg-secondary); border-radius: var(--radius-md); padding: .6rem .9rem; flex: 1; min-width: 80px; }
 .metric .lbl { font-size: 11px; color: var(--text-secondary); margin-bottom: 2px; }
@@ -57,7 +70,7 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 .card-desc { font-size: 11px; color: var(--text-secondary); margin-bottom: .6rem; line-height: 1.4; }
 .sl-row { display: flex; align-items: center; gap: 8px; }
 .sl-row input[type=range] { flex: 1; accent-color: #639922; }
-.sl-val { font-size: 13px; font-weight: 500; min-width: 38px; text-align: right; }
+.sl-val { font-size: 13px; font-weight: 500; min-width: 42px; text-align: right; }
 .solar-note { font-size: 11px; color: var(--text-secondary); margin-top: 4px; }
 .res-line { font-size: 11px; margin-top: 5px; min-height: 14px; display: none; line-height: 1.4; }
 .readout-text { font-size: 12px; color: var(--text-secondary); }
@@ -73,37 +86,18 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 .final-grade { font-size: 15px; font-weight: 500; margin-top: 6px; }
 .source { font-size: 11px; color: var(--text-secondary); margin-top: 1.5rem; line-height: 1.8; }
 .source a { color: var(--text-secondary); text-decoration: underline; }
-
-.lang-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 10px;
-  font-size: 11px;
-  background: var(--bg-primary);
-  border: 0.5px solid var(--border-md);
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  color: var(--text-secondary);
-  float: right;
-  margin-top: -2px;
-}
-.lang-toggle:hover { background: var(--bg-secondary); color: var(--text-primary); }
 </style>
 </head>
 <body>
 <div class="page">
-    <button class="lang-toggle" id="lang-btn" onclick="toggleLang()" title="Switch language"></button>
+  <button class="lang-toggle" id="lang-btn" onclick="toggleLang()">English</button>
   <h1>🇯🇵 How is Japan's land actually used?</h1>
   <p class="subtitle">Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Japanese land for each category — sliders are capped at 100% total. Japan is one of the world's most forested nations, yet also one of its most densely populated.</p>
-
-  <div class="disclaimer">
-    <strong>Note:</strong> The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. Japan's energy future will require diverse renewables — offshore wind is considered the key technology given Japan's limited flat land, and the country is also investing heavily in hydrogen, geothermal (it sits on the Pacific Ring of Fire), and tidal energy. Japan's mountainous terrain makes large-scale ground-mounted solar challenging, which is reflected in the relatively large land area needed compared to sunnier, flatter countries. Land use figures are approximate and sourced from official Japanese government statistics.
-  </div>
+  
+  <div class="disclaimer"><strong>Note:</strong> The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. Japan's energy future will require diverse renewables — offshore wind is considered the key technology given Japan's limited flat land, and the country is also investing heavily in hydrogen, geothermal, and tidal energy. Japan's mountainous terrain makes large-scale ground-mounted solar challenging, which is reflected in the relatively large land area needed. Land use figures are approximate and sourced from official Japanese government statistics.</div>
 
   <div class="data-bar">
-    <span class="data-info">Data: <strong id="data-date">2020–2024</strong> · <span id="data-src">MLIT · MAFF · METI / Agency for Natural Resources and Energy</span></span>
-    <span id="update-status"></span>
+    <span class="data-info">Data: <strong>2020–2024</strong> · MLIT · MAFF · METI / Agency for Natural Resources and Energy</span>
   </div>
 
   <div class="score-bar">
@@ -127,49 +121,141 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 
   <div class="btn-row">
     <button id="sub-btn">Submit all guesses</button>
-    <button id="rst-btn"><i class="ti ti-refresh"></i> Play again</button>
+    <button id="rst-btn" style="display:none"><i class="ti ti-refresh"></i> Play again</button>
   </div>
 
-  <div class="final" id="final">
+  <div class="final" id="final" style="display:none">
     <div class="final-num" id="final-n">0</div>
     <div class="final-sub">points out of 800</div>
     <div class="final-grade" id="final-g"></div>
   </div>
 
-  <p class="source">Sources:
-    <a href="https://www.mlit.go.jp/totikensangyo/content/001908011.pdf" target="_blank">MLIT Fiscal Year 2024 Trends Concerning Land</a> ·
-    <a href="https://www.maff.go.jp/e/data/stat/index.html" target="_blank">MAFF Agriculture and Forestry Statistics 2023</a> ·
-    <a href="https://www.meti.go.jp/english/policy/energy_environment/renewable/index.html" target="_blank">METI / Agency for Natural Resources and Energy 2024</a> ·
-    Japan total land area ~37.8M ha.
-  </p>
+  <p class="source">Sources: <a href="https://www.mlit.go.jp/totikensangyo/content/001908011.pdf" target="_blank">MLIT Fiscal Year 2024 Trends Concerning Land</a> · <a href="https://www.maff.go.jp/e/data/stat/index.html" target="_blank">MAFF Agriculture and Forestry Statistics 2023</a> · <a href="https://www.meti.go.jp/english/policy/energy_environment/renewable/index.html" target="_blank">METI Renewable Energy Policy 2024</a> · Japan total land area ~37.8M ha.</p>
 </div>
-
 <script>
-let CATS = [
-  {id:'forest', icon:'🌲', name:'Forest & woodland',           desc:'Natural and planted forest — covers most of Japan\'s mountainous interior, largely inaccessible', answer:66.3, color:'#3B6D11', max:80,  step:0.5},
-  {id:'agri',   icon:'🌾', name:'Farmland',                    desc:'Paddy fields, upland crops, orchards and other cultivated land — squeezed into valleys and coastal plains', answer:11.6, color:'#639922', max:25, step:0.5},
-  {id:'urban',  icon:'🏙️', name:'Urban & residential',         desc:'Cities, towns, housing, commercial and industrial zones — concentrated in coastal lowlands', answer:5.8,  color:'#73726c', max:15,  step:0.5},
-  {id:'misc',   icon:'🌊', name:'Other land & water',          desc:'Roads, rivers, lakes, golf courses, bare land and other uses not classified above',              answer:10.1, color:'#888780', max:20,  step:0.5},
-  {id:'golf',   icon:'⛳', name:'Golf courses',                desc:'Japan has ~2,300 golf courses — among the most per capita in the world',                         answer:1.2,  color:'#5DCAA5', max:6,   step:0.1},
-  {id:'water',  icon:'💧', name:'Inland water',                desc:'Rivers, lakes, reservoirs and paddy irrigation systems',                                          answer:1.5,  color:'#378ADD', max:6,   step:0.1},
-  {id:'solar',  icon:'☀️🔋', name:'Solar+battery (current)',   desc:'Utility-scale ground-mounted solar PV with battery storage, grid-connected — Japan also has a large rooftop sector (~55 GW) not counted here', answer:0.24, color:'#EF9F27', max:2, step:0.01, isSolar:true, answerHa:90000},
-  {id:'sol100', icon:'⚡🔋', name:'Solar+battery for 100% electricity', desc:'Land needed for utility-scale solar+battery to power Japan\'s entire national grid 24/7 — larger than most countries due to Japan\'s lower solar irradiance and mountainous terrain limiting suitable flat land', answer:2.0, color:'#BA7517', max:6, step:0.1, isSolar:true, answerHa:750000, readOnly:true},
+
+// ── LANGUAGE SYSTEM ──
+const CATS_EN = [
+  {id:'forest', icon:`🌲`, name:`Forest & woodland`, desc:`Natural and planted forest — covers most of Japan's mountainous interior, largely inaccessible`, answer:66.3, color:'#3B6D11', max:80, step:0.5},
+  {id:'agri', icon:`🌾`, name:`Farmland`, desc:`Paddy fields, upland crops, orchards and other cultivated land — squeezed into valleys and coastal plains`, answer:11.6, color:'#639922', max:25, step:0.5},
+  {id:'urban', icon:`🏙️`, name:`Urban & residential`, desc:`Cities, towns, housing, commercial and industrial zones — concentrated in coastal lowlands`, answer:5.8, color:'#73726c', max:15, step:0.5},
+  {id:'golf', icon:`⛳`, name:`Golf courses`, desc:`Japan has ~2,300 golf courses — among the most per capita in the world`, answer:1.2, color:'#5DCAA5', max:6, step:0.1},
+  {id:'water', icon:`💧`, name:`Inland water`, desc:`Rivers, lakes, reservoirs and paddy irrigation systems`, answer:1.5, color:'#378ADD', max:6, step:0.1},
+  {id:'misc', icon:`🌊`, name:`Other land`, desc:`Roads, bare land and other uses not classified above`, answer:13.6, color:'#888780', max:25, step:0.5},
+  {id:'solar', icon:`☀️🔋`, name:`Solar+battery (current)`, desc:`Utility-scale ground-mounted solar PV with battery storage, grid-connected — Japan also has a large rooftop sector (~55 GW) not counted here`, answer:0.24, color:'#EF9F27', max:2, step:0.01, isSolar:true, answerHa:90000, solarNote:`Hint: utility-scale grid-connected only — Japan also has ~55 GW of rooftop`},
+  {id:'sol100', icon:`⚡🔋`, name:`Solar+battery for 100% electricity`, desc:`Land needed for utility-scale solar+battery to power Japan's entire national grid 24/7 (~950 TWh/yr) — larger than most due to Japan's lower solar irradiance`, answer:2.0, color:'#BA7517', max:6, step:0.1, isSolar:true, answerHa:750000, readOnly:true}
+];
+const CATS_LO = [
+  {id:'forest', icon:`🌲`, name:`森林・林野`, desc:`天然林と人工林 — 日本の山岳地帯の大部分を占めるが、大半はアクセス困難`, answer:66.3, color:'#3B6D11', max:80, step:0.5},
+  {id:'agri', icon:`🌾`, name:`農地`, desc:`水田、畑作、果樹園など — 谷間や沿岸平野に集中`, answer:11.6, color:'#639922', max:25, step:0.5},
+  {id:'urban', icon:`🏙️`, name:`市街地・住宅地`, desc:`都市、住宅、商業・工業地帯 — 沿岸低地に集中`, answer:5.8, color:'#73726c', max:15, step:0.5},
+  {id:'golf', icon:`⛳`, name:`ゴルフ場`, desc:`日本には約2,300のゴルフ場がある — 世界最多水準の一人当たりゴルフ場数`, answer:1.2, color:'#5DCAA5', max:6, step:0.1},
+  {id:'water', icon:`💧`, name:`内水面`, desc:`河川、湖沼、貯水池、水田灌漑施設`, answer:1.5, color:'#378ADD', max:6, step:0.1},
+  {id:'misc', icon:`🌊`, name:`その他の土地`, desc:`道路、裸地、その他上記以外の用途`, answer:13.6, color:'#888780', max:25, step:0.5},
+  {id:'solar', icon:`☀️🔋`, name:`太陽光+蓄電池（現状）`, desc:`系統連系の産業用地上設置型太陽光（蓄電池付き） — 日本には別途屋根置き太陽光（約55GW）もあるが、ここでは含まない`, answer:0.24, color:'#EF9F27', max:2, step:0.01, isSolar:true, answerHa:90000, solarNote:`ヒント：系統連系の産業用のみ — 日本には別途約55GWの屋根置きがあります`},
+  {id:'sol100', icon:`⚡🔋`, name:`100%電力のための太陽光+蓄電池`, desc:`日本の電力系統全体を24時間365日まかなうための産業用太陽光+蓄電池の必要面積（年間約950TWh） — 日射量が少ないため他国より大きい`, answer:2.0, color:'#BA7517', max:6, step:0.1, isSolar:true, answerHa:750000, readOnly:true}
 ];
 
-let MAIN_CATS = CATS.filter(c => !c.readOnly);
+const STRINGS = {
+  en: {
+    h1: `🇯🇵 How is Japan's land actually used?`,
+    subtitle: `Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Japanese land for each category — sliders are capped at 100% total. Japan is one of the world's most forested nations, yet also one of its most densely populated.`,
+    disclaimer: `The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. Japan's energy future will require diverse renewables — offshore wind is considered the key technology given Japan's limited flat land, and the country is also investing heavily in hydrogen, geothermal, and tidal energy. Japan's mountainous terrain makes large-scale ground-mounted solar challenging, which is reflected in the relatively large land area needed. Land use figures are approximate and sourced from official Japanese government statistics.`,
+    submit: `Submit all guesses`,
+    play_again: `Play again`,
+    score: `Score`,
+    land_used: `Land used`,
+    remaining: `Remaining`,
+    map_guess: `Your guesses — proportional area map (updates as you slide)`,
+    map_answer: `Actual Japanese land use — proportional area map`,
+    allocated: `/ 100% allocated`,
+    reveal: `Revealed after you submit.`,
+    out_of: `points out of 800`,
+    sol100_reveal: `Japan's lower solar irradiance and limited flat land make this the largest sol100 figure in the game per capita.`,
+    grades: [
+    [650, `🏆 Japan expert — you have a detailed picture of this remarkable island nation!`],
+    [490, `🌲 Very strong — you know Japan's landscape well.`],
+    [320, `🗾 Not bad! Japan's extreme forest cover surprises most people.`],
+    [160, `🏔️ Japan is 66% forest — yet most of it is inaccessible mountain terrain.`],
+    [0, `🤔 Surprising? Japan is one of the world's most forested nations despite its dense cities.`]
+  ],
+    btn_label: `日本語`,
+  },
+  local: {
+    h1: `🇯🇵 日本の土地はどのように使われているか？`,
+    subtitle: `<a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">サイモン・クラーク博士のYouTubeショート</a>（英語）に着想を得て。各カテゴリの日本の土地の割合を推測してください — スライダーは合計100%に制限されています。日本は世界で最も森林に覆われた国のひとつであり、同時に最も人口密度が高い国のひとつです。`,
+    disclaimer: `太陽光+蓄電池の数値はAIの支援を受けて生成された思考実験であり、政策提言ではありません。すべての数値は電力系統に接続された産業規模のシステムを指しています。日本のエネルギーの未来には多様な再生可能エネルギーが必要です。土地利用データは日本政府の公式統計に基づいています。`,
+    submit: `回答を送信する`,
+    play_again: `もう一度プレイ`,
+    score: `スコア`,
+    land_used: `使用済み土地`,
+    remaining: `残り`,
+    map_guess: `あなたの推測 — 面積比較マップ（スライド時に更新）`,
+    map_answer: `日本の実際の土地利用 — 面積比較マップ`,
+    allocated: `/ 100% 割当済み`,
+    reveal: `送信後に公開されます。`,
+    out_of: `点満点中`,
+    sol100_reveal: `日本の太陽光発電量が低く、平坦な土地が限られているため、このゲームの中で一人当たりの土地面積が最も大きい数値となっています。`,
+    grades: [
+    [650, `🏆 日本通 — この素晴らしい島国の詳細な姿を知っています！`],
+    [490, `🌲 とても優秀 — 日本の地形をよく知っています。`],
+    [320, `🗾 まあまあです！日本の極端な森林率はほとんどの人を驚かせます。`],
+    [160, `🏔️ 日本は66%が森林 — しかし大半は人が入れない山岳地帯です。`],
+    [0, `🤔 意外でしたか？日本は高密度の都市があるにもかかわらず、世界有数の森林国です。`]
+  ],
+    btn_label: `English`,
+  },
+};
+
+let currentLang = 'local';
 let submitted = false;
 let totalScore = 0;
+let CATS = currentLang === 'local' ? [...CATS_LO] : [...CATS_EN];
+let MAIN_CATS = CATS.filter(c => !c.readOnly);
+
+function applyLang(lang) {
+  const s = STRINGS[lang];
+  CATS = lang === 'local' ? [...CATS_LO] : [...CATS_EN];
+  MAIN_CATS = CATS.filter(c => !c.readOnly);
+  document.querySelector('h1').innerHTML = s.h1;
+  document.querySelector('.subtitle').innerHTML = s.subtitle;
+  const disc = document.querySelector('.disclaimer');
+  if (disc && s.disclaimer) disc.innerHTML = '<strong>Note:</strong> ' + s.disclaimer;
+  if (!submitted) buildCards();
+  const subBtn = document.getElementById('sub-btn');
+  if (subBtn && !subBtn.disabled) subBtn.textContent = s.submit;
+  const rstBtn = document.getElementById('rst-btn');
+  if (rstBtn) rstBtn.innerHTML = '<i class="ti ti-refresh"></i> ' + s.play_again;
+  document.querySelectorAll('.metric .lbl')[0].textContent = s.score;
+  document.querySelectorAll('.metric .lbl')[1].textContent = s.land_used;
+  document.querySelectorAll('.metric .lbl')[2].textContent = s.remaining;
+  const mapTitle = document.getElementById('map-title');
+  if (mapTitle) mapTitle.textContent = submitted ? s.map_answer : s.map_guess;
+  const totLabel = document.getElementById('tot-label');
+  if (totLabel) { const pct = totLabel.textContent.split('/')[0].trim(); totLabel.textContent = pct + ' ' + s.allocated; }
+  const hint = document.getElementById('rl-hint-sol100');
+  if (hint && hint.style.display !== 'none') hint.textContent = s.reveal;
+  const finalSub = document.querySelector('.final-sub');
+  if (finalSub) finalSub.textContent = s.out_of;
+  const btn = document.getElementById('lang-btn');
+  if (btn) btn.textContent = s.btn_label;
+  drawMap();
+}
+
+function toggleLang() {
+  currentLang = currentLang === 'en' ? 'local' : 'en';
+  applyLang(currentLang);
+}
+
 
 function getVal(cat) {
   if (cat.readOnly) return 0;
   const el = document.getElementById('sl-' + cat.id);
   return el ? parseFloat(el.value) : 0;
 }
-
 function getMainTotal() {
   return MAIN_CATS.reduce((s, c) => s + getVal(c), 0);
 }
-
 function clampAll(changedId) {
   const total = MAIN_CATS.reduce((s, c) => {
     const el = document.getElementById('sl-' + c.id);
@@ -189,13 +275,12 @@ function clampAll(changedId) {
     if (!el) return;
     const cur = parseFloat(el.value);
     const share = (i === others.length - 1) ? remaining : Math.min(cur, (cur / othersTotal) * over);
-    const newVal = Math.max(0, parseFloat((cur - share).toFixed(3)));
+    const newVal = Math.max(0, parseFloat((cur - share).toFixed(4)));
     remaining -= (cur - newVal);
     el.value = newVal;
-    document.getElementById('sv-' + cat.id).textContent = newVal.toFixed(cat.isSolar ? 2 : 1) + '%';
+    document.getElementById('sv-' + cat.id).textContent = newVal.toFixed(cat.isSolar ? 3 : 1) + '%';
   });
 }
-
 function updateTotal() {
   const t = getMainTotal();
   const tD = Math.min(t, 100);
@@ -205,16 +290,15 @@ function updateTotal() {
   fill.style.width = tD + '%';
   const p = tD / 100;
   fill.style.background = `rgb(${Math.round(99*p+59*(1-p))},${Math.round(105*p+153*(1-p))},${Math.round(34*p+17*(1-p))})`;
-  document.getElementById('tot-label').textContent = tD.toFixed(1) + ' / 100% allocated';
+  document.getElementById('tot-label').textContent = tD.toFixed(1) + ' ' + STRINGS[currentLang].allocated;
 }
-
 function drawMap() {
   const tm = document.getElementById('treemap');
   let cats;
   if (submitted) {
     cats = CATS.filter(c => !c.readOnly).map(c => ({...c, pct: c.answer}));
     const s = CATS.find(c => c.id === 'sol100');
-    cats.push({...s, pct: s.answer});
+    if (s) cats.push({...s, pct: s.answer});
   } else {
     cats = MAIN_CATS.map(c => ({...c, pct: getVal(c)}));
   }
@@ -224,25 +308,23 @@ function drawMap() {
   cats.forEach(cat => {
     const block = document.createElement('div');
     block.className = 'tm-block';
-    block.title = `${cat.name}: ${cat.pct < 0.1 ? cat.pct.toFixed(3) : cat.pct.toFixed(1)}%`;
+    const pctStr = cat.pct < 0.01 ? cat.pct.toFixed(4) : cat.pct.toFixed(1);
+    block.title = cat.name + ': ' + pctStr + '%';
     block.style.cssText = `background:${cat.color};flex:${cat.pct} 1 0%;min-width:2px;height:100%`;
     const estW = (cat.pct / total) * (tm.clientWidth || 680);
     if (estW > 22) {
       const lbl = document.createElement('div');
       lbl.className = 'tm-label';
-      lbl.innerHTML = estW > 44 ? `${cat.icon}<br>${cat.pct < 0.1 ? cat.pct.toFixed(2) : cat.pct.toFixed(1)}%` : cat.icon;
+      lbl.innerHTML = estW > 44 ? cat.icon + '<br>' + pctStr + '%' : cat.icon;
       block.appendChild(lbl);
     }
     tm.appendChild(block);
   });
-  buildLegend(cats);
+  document.getElementById('legend').innerHTML = cats.map(c => {
+    const pctStr = c.pct < 0.01 ? c.pct.toFixed(4) : c.pct.toFixed(1);
+    return `<span class="leg-item"><span class="leg-dot" style="background:${c.color}"></span>${c.name} ${pctStr}%</span>`;
+  }).join('');
 }
-
-function buildLegend(cats) {
-  document.getElementById('legend').innerHTML = cats.map(c => `
-    <span class="leg-item"><span class="leg-dot" style="background:${c.color}"></span>${c.name} ${c.pct < 0.1 ? c.pct.toFixed(3) : c.pct.toFixed(1)}%</span>`).join('');
-}
-
 function buildCards() {
   const container = document.getElementById('cards');
   container.innerHTML = '';
@@ -250,26 +332,26 @@ function buildCards() {
     const div = document.createElement('div');
     div.className = 'card' + (cat.isSolar ? ' solar-card' : '');
     if (cat.readOnly) {
-      div.innerHTML = `
-        <div class="card-head"><span class="card-icon">${cat.icon}</span><span class="card-name">${cat.name}</span></div>
+      div.innerHTML = `<div class="card-head"><span class="card-icon">${cat.icon}</span><span class="card-name">${cat.name}</span></div>
         <div class="card-desc">${cat.desc}</div>
-        <div class="readout-text" id="rl-hint-sol100">Revealed after you submit.</div>
+        <div class="readout-text" id="rl-hint-sol100">${STRINGS[currentLang].reveal}</div>
         <div class="res-line" id="rl-${cat.id}"></div>`;
     } else {
-      div.innerHTML = `
-        <div class="card-head"><span class="card-icon">${cat.icon}</span><span class="card-name">${cat.name}</span></div>
+      const dp = cat.isSolar ? 3 : 1;
+      const initVal = '0.' + '0'.repeat(dp);
+      div.innerHTML = `<div class="card-head"><span class="card-icon">${cat.icon}</span><span class="card-name">${cat.name}</span></div>
         <div class="card-desc">${cat.desc}</div>
         <div class="sl-row">
-          <input type="range" min="0" max="${cat.max}" step="${cat.step}" value="0" id="sl-${cat.id}" aria-label="Guess for ${cat.name}">
-          <span class="sl-val" id="sv-${cat.id}">0${cat.isSolar ? '.00' : '.0'}%</span>
+          <input type="range" min="0" max="${cat.max}" step="${cat.step}" value="0" id="sl-${cat.id}" aria-label="${cat.name}">
+          <span class="sl-val" id="sv-${cat.id}">${initVal}%</span>
         </div>
-        ${cat.isSolar ? '<div class="solar-note">Hint: utility-scale grid-connected only — Japan also has ~55 GW of rooftop</div>' : ''}
+        ${cat.isSolar && cat.solarNote ? '<div class="solar-note">' + cat.solarNote + '</div>' : ''}
         <div class="res-line" id="rl-${cat.id}"></div>`;
     }
     container.appendChild(div);
     if (!cat.readOnly) {
       document.getElementById('sl-' + cat.id).addEventListener('input', function() {
-        const dp = cat.isSolar ? 2 : 1;
+        const dp = cat.isSolar ? 3 : 1;
         document.getElementById('sv-' + cat.id).textContent = parseFloat(this.value).toFixed(dp) + '%';
         clampAll(cat.id);
         document.getElementById('sv-' + cat.id).textContent = parseFloat(document.getElementById('sl-' + cat.id).value).toFixed(dp) + '%';
@@ -279,7 +361,6 @@ function buildCards() {
     }
   });
 }
-
 function scoreGuess(guess, answer) {
   const rel = Math.abs(guess - answer) / answer;
   if (rel <= 0.08) return 100;
@@ -287,15 +368,11 @@ function scoreGuess(guess, answer) {
   if (rel <= 0.80) return Math.round(50 - (rel - 0.25) / 0.55 * 40);
   return Math.max(0, Math.round(10 - (rel - 0.8) * 8));
 }
-
 function gradeLabel(s) {
-  if (s >= 650) return '🏆 Japan expert — you have a detailed picture of this remarkable island nation!';
-  if (s >= 490) return '🌲 Very strong — you know Japan\'s landscape well.';
-  if (s >= 320) return '🗾 Not bad! Japan\'s extreme forest cover surprises most people.';
-  if (s >= 160) return '🏔️ Japan is 66% forest — yet most of it is inaccessible mountain terrain.';
-  return '🤔 Surprising? Japan is one of the world\'s most forested nations despite its dense cities.';
+  const labels = STRINGS[currentLang].grades;
+  for (const [t, l] of labels) { if (s >= t) return l; }
+  return labels[labels.length - 1][1];
 }
-
 document.getElementById('sub-btn').addEventListener('click', function() {
   if (submitted) return;
   submitted = true;
@@ -307,8 +384,8 @@ document.getElementById('sub-btn').addEventListener('click', function() {
     if (cat.readOnly) {
       const hint = document.getElementById('rl-hint-sol100');
       if (hint) hint.style.display = 'none';
-      const haStr = cat.answerHa ? ` (~${Math.round(cat.answerHa / 1000)}k ha)` : '';
-      rl.innerHTML = `<span style="color:var(--text-secondary)">Answer: <strong style="color:#BA7517">${cat.answer}%</strong>${haStr} — Japan's lower solar irradiance and limited flat land make this the largest sol100 figure in the game per capita.</span>`;
+      const haStr = cat.answerHa ? ' (~' + (cat.answerHa >= 1000000 ? (cat.answerHa/1000000).toFixed(1)+'M' : Math.round(cat.answerHa/1000)+'k') + ' ha)' : '';
+      rl.innerHTML = '<span style="color:var(--text-secondary)">Answer: <strong style="color:#BA7517">' + cat.answer + '%</strong>' + haStr + ' — ' + STRINGS[currentLang].sol100_reveal + '</span>';
       return;
     }
     const guess = getVal(cat);
@@ -316,104 +393,43 @@ document.getElementById('sub-btn').addEventListener('click', function() {
     totalScore += pts;
     const diff = guess - cat.answer;
     const sign = diff >= 0 ? '+' : '';
-    const dp = cat.isSolar ? 2 : 1;
-    const diffStr = Math.abs(diff) < (cat.isSolar ? 0.005 : 0.3) ? 'spot on!' : `${sign}${diff.toFixed(dp)}% off`;
+    const dp = cat.isSolar ? 3 : 1;
+    const diffStr = Math.abs(diff) < (cat.isSolar ? 0.002 : 0.3) ? STRINGS[currentLang].spot_on || 'spot on!' : sign + diff.toFixed(dp) + '% off';
     const col = pts >= 80 ? '#3b6d11' : pts >= 40 ? '#ba7517' : '#a32d2d';
-    const haStr = cat.answerHa ? ` (~${Math.round(cat.answerHa / 1000)}k ha)` : '';
-    rl.innerHTML = `<span style="color:var(--text-secondary)">Answer: <strong style="color:var(--text-primary)">${cat.answer < 0.1 ? cat.answer.toFixed(3) : cat.answer}%</strong>${haStr}</span> <span style="color:${col};font-weight:500">${diffStr} → ${pts}pts</span>`;
+    const haStr = cat.answerHa ? ' (~' + (cat.answerHa >= 1000000 ? (cat.answerHa/1000000).toFixed(1)+'M' : Math.round(cat.answerHa/1000)+'k') + ' ha)' : '';
+    const answerStr = cat.answer < 0.01 ? cat.answer.toFixed(4) : String(cat.answer);
+    rl.innerHTML = '<span style="color:var(--text-secondary)">Answer: <strong style="color:var(--text-primary)">' + answerStr + '%</strong>' + haStr + '</span> <span style="color:' + col + ';font-weight:500">' + diffStr + ' → ' + pts + 'pts</span>';
     const sl = document.getElementById('sl-' + cat.id);
     if (sl) sl.disabled = true;
   });
   document.getElementById('score-v').textContent = totalScore;
-  document.getElementById('map-title').textContent = 'Actual Japanese land use — proportional area map';
+  document.getElementById('map-title').textContent = STRINGS[currentLang].map_answer;
   document.getElementById('final').style.display = 'block';
   document.getElementById('final-n').textContent = totalScore;
   document.getElementById('final-g').textContent = gradeLabel(totalScore);
-  document.getElementById('rst-btn').style.display = 'block';
+  document.getElementById('rst-btn').style.display = 'inline-flex';
   this.disabled = true;
   drawMap();
 });
-
 document.getElementById('rst-btn').addEventListener('click', function() {
   submitted = false; totalScore = 0;
+  CATS = currentLang === 'local' ? [...CATS_LO] : [...CATS_EN];
+  MAIN_CATS = CATS.filter(c => !c.readOnly);
   document.getElementById('score-v').textContent = '0';
   document.getElementById('total-v').textContent = '0%';
   document.getElementById('remain-v').textContent = '100%';
   document.getElementById('final').style.display = 'none';
-  document.getElementById('map-title').textContent = 'Your guesses — proportional area map (updates as you slide)';
+  document.getElementById('map-title').textContent = STRINGS[currentLang].map_guess;
   document.getElementById('tot-fill').style.width = '0%';
-  document.getElementById('tot-label').textContent = '0 / 100% allocated';
+  document.getElementById('tot-label').textContent = '0 ' + STRINGS[currentLang].allocated;
   this.style.display = 'none';
   document.getElementById('sub-btn').disabled = false;
   buildCards(); updateTotal(); setTimeout(drawMap, 50);
 });
-
-// ── LANGUAGE TOGGLE ──
-const STRINGS = {
-  en: {
-    h1: '🇯🇵 How is Japan\\'s land actually used?',
-    subtitle: 'Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark\\'s YouTube short</a>. Guess the percentage of Japanese land for each category — sliders are capped at 100% total. Japan is one of the world\\'s most forested nations, yet also one of its most densely populated.',
-    submit: 'Submit all guesses',
-    play_again: 'Play again',
-    score: 'Score',
-    land_used: 'Land used',
-    remaining: 'Remaining',
-    map_guess: 'Your guesses — proportional area map (updates as you slide)',
-    map_answer: 'Actual Japanese land use — proportional area map',
-    allocated: '/ 100%% allocated',
-    reveal: 'Revealed after you submit.',
-    out_of: 'points out of 800',
-  },
-  local: {
-    h1: '🇯🇵 日本の土地はどのように使われているか？',
-    subtitle: '<a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">サイモン・クラーク博士のYouTubeショート</a>（英語）に着想を得て。各カテゴリの日本の土地の割合を推測してください — スライダーは合計100%に制限されています。',
-    submit: '回答を送信する',
-    play_again: 'もう一度プレイ',
-    score: 'スコア',
-    land_used: '使用済み土地',
-    remaining: '残り',
-    map_guess: 'あなたの推測 — 面積比較マップ（スライド時に更新）',
-    map_answer: '日本の実際の土地利用 — 面積比較マップ',
-    allocated: '/ 100% 割当済み',
-    reveal: '送信後に公開されます。',
-    out_of: '点満点中',
-  }
-};
-let currentLang = 'local';
-function applyLang(lang) {
-  const s = STRINGS[lang];
-  document.querySelector('h1').innerHTML = s.h1;
-  document.querySelector('.subtitle').innerHTML = s.subtitle;
-  const subBtn = document.getElementById('sub-btn');
-  if (subBtn && !subBtn.disabled) subBtn.textContent = s.submit;
-  const rstBtn = document.getElementById('rst-btn');
-  if (rstBtn) rstBtn.innerHTML = '<i class="ti ti-refresh"></i> ' + s.play_again;
-  document.querySelector('.metric:nth-child(1) .lbl').textContent = s.score;
-  document.querySelector('.metric:nth-child(2) .lbl').textContent = s.land_used;
-  document.querySelector('.metric:nth-child(3) .lbl').textContent = s.remaining;
-  const mapTitle = document.getElementById('map-title');
-  if (mapTitle) mapTitle.textContent = submitted ? s.map_answer : s.map_guess;
-  const totLabel = document.getElementById('tot-label');
-  if (totLabel) { const pct = totLabel.textContent.split('/')[0].trim(); totLabel.textContent = pct + ' ' + s.allocated; }
-  const hint = document.getElementById('rl-hint-sol100');
-  if (hint && hint.style.display !== 'none') hint.textContent = s.reveal;
-  const finalSub = document.querySelector('.final-sub');
-  if (finalSub) finalSub.textContent = s.out_of;
-  const btn = document.getElementById('lang-btn');
-  if (btn) btn.textContent = lang === 'en' ? '日本語' : 'English';
-}
-function toggleLang() {
-  currentLang = currentLang === 'en' ? 'local' : 'en';
-  applyLang(currentLang);
-}
-// Init button label
-document.addEventListener('DOMContentLoaded', () => {
-  applyLang('local');
-  const btn = document.getElementById('lang-btn');
-  if (btn) btn.textContent = '日本語';
-});
-
-buildCards(); updateTotal(); setTimeout(drawMap, 50);
+buildCards();
+updateTotal();
+setTimeout(drawMap, 50);
+applyLang("local");
 window.addEventListener('resize', drawMap);
 </script>
 </body>
