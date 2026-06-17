@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Uso del suelo en España — Juego de estimación</title>
+<title>🇪🇸 How is Spain's land actually used? — Guessing Game</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -25,16 +25,25 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .page { max-width: 720px; margin: 0 auto; }
 h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 .subtitle { font-size: 14px; color: var(--text-secondary); margin-bottom: 0.75rem; line-height: 1.5; }
-.blackout-note { font-size: 12px; background: var(--bg-secondary); border-left: 3px solid #c8522a; border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 0.6rem 0.9rem; margin-bottom: 1rem; line-height: 1.6; color: var(--text-secondary); }
-.blackout-note strong { color: var(--text-primary); }
+.disclaimer { font-size: 11px; color: var(--text-secondary); background: var(--bg-secondary); border-left: 3px solid var(--border-md); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 0.6rem 0.9rem; margin-bottom: 1rem; line-height: 1.7; }
+.disclaimer strong { color: var(--text-primary); }
+.lang-toggle {
+  font-family: inherit;
+  font-size: 11px;
+  padding: 3px 9px;
+  background: var(--bg-primary);
+  border: 0.5px solid var(--border-md);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  color: var(--text-secondary);
+  float: right;
+  margin: 2px 0 0 8px;
+}
+.lang-toggle:hover { background: var(--bg-secondary); color: var(--text-primary); }
+
 .data-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 1.25rem; flex-wrap: wrap; }
 .data-info { font-size: 11px; color: var(--text-secondary); flex: 1; min-width: 160px; }
 .data-info strong { color: var(--text-primary); }
-#update-btn { font-size: 12px; padding: 5px 11px; background: var(--bg-primary); border: 0.5px solid var(--border-md); border-radius: var(--radius-md); color: var(--text-secondary); cursor: pointer; white-space: nowrap; }
-#update-btn:hover:not(:disabled) { background: var(--bg-secondary); color: var(--text-primary); }
-#update-btn:disabled { opacity: .5; cursor: default; }
-#update-status { font-size: 11px; color: var(--text-secondary); width: 100%; min-height: 14px; }
-.update-changed { color: #ba7517; font-weight: 500; }
 .score-bar { display: flex; gap: 10px; margin-bottom: 1.25rem; flex-wrap: wrap; }
 .metric { background: var(--bg-secondary); border-radius: var(--radius-md); padding: .6rem .9rem; flex: 1; min-width: 80px; }
 .metric .lbl { font-size: 11px; color: var(--text-secondary); margin-bottom: 2px; }
@@ -61,7 +70,7 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 .card-desc { font-size: 11px; color: var(--text-secondary); margin-bottom: .6rem; line-height: 1.4; }
 .sl-row { display: flex; align-items: center; gap: 8px; }
 .sl-row input[type=range] { flex: 1; accent-color: #639922; }
-.sl-val { font-size: 13px; font-weight: 500; min-width: 38px; text-align: right; }
+.sl-val { font-size: 13px; font-weight: 500; min-width: 42px; text-align: right; }
 .solar-note { font-size: 11px; color: var(--text-secondary); margin-top: 4px; }
 .res-line { font-size: 11px; margin-top: 5px; min-height: 14px; display: none; line-height: 1.4; }
 .readout-text { font-size: 12px; color: var(--text-secondary); }
@@ -75,104 +84,180 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 .final-num { font-size: 36px; font-weight: 500; }
 .final-sub { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
 .final-grade { font-size: 15px; font-weight: 500; margin-top: 6px; }
-.source { font-size: 11px; color: var(--text-secondary); margin-top: 1.5rem; line-height: 1.6; }
-.source a { color: var(--text-secondary); }
-
-.disclaimer {
-  font-size: 11px;
-  color: var(--text-secondary);
-  background: var(--bg-secondary);
-  border-left: 3px solid var(--border-md);
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  padding: 0.6rem 0.9rem;
-  margin-top: 1.25rem;
-  line-height: 1.7;
-}
-.disclaimer strong { color: var(--text-primary); }
+.source { font-size: 11px; color: var(--text-secondary); margin-top: 1.5rem; line-height: 1.8; }
+.source a { color: var(--text-secondary); text-decoration: underline; }
 </style>
 </head>
 <body>
 <div class="page">
-  <h1>🇪🇸 ¿Cómo se usa el suelo en España?</h1>
-  <p class="subtitle">Inspirado en <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">el vídeo de YouTube del Dr. Simon Clark</a> (en inglés). Adivina el porcentaje del territorio español para cada categoría — los controles están limitados al 100% en total.</p>
-
-  <div class="blackout-note">
-    ⚡ <strong>El apagón del 28 de abril de 2025</strong> — A las 12:33, España perdió el 60% de su suministro eléctrico en 12 segundos, dejando a más de 50 millones de personas sin luz en toda la Península Ibérica. La investigación oficial concluyó que el apagón fue causado por errores de planificación del operador de la red Red Eléctrica y una reacción en cadena de sobretensiones, no por las energías renovables. De hecho, la energía solar y eólica fue clave para restaurar el suministro.
-  </div>
-
-  <div class="disclaimer">
-    <strong>Nota:</strong> Las cifras de solar+batería son un experimento mental generado con la ayuda de una IA, no una recomendación política. La planificación energética realista requiere fuentes renovables diversas — España tiene un excelente recurso eólico (especialmente en Galicia y Castilla), así como potencial hidráulico y geotérmico. El apagón del 28 de abril de 2025 ilustra la importancia de una gestión sólida de la red, independientemente de las fuentes de energía. Los datos de uso del suelo son aproximados.
-  </div>
+  <button class="lang-toggle" id="lang-btn" onclick="toggleLang()">English</button>
+  <h1>🇪🇸 How is Spain's land actually used?</h1>
+  <p class="subtitle">Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Spanish land for each category — sliders are capped at 100% total.</p>
+  
+  <div class="disclaimer"><strong>Note:</strong> The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. Spain has excellent wind resources (especially in Galicia and Castile), plus hydro and geothermal potential. The April 28, 2025 blackout illustrated the importance of robust grid management, independent of energy sources. Land use figures are approximate and sourced from official statistics.</div>
 
   <div class="data-bar">
-    <span class="data-info">Datos: <strong id="data-date">2023–2024</strong> · <span id="data-src">MAPA · Red Eléctrica · UNEF · Banco Mundial</span></span>
-    <!-- <button id="update-btn">↻ Actualizar datos</button> -->
-    <span id="update-status"></span>
+    <span class="data-info">Data: <strong>2023–2024</strong> · MAPA · Red Eléctrica · UNEF · World Bank</span>
   </div>
 
   <div class="score-bar">
-    <div class="metric"><div class="lbl">Puntuación</div><div class="val" id="score-v">0</div></div>
-    <div class="metric"><div class="lbl">Territorio usado</div><div class="val" id="total-v">0%</div></div>
-    <div class="metric"><div class="lbl">Restante</div><div class="val" id="remain-v">100%</div></div>
+    <div class="metric"><div class="lbl">Score</div><div class="val" id="score-v">0</div></div>
+    <div class="metric"><div class="lbl">Land used</div><div class="val" id="total-v">0%</div></div>
+    <div class="metric"><div class="lbl">Remaining</div><div class="val" id="remain-v">100%</div></div>
   </div>
 
   <div class="map-section">
-    <div class="map-title" id="map-title">Tus estimaciones — mapa proporcional (se actualiza al mover)</div>
+    <div class="map-title" id="map-title">Your guesses — proportional area map (updates as you slide)</div>
     <div id="treemap"></div>
     <div class="legend" id="legend"></div>
   </div>
 
   <div class="total-bar-wrap">
     <div class="total-bar-track"><div class="total-bar-fill" id="tot-fill" style="width:0%;background:#639922"></div></div>
-    <div class="total-bar-label" id="tot-label">0 / 100% asignados</div>
+    <div class="total-bar-label" id="tot-label">0 / 100% allocated</div>
   </div>
 
   <div class="cards-grid" id="cards"></div>
 
   <div class="btn-row">
-    <button id="sub-btn">Enviar mis estimaciones</button>
-    <button id="rst-btn"><i class="ti ti-refresh"></i> Jugar de nuevo</button>
+    <button id="sub-btn">Submit all guesses</button>
+    <button id="rst-btn" style="display:none"><i class="ti ti-refresh"></i> Play again</button>
   </div>
 
-  <div class="final" id="final">
+  <div class="final" id="final" style="display:none">
     <div class="final-num" id="final-n">0</div>
-    <div class="final-sub">puntos de 800</div>
+    <div class="final-sub">points out of 800</div>
     <div class="final-grade" id="final-g"></div>
   </div>
 
-  <p class="source">Fuentes:
-    <a href="https://www.mapa.gob.es/en/agricultura/temas/sistema-de-informacion-geografica-de-datos-agrarios/mca" target="_blank">MAPA Mapa de Cultivos y Aprovechamientos de España</a> ·
-    <a href="https://www.sistemaelectrico-ree.es/sites/default/files/2025-03/ISE_2024.pdf" target="_blank">Red Eléctrica Informe del sistema eléctrico 2024</a> ·
-    Superficie total de España ~50,5 M ha.</p>
+  <p class="source">Sources: <a href="https://www.mapa.gob.es/en/agricultura/temas/sistema-de-informacion-geografica-de-datos-agrarios/mca" target="_blank">MAPA Mapa de Cultivos y Aprovechamientos de España</a> · <a href="https://www.sistemaelectrico-ree.es/sites/default/files/2025-03/ISE_2024.pdf" target="_blank">Red Eléctrica Informe del sistema eléctrico 2024</a> · Spain total land area ~50.5M ha.</p>
 </div>
-
 <script>
-let CATS = [
-  {id:'agri',   icon:'🌾', name:'Tierras agrícolas',           desc:'Cultivos de secano, regadío y tierras en barbecho',                          answer:25,   color:'#639922', max:45,  step:0.5},
-  {id:'past',   icon:'🐄', name:'Praderas y pastizales',        desc:'Pastos permanentes, dehesas y prados naturales',                            answer:16,   color:'#a8c46e', max:30,  step:0.5},
-  {id:'forest', icon:'🌲', name:'Bosques y montes arbolados',   desc:'Bosques, repoblaciones forestales y monte bajo arbolado',                   answer:37,   color:'#3B6D11', max:55,  step:0.5},
-  {id:'scrub',  icon:'🌿', name:'Matorral y vegetación natural', desc:'Monte bajo, matorral mediterráneo, zonas de transición',                  answer:5,    color:'#888780', max:15,  step:0.5},
-  {id:'urban',  icon:'🏙️', name:'Suelo urbano e industrial',   desc:'Ciudades, carreteras, aeropuertos, zonas industriales',                     answer:4.6,  color:'#73726c', max:12,  step:0.5},
-  {id:'olive',  icon:'🫒', name:'Olivares y viñedos',           desc:'Cultivos permanentes — España tiene el mayor olivar del mundo',             answer:6,    color:'#c9a85c', max:15,  step:0.5},
-  {id:'water',  icon:'💧', name:'Zonas húmedas y aguas',        desc:'Ríos, embalses, lagunas, marismas y zonas húmedas',                        answer:1.2,  color:'#378ADD', max:6,   step:0.5},
-  {id:'solar',  icon:'☀️🔋', name:'Solar+batería (actual)',     desc:'Parques fotovoltaicos de gran escala al suelo con almacenamiento (32 GW a finales de 2024) — conectados a la red, sin incluir autoconsumo.', answer:0.13, color:'#EF9F27', max:2,   step:0.01, isSolar:true, answerHa:64000},
-  {id:'sol100', icon:'⚡🔋', name:'Solar+batería para el 100% eléc.', desc:'Superficie necesaria para alimentar toda la red eléctrica nacional española 24h/día mediante solar+batería — aproximadamente el doble que solo paneles, por la sobrecapacidad de almacenamiento.', answer:0.32, color:'#BA7517', max:3, step:0.01, isSolar:true, answerHa:160000, readOnly:true},
+
+// ── LANGUAGE SYSTEM ──
+const CATS_EN = [
+  {id:'agri', icon:`🌾`, name:`Arable land`, desc:`Dryland and irrigated crops, cereal, vegetables`, answer:25, color:'#639922', max:45, step:0.5},
+  {id:'past', icon:`🐄`, name:`Pasture & meadows`, desc:`Permanent pastures, meadows and natural grazing land`, answer:16, color:'#a8c46e', max:30, step:0.5},
+  {id:'forest', icon:`🌲`, name:`Forest & woodland`, desc:`Forests, reforestation and scrubland woodland`, answer:37, color:'#3B6D11', max:55, step:0.5},
+  {id:'scrub', icon:`🌿`, name:`Scrubland & natural`, desc:`Mediterranean scrub, heathland, transition zones`, answer:5, color:'#888780', max:15, step:0.5},
+  {id:'urban', icon:`🏙️`, name:`Urban & industrial`, desc:`Cities, roads, airports, industrial zones`, answer:4.6, color:'#73726c', max:12, step:0.5},
+  {id:'olive', icon:`🫒`, name:`Olive groves & vineyards`, desc:`Permanent crops — Spain has the world's largest olive grove area`, answer:6, color:'#c9a85c', max:15, step:0.5},
+  {id:'water', icon:`💧`, name:`Wetlands & water`, desc:`Rivers, reservoirs, wetlands and marshes`, answer:1.2, color:'#378ADD', max:6, step:0.5},
+  {id:'solar', icon:`☀️🔋`, name:`Solar+battery (current)`, desc:`Utility-scale ground-mounted solar PV with battery storage, grid-connected (32 GW end 2024)`, answer:0.13, color:'#EF9F27', max:2, step:0.01, isSolar:true, answerHa:64000, solarNote:`Hint: surprisingly small for such a sunny country`},
+  {id:'sol100', icon:`⚡🔋`, name:`Solar+battery for 100% electricity`, desc:`Land needed for utility-scale solar+battery to power Spain's entire national grid 24/7`, answer:0.32, color:'#BA7517', max:3, step:0.01, isSolar:true, answerHa:160000, readOnly:true}
+];
+const CATS_LO = [
+  {id:'agri', icon:`🌾`, name:`Tierras de cultivo`, desc:`Cultivos de secano y regadío, cereales, hortalizas`, answer:25, color:'#639922', max:45, step:0.5},
+  {id:'past', icon:`🐄`, name:`Praderas y pastizales`, desc:`Pastos permanentes, prados y pastizales naturales`, answer:16, color:'#a8c46e', max:30, step:0.5},
+  {id:'forest', icon:`🌲`, name:`Bosques y montes arbolados`, desc:`Bosques, repoblaciones forestales y monte bajo arbolado`, answer:37, color:'#3B6D11', max:55, step:0.5},
+  {id:'scrub', icon:`🌿`, name:`Matorral y vegetación natural`, desc:`Monte bajo, matorral mediterráneo, zonas de transición`, answer:5, color:'#888780', max:15, step:0.5},
+  {id:'urban', icon:`🏙️`, name:`Suelo urbano e industrial`, desc:`Ciudades, carreteras, aeropuertos, zonas industriales`, answer:4.6, color:'#73726c', max:12, step:0.5},
+  {id:'olive', icon:`🫒`, name:`Olivares y viñedos`, desc:`Cultivos permanentes — España tiene el mayor olivar del mundo`, answer:6, color:'#c9a85c', max:15, step:0.5},
+  {id:'water', icon:`💧`, name:`Zonas húmedas y aguas`, desc:`Ríos, embalses, lagunas, marismas y zonas húmedas`, answer:1.2, color:'#378ADD', max:6, step:0.5},
+  {id:'solar', icon:`☀️🔋`, name:`Solar+batería (actual)`, desc:`Parques fotovoltaicos de gran escala al suelo con almacenamiento (32 GW a finales de 2024) — conectados a la red`, answer:0.13, color:'#EF9F27', max:2, step:0.01, isSolar:true, answerHa:64000, solarNote:`Pista: sorprendentemente pequeño para un país tan soleado`},
+  {id:'sol100', icon:`⚡🔋`, name:`Solar+batería para el 100% eléc.`, desc:`Superficie necesaria para alimentar toda la red eléctrica nacional española 24h/día mediante solar+batería`, answer:0.32, color:'#BA7517', max:3, step:0.01, isSolar:true, answerHa:160000, readOnly:true}
 ];
 
-let MAIN_CATS = CATS.filter(c => !c.readOnly);
+const STRINGS = {
+  en: {
+    h1: `🇪🇸 How is Spain's land actually used?`,
+    subtitle: `Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Spanish land for each category — sliders are capped at 100% total.`,
+    disclaimer: `The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. Spain has excellent wind resources (especially in Galicia and Castile), plus hydro and geothermal potential. The April 28, 2025 blackout illustrated the importance of robust grid management, independent of energy sources. Land use figures are approximate and sourced from official statistics.`,
+    submit: `Submit all guesses`,
+    play_again: `Play again`,
+    score: `Score`,
+    land_used: `Land used`,
+    remaining: `Remaining`,
+    map_guess: `Your guesses — proportional area map (updates as you slide)`,
+    map_answer: `Actual Spanish land use — proportional area map`,
+    allocated: `/ 100% allocated`,
+    reveal: `Revealed after you submit.`,
+    out_of: `points out of 800`,
+    sol100_reveal: `storage overcapacity for nights and cloudy days roughly doubles the land needed vs panels alone.`,
+    grades: [
+    [650, `🏆 Land use expert — you know Spain's countryside in detail!`],
+    [490, `🌿 Very strong — sharp sense of the Spanish landscape.`],
+    [320, `🫒 Not bad! The olive groves surprise almost everyone.`],
+    [160, `🌄 Spain is greener than it feels — mostly forest and farmland.`],
+    [0, `🤔 Surprising? More than half of Spain is forest or agricultural land.`]
+  ],
+    btn_label: `Español`,
+  },
+  local: {
+    h1: `🇪🇸 ¿Cómo se usa el suelo en España?`,
+    subtitle: `Inspirado en <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">el vídeo de YouTube del Dr. Simon Clark</a> (en inglés). Adivina el porcentaje del territorio español para cada categoría — los controles están limitados al 100% en total.`,
+    disclaimer: `Las cifras de solar+batería son un experimento mental generado con la ayuda de una IA, no una recomendación política. Todas las cifras se refieren a sistemas de gran escala conectados a la red. España tiene un excelente recurso eólico (especialmente en Galicia y Castilla), así como potencial hidráulico y geotérmico. El apagón del 28 de abril de 2025 ilustra la importancia de una gestión sólida de la red, independientemente de las fuentes de energía.`,
+    submit: `Enviar mis estimaciones`,
+    play_again: `Jugar de nuevo`,
+    score: `Puntuación`,
+    land_used: `Territorio usado`,
+    remaining: `Restante`,
+    map_guess: `Tus estimaciones — mapa proporcional (se actualiza al mover)`,
+    map_answer: `Uso real del suelo en España — mapa proporcional`,
+    allocated: `/ 100% asignados`,
+    reveal: `Revelado al enviar.`,
+    out_of: `puntos de 800`,
+    sol100_reveal: `el almacenamiento para noches y días nublados duplica la superficie necesaria respecto a solo paneles.`,
+    grades: [
+    [650, `🏆 ¡Experto en territorio! Conoces España a la perfección.`],
+    [490, `🌿 Muy bien — tienes una buena visión del paisaje español.`],
+    [320, `🫒 ¡No está mal! El olivar sorprende a casi todo el mundo.`],
+    [160, `🌄 España es más verde de lo que parece — principalmente bosque y agricultura.`],
+    [0, `🤔 ¿Sorprendente? Más de la mitad de España es bosque o tierra agrícola.`]
+  ],
+    btn_label: `English`,
+  },
+};
+
+let currentLang = 'local';
 let submitted = false;
 let totalScore = 0;
+let CATS = currentLang === 'local' ? [...CATS_LO] : [...CATS_EN];
+let MAIN_CATS = CATS.filter(c => !c.readOnly);
+
+function applyLang(lang) {
+  const s = STRINGS[lang];
+  CATS = lang === 'local' ? [...CATS_LO] : [...CATS_EN];
+  MAIN_CATS = CATS.filter(c => !c.readOnly);
+  document.querySelector('h1').innerHTML = s.h1;
+  document.querySelector('.subtitle').innerHTML = s.subtitle;
+  const disc = document.querySelector('.disclaimer');
+  if (disc && s.disclaimer) disc.innerHTML = '<strong>Note:</strong> ' + s.disclaimer;
+  if (!submitted) buildCards();
+  const subBtn = document.getElementById('sub-btn');
+  if (subBtn && !subBtn.disabled) subBtn.textContent = s.submit;
+  const rstBtn = document.getElementById('rst-btn');
+  if (rstBtn) rstBtn.innerHTML = '<i class="ti ti-refresh"></i> ' + s.play_again;
+  document.querySelectorAll('.metric .lbl')[0].textContent = s.score;
+  document.querySelectorAll('.metric .lbl')[1].textContent = s.land_used;
+  document.querySelectorAll('.metric .lbl')[2].textContent = s.remaining;
+  const mapTitle = document.getElementById('map-title');
+  if (mapTitle) mapTitle.textContent = submitted ? s.map_answer : s.map_guess;
+  const totLabel = document.getElementById('tot-label');
+  if (totLabel) { const pct = totLabel.textContent.split('/')[0].trim(); totLabel.textContent = pct + ' ' + s.allocated; }
+  const hint = document.getElementById('rl-hint-sol100');
+  if (hint && hint.style.display !== 'none') hint.textContent = s.reveal;
+  const finalSub = document.querySelector('.final-sub');
+  if (finalSub) finalSub.textContent = s.out_of;
+  const btn = document.getElementById('lang-btn');
+  if (btn) btn.textContent = s.btn_label;
+  drawMap();
+}
+
+function toggleLang() {
+  currentLang = currentLang === 'en' ? 'local' : 'en';
+  applyLang(currentLang);
+}
+
 
 function getVal(cat) {
   if (cat.readOnly) return 0;
   const el = document.getElementById('sl-' + cat.id);
   return el ? parseFloat(el.value) : 0;
 }
-
 function getMainTotal() {
   return MAIN_CATS.reduce((s, c) => s + getVal(c), 0);
 }
-
 function clampAll(changedId) {
   const total = MAIN_CATS.reduce((s, c) => {
     const el = document.getElementById('sl-' + c.id);
@@ -180,35 +265,24 @@ function clampAll(changedId) {
   }, 0);
   const over = total - 100;
   if (over <= 0.0001) return;
-
   const others = MAIN_CATS.filter(c => c.id !== changedId);
   const othersTotal = others.reduce((s, c) => {
     const el = document.getElementById('sl-' + c.id);
     return s + (el ? parseFloat(el.value) : 0);
   }, 0);
-
-  if (othersTotal <= 0) {
-    const el = document.getElementById('sl-' + changedId);
-    if (el) el.value = 100;
-    return;
-  }
-
+  if (othersTotal <= 0) { const el = document.getElementById('sl-' + changedId); if (el) el.value = 100; return; }
   let remaining = over;
   others.forEach((cat, i) => {
     const el = document.getElementById('sl-' + cat.id);
     if (!el) return;
     const cur = parseFloat(el.value);
-    const share = (i === others.length - 1)
-      ? remaining
-      : Math.min(cur, (cur / othersTotal) * over);
-    const newVal = Math.max(0, parseFloat((cur - share).toFixed(3)));
+    const share = (i === others.length - 1) ? remaining : Math.min(cur, (cur / othersTotal) * over);
+    const newVal = Math.max(0, parseFloat((cur - share).toFixed(4)));
     remaining -= (cur - newVal);
     el.value = newVal;
-    const dp = cat.isSolar ? 2 : 1;
-    document.getElementById('sv-' + cat.id).textContent = newVal.toFixed(dp) + '%';
+    document.getElementById('sv-' + cat.id).textContent = newVal.toFixed(cat.isSolar ? 3 : 1) + '%';
   });
 }
-
 function updateTotal() {
   const t = getMainTotal();
   const tD = Math.min(t, 100);
@@ -218,16 +292,15 @@ function updateTotal() {
   fill.style.width = tD + '%';
   const p = tD / 100;
   fill.style.background = `rgb(${Math.round(99*p+59*(1-p))},${Math.round(105*p+153*(1-p))},${Math.round(34*p+17*(1-p))})`;
-  document.getElementById('tot-label').textContent = tD.toFixed(1) + ' / 100% asignados';
+  document.getElementById('tot-label').textContent = tD.toFixed(1) + ' ' + STRINGS[currentLang].allocated;
 }
-
 function drawMap() {
   const tm = document.getElementById('treemap');
   let cats;
   if (submitted) {
     cats = CATS.filter(c => !c.readOnly).map(c => ({...c, pct: c.answer}));
     const s = CATS.find(c => c.id === 'sol100');
-    cats.push({...s, pct: s.answer});
+    if (s) cats.push({...s, pct: s.answer});
   } else {
     cats = MAIN_CATS.map(c => ({...c, pct: getVal(c)}));
   }
@@ -237,30 +310,23 @@ function drawMap() {
   cats.forEach(cat => {
     const block = document.createElement('div');
     block.className = 'tm-block';
-    block.title = `${cat.name}: ${cat.pct < 0.1 ? cat.pct.toFixed(3) : cat.pct.toFixed(1)}%`;
+    const pctStr = cat.pct < 0.01 ? cat.pct.toFixed(4) : cat.pct.toFixed(1);
+    block.title = cat.name + ': ' + pctStr + '%';
     block.style.cssText = `background:${cat.color};flex:${cat.pct} 1 0%;min-width:2px;height:100%`;
     const estW = (cat.pct / total) * (tm.clientWidth || 680);
     if (estW > 22) {
       const lbl = document.createElement('div');
       lbl.className = 'tm-label';
-      lbl.innerHTML = estW > 44
-        ? `${cat.icon}<br>${cat.pct < 0.1 ? cat.pct.toFixed(2) : cat.pct.toFixed(1)}%`
-        : cat.icon;
+      lbl.innerHTML = estW > 44 ? cat.icon + '<br>' + pctStr + '%' : cat.icon;
       block.appendChild(lbl);
     }
     tm.appendChild(block);
   });
-  buildLegend(cats);
+  document.getElementById('legend').innerHTML = cats.map(c => {
+    const pctStr = c.pct < 0.01 ? c.pct.toFixed(4) : c.pct.toFixed(1);
+    return `<span class="leg-item"><span class="leg-dot" style="background:${c.color}"></span>${c.name} ${pctStr}%</span>`;
+  }).join('');
 }
-
-function buildLegend(cats) {
-  document.getElementById('legend').innerHTML = cats.map(c => `
-    <span class="leg-item">
-      <span class="leg-dot" style="background:${c.color}"></span>
-      ${c.name} ${c.pct < 0.1 ? c.pct.toFixed(3) : c.pct.toFixed(1)}%
-    </span>`).join('');
-}
-
 function buildCards() {
   const container = document.getElementById('cards');
   container.innerHTML = '';
@@ -268,26 +334,26 @@ function buildCards() {
     const div = document.createElement('div');
     div.className = 'card' + (cat.isSolar ? ' solar-card' : '');
     if (cat.readOnly) {
-      div.innerHTML = `
-        <div class="card-head"><span class="card-icon">${cat.icon}</span><span class="card-name">${cat.name}</span></div>
+      div.innerHTML = `<div class="card-head"><span class="card-icon">${cat.icon}</span><span class="card-name">${cat.name}</span></div>
         <div class="card-desc">${cat.desc}</div>
-        <div class="readout-text" id="rl-hint-sol100">Revelado al enviar.</div>
+        <div class="readout-text" id="rl-hint-sol100">${STRINGS[currentLang].reveal}</div>
         <div class="res-line" id="rl-${cat.id}"></div>`;
     } else {
-      div.innerHTML = `
-        <div class="card-head"><span class="card-icon">${cat.icon}</span><span class="card-name">${cat.name}</span></div>
+      const dp = cat.isSolar ? 3 : 1;
+      const initVal = '0.' + '0'.repeat(dp);
+      div.innerHTML = `<div class="card-head"><span class="card-icon">${cat.icon}</span><span class="card-name">${cat.name}</span></div>
         <div class="card-desc">${cat.desc}</div>
         <div class="sl-row">
-          <input type="range" min="0" max="${cat.max}" step="${cat.step}" value="0" id="sl-${cat.id}" aria-label="Estimación para ${cat.name}">
-          <span class="sl-val" id="sv-${cat.id}">0${cat.isSolar ? '.00' : '.0'}%</span>
+          <input type="range" min="0" max="${cat.max}" step="${cat.step}" value="0" id="sl-${cat.id}" aria-label="${cat.name}">
+          <span class="sl-val" id="sv-${cat.id}">${initVal}%</span>
         </div>
-        ${cat.isSolar ? '<div class="solar-note">Pista: sorprendentemente pequeño para un país tan soleado</div>' : ''}
+        ${cat.isSolar && cat.solarNote ? '<div class="solar-note">' + cat.solarNote + '</div>' : ''}
         <div class="res-line" id="rl-${cat.id}"></div>`;
     }
     container.appendChild(div);
     if (!cat.readOnly) {
       document.getElementById('sl-' + cat.id).addEventListener('input', function() {
-        const dp = cat.isSolar ? 2 : 1;
+        const dp = cat.isSolar ? 3 : 1;
         document.getElementById('sv-' + cat.id).textContent = parseFloat(this.value).toFixed(dp) + '%';
         clampAll(cat.id);
         document.getElementById('sv-' + cat.id).textContent = parseFloat(document.getElementById('sl-' + cat.id).value).toFixed(dp) + '%';
@@ -297,7 +363,6 @@ function buildCards() {
     }
   });
 }
-
 function scoreGuess(guess, answer) {
   const rel = Math.abs(guess - answer) / answer;
   if (rel <= 0.08) return 100;
@@ -305,15 +370,11 @@ function scoreGuess(guess, answer) {
   if (rel <= 0.80) return Math.round(50 - (rel - 0.25) / 0.55 * 40);
   return Math.max(0, Math.round(10 - (rel - 0.8) * 8));
 }
-
 function gradeLabel(s) {
-  if (s >= 650) return '🏆 ¡Experto en territorio! Conoces España a la perfección.';
-  if (s >= 490) return '🌿 Muy bien — tienes una buena visión del paisaje español.';
-  if (s >= 320) return '🫒 ¡No está mal! El olivar sorprende a casi todo el mundo.';
-  if (s >= 160) return '🌄 España es más verde de lo que parece desde las ciudades.';
-  return '🤔 ¿Sorprendente? Más de la mitad de España es forestal o agrícola.';
+  const labels = STRINGS[currentLang].grades;
+  for (const [t, l] of labels) { if (s >= t) return l; }
+  return labels[labels.length - 1][1];
 }
-
 document.getElementById('sub-btn').addEventListener('click', function() {
   if (submitted) return;
   submitted = true;
@@ -325,8 +386,8 @@ document.getElementById('sub-btn').addEventListener('click', function() {
     if (cat.readOnly) {
       const hint = document.getElementById('rl-hint-sol100');
       if (hint) hint.style.display = 'none';
-      const haStr = cat.answerHa ? ` (~${Math.round(cat.answerHa / 1000)}k ha)` : '';
-      rl.innerHTML = `<span style="color:var(--text-secondary)">Respuesta: <strong style="color:#BA7517">${cat.answer}%</strong>${haStr} — el almacenamiento para noches y días nublados duplica la superficie necesaria respecto a solo paneles.</span>`;
+      const haStr = cat.answerHa ? ' (~' + (cat.answerHa >= 1000000 ? (cat.answerHa/1000000).toFixed(1)+'M' : Math.round(cat.answerHa/1000)+'k') + ' ha)' : '';
+      rl.innerHTML = '<span style="color:var(--text-secondary)">Answer: <strong style="color:#BA7517">' + cat.answer + '%</strong>' + haStr + ' — ' + STRINGS[currentLang].sol100_reveal + '</span>';
       return;
     }
     const guess = getVal(cat);
@@ -334,115 +395,43 @@ document.getElementById('sub-btn').addEventListener('click', function() {
     totalScore += pts;
     const diff = guess - cat.answer;
     const sign = diff >= 0 ? '+' : '';
-    const dp = cat.isSolar ? 2 : 1;
-    const diffStr = Math.abs(diff) < (cat.isSolar ? 0.005 : 0.3) ? '¡exacto!' : `${sign}${diff.toFixed(dp)}% de diferencia`;
+    const dp = cat.isSolar ? 3 : 1;
+    const diffStr = Math.abs(diff) < (cat.isSolar ? 0.002 : 0.3) ? STRINGS[currentLang].spot_on || 'spot on!' : sign + diff.toFixed(dp) + '% off';
     const col = pts >= 80 ? '#3b6d11' : pts >= 40 ? '#ba7517' : '#a32d2d';
-    const haStr = cat.answerHa ? ` (~${Math.round(cat.answerHa / 1000)}k ha)` : '';
-    rl.innerHTML = `<span style="color:var(--text-secondary)">Respuesta: <strong style="color:var(--text-primary)">${cat.answer < 0.1 ? cat.answer.toFixed(3) : cat.answer}%</strong>${haStr}</span> <span style="color:${col};font-weight:500">${diffStr} → ${pts} pts</span>`;
+    const haStr = cat.answerHa ? ' (~' + (cat.answerHa >= 1000000 ? (cat.answerHa/1000000).toFixed(1)+'M' : Math.round(cat.answerHa/1000)+'k') + ' ha)' : '';
+    const answerStr = cat.answer < 0.01 ? cat.answer.toFixed(4) : String(cat.answer);
+    rl.innerHTML = '<span style="color:var(--text-secondary)">Answer: <strong style="color:var(--text-primary)">' + answerStr + '%</strong>' + haStr + '</span> <span style="color:' + col + ';font-weight:500">' + diffStr + ' → ' + pts + 'pts</span>';
     const sl = document.getElementById('sl-' + cat.id);
     if (sl) sl.disabled = true;
   });
   document.getElementById('score-v').textContent = totalScore;
-  document.getElementById('map-title').textContent = 'Uso real del suelo en España — mapa proporcional';
+  document.getElementById('map-title').textContent = STRINGS[currentLang].map_answer;
   document.getElementById('final').style.display = 'block';
   document.getElementById('final-n').textContent = totalScore;
   document.getElementById('final-g').textContent = gradeLabel(totalScore);
-  document.getElementById('rst-btn').style.display = 'block';
+  document.getElementById('rst-btn').style.display = 'inline-flex';
   this.disabled = true;
   drawMap();
 });
-
 document.getElementById('rst-btn').addEventListener('click', function() {
-  submitted = false;
-  totalScore = 0;
+  submitted = false; totalScore = 0;
+  CATS = currentLang === 'local' ? [...CATS_LO] : [...CATS_EN];
+  MAIN_CATS = CATS.filter(c => !c.readOnly);
   document.getElementById('score-v').textContent = '0';
   document.getElementById('total-v').textContent = '0%';
   document.getElementById('remain-v').textContent = '100%';
   document.getElementById('final').style.display = 'none';
-  document.getElementById('map-title').textContent = 'Tus estimaciones — mapa proporcional (se actualiza al mover)';
+  document.getElementById('map-title').textContent = STRINGS[currentLang].map_guess;
   document.getElementById('tot-fill').style.width = '0%';
-  document.getElementById('tot-label').textContent = '0 / 100% asignados';
+  document.getElementById('tot-label').textContent = '0 ' + STRINGS[currentLang].allocated;
   this.style.display = 'none';
   document.getElementById('sub-btn').disabled = false;
-  buildCards();
-  updateTotal();
-  setTimeout(drawMap, 50);
+  buildCards(); updateTotal(); setTimeout(drawMap, 50);
 });
-
-/* Update button disabled - uncomment when API available
-document.getElementById('update-btn').addEventListener('click', async function() {
-  if (submitted) return;
-  this.disabled = true;
-  this.textContent = '↻ Buscando…';
-  const status = document.getElementById('update-status');
-  status.textContent = 'Buscando los últimos datos de uso del suelo en España…';
-
-  const prompt = `Search the web for the most current official land use statistics for Spain. Return ONLY raw JSON, no markdown, no explanation:
-{
-  "dataDate": "YYYY or YYYY-MM",
-  "sources": "short source citations",
-  "updates": {
-    "agri": 25,
-    "past": 16,
-    "forest": 37,
-    "scrub": 5,
-    "urban": 4.6,
-    "olive": 6,
-    "water": 1.2,
-    "solar": 0.13,
-    "solar_ha": 64000
-  }
-}
-All values as % of Spain total land area (~50.5M ha). solar is ground-mounted utility-scale PV. solar_ha is hectares. Only update values you find current data for; keep others unchanged.`;
-
-  try {
-    const resp = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        tools: [{ type: 'web_search_20250305', name: 'web_search' }],
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-    const data = await resp.json();
-    const text = data.content.filter(b => b.type === 'text').map(b => b.text).join('');
-    const clean = text.replace(/```json|```/g, '').trim();
-    const json = JSON.parse(clean);
-
-    const changes = [];
-    const u = json.updates;
-    CATS = CATS.map(cat => {
-      let newAnswer = cat.answer;
-      if (cat.id === 'solar' && u.solar !== undefined) newAnswer = u.solar;
-      else if (u[cat.id] !== undefined) newAnswer = u[cat.id];
-      if (newAnswer !== cat.answer) changes.push(`${cat.name}: ${cat.answer}% → ${newAnswer}%`);
-      const newHa = (cat.id === 'solar' && u.solar_ha) ? u.solar_ha : cat.answerHa;
-      return {...cat, answer: newAnswer, answerHa: newHa};
-    });
-    MAIN_CATS = CATS.filter(c => !c.readOnly);
-
-    document.getElementById('data-date').textContent = json.dataDate || 'actualizado';
-    document.getElementById('data-src').textContent = json.sources || '';
-
-    if (changes.length > 0) {
-      status.innerHTML = `<span class="update-changed">Actualizado: ${changes.join(' · ')}</span>`;
-    } else {
-      status.textContent = 'Datos confirmados como actuales — sin cambios necesarios.';
-    }
-  } catch (err) {
-    status.textContent = 'Error al actualizar — se mantienen los datos existentes. (' + err.message + ')';
-  }
-
-  this.disabled = false;
-  this.textContent = '↻ Actualizar datos';
-});
-*/
-
 buildCards();
 updateTotal();
 setTimeout(drawMap, 50);
+applyLang("local");
 window.addEventListener('resize', drawMap);
 </script>
 </body>

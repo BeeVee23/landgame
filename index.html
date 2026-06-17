@@ -532,6 +532,18 @@ fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json')
       .attr('stroke-width', 0.5)
       .attr('d', pathGen);
   })
+  .then(() => {
+    // Push initial map state so browser back has somewhere to go
+    if (!window.location.hash) {
+      history.replaceState({ map: true }, '', window.location.pathname);
+    } else {
+      // Restore from hash if present (e.g. shared link)
+      const hash = window.location.hash.replace('#', '').padStart(3, '0');
+      if (hash && GAMES_BY_ISO[hash]) {
+        loadGame(hash, GAMES_BY_ISO[hash], false);
+      }
+    }
+  })
   .catch(() => {
     document.getElementById('map-loading').textContent = 'Map failed to load — check your connection.';
   });
@@ -562,6 +574,8 @@ function showMap() {
   landing.style.display = 'flex';
   setActiveCountry(null);
   window.scrollTo(0, 0);
+  // Update URL without triggering popstate
+  history.replaceState({ map: true }, '', window.location.pathname);
 }
 
 function loadGame(iso, game, pushState = true) {
@@ -577,25 +591,23 @@ function loadGame(iso, game, pushState = true) {
   }
 }
 
-// Handle browser back/forward
+// Handle browser back/forward - only fires from browser chrome, not our nav button
 window.addEventListener('popstate', (e) => {
   if (e.state && e.state.iso && GAMES_BY_ISO[e.state.iso]) {
     loadGame(e.state.iso, GAMES_BY_ISO[e.state.iso], false);
   } else {
-    showMap();
+    // Going back to map state
+    gameView.style.display = 'none';
+    gameIframe.src = '';
+    landing.style.display = 'flex';
+    setActiveCountry(null);
+    window.scrollTo(0, 0);
   }
 });
 
-// On load, check if there's a hash to restore
-window.addEventListener('DOMContentLoaded', () => {
-  const hash = window.location.hash.replace('#', '').padStart(3, '0');
-  if (hash && GAMES_BY_ISO[hash]) {
-    loadGame(hash, GAMES_BY_ISO[hash], false);
-  }
-});
-
+// Back button in nav - go directly to map, don't use history.back()
 document.getElementById('back-btn').addEventListener('click', () => {
-  history.back();
+  showMap();
 });
 
 // Dropdown toggle
