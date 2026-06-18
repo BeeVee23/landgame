@@ -1,4 +1,4 @@
-<!-- v4.0.0 -->
+<!-- v4.0.1 -->
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -183,6 +183,7 @@ const STRINGS = {
     [0, `🤔 Surprising? China is 42% grassland and steppe — yet also the world's solar superpower.`]
   ],
     btn_label: `中文`,
+    solar_banner: `China's solar revolution: In 2024 alone, China installed 277 GW of utility-scale solar — more than twice the entire US solar fleet, built over decades. By May 2025 China crossed 1 terawatt of total solar capacity, installing more in a single month than any other country manages in a year. China's 2030 target of 1,200 GW of solar+wind was met in 2024, nearly six years early.`,
   },
   local: {
     h1: `🇨🇳 中国的土地是如何使用的？`,
@@ -207,6 +208,7 @@ const STRINGS = {
     [0, `🤔 出乎意料？中国42%是草地和草原——却也是世界太阳能超级大国。`]
   ],
     btn_label: `English`,
+    solar_banner: `中国的太阳能革命：仅在2024年，中国就安装了277吉瓦的公用事业级太阳能——超过整个美国太阳能装机容量的两倍，而美国是历经数十年才建成的。截至2025年5月，中国太阳能总装机容量突破1太瓦，单月新增装机量超过其他任何国家一整年的安装量。中国到2030年实现1200吉瓦太阳能+风能的目标已在2024年提前近六年完成。`,
   },
 };
 
@@ -222,6 +224,8 @@ function applyLang(lang) {
   MAIN_CATS = CATS.filter(c => !c.readOnly);
   document.querySelector('h1').innerHTML = s.h1;
   document.querySelector('.subtitle').innerHTML = s.subtitle;
+  const banner = document.querySelector('.solar-banner');
+  if (banner && s.solar_banner) { const idx = s.solar_banner.indexOf(':'); banner.innerHTML = '\u2600\ufe0f <strong>' + s.solar_banner.slice(0, idx+1) + '</strong>' + s.solar_banner.slice(idx+1); }
   const disc = document.querySelector('.disclaimer');
   if (disc && s.disclaimer) disc.innerHTML = '<strong>Note:</strong> ' + s.disclaimer;
   if (!submitted) buildCards();
