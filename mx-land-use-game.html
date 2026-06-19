@@ -1,10 +1,10 @@
 <!-- v4.1.0 -->
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🇯🇵 How is Japan's land actually used? — Guessing Game</title>
+<title>🇲🇽 How is Mexico's land actually used? — Guessing Game</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -91,13 +91,13 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 <body>
 <div class="page">
   <button class="lang-toggle" id="lang-btn" onclick="toggleLang()">English</button>
-  <h1>🇯🇵 How is Japan's land actually used?</h1>
-  <p class="subtitle">Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Japanese land for each category — sliders are capped at 100% total. Japan is one of the world's most forested nations, yet also one of its most densely populated.</p>
+  <h1>🇲🇽 How is Mexico's land actually used?</h1>
+  <p class="subtitle">Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Mexican land for each category — sliders are capped at 100% total. Mexico spans deserts, tropical rainforest, and some of the world's best solar resource.</p>
   
-  <div class="disclaimer"><strong>Note:</strong> The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. Japan's energy future will require diverse renewables — offshore wind is considered the key technology given Japan's limited flat land, and the country is also investing heavily in hydrogen, geothermal, and tidal energy. Japan's mountainous terrain makes large-scale ground-mounted solar challenging, which is reflected in the relatively large land area needed. Land use figures are approximate and sourced from official Japanese government statistics.</div>
+  <div class="disclaimer"><strong>Note:</strong> The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. Mexico has exceptional solar irradiance across much of the country (up to 6.3 kWh/m²/day in the north) and strong wind resources in Oaxaca and Tamaulipas. Mexico's 2024 Energy Transition targets call for 35% clean electricity, with solar and wind expected to lead new capacity additions through 2035. Land use figures are approximate and sourced from official statistics.</div>
 
   <div class="data-bar">
-    <span class="data-info">Data: <strong>2020–2024</strong> · MLIT · MAFF · METI / Agency for Natural Resources and Energy</span>
+    <span class="data-info">Data: <strong>2018–2024</strong> · CIA World Factbook · CFE · GlobalData · World Bank</span>
   </div>
 
   <div class="score-bar">
@@ -130,78 +130,76 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
     <div class="final-grade" id="final-g"></div>
   </div>
 
-  <p class="source">Sources: <a href="https://www.mlit.go.jp/totikensangyo/content/001908011.pdf" target="_blank">MLIT Fiscal Year 2024 Trends Concerning Land</a> · <a href="https://www.maff.go.jp/e/data/stat/index.html" target="_blank">MAFF Agriculture and Forestry Statistics 2023</a> · <a href="https://www.meti.go.jp/english/policy/energy_environment/renewable/index.html" target="_blank">METI Renewable Energy Policy 2024</a> · Japan total land area ~37.8M ha.</p>
+  <p class="source">Sources: <a href="https://www.indexmundi.com/mexico/land_use.html" target="_blank">Mexico Land Use Statistics (CIA World Factbook basis)</a> · <a href="https://en.wikipedia.org/wiki/Solar_power_in_Mexico" target="_blank">Solar Power in Mexico 2024</a> · <a href="https://en.wikipedia.org/wiki/Electricity_sector_in_Mexico" target="_blank">Electricity Sector in Mexico 2024</a> · Mexico total land area ~196M ha.</p>
 </div>
 <script>
 
 // ── LANGUAGE SYSTEM ──
 const CATS_EN = [
-  {id:'forest', icon:`🌲`, name:`Forest & woodland`, desc:`Natural and planted forest — covers most of Japan's mountainous interior, largely inaccessible`, answer:66.3, color:'#3B6D11', max:80, step:0.5},
-  {id:'agri', icon:`🌾`, name:`Farmland`, desc:`Paddy fields, upland crops, orchards and other cultivated land — squeezed into valleys and coastal plains`, answer:11.6, color:'#639922', max:25, step:0.5},
-  {id:'urban', icon:`🏙️`, name:`Urban & residential`, desc:`Cities, towns, housing, commercial and industrial zones — concentrated in coastal lowlands`, answer:5.8, color:'#73726c', max:15, step:0.5},
-  {id:'golf', icon:`⛳`, name:`Golf courses`, desc:`Japan has ~2,300 golf courses — among the most per capita in the world`, answer:1.2, color:'#5DCAA5', max:6, step:0.1},
-  {id:'water', icon:`💧`, name:`Inland water`, desc:`Rivers, lakes, reservoirs and paddy irrigation systems`, answer:1.5, color:'#378ADD', max:6, step:0.1},
-  {id:'misc', icon:`🌊`, name:`Other land`, desc:`Roads, bare land and other uses not classified above`, answer:13.6, color:'#888780', max:25, step:0.5},
-  {id:'solar', icon:`☀️🔋`, name:`Solar+battery (current)`, desc:`Utility-scale ground-mounted solar PV with battery storage, grid-connected — Japan also has a large rooftop sector (~55 GW) not counted here`, answer:0.24, color:'#EF9F27', max:2, step:0.01, isSolar:true, answerHa:90000, solarNote:`Hint: utility-scale grid-connected only — Japan also has ~55 GW of rooftop`},
-  {id:'sol100', icon:`⚡🔋`, name:`Solar+battery for 100% electricity`, desc:`Land needed for utility-scale solar+battery to power Japan's entire national grid 24/7 (~950 TWh/yr) — larger than most due to Japan's lower solar irradiance`, answer:2.0, color:'#BA7517', max:6, step:0.1, isSolar:true, answerHa:750000, readOnly:true}
+  {id:'past', icon:`🐄`, name:`Permanent pasture`, desc:`Grazing land for cattle — the largest single land use in Mexico, especially across the north and centre`, answer:41.7, color:'#a8c46e', max:60, step:0.5},
+  {id:'forest', icon:`🌲`, name:`Forest`, desc:`Tropical rainforest in the south, pine-oak forest in the highlands, and dry forest in the west`, answer:33.3, color:'#3B6D11', max:50, step:0.5},
+  {id:'arable', icon:`🌾`, name:`Arable land`, desc:`Maize, beans, wheat and other annual crops — concentrated in irrigated northern valleys and the Bajío`, answer:11.8, color:'#639922', max:25, step:0.5},
+  {id:'other', icon:`🏜️`, name:`Other land`, desc:`Deserts, urban areas, barren mountains, and water — includes Mexico City and other major urban centres`, answer:11.8, color:'#888780', max:25, step:0.5},
+  {id:'perm', icon:`🍊`, name:`Permanent crops`, desc:`Citrus, coffee, avocado and other tree crops — Mexico is the world's largest avocado exporter`, answer:1.4, color:'#c9a85c', max:8, step:0.1},
+  {id:'solar', icon:`☀️🔋`, name:`Solar+battery (current)`, desc:`Utility-scale ground-mounted solar PV with battery storage, grid-connected (~12 GW end 2024)`, answer:0.012, color:'#EF9F27', max:0.5, step:0.001, isSolar:true, answerHa:24000, solarNote:`Hint: Mexico has exceptional solar resource, but 196M ha is vast`},
+  {id:'sol100', icon:`⚡🔋`, name:`Solar+battery for 100% electricity`, desc:`Land needed for utility-scale solar+battery to power Mexico's entire national grid 24/7 (~360 TWh/yr)`, answer:0.12, color:'#BA7517', max:1, step:0.01, isSolar:true, answerHa:230000, readOnly:true}
 ];
 const CATS_LO = [
-  {id:'forest', icon:`🌲`, name:`森林・林野`, desc:`天然林と人工林 — 日本の山岳地帯の大部分を占めるが、大半はアクセス困難`, answer:66.3, color:'#3B6D11', max:80, step:0.5},
-  {id:'agri', icon:`🌾`, name:`農地`, desc:`水田、畑作、果樹園など — 谷間や沿岸平野に集中`, answer:11.6, color:'#639922', max:25, step:0.5},
-  {id:'urban', icon:`🏙️`, name:`市街地・住宅地`, desc:`都市、住宅、商業・工業地帯 — 沿岸低地に集中`, answer:5.8, color:'#73726c', max:15, step:0.5},
-  {id:'golf', icon:`⛳`, name:`ゴルフ場`, desc:`日本には約2,300のゴルフ場がある — 世界最多水準の一人当たりゴルフ場数`, answer:1.2, color:'#5DCAA5', max:6, step:0.1},
-  {id:'water', icon:`💧`, name:`内水面`, desc:`河川、湖沼、貯水池、水田灌漑施設`, answer:1.5, color:'#378ADD', max:6, step:0.1},
-  {id:'misc', icon:`🌊`, name:`その他の土地`, desc:`道路、裸地、その他上記以外の用途`, answer:13.6, color:'#888780', max:25, step:0.5},
-  {id:'solar', icon:`☀️🔋`, name:`太陽光+蓄電池（現状）`, desc:`系統連系の産業用地上設置型太陽光（蓄電池付き） — 日本には別途屋根置き太陽光（約55GW）もあるが、ここでは含まない`, answer:0.24, color:'#EF9F27', max:2, step:0.01, isSolar:true, answerHa:90000, solarNote:`ヒント：系統連系の産業用のみ — 日本には別途約55GWの屋根置きがあります`},
-  {id:'sol100', icon:`⚡🔋`, name:`100%電力のための太陽光+蓄電池`, desc:`日本の電力系統全体を24時間365日まかなうための産業用太陽光+蓄電池の必要面積（年間約950TWh） — 日射量が少ないため他国より大きい`, answer:2.0, color:'#BA7517', max:6, step:0.1, isSolar:true, answerHa:750000, readOnly:true}
+  {id:'past', icon:`🐄`, name:`Pastizales permanentes`, desc:`Tierra de pastoreo para ganado — el mayor uso individual del suelo en México, especialmente en el norte y centro`, answer:41.7, color:'#a8c46e', max:60, step:0.5},
+  {id:'forest', icon:`🌲`, name:`Bosque`, desc:`Selva tropical en el sur, bosque de pino-encino en las tierras altas, y bosque seco en el oeste`, answer:33.3, color:'#3B6D11', max:50, step:0.5},
+  {id:'arable', icon:`🌾`, name:`Tierra cultivable`, desc:`Maíz, frijol, trigo y otros cultivos anuales — concentrados en valles irrigados del norte y el Bajío`, answer:11.8, color:'#639922', max:25, step:0.5},
+  {id:'other', icon:`🏜️`, name:`Otras tierras`, desc:`Desiertos, áreas urbanas, montañas áridas y agua — incluye la Ciudad de México y otros grandes centros urbanos`, answer:11.8, color:'#888780', max:25, step:0.5},
+  {id:'perm', icon:`🍊`, name:`Cultivos permanentes`, desc:`Cítricos, café, aguacate y otros cultivos arbóreos — México es el mayor exportador de aguacate del mundo`, answer:1.4, color:'#c9a85c', max:8, step:0.1},
+  {id:'solar', icon:`☀️🔋`, name:`Solar+batería (actual)`, desc:`Solar fotovoltaico de gran escala con almacenamiento en batería, conectado a la red (~12 GW a finales de 2024)`, answer:0.012, color:'#EF9F27', max:0.5, step:0.001, isSolar:true, answerHa:24000, solarNote:`Pista: México tiene un recurso solar excepcional, pero 196 M ha es enorme`},
+  {id:'sol100', icon:`⚡🔋`, name:`Solar+batería para el 100% eléc.`, desc:`Superficie necesaria para alimentar toda la red eléctrica nacional mexicana 24h/día mediante solar+batería (~360 TWh/año)`, answer:0.12, color:'#BA7517', max:1, step:0.01, isSolar:true, answerHa:230000, readOnly:true}
 ];
 
 const STRINGS = {
   en: {
-    h1: `🇯🇵 How is Japan's land actually used?`,
-    subtitle: `Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Japanese land for each category — sliders are capped at 100% total. Japan is one of the world's most forested nations, yet also one of its most densely populated.`,
-    disclaimer: `The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. Japan's energy future will require diverse renewables — offshore wind is considered the key technology given Japan's limited flat land, and the country is also investing heavily in hydrogen, geothermal, and tidal energy. Japan's mountainous terrain makes large-scale ground-mounted solar challenging, which is reflected in the relatively large land area needed. Land use figures are approximate and sourced from official Japanese government statistics.`,
+    h1: `🇲🇽 How is Mexico's land actually used?`,
+    subtitle: `Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Mexican land for each category — sliders are capped at 100% total. Mexico spans deserts, tropical rainforest, and some of the world's best solar resource.`,
+    disclaimer: `The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. Mexico has exceptional solar irradiance across much of the country (up to 6.3 kWh/m²/day in the north) and strong wind resources in Oaxaca and Tamaulipas. Mexico's 2024 Energy Transition targets call for 35% clean electricity, with solar and wind expected to lead new capacity additions through 2035. Land use figures are approximate and sourced from official statistics.`,
     submit: `Submit all guesses`,
     play_again: `Play again`,
     score: `Score`,
     land_used: `Land used`,
     remaining: `Remaining`,
     map_guess: `Your guesses — proportional area map (updates as you slide)`,
-    map_answer: `Actual Japanese land use — proportional area map`,
+    map_answer: `Actual Mexican land use — proportional area map`,
     allocated: `/ 100% allocated`,
     reveal: `Revealed after you submit.`,
     out_of: `points out of 800`,
-    sol100_reveal: `Japan's lower solar irradiance and limited flat land make this the largest sol100 figure in the game per capita.`,
+    sol100_reveal: `storage overcapacity for nights and cloudy periods roughly doubles the land needed vs panels alone. Mexico's exceptional solar resource keeps this figure relatively small.`,
     grades: [
-    [650, `🏆 Japan expert — you have a detailed picture of this remarkable island nation!`],
-    [490, `🌲 Very strong — you know Japan's landscape well.`],
-    [320, `🗾 Not bad! Japan's extreme forest cover surprises most people.`],
-    [160, `🏔️ Japan is 66% forest — yet most of it is inaccessible mountain terrain.`],
-    [0, `🤔 Surprising? Japan is one of the world's most forested nations despite its dense cities.`]
+    [600, `🏆 Mexico expert — you know this vast and varied country in detail!`],
+    [450, `🌵 Very strong — sharp sense of Mexico's diverse landscape.`],
+    [290, `🥑 Not bad! Mexico's pastureland dominance surprises most people.`],
+    [140, `🌳 Mexico is greener than its deserts suggest — a third is forest.`],
+    [0, `🤔 Surprising? Mexico is mostly pasture and forest, not desert as many assume.`]
   ],
-    btn_label: `日本語`,
+    btn_label: `Español`,
   },
   local: {
-    h1: `🇯🇵 日本の土地はどのように使われているか？`,
-    subtitle: `<a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">サイモン・クラーク博士のYouTubeショート</a>（英語）に着想を得て。各カテゴリの日本の土地の割合を推測してください — スライダーは合計100%に制限されています。日本は世界で最も森林に覆われた国のひとつであり、同時に最も人口密度が高い国のひとつです。`,
-    disclaimer: `太陽光+蓄電池の数値はAIの支援を受けて生成された思考実験であり、政策提言ではありません。すべての数値は電力系統に接続された産業規模のシステムを指しています。日本のエネルギーの未来には多様な再生可能エネルギーが必要です。土地利用データは日本政府の公式統計に基づいています。`,
-    submit: `回答を送信する`,
-    play_again: `もう一度プレイ`,
-    score: `スコア`,
-    land_used: `使用済み土地`,
-    remaining: `残り`,
-    map_guess: `あなたの推測 — 面積比較マップ（スライド時に更新）`,
-    map_answer: `日本の実際の土地利用 — 面積比較マップ`,
-    allocated: `/ 100% 割当済み`,
-    reveal: `送信後に公開されます。`,
-    out_of: `点満点中`,
-    sol100_reveal: `日本の太陽光発電量が低く、平坦な土地が限られているため、このゲームの中で一人当たりの土地面積が最も大きい数値となっています。`,
+    h1: `🇲🇽 ¿Cómo se usa el suelo en México?`,
+    subtitle: `Inspirado en <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">el vídeo corto del Dr. Simon Clark en YouTube</a> (en inglés). Adivina el porcentaje del territorio mexicano para cada categoría — los controles están limitados al 100% en total. México abarca desiertos, selva tropical y uno de los mejores recursos solares del mundo.`,
+    disclaimer: `Las cifras de solar+batería son un experimento mental generado con la ayuda de una IA, no una recomendación política. Todas las cifras se refieren a sistemas de gran escala conectados a la red. México tiene una irradiancia solar excepcional en gran parte del país (hasta 6,3 kWh/m²/día en el norte) y fuertes recursos eólicos en Oaxaca y Tamaulipas. Las metas de Transición Energética 2024 de México buscan un 35% de electricidad limpia. Los datos de uso del suelo son aproximados.`,
+    submit: `Enviar mis estimaciones`,
+    play_again: `Jugar de nuevo`,
+    score: `Puntuación`,
+    land_used: `Territorio usado`,
+    remaining: `Restante`,
+    map_guess: `Tus estimaciones — mapa proporcional (se actualiza al mover)`,
+    map_answer: `Uso real del territorio mexicano — mapa proporcional`,
+    allocated: `/ 100% asignados`,
+    reveal: `Revelado al enviar.`,
+    out_of: `puntos de 800`,
+    sol100_reveal: `la sobrecapacidad de almacenamiento para noches y períodos nublados duplica aproximadamente la superficie necesaria frente a solo paneles. El excepcional recurso solar de México mantiene esta cifra relativamente pequeña.`,
     grades: [
-    [650, `🏆 日本通 — この素晴らしい島国の詳細な姿を知っています！`],
-    [490, `🌲 とても優秀 — 日本の地形をよく知っています。`],
-    [320, `🗾 まあまあです！日本の極端な森林率はほとんどの人を驚かせます。`],
-    [160, `🏔️ 日本は66%が森林 — しかし大半は人が入れない山岳地帯です。`],
-    [0, `🤔 意外でしたか？日本は高密度の都市があるにもかかわらず、世界有数の森林国です。`]
+    [600, `🏆 Experto en México — ¡conoces este vasto y variado país en detalle!`],
+    [450, `🌵 Muy bien — visión aguda del diverso paisaje mexicano.`],
+    [290, `🥑 ¡No está mal! El predominio de los pastizales en México sorprende a la mayoría.`],
+    [140, `🌳 México es más verde de lo que sugieren sus desiertos — un tercio es bosque.`],
+    [0, `🤔 ¿Sorprendente? México es mayormente pastizal y bosque, no desierto como muchos asumen.`]
   ],
     btn_label: `English`,
   },
