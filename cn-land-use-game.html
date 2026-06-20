@@ -1,4 +1,4 @@
-<!-- v4.1.0 -->
+<!-- v4.1.1 -->
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -141,7 +141,8 @@ const CATS_EN = [
   {id:'forest', icon:`🌲`, name:`Forest`, desc:`Natural forest mainly in NE and SW China, plus extensive state plantation programmes — China plants more trees than any other country`, answer:22.3, color:'#3B6D11', max:35, step:0.5},
   {id:'other', icon:`🏔️`, name:`Desert, tundra & barren`, desc:`Gobi, Taklamakan and other deserts, Tibetan plateau barren land — some now being repurposed for solar`, answer:14.0, color:'#888780', max:25, step:0.5},
   {id:'crop', icon:`🌾`, name:`Arable & cropland`, desc:`Paddy fields, wheat and maize in the eastern plains and Yangtze valley — concentrated in the most fertile regions`, answer:12.9, color:'#639922', max:25, step:0.5},
-  {id:'urban', icon:`🏙️`, name:`Urban & built-up`, desc:`The world's most extensive urban expansion — 100+ cities with over 1 million inhabitants, growing rapidly`, answer:4.0, color:'#73726c', max:12, step:0.5},
+  {id:'golf', icon:`⛳`, name:`Golf courses`, desc:`China has only ~700 golf courses — the sport has faced official restrictions since 2004 over land and water use concerns`, answer:0.005, color:'#5DCAA5', max:0.2, step:0.001},
+  {id:'urban', icon:`🏙️`, name:`Urban & built-up`, desc:`The world's most extensive urban expansion — 100+ cities with over 1 million inhabitants, growing rapidly`, answer:3.995, color:'#73726c', max:12, step:0.5},
   {id:'water', icon:`💧`, name:`Inland water`, desc:`Yangtze, Yellow River, major lakes and the world's largest network of hydropower reservoirs`, answer:2.8, color:'#378ADD', max:8, step:0.1},
   {id:'prot', icon:`🐼`, name:`Protected & wetlands`, desc:`National nature reserves, wetlands and protected biodiversity areas — home to the giant panda and snow leopard`, answer:2.2, color:'#5DCAA5', max:8, step:0.1},
   {id:'solar', icon:`☀️🔋`, name:`Solar+battery (current)`, desc:`Utility-scale grid-connected solar PV (880 GW end 2024) — the largest solar fleet in the world by far, mostly in the sunny northwest`, answer:0.18, color:'#EF9F27', max:2, step:0.01, isSolar:true, answerHa:1760000, solarNote:`Hint: 880 GW utility-scale — but China is enormous (960M ha)`},
@@ -152,7 +153,8 @@ const CATS_LO = [
   {id:'forest', icon:`🌲`, name:`森林`, desc:`天然林主要分布在中国东北和西南，加上大规模国家造林计划——中国植树数量居世界之首`, answer:22.3, color:'#3B6D11', max:35, step:0.5},
   {id:'other', icon:`🏔️`, name:`荒漠、冻原与裸地`, desc:`戈壁、塔克拉玛干及其他荒漠，西藏高原裸地——部分已被改造用于太阳能发电`, answer:14.0, color:'#888780', max:25, step:0.5},
   {id:'crop', icon:`🌾`, name:`耕地`, desc:`水稻田、小麦和玉米分布在东部平原和长江流域——集中在最肥沃的地区`, answer:12.9, color:'#639922', max:25, step:0.5},
-  {id:'urban', icon:`🏙️`, name:`城市与建成区`, desc:`世界上规模最大的城镇化扩张——100多个人口超百万的城市，仍在快速增长`, answer:4.0, color:'#73726c', max:12, step:0.5},
+  {id:'golf', icon:`⛳`, name:`高尔夫球场`, desc:`中国仅有约700个高尔夫球场——自2004年起官方因土地和水资源问题对该运动加以限制`, answer:0.005, color:'#5DCAA5', max:0.2, step:0.001},
+  {id:'urban', icon:`🏙️`, name:`城市与建成区`, desc:`世界上规模最大的城镇化扩张——100多个人口超百万的城市，仍在快速增长`, answer:3.995, color:'#73726c', max:12, step:0.5},
   {id:'water', icon:`💧`, name:`内陆水体`, desc:`长江、黄河、主要湖泊以及世界上规模最大的水电水库网络`, answer:2.8, color:'#378ADD', max:8, step:0.1},
   {id:'prot', icon:`🐼`, name:`保护区与湿地`, desc:`国家自然保护区、湿地和生物多样性保护区——大熊猫和雪豹的家园`, answer:2.2, color:'#5DCAA5', max:8, step:0.1},
   {id:'solar', icon:`☀️🔋`, name:`太阳能+储能（现状）`, desc:`公用事业级并网太阳能光伏（2024年底880吉瓦）——全球最大的太阳能装机，主要分布在阳光充足的西北地区`, answer:0.18, color:'#EF9F27', max:2, step:0.01, isSolar:true, answerHa:1760000, solarNote:`提示：880吉瓦公用事业级太阳能——但中国幅员辽阔（9.6亿公顷）`},
