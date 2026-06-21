@@ -1,4 +1,4 @@
-<!-- v4.5 -->
+<!-- v4.5.1 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -89,8 +89,8 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 .geo-scale-line { height: 2px; background: #fff; }
 .geo-scale-text { font-size: 9px; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.6); }
 .geo-land { fill: #2a3f54; stroke: #0d1b2a; stroke-width: 0.4; }
-.geo-country { fill: #BA7517; stroke: #f5f2eb; stroke-width: 0.6; opacity: 0.55; }
-.geo-circle { fill: #EF9F27; fill-opacity: 0.55; stroke: #fff; stroke-width: 1; stroke-dasharray: 3,2; }
+.geo-country { fill: #8a7860; stroke: #f5f2eb; stroke-width: 0.6; opacity: 0.65; }
+.geo-circle { fill: #EF9F27; fill-opacity: 0.85; stroke: #fff; stroke-width: 1; stroke-dasharray: 3,2; }
 .geo-legend { display: flex; gap: 14px; font-size: 10.5px; color: var(--text-secondary); margin-bottom: .5rem; flex-wrap: wrap; }
 .geo-legend span { display: inline-flex; align-items: center; gap: 4px; }
 .geo-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
@@ -393,7 +393,7 @@ function renderWorldCard() {
     textEl.innerHTML = `Powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) using Australia's own solar conditions would need about <strong>${haM} hectares</strong> — <strong>${multiple}× the entire country</strong>. The circle below shows that area centred on Australia — it spills well beyond the country's own borders, illustrating that solar geography and climate matter as much as land availability.`;
   }
   footEl.textContent = 'The dashed circle is illustrative — sized to the correct land area, but not an actual proposed siting. It overlaps existing borders for scale only.';
-  legendEl.innerHTML = `<span><span class="geo-dot" style="background:#BA7517"></span>Australia</span><span><span class="geo-dot" style="background:#EF9F27;opacity:0.55"></span>Land area needed</span>`;
+  legendEl.innerHTML = `<span><span class="geo-dot" style="background:#8a7860;opacity:0.65"></span>Australia</span><span><span class="geo-dot" style="background:#EF9F27"></span>Land area needed</span>`;
 
   drawGeoMap(WORLD_HA_NEEDED);
   drawGeoInset(WORLD_HA_NEEDED);

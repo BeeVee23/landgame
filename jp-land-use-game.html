@@ -1,4 +1,4 @@
-<!-- v4.5 -->
+<!-- v4.5.1 -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -102,8 +102,8 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 .geo-scale-line { height: 2px; background: #fff; }
 .geo-scale-text { font-size: 9px; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.6); }
 .geo-land { fill: #2a3f54; stroke: #0d1b2a; stroke-width: 0.4; }
-.geo-country { fill: #BA7517; stroke: #f5f2eb; stroke-width: 0.6; opacity: 0.55; }
-.geo-circle { fill: #EF9F27; fill-opacity: 0.55; stroke: #fff; stroke-width: 1; stroke-dasharray: 3,2; }
+.geo-country { fill: #8a7860; stroke: #f5f2eb; stroke-width: 0.6; opacity: 0.65; }
+.geo-circle { fill: #EF9F27; fill-opacity: 0.85; stroke: #fff; stroke-width: 1; stroke-dasharray: 3,2; }
 .geo-legend { display: flex; gap: 14px; font-size: 10.5px; color: var(--text-secondary); margin-bottom: .5rem; flex-wrap: wrap; }
 .geo-legend span { display: inline-flex; align-items: center; gap: 4px; }
 .geo-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
@@ -275,6 +275,7 @@ function applyLang(lang) {
   if (finalSub) finalSub.textContent = s.out_of;
   const btn = document.getElementById('lang-btn');
   if (btn) btn.textContent = s.btn_label;
+  if (document.getElementById('world-card').style.display === 'block') renderWorldCard();
   drawMap();
 }
 
@@ -480,23 +481,46 @@ const COUNTRY_ISO = '392';
 const HA_PER_TWH = COUNTRY_SOL100_HA / COUNTRY_DEMAND_TWH;
 const WORLD_HA_NEEDED = HA_PER_TWH * WORLD_DEMAND_TWH;
 
+const WORLD_STRINGS = {
+  en: {
+    head: `🌍 What if Japan alone powered the whole world?`,
+    fit: `Powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) using Japan's own solar conditions would need about <strong>{haM} hectares</strong> — <strong>{pct}%</strong> of Japan's land area, shown below as a circle of equivalent area.`,
+    overflow: `Powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) using Japan's own solar conditions would need about <strong>{haM} hectares</strong> — <strong>{mult}× the entire country</strong>. The circle below shows that area centred on Japan — it spills well beyond the country's own borders, illustrating that solar geography and climate matter as much as land availability.`,
+    foot: `The dashed circle is illustrative — sized to the correct land area, but not an actual proposed siting. It overlaps existing borders for scale only.`,
+    countryLabel: `Japan`,
+    circleLabel: `Land area needed`,
+  },
+  local: {
+    head: `🌍 もし日本だけで世界中に電力を供給したら？`,
+    fit: `日本独自の太陽光発電条件を使って<strong>世界の電力需要</strong>（年間約31,000TWh）すべてをまかなうには、約<strong>{haM}ヘクタール</strong>が必要です — これは日本の国土面積の<strong>{pct}%</strong>に相当し、下図では同等の面積を持つ円として示されています。`,
+    overflow: `日本独自の太陽光発電条件を使って<strong>世界の電力需要</strong>（年間約31,000TWh）すべてをまかなうには、約<strong>{haM}ヘクタール</strong>が必要です — これは<strong>国土面積の{mult}倍</strong>に相当します。下の円は日本を中心に表示されていますが、国境を大きく超えて広がっており、太陽光発電においては土地の有無と同じくらい地理や気候が重要であることを示しています。`,
+    foot: `点線の円はあくまで説明用です — 正しい面積に基づいたサイズですが、実際の設置候補地ではありません。規模を示すためだけに既存の国境と重なっています。`,
+    countryLabel: `日本`,
+    circleLabel: `必要な土地面積`,
+  },
+};
+
 function renderWorldCard() {
   const textEl = document.getElementById('world-text');
   const footEl = document.getElementById('world-foot');
   const legendEl = document.getElementById('geo-legend');
+  const headEl = document.getElementById('world-head');
   document.getElementById('world-card').style.display = 'block';
 
   const pctOfCountry = (WORLD_HA_NEEDED / COUNTRY_HA) * 100;
-  const haM = WORLD_HA_NEEDED >= 1_000_000 ? (WORLD_HA_NEEDED / 1_000_000).toFixed(0) + ' million' : Math.round(WORLD_HA_NEEDED / 1000) + ',000';
+  const millionWord = currentLang === 'local' ? '百万' : 'million';
+  const haM = WORLD_HA_NEEDED >= 1_000_000 ? (WORLD_HA_NEEDED / 1_000_000).toFixed(0) + ' ' + millionWord : Math.round(WORLD_HA_NEEDED / 1000).toLocaleString() + ',000';
   const multiple = (WORLD_HA_NEEDED / COUNTRY_HA).toFixed(1);
 
+  const W = WORLD_STRINGS[currentLang];
+  headEl.textContent = W.head;
   if (pctOfCountry <= 100) {
-    textEl.innerHTML = `Powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) using Japan's own solar conditions would need about <strong>${haM} hectares</strong> — <strong>${pctOfCountry.toFixed(1)}%</strong> of Japan's land area, shown below as a circle of equivalent area.`;
+    textEl.innerHTML = W.fit.replace('{haM}', haM).replace('{pct}', pctOfCountry.toFixed(1));
   } else {
-    textEl.innerHTML = `Powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) using Japan's own solar conditions would need about <strong>${haM} hectares</strong> — <strong>${multiple}× the entire country</strong>. The circle below shows that area centred on Japan — it spills well beyond the country's own borders, illustrating that solar geography and climate matter as much as land availability.`;
+    textEl.innerHTML = W.overflow.replace('{haM}', haM).replace('{mult}', multiple);
   }
-  footEl.textContent = 'The dashed circle is illustrative — sized to the correct land area, but not an actual proposed siting. It overlaps existing borders for scale only.';
-  legendEl.innerHTML = `<span><span class="geo-dot" style="background:#BA7517"></span>Japan</span><span><span class="geo-dot" style="background:#EF9F27;opacity:0.55"></span>Land area needed</span>`;
+  footEl.textContent = W.foot;
+  legendEl.innerHTML = `<span><span class="geo-dot" style="background:#8a7860;opacity:0.65"></span>${W.countryLabel}</span><span><span class="geo-dot" style="background:#EF9F27"></span>${W.circleLabel}</span>`;
 
   drawGeoMap(WORLD_HA_NEEDED);
   drawGeoInset(WORLD_HA_NEEDED);
