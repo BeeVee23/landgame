@@ -1,4 +1,4 @@
-<!-- v4.1.1 -->
+<!-- v4.5 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -73,7 +73,31 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 .final-grade { font-size: 15px; font-weight: 500; margin-top: 6px; }
 .source { font-size: 11px; color: var(--text-secondary); margin-top: 1.5rem; line-height: 1.8; }
 .source a { color: var(--text-secondary); text-decoration: underline; }
+
+.world-card { background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary)); border: 0.5px solid var(--border-md); border-radius: var(--radius-lg); padding: 1.1rem; margin-top: .75rem; }
+.world-head { font-size: 15px; font-weight: 500; margin-bottom: .5rem; }
+.world-text { font-size: 12.5px; color: var(--text-secondary); line-height: 1.6; margin-bottom: .75rem; }
+.world-text strong { color: var(--text-primary); }
+#world-geo-map { width: 100%; height: 280px; border-radius: 8px; overflow: hidden; background: #0d1b2a; margin-bottom: .6rem; }
+#world-geo-map svg { width: 100%; height: 100%; display: block; }
+.geo-maps-row { display: flex; gap: 8px; margin-bottom: .6rem; }
+.geo-maps-row #world-geo-map { flex: 1.4; margin-bottom: 0; }
+#world-geo-inset { flex: 1; height: 280px; border-radius: 8px; overflow: hidden; background: #16283c; position: relative; }
+#world-geo-inset svg { width: 100%; height: 100%; display: block; }
+.geo-inset-label { position: absolute; top: 6px; left: 8px; font-size: 9.5px; color: var(--text-secondary); background: rgba(13,27,42,0.7); padding: 2px 6px; border-radius: 4px; }
+.geo-scale-bar { position: absolute; bottom: 8px; left: 8px; display: flex; align-items: center; gap: 5px; }
+.geo-scale-line { height: 2px; background: #fff; }
+.geo-scale-text { font-size: 9px; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.6); }
+.geo-land { fill: #2a3f54; stroke: #0d1b2a; stroke-width: 0.4; }
+.geo-country { fill: #BA7517; stroke: #f5f2eb; stroke-width: 0.6; opacity: 0.55; }
+.geo-circle { fill: #EF9F27; fill-opacity: 0.55; stroke: #fff; stroke-width: 1; stroke-dasharray: 3,2; }
+.geo-legend { display: flex; gap: 14px; font-size: 10.5px; color: var(--text-secondary); margin-bottom: .5rem; flex-wrap: wrap; }
+.geo-legend span { display: inline-flex; align-items: center; gap: 4px; }
+.geo-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+.world-foot { font-size: 11px; color: var(--text-secondary); line-height: 1.5; font-style: italic; }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
 </head>
 <body>
 <div class="page">
@@ -112,7 +136,19 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 
   <div class="final" id="final" style="display:none">
     <div class="final-num" id="final-n">0</div>
-    <div class="final-sub">points out of 800</div>
+
+  <div class="world-card" id="world-card" style="display:none">
+    <div class="world-head" id="world-head">🌍 What if Australia alone powered the whole world?</div>
+    <p class="world-text" id="world-text"></p>
+    <div class="geo-legend" id="geo-legend"></div>
+    <div class="geo-maps-row">
+      <div id="world-geo-map"></div>
+      <div id="world-geo-inset"></div>
+    </div>
+    <p class="world-foot" id="world-foot"></p>
+  </div>
+
+    <div class="final-sub">accuracy score</div>
     <div class="final-grade" id="final-g"></div>
   </div>
 
@@ -121,10 +157,10 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 <script>
 
 const STRINGS = { en: { grades: [
-    [650, `🏆 Outback expert — you know your continent!`],
-    [480, `🌿 Very strong — sharp sense of the Australian landscape.`],
-    [310, `🦘 Not bad! Australia surprises most people.`],
-    [150, `🏜️ The vast interior is hard to picture from the cities.`],
+    [72, `🏆 Outback expert — you know your continent!`],
+    [53, `🌿 Very strong — sharp sense of the Australian landscape.`],
+    [34, `🦘 Not bad! Australia surprises most people.`],
+    [17, `🏜️ The vast interior is hard to picture from the cities.`],
     [0, `🤔 Surprising? Over 70% of Australia is used for grazing or conservation.`]
   ], sol100_reveal: `storage overcapacity for nights and cloudy days roughly doubles the land needed vs panels alone. Australia's exceptional solar resource means this is the smallest sol100 figure in the game.`, map_answer: `Actual Australian land use — proportional area map` } };
 let submitted = false;
@@ -299,23 +335,27 @@ document.getElementById('sub-btn').addEventListener('click', function() {
     const sl = document.getElementById('sl-' + cat.id);
     if (sl) sl.disabled = true;
   });
-  document.getElementById('score-v').textContent = totalScore;
+  const maxScore = MAIN_CATS.length * 100;
+  const scorePct = Math.round((totalScore / maxScore) * 100);
+  document.getElementById('score-v').textContent = scorePct + '%';
   document.getElementById('map-title').textContent = STRINGS[currentLang].map_answer;
   document.getElementById('final').style.display = 'block';
-  document.getElementById('final-n').textContent = totalScore;
-  document.getElementById('final-g').textContent = gradeLabel(totalScore);
+  document.getElementById('final-n').textContent = scorePct + '%';
+  document.getElementById('final-g').textContent = gradeLabel(scorePct);
   document.getElementById('rst-btn').style.display = 'inline-flex';
   this.disabled = true;
   drawMap();
+  renderWorldCard();
 });
 document.getElementById('rst-btn').addEventListener('click', function() {
   submitted = false; totalScore = 0;
   CATS = currentLang === 'local' ? [...CATS_LO] : [...CATS_EN];
   MAIN_CATS = CATS.filter(c => !c.readOnly);
-  document.getElementById('score-v').textContent = '0';
+  document.getElementById('score-v').textContent = '0%';
   document.getElementById('total-v').textContent = '0%';
   document.getElementById('remain-v').textContent = '100%';
   document.getElementById('final').style.display = 'none';
+  document.getElementById('world-card').style.display = 'none';
   document.getElementById('map-title').textContent = STRINGS[currentLang].map_guess;
   document.getElementById('tot-fill').style.width = '0%';
   document.getElementById('tot-label').textContent = '0 ' + STRINGS[currentLang].allocated;
@@ -323,6 +363,184 @@ document.getElementById('rst-btn').addEventListener('click', function() {
   document.getElementById('sub-btn').disabled = false;
   buildCards(); updateTotal(); setTimeout(drawMap, 50);
 });
+
+// ── WORLD-SCALE "WHAT IF [COUNTRY] ALONE POWERED THE WORLD" CARD ──
+// Uses this country's own sol100 land-per-TWh ratio (not a global blended average),
+// so sunnier/cloudier countries are compared honestly on their own solar conditions.
+const WORLD_DEMAND_TWH = 31000;
+const COUNTRY_DEMAND_TWH = 260;
+const COUNTRY_SOL100_HA = 160000;
+const COUNTRY_HA = 769600000;
+const COUNTRY_LON = 134.0;
+const COUNTRY_LAT = -25.0;
+const COUNTRY_ISO = '036';
+const HA_PER_TWH = COUNTRY_SOL100_HA / COUNTRY_DEMAND_TWH;
+const WORLD_HA_NEEDED = HA_PER_TWH * WORLD_DEMAND_TWH;
+
+function renderWorldCard() {
+  const textEl = document.getElementById('world-text');
+  const footEl = document.getElementById('world-foot');
+  const legendEl = document.getElementById('geo-legend');
+  document.getElementById('world-card').style.display = 'block';
+
+  const pctOfCountry = (WORLD_HA_NEEDED / COUNTRY_HA) * 100;
+  const haM = WORLD_HA_NEEDED >= 1_000_000 ? (WORLD_HA_NEEDED / 1_000_000).toFixed(0) + ' million' : Math.round(WORLD_HA_NEEDED / 1000) + ',000';
+  const multiple = (WORLD_HA_NEEDED / COUNTRY_HA).toFixed(1);
+
+  if (pctOfCountry <= 100) {
+    textEl.innerHTML = `Powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) using Australia's own solar conditions would need about <strong>${haM} hectares</strong> — <strong>${pctOfCountry.toFixed(1)}%</strong> of Australia's land area, shown below as a circle of equivalent area.`;
+  } else {
+    textEl.innerHTML = `Powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) using Australia's own solar conditions would need about <strong>${haM} hectares</strong> — <strong>${multiple}× the entire country</strong>. The circle below shows that area centred on Australia — it spills well beyond the country's own borders, illustrating that solar geography and climate matter as much as land availability.`;
+  }
+  footEl.textContent = 'The dashed circle is illustrative — sized to the correct land area, but not an actual proposed siting. It overlaps existing borders for scale only.';
+  legendEl.innerHTML = `<span><span class="geo-dot" style="background:#BA7517"></span>Australia</span><span><span class="geo-dot" style="background:#EF9F27;opacity:0.55"></span>Land area needed</span>`;
+
+  drawGeoMap(WORLD_HA_NEEDED);
+  drawGeoInset(WORLD_HA_NEEDED);
+}
+
+function drawGeoMap(haNeeded) {
+  const container = document.getElementById('world-geo-map');
+  container.innerHTML = '';
+  const width = container.clientWidth || 680;
+  const height = 280;
+
+  const svg = d3.select(container).append('svg')
+    .attr('viewBox', `0 0 ${width} ${height}`);
+
+  const projection = d3.geoOrthographic()
+    .scale(height * 0.62)
+    .translate([width / 2, height / 2])
+    .rotate([-COUNTRY_LON, -COUNTRY_LAT])
+    .clipAngle(90);
+
+  const path = d3.geoPath(projection);
+
+  svg.append('path')
+    .datum({ type: 'Sphere' })
+    .attr('d', path)
+    .attr('fill', '#16283c');
+
+  svg.append('path')
+    .datum(d3.geoGraticule()())
+    .attr('d', path)
+    .attr('fill', 'none')
+    .attr('stroke', '#22384f')
+    .attr('stroke-width', 0.4);
+
+  d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json').then(world => {
+    const land = topojson.feature(world, world.objects.countries);
+    svg.append('g')
+      .selectAll('path')
+      .data(land.features)
+      .join('path')
+      .attr('class', 'geo-land')
+      .attr('d', path);
+
+    const countryFeature = land.features.find(f => String(f.id).padStart(3, '0') === COUNTRY_ISO);
+    if (countryFeature) {
+      svg.append('path')
+        .datum(countryFeature)
+        .attr('class', 'geo-country')
+        .attr('d', path);
+    }
+
+    const areaKm2 = haNeeded / 100;
+    const radiusKm = Math.sqrt(areaKm2 / Math.PI);
+    const earthRadiusKm = 6371;
+    const angularRadiusDeg = (radiusKm / earthRadiusKm) * (180 / Math.PI);
+
+    const circleGen = d3.geoCircle().center([COUNTRY_LON, COUNTRY_LAT]).radius(angularRadiusDeg);
+    svg.append('path')
+      .datum(circleGen())
+      .attr('class', 'geo-circle')
+      .attr('d', path);
+  });
+}
+
+function drawGeoInset(haNeeded) {
+  const container = document.getElementById('world-geo-inset');
+  container.innerHTML = '';
+  const width = container.clientWidth || 300;
+  const height = 280;
+
+  const areaKm2 = haNeeded / 100;
+  const radiusKm = Math.sqrt(areaKm2 / Math.PI);
+  const earthRadiusKm = 6371;
+  const angularRadiusDeg = (radiusKm / earthRadiusKm) * (180 / Math.PI);
+
+  const svg = d3.select(container).append('svg')
+    .attr('viewBox', `0 0 ${width} ${height}`);
+
+  const targetPixelRadius = height * 0.30;
+  const degreesPerPixel = angularRadiusDeg / targetPixelRadius;
+  const scale = (180 / Math.PI) / degreesPerPixel / 2;
+
+  const projection = d3.geoMercator()
+    .center([COUNTRY_LON, COUNTRY_LAT])
+    .scale(scale)
+    .translate([width / 2, height / 2]);
+
+  const path = d3.geoPath(projection);
+
+  svg.append('rect').attr('width', width).attr('height', height).attr('fill', '#16283c');
+
+  svg.append('path')
+    .datum(d3.geoGraticule().step([5, 5])())
+    .attr('d', path)
+    .attr('fill', 'none')
+    .attr('stroke', '#22384f')
+    .attr('stroke-width', 0.4);
+
+  d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json').then(world => {
+    const land = topojson.feature(world, world.objects.countries);
+    svg.append('g')
+      .selectAll('path')
+      .data(land.features)
+      .join('path')
+      .attr('class', 'geo-land')
+      .attr('d', path);
+
+    const countryFeature = land.features.find(f => String(f.id).padStart(3, '0') === COUNTRY_ISO);
+    if (countryFeature) {
+      svg.append('path')
+        .datum(countryFeature)
+        .attr('class', 'geo-country')
+        .attr('d', path);
+    }
+
+    const circleGen = d3.geoCircle().center([COUNTRY_LON, COUNTRY_LAT]).radius(angularRadiusDeg);
+    svg.append('path')
+      .datum(circleGen())
+      .attr('class', 'geo-circle')
+      .attr('d', path);
+
+    const niceSteps = [10, 25, 50, 100, 200, 250, 500, 1000, 2000, 5000];
+    let barKm = niceSteps.find(s => s >= radiusKm * 0.4) || niceSteps[niceSteps.length - 1];
+    const [x0, y0] = projection([COUNTRY_LON, COUNTRY_LAT]);
+    const [x1] = projection([COUNTRY_LON + barKm / 111.32, COUNTRY_LAT]);
+    const barPx = Math.abs(x1 - x0);
+
+    const scaleG = svg.append('g').attr('class', 'scale-bar-g');
+    scaleG.append('rect')
+      .attr('x', 8).attr('y', height - 26)
+      .attr('width', barPx).attr('height', 2.5)
+      .attr('fill', '#fff');
+    scaleG.append('text')
+      .attr('x', 8).attr('y', height - 12)
+      .attr('fill', '#fff')
+      .attr('font-size', 10)
+      .attr('style', 'text-shadow:0 1px 2px rgba(0,0,0,.6)')
+      .text(`${barKm.toLocaleString()} km`);
+  });
+
+  const labelDiv = document.createElement('div');
+  labelDiv.className = 'geo-inset-label';
+  labelDiv.textContent = 'Zoomed view';
+  container.style.position = 'relative';
+  container.appendChild(labelDiv);
+}
+
 buildCards();
 updateTotal();
 setTimeout(drawMap, 50);
