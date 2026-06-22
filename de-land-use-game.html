@@ -1,10 +1,10 @@
 <!-- v4.6.0 -->
 <!DOCTYPE html>
-<html lang="es">
+<html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🇪🇸 How is Spain's land actually used? — Guessing Game</title>
+<title>🇩🇪 How is Germany's land actually used? — Guessing Game</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,19 +28,12 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 .disclaimer { font-size: 11px; color: var(--text-secondary); background: var(--bg-secondary); border-left: 3px solid var(--border-md); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 0.6rem 0.9rem; margin-bottom: 1rem; line-height: 1.7; }
 .disclaimer strong { color: var(--text-primary); }
 .lang-toggle {
-  font-family: inherit;
-  font-size: 11px;
-  padding: 3px 9px;
-  background: var(--bg-primary);
-  border: 0.5px solid var(--border-md);
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  color: var(--text-secondary);
-  float: right;
-  margin: 2px 0 0 8px;
+  font-family: inherit; font-size: 11px; padding: 3px 9px;
+  background: var(--bg-primary); border: 0.5px solid var(--border-md);
+  border-radius: var(--radius-md); cursor: pointer; color: var(--text-secondary);
+  float: right; margin: 2px 0 0 8px;
 }
 .lang-toggle:hover { background: var(--bg-secondary); color: var(--text-primary); }
-
 .data-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 1.25rem; flex-wrap: wrap; }
 .data-info { font-size: 11px; color: var(--text-secondary); flex: 1; min-width: 160px; }
 .data-info strong { color: var(--text-primary); }
@@ -84,9 +77,6 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 .final-num { font-size: 36px; font-weight: 500; }
 .final-sub { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
 .final-grade { font-size: 15px; font-weight: 500; margin-top: 6px; }
-.source { font-size: 11px; color: var(--text-secondary); margin-top: 1.5rem; line-height: 1.8; }
-.source a { color: var(--text-secondary); text-decoration: underline; }
-
 .world-card { background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary)); border: 0.5px solid var(--border-md); border-radius: var(--radius-lg); padding: 1.1rem; margin-top: .75rem; }
 .world-head { font-size: 15px; font-weight: 500; margin-bottom: .5rem; }
 .world-text { font-size: 12.5px; color: var(--text-secondary); line-height: 1.6; margin-bottom: .75rem; }
@@ -98,9 +88,6 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 #world-geo-inset { flex: 1; height: 280px; border-radius: 8px; overflow: hidden; background: #16283c; position: relative; }
 #world-geo-inset svg { width: 100%; height: 100%; display: block; }
 .geo-inset-label { position: absolute; top: 6px; left: 8px; font-size: 9.5px; color: var(--text-secondary); background: rgba(13,27,42,0.7); padding: 2px 6px; border-radius: 4px; }
-.geo-scale-bar { position: absolute; bottom: 8px; left: 8px; display: flex; align-items: center; gap: 5px; }
-.geo-scale-line { height: 2px; background: #fff; }
-.geo-scale-text { font-size: 9px; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.6); }
 .geo-land { fill: #2a3f54; stroke: #0d1b2a; stroke-width: 0.4; }
 .geo-country { fill: #8a7860; stroke: #f5f2eb; stroke-width: 0.6; opacity: 0.65; }
 .geo-circle { fill: #EF9F27; fill-opacity: 0.85; stroke: #fff; stroke-width: 1; stroke-dasharray: 3,2; }
@@ -108,6 +95,8 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 .geo-legend span { display: inline-flex; align-items: center; gap: 4px; }
 .geo-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
 .world-foot { font-size: 11px; color: var(--text-secondary); line-height: 1.5; font-style: italic; }
+.source { font-size: 11px; color: var(--text-secondary); margin-top: 1.5rem; line-height: 1.8; }
+.source a { color: var(--text-secondary); text-decoration: underline; }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
@@ -115,17 +104,17 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 <body>
 <div class="page">
   <button class="lang-toggle" id="lang-btn" onclick="toggleLang()">English</button>
-  <h1>🇪🇸 How is Spain's land actually used?</h1>
-  <p class="subtitle">Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Spanish land for each category — sliders are capped at 100% total.</p>
+  <h1>🇩🇪 How is Germany's land actually used?</h1>
+  <p class="subtitle">Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of German land for each category — sliders are capped at 100% total. Germany is Europe's largest economy and the birthplace of the modern car industry — now facing its most turbulent transition in a century.</p>
   
-  <div class="disclaimer"><strong>Note:</strong> The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. Spain has excellent wind resources (especially in Galicia and Castile), plus hydro and geothermal potential. The April 28, 2025 blackout illustrated the importance of robust grid management, independent of energy sources. Land use figures are approximate and sourced from official statistics.</div>
+  <div class="disclaimer"><strong>Note:</strong> The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. Germany reached 100 GW of total solar capacity at the end of 2024, but most is rooftop — utility-scale ground-mounted is roughly 30 GW. Germany's cloudier climate means more land is needed per TWh than in Spain or Australia; wind power (especially offshore in the North Sea) is likely to do more heavy lifting than solar alone. Note also: Germany's car industry — Volkswagen, BMW, Mercedes — directly employs 780,000 people and represents 6% of GDP. EV sales fell 27% in 2024 and VW alone is cutting 35,000 jobs by 2030 as Chinese rivals overtake it. The transition from ICE to EV is reshaping not just the land but the workforce. Land use figures sourced from Destatis (Federal Statistical Office) 2024.</div>
 
   <div class="data-bar">
-    <span class="data-info">Data: <strong>2023–2024</strong> · MAPA · Red Eléctrica · UNEF · World Bank</span>
+    <span class="data-info">Data: <strong>2024</strong> · Destatis · Fraunhofer ISE · BSW Solar · Bundesnetzagentur</span>
   </div>
 
   <div class="score-bar">
-    <div class="metric"><div class="lbl">Score</div><div class="val" id="score-v">0</div></div>
+    <div class="metric"><div class="lbl">Score</div><div class="val" id="score-v">0%</div></div>
     <div class="metric"><div class="lbl">Land used</div><div class="val" id="total-v">0%</div></div>
     <div class="metric"><div class="lbl">Remaining</div><div class="val" id="remain-v">100%</div></div>
   </div>
@@ -149,10 +138,13 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
   </div>
 
   <div class="final" id="final" style="display:none">
-    <div class="final-num" id="final-n">0</div>
+    <div class="final-num" id="final-n">0%</div>
+    <div class="final-sub">accuracy score</div>
+    <div class="final-grade" id="final-g"></div>
+  </div>
 
   <div class="world-card" id="world-card" style="display:none">
-    <div class="world-head" id="world-head">🌍 What if Spain alone powered the whole world?</div>
+    <div class="world-head" id="world-head">🌍 What if Germany alone powered the whole world?</div>
     <p class="world-text" id="world-text"></p>
     <div class="geo-legend" id="geo-legend"></div>
     <div class="geo-maps-row">
@@ -162,86 +154,74 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
     <p class="world-foot" id="world-foot"></p>
   </div>
 
-    <div class="final-sub">accuracy score</div>
-    <div class="final-grade" id="final-g"></div>
-  </div>
-
-  <p class="source">Sources: <a href="https://www.mapa.gob.es/en/agricultura/temas/sistema-de-informacion-geografica-de-datos-agrarios/mca" target="_blank">MAPA Mapa de Cultivos y Aprovechamientos de España</a> · <a href="https://www.sistemaelectrico-ree.es/sites/default/files/2025-03/ISE_2024.pdf" target="_blank">Red Eléctrica Informe del sistema eléctrico 2024</a> · Spain total land area ~50.5M ha.</p>
+  <p class="source">Sources: <a href="https://www.destatis.de/EN/Themes/Economic-Sectors-Enterprises/Agriculture-Forestry-Fisheries/Land-Use/settlement-transportation-purposes.html" target="_blank">Destatis Land Use Statistics 2024</a> · <a href="https://www.ise.fraunhofer.de/en/press-media/press-releases/2026/german-public-electricity-generation-in-2025-wind-and-solar-power-take-the-lead.html" target="_blank">Fraunhofer ISE Electricity Generation 2025</a> · <a href="https://www.enerdata.net/publications/daily-energy-news/germany-reached-100-gw-solar-capacity-end-2024.html" target="_blank">Enerdata: Germany reaches 100 GW solar 2024</a> · Germany total land area ~35.8M ha.</p>
 </div>
 <script>
 
-// ── LANGUAGE SYSTEM ──
 const CATS_EN = [
-  {id:'agri', icon:`🌾`, name:`Arable land`, desc:`Dryland and irrigated crops, cereal, vegetables`, answer:25, color:'#639922', max:45, step:0.5},
-  {id:'past', icon:`🐄`, name:`Pasture & meadows`, desc:`Permanent pastures, meadows and natural grazing land`, answer:16, color:'#a8c46e', max:30, step:0.5},
-  {id:'forest', icon:`🌲`, name:`Forest & woodland`, desc:`Forests, reforestation and scrubland woodland`, answer:37, color:'#3B6D11', max:55, step:0.5},
-  {id:'scrub', icon:`🌿`, name:`Scrubland & natural`, desc:`Mediterranean scrub, heathland, transition zones`, answer:5, color:'#888780', max:15, step:0.5},
-  {id:'golf', icon:`⛳`, name:`Golf courses`, desc:`Spain has ~497 golf courses, mostly along the Costa del Sol and Costa Blanca`, answer:0.074, color:'#5DCAA5', max:1, step:0.01},
-  {id:'urban', icon:`🏙️`, name:`Urban & industrial`, desc:`Cities, roads, airports, industrial zones`, answer:4.526, color:'#73726c', max:12, step:0.5},
-  {id:'olive', icon:`🫒`, name:`Olive groves & vineyards`, desc:`Permanent crops — Spain has the world's largest olive grove area`, answer:6, color:'#c9a85c', max:15, step:0.5},
-  {id:'water', icon:`💧`, name:`Wetlands & water`, desc:`Rivers, reservoirs, wetlands and marshes`, answer:1.2, color:'#378ADD', max:6, step:0.5},
-  {id:'solar', icon:`☀️🔋`, name:`Solar+battery (current)`, desc:`Utility-scale ground-mounted solar PV with battery storage, grid-connected (32 GW end 2024)`, answer:0.13, color:'#EF9F27', max:2, step:0.01, isSolar:true, answerHa:64000, solarNote:`Hint: surprisingly small for such a sunny country`},
-  {id:'sol100', icon:`⚡🔋`, name:`Solar+battery for 100% electricity`, desc:`Land needed for utility-scale solar+battery to power Spain's entire national grid 24/7`, answer:0.32, color:'#BA7517', max:3, step:0.01, isSolar:true, answerHa:160000, readOnly:true}
+  {id:'agri', icon:`🌾`, name:`Agricultural land`, desc:`Arable land, permanent crops and permanent pasture — Germany is Europe's largest agricultural producer by area, with over 276,000 farms averaging 61 ha each`, answer:50.2, color:'#639922', max:70, step:0.5},
+  {id:'forest', icon:`🌲`, name:`Forest`, desc:`Managed production forests and nature reserves — the Black Forest, Bavarian Forest and Harz are Germany's most iconic; about 35% is in a near-natural state`, answer:29.9, color:'#3B6D11', max:45, step:0.5},
+  {id:'settle', icon:`🏗️`, name:`Settlement & transport`, desc:`Built-up areas, roads, rail, industry and airports — growing at about 56 hectares per day due to urban sprawl; Germany has one of Europe's densest road networks`, answer:14.6, color:'#73726c', max:25, step:0.5},
+  {id:'water', icon:`💧`, name:`Water bodies`, desc:`Rivers, lakes, canals and coastal waters — including the Rhine, Elbe, Danube, and Lake Constance`, answer:2.4, color:'#378ADD', max:8, step:0.1},
+  {id:'other', icon:`🌿`, name:`Other land`, desc:`Heathland, moorland, mining areas and other open land not classified above`, answer:2.9, color:'#888780', max:10, step:0.1},
+  {id:'golf', icon:`⛳`, name:`Golf courses`, desc:`Germany has ~750 golf courses — almost exactly the same footprint as current utility-scale solar, which makes the comparison particularly striking here`, answer:0.157, color:'#5DCAA5', max:1, step:0.01},
+  {id:'solar', icon:`☀️🔋`, name:`Solar+battery (current)`, desc:`Utility-scale ground-mounted solar PV with battery storage, grid-connected (~30 GW end 2024 out of 100 GW total — the rest is rooftop)`, answer:0.21, color:'#EF9F27', max:2, step:0.01, isSolar:true, answerHa:75000, solarNote:`Hint: 30 GW utility-scale out of 100 GW total — most of Germany's solar is rooftop`},
+  {id:'sol100', icon:`⚡🔋`, name:`Solar+battery for 100% electricity`, desc:`Land needed for utility-scale solar+battery to power Germany's entire national grid 24/7 (~512 TWh/yr) — more than sunnier southern European countries due to Germany's cloud cover and longer winter nights`, answer:1.19, color:'#BA7517', max:4, step:0.05, isSolar:true, answerHa:425000, readOnly:true}
 ];
 const CATS_LO = [
-  {id:'agri', icon:`🌾`, name:`Tierras de cultivo`, desc:`Cultivos de secano y regadío, cereales, hortalizas`, answer:25, color:'#639922', max:45, step:0.5},
-  {id:'past', icon:`🐄`, name:`Praderas y pastizales`, desc:`Pastos permanentes, prados y pastizales naturales`, answer:16, color:'#a8c46e', max:30, step:0.5},
-  {id:'forest', icon:`🌲`, name:`Bosques y montes arbolados`, desc:`Bosques, repoblaciones forestales y monte bajo arbolado`, answer:37, color:'#3B6D11', max:55, step:0.5},
-  {id:'scrub', icon:`🌿`, name:`Matorral y vegetación natural`, desc:`Monte bajo, matorral mediterráneo, zonas de transición`, answer:5, color:'#888780', max:15, step:0.5},
-  {id:'golf', icon:`⛳`, name:`Campos de golf`, desc:`España tiene ~497 campos de golf, sobre todo en la Costa del Sol y la Costa Blanca`, answer:0.074, color:'#5DCAA5', max:1, step:0.01},
-  {id:'urban', icon:`🏙️`, name:`Suelo urbano e industrial`, desc:`Ciudades, carreteras, aeropuertos, zonas industriales`, answer:4.526, color:'#73726c', max:12, step:0.5},
-  {id:'olive', icon:`🫒`, name:`Olivares y viñedos`, desc:`Cultivos permanentes — España tiene el mayor olivar del mundo`, answer:6, color:'#c9a85c', max:15, step:0.5},
-  {id:'water', icon:`💧`, name:`Zonas húmedas y aguas`, desc:`Ríos, embalses, lagunas, marismas y zonas húmedas`, answer:1.2, color:'#378ADD', max:6, step:0.5},
-  {id:'solar', icon:`☀️🔋`, name:`Solar+batería (actual)`, desc:`Parques fotovoltaicos de gran escala al suelo con almacenamiento (32 GW a finales de 2024) — conectados a la red`, answer:0.13, color:'#EF9F27', max:2, step:0.01, isSolar:true, answerHa:64000, solarNote:`Pista: sorprendentemente pequeño para un país tan soleado`},
-  {id:'sol100', icon:`⚡🔋`, name:`Solar+batería para el 100% eléc.`, desc:`Superficie necesaria para alimentar toda la red eléctrica nacional española 24h/día mediante solar+batería`, answer:0.32, color:'#BA7517', max:3, step:0.01, isSolar:true, answerHa:160000, readOnly:true}
+  {id:'agri', icon:`🌾`, name:`Landwirtschaftsfläche`, desc:`Ackerland, Dauerkulturen und Dauergrünland — Deutschland ist Europas flächenmäßig größter Agrarerzeuger mit über 276.000 Betrieben und durchschnittlich 61 ha je Betrieb`, answer:50.2, color:'#639922', max:70, step:0.5},
+  {id:'forest', icon:`🌲`, name:`Wald`, desc:`Wirtschaftswälder und Naturschutzgebiete — Schwarzwald, Bayerischer Wald und Harz sind die bekanntesten; rund 35 % befinden sich in einem naturnahen Zustand`, answer:29.9, color:'#3B6D11', max:45, step:0.5},
+  {id:'settle', icon:`🏗️`, name:`Siedlung und Verkehr`, desc:`Bebaute Flächen, Straßen, Schiene, Industrie und Flughäfen — wächst um ca. 56 Hektar pro Tag durch Zersiedelung; Deutschland hat eines der dichtesten Straßennetze Europas`, answer:14.6, color:'#73726c', max:25, step:0.5},
+  {id:'water', icon:`💧`, name:`Gewässer`, desc:`Flüsse, Seen, Kanäle und Küstengewässer — darunter Rhein, Elbe, Donau und Bodensee`, answer:2.4, color:'#378ADD', max:8, step:0.1},
+  {id:'other', icon:`🌿`, name:`Sonstige Flächen`, desc:`Heide, Moor, Bergbauflächen und sonstige nicht klassifizierte Freiflächen`, answer:2.9, color:'#888780', max:10, step:0.1},
+  {id:'golf', icon:`⛳`, name:`Golfplätze`, desc:`Deutschland hat ca. 750 Golfplätze — beinahe genau die gleiche Fläche wie aktuelle Freiflächensolaranlagen, was den Vergleich hier besonders anschaulich macht`, answer:0.157, color:'#5DCAA5', max:1, step:0.01},
+  {id:'solar', icon:`☀️🔋`, name:`Solar+Batterie (aktuell)`, desc:`Netzgekoppelte Freiflächen-Photovoltaik mit Batteriespeicher (~30 GW Ende 2024 von insgesamt 100 GW — der Rest sind Dachanlagen)`, answer:0.21, color:'#EF9F27', max:2, step:0.01, isSolar:true, answerHa:75000, solarNote:`Hinweis: 30 GW Freifläche von 100 GW gesamt — der Großteil der deutschen Solarenergie ist auf Dächern`},
+  {id:'sol100', icon:`⚡🔋`, name:`Solar+Batterie für 100 % Strom`, desc:`Fläche für netzgekoppelte Solar+Batterie zur vollständigen Versorgung des deutschen Stromnetzes 24/7 (~512 TWh/Jahr) — größer als in sonnigeren südeuropäischen Ländern wegen der deutschen Bewölkung und längeren Winternächte`, answer:1.19, color:'#BA7517', max:4, step:0.05, isSolar:true, answerHa:425000, readOnly:true}
 ];
 
 const STRINGS = {
   en: {
-    h1: `🇪🇸 How is Spain's land actually used?`,
-    subtitle: `Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Spanish land for each category — sliders are capped at 100% total.`,
-    disclaimer: `The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. Spain has excellent wind resources (especially in Galicia and Castile), plus hydro and geothermal potential. The April 28, 2025 blackout illustrated the importance of robust grid management, independent of energy sources. Land use figures are approximate and sourced from official statistics.`,
+    h1: `🇩🇪 How is Germany's land actually used?`,
+    subtitle: `Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of German land for each category — sliders are capped at 100% total. Germany is Europe's largest economy and the birthplace of the modern car industry — now facing its most turbulent transition in a century.`,
+    disclaimer: `The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. Germany reached 100 GW of total solar capacity at the end of 2024, but most is rooftop — utility-scale ground-mounted is roughly 30 GW. Germany's cloudier climate means more land is needed per TWh than in Spain or Australia; wind power (especially offshore in the North Sea) is likely to do more heavy lifting than solar alone. Note also: Germany's car industry — Volkswagen, BMW, Mercedes — directly employs 780,000 people and represents 6% of GDP. EV sales fell 27% in 2024 and VW alone is cutting 35,000 jobs by 2030 as Chinese rivals overtake it. The transition from ICE to EV is reshaping not just the land but the workforce. Land use figures sourced from Destatis (Federal Statistical Office) 2024.`,
     submit: `Submit all guesses`,
     play_again: `Play again`,
-    score: `Score`,
-    land_used: `Land used`,
-    remaining: `Remaining`,
+    score: `Score`, land_used: `Land used`, remaining: `Remaining`,
     map_guess: `Your guesses — proportional area map (updates as you slide)`,
-    map_answer: `Actual Spanish land use — proportional area map`,
-    allocated: `/ 100% allocated`,
-    reveal: `Revealed after you submit.`,
+    map_answer: `Actual German land use — proportional area map`,
+    allocated: `/ 100% allocated`, reveal: `Revealed after you submit.`,
     out_of: `accuracy score`,
-    sol100_reveal: `storage overcapacity for nights and cloudy days roughly doubles the land needed vs panels alone.`,
+    sol100_reveal: `Germany's cloudier climate means roughly 830 ha/TWh — more than Spain (615 ha/TWh) or Australia (615 ha/TWh). Storage overcapacity roughly doubles the land needed vs panels alone.`,
     grades: [
-    [72, `🏆 Land use expert — you know Spain's countryside in detail!`],
-    [54, `🌿 Very strong — sharp sense of the Spanish landscape.`],
-    [36, `🫒 Not bad! The olive groves surprise almost everyone.`],
-    [18, `🌄 Spain is greener than it feels — mostly forest and farmland.`],
-    [0, `🤔 Surprising? More than half of Spain is forest or agricultural land.`]
+    [86, `🏆 Germany expert — you know this industrial heartland in remarkable detail!`],
+    [64, `🌲 Very strong — sharp sense of Germany's surprisingly green landscape.`],
+    [43, `🚗 Not bad! Germany is greener than its car industry suggests — 80% is forest or farmland.`],
+    [21, `🏭 Germany's industrial reputation hides just how agricultural it really is.`],
+    [0, `🤔 Surprising? Germany is 50% farmland and 30% forest — far greener than its cities suggest.`]
   ],
-    btn_label: `Español`,
+    btn_label: `Deutsch`,
   },
   local: {
-    h1: `🇪🇸 ¿Cómo se usa el suelo en España?`,
-    subtitle: `Inspirado en <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">el vídeo de YouTube del Dr. Simon Clark</a> (en inglés). Adivina el porcentaje del territorio español para cada categoría — los controles están limitados al 100% en total.`,
-    disclaimer: `Las cifras de solar+batería son un experimento mental generado con la ayuda de una IA, no una recomendación política. Todas las cifras se refieren a sistemas de gran escala conectados a la red. España tiene un excelente recurso eólico (especialmente en Galicia y Castilla), así como potencial hidráulico y geotérmico. El apagón del 28 de abril de 2025 ilustra la importancia de una gestión sólida de la red, independientemente de las fuentes de energía.`,
-    submit: `Enviar mis estimaciones`,
-    play_again: `Jugar de nuevo`,
-    score: `Puntuación`,
-    land_used: `Territorio usado`,
-    remaining: `Restante`,
-    map_guess: `Tus estimaciones — mapa proporcional (se actualiza al mover)`,
-    map_answer: `Uso real del suelo en España — mapa proporcional`,
-    allocated: `/ 100% asignados`,
-    reveal: `Revelado al enviar.`,
-    out_of: `puntuación de precisión`,
-    sol100_reveal: `el almacenamiento para noches y días nublados duplica la superficie necesaria respecto a solo paneles.`,
+    h1: `🇩🇪 Wie wird Deutschlands Fläche genutzt?`,
+    subtitle: `Inspiriert von <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clarks YouTube-Kurzfilm</a> (auf Englisch). Schätze den prozentualen Anteil der deutschen Landfläche für jede Kategorie — die Regler sind auf 100 % begrenzt. Deutschland ist Europas größte Volkswirtschaft und das Geburtsland des modernen Automobils — jetzt im größten Wandel seit einem Jahrhundert.`,
+    disclaimer: `Die Solar+Batterie-Zahlen sind ein mit KI-Unterstützung erstelltes Gedankenexperiment, keine politische Empfehlung. Alle Zahlen beziehen sich auf netzgekoppelte Großanlagen. Deutschland erreichte Ende 2024 100 GW installierte Solarkapazität — davon ist jedoch der Großteil Dachanlagen, Freiflächenanlagen kommen auf ca. 30 GW. Außerdem: Volkswagen, BMW und Mercedes beschäftigen direkt 780.000 Menschen und stehen für 6 % des BIP. E-Auto-Verkäufe brachen 2024 um 27 % ein, und VW allein streicht bis 2030 35.000 Stellen, während chinesische Konkurrenten aufholen. Der Wandel von Verbrenner zu Elektro formt nicht nur die Landschaft, sondern auch die Arbeitswelt. Landnutzungsdaten vom Statistischen Bundesamt (Destatis) 2024.`,
+    submit: `Antworten absenden`,
+    play_again: `Nochmal spielen`,
+    score: `Punkte`,
+    land_used: `Fläche genutzt`,
+    remaining: `Verbleibend`,
+    map_guess: `Deine Schätzungen — proportionale Flächenkarte (aktualisiert beim Verschieben)`,
+    map_answer: `Tatsächliche Flächennutzung in Deutschland — proportionale Karte`,
+    allocated: `/ 100 % zugeteilt`,
+    reveal: `Wird nach dem Absenden angezeigt.`,
+    out_of: `Genauigkeitswert`,
+    sol100_reveal: `Deutschlands wolkenreiches Klima erfordert ca. 830 ha/TWh — mehr als in Spanien oder Australien (je ca. 615 ha/TWh). Die Speicherüberdimensionierung verdoppelt den Flächenbedarf gegenüber reinen Solarmodulen.`,
     grades: [
-    [72, `🏆 ¡Experto en territorio! Conoces España a la perfección.`],
-    [54, `🌿 Muy bien — tienes una buena visión del paisaje español.`],
-    [36, `🫒 ¡No está mal! El olivar sorprende a casi todo el mundo.`],
-    [18, `🌄 España es más verde de lo que parece — principalmente bosque y agricultura.`],
-    [0, `🤔 ¿Sorprendente? Más de la mitad de España es bosque o tierra agrícola.`]
+    [86, `🏆 Deutschland-Experte — du kennst dieses Industrieherz in beeindruckenden Details!`],
+    [64, `🌲 Sehr gut — du hast ein scharfes Gespür für Deutschlands überraschend grüne Landschaft.`],
+    [43, `🚗 Nicht schlecht! Deutschland ist grüner als seine Autoindustrie vermuten lässt — 80 % sind Wald oder Ackerland.`],
+    [21, `🏭 Deutschlands Industrieruf verdeckt, wie landwirtschaftlich das Land wirklich ist.`],
+    [0, `🤔 Überraschend? Deutschland ist zu 50 % Ackerland und zu 30 % Wald — viel grüner als seine Städte vermuten lassen.`]
   ],
     btn_label: `English`,
   },
@@ -250,7 +230,7 @@ const STRINGS = {
 let currentLang = 'local';
 let submitted = false;
 let totalScore = 0;
-let CATS = currentLang === 'local' ? [...CATS_LO] : [...CATS_EN];
+let CATS = [...CATS_LO];
 let MAIN_CATS = CATS.filter(c => !c.readOnly);
 
 function applyLang(lang) {
@@ -279,7 +259,7 @@ function applyLang(lang) {
   if (finalSub) finalSub.textContent = s.out_of;
   const btn = document.getElementById('lang-btn');
   if (btn) btn.textContent = s.btn_label;
-  if (document.getElementById('world-card').style.display === 'block') renderWorldCard();
+  if (document.getElementById('world-card') && document.getElementById('world-card').style.display === 'block') renderWorldCard();
   drawMap();
 }
 
@@ -294,37 +274,26 @@ function getVal(cat) {
   const el = document.getElementById('sl-' + cat.id);
   return el ? parseFloat(el.value) : 0;
 }
-function getMainTotal() {
-  return MAIN_CATS.reduce((s, c) => s + getVal(c), 0);
-}
+function getMainTotal() { return MAIN_CATS.reduce((s, c) => s + getVal(c), 0); }
 function clampAll(changedId) {
-  const total = MAIN_CATS.reduce((s, c) => {
-    const el = document.getElementById('sl-' + c.id);
-    return s + (el ? parseFloat(el.value) : 0);
-  }, 0);
+  const total = MAIN_CATS.reduce((s, c) => { const el = document.getElementById('sl-' + c.id); return s + (el ? parseFloat(el.value) : 0); }, 0);
   const over = total - 100;
   if (over <= 0.0001) return;
   const others = MAIN_CATS.filter(c => c.id !== changedId);
-  const othersTotal = others.reduce((s, c) => {
-    const el = document.getElementById('sl-' + c.id);
-    return s + (el ? parseFloat(el.value) : 0);
-  }, 0);
+  const othersTotal = others.reduce((s, c) => { const el = document.getElementById('sl-' + c.id); return s + (el ? parseFloat(el.value) : 0); }, 0);
   if (othersTotal <= 0) { const el = document.getElementById('sl-' + changedId); if (el) el.value = 100; return; }
   let remaining = over;
   others.forEach((cat, i) => {
-    const el = document.getElementById('sl-' + cat.id);
-    if (!el) return;
+    const el = document.getElementById('sl-' + cat.id); if (!el) return;
     const cur = parseFloat(el.value);
     const share = (i === others.length - 1) ? remaining : Math.min(cur, (cur / othersTotal) * over);
     const newVal = Math.max(0, parseFloat((cur - share).toFixed(4)));
-    remaining -= (cur - newVal);
-    el.value = newVal;
+    remaining -= (cur - newVal); el.value = newVal;
     document.getElementById('sv-' + cat.id).textContent = newVal.toFixed(cat.isSolar ? 3 : 1) + '%';
   });
 }
 function updateTotal() {
-  const t = getMainTotal();
-  const tD = Math.min(t, 100);
+  const t = getMainTotal(); const tD = Math.min(t, 100);
   document.getElementById('total-v').textContent = tD.toFixed(1) + '%';
   document.getElementById('remain-v').textContent = Math.max(0, 100 - t).toFixed(1) + '%';
   const fill = document.getElementById('tot-fill');
@@ -338,24 +307,19 @@ function drawMap() {
   let cats;
   if (submitted) {
     cats = CATS.filter(c => !c.readOnly).map(c => ({...c, pct: c.answer}));
-    const s = CATS.find(c => c.id === 'sol100');
-    if (s) cats.push({...s, pct: s.answer});
-  } else {
-    cats = MAIN_CATS.map(c => ({...c, pct: getVal(c)}));
-  }
+    const s = CATS.find(c => c.id === 'sol100'); if (s) cats.push({...s, pct: s.answer});
+  } else { cats = MAIN_CATS.map(c => ({...c, pct: getVal(c)})); }
   cats = cats.filter(c => c.pct > 0).sort((a, b) => b.pct - a.pct);
   const total = cats.reduce((s, c) => s + c.pct, 0) || 1;
   tm.innerHTML = '';
   cats.forEach(cat => {
-    const block = document.createElement('div');
-    block.className = 'tm-block';
+    const block = document.createElement('div'); block.className = 'tm-block';
     const pctStr = cat.pct < 0.01 ? cat.pct.toFixed(4) : cat.pct.toFixed(1);
     block.title = cat.name + ': ' + pctStr + '%';
     block.style.cssText = `background:${cat.color};flex:${cat.pct} 1 0%;min-width:2px;height:100%`;
     const estW = (cat.pct / total) * (tm.clientWidth || 680);
     if (estW > 22) {
-      const lbl = document.createElement('div');
-      lbl.className = 'tm-label';
+      const lbl = document.createElement('div'); lbl.className = 'tm-label';
       lbl.innerHTML = estW > 44 ? cat.icon + '<br>' + pctStr + '%' : cat.icon;
       block.appendChild(lbl);
     }
@@ -367,8 +331,7 @@ function drawMap() {
   }).join('');
 }
 function buildCards() {
-  const container = document.getElementById('cards');
-  container.innerHTML = '';
+  const container = document.getElementById('cards'); container.innerHTML = '';
   CATS.forEach(cat => {
     const div = document.createElement('div');
     div.className = 'card' + (cat.isSolar ? ' solar-card' : '');
@@ -378,8 +341,7 @@ function buildCards() {
         <div class="readout-text" id="rl-hint-sol100">${STRINGS[currentLang].reveal}</div>
         <div class="res-line" id="rl-${cat.id}"></div>`;
     } else {
-      const dp = cat.isSolar ? 3 : 1;
-      const initVal = '0.' + '0'.repeat(dp);
+      const dp = cat.isSolar ? 3 : 1; const initVal = '0.' + '0'.repeat(dp);
       div.innerHTML = `<div class="card-head"><span class="card-icon">${cat.icon}</span><span class="card-name">${cat.name}</span></div>
         <div class="card-desc">${cat.desc}</div>
         <div class="sl-row">
@@ -396,8 +358,7 @@ function buildCards() {
         document.getElementById('sv-' + cat.id).textContent = parseFloat(this.value).toFixed(dp) + '%';
         clampAll(cat.id);
         document.getElementById('sv-' + cat.id).textContent = parseFloat(document.getElementById('sl-' + cat.id).value).toFixed(dp) + '%';
-        updateTotal();
-        drawMap();
+        updateTotal(); drawMap();
       });
     }
   });
@@ -416,32 +377,26 @@ function gradeLabel(s) {
 }
 document.getElementById('sub-btn').addEventListener('click', function() {
   if (submitted) return;
-  submitted = true;
-  totalScore = 0;
+  submitted = true; totalScore = 0;
   CATS.forEach(cat => {
-    const rl = document.getElementById('rl-' + cat.id);
-    if (!rl) return;
+    const rl = document.getElementById('rl-' + cat.id); if (!rl) return;
     rl.style.display = 'block';
     if (cat.readOnly) {
-      const hint = document.getElementById('rl-hint-sol100');
-      if (hint) hint.style.display = 'none';
+      const hint = document.getElementById('rl-hint-sol100'); if (hint) hint.style.display = 'none';
       const haStr = cat.answerHa ? ' (~' + (cat.answerHa >= 1000000 ? (cat.answerHa/1000000).toFixed(1)+'M' : Math.round(cat.answerHa/1000)+'k') + ' ha)' : '';
       rl.innerHTML = '<span style="color:var(--text-secondary)">Answer: <strong style="color:#BA7517">' + cat.answer + '%</strong>' + haStr + ' — ' + STRINGS[currentLang].sol100_reveal + '</span>';
       return;
     }
-    const guess = getVal(cat);
-    const pts = scoreGuess(guess, cat.answer);
+    const guess = getVal(cat); const pts = scoreGuess(guess, cat.answer);
     totalScore += pts;
-    const diff = guess - cat.answer;
-    const sign = diff >= 0 ? '+' : '';
+    const diff = guess - cat.answer; const sign = diff >= 0 ? '+' : '';
     const dp = cat.isSolar ? 3 : 1;
-    const diffStr = Math.abs(diff) < (cat.isSolar ? 0.002 : 0.3) ? STRINGS[currentLang].spot_on || 'spot on!' : sign + diff.toFixed(dp) + '% off';
+    const diffStr = Math.abs(diff) < (cat.isSolar ? 0.002 : 0.3) ? (STRINGS[currentLang].spot_on || 'spot on!') : sign + diff.toFixed(dp) + '% off';
     const col = pts >= 80 ? '#3b6d11' : pts >= 40 ? '#ba7517' : '#a32d2d';
     const haStr = cat.answerHa ? ' (~' + (cat.answerHa >= 1000000 ? (cat.answerHa/1000000).toFixed(1)+'M' : Math.round(cat.answerHa/1000)+'k') + ' ha)' : '';
     const answerStr = cat.answer < 0.01 ? cat.answer.toFixed(4) : String(cat.answer);
     rl.innerHTML = '<span style="color:var(--text-secondary)">Answer: <strong style="color:var(--text-primary)">' + answerStr + '%</strong>' + haStr + '</span> <span style="color:' + col + ';font-weight:500">' + diffStr + ' → ' + pts + 'pts</span>';
-    const sl = document.getElementById('sl-' + cat.id);
-    if (sl) sl.disabled = true;
+    const sl = document.getElementById('sl-' + cat.id); if (sl) sl.disabled = true;
   });
   const maxScore = MAIN_CATS.length * 100;
   const scorePct = Math.round((totalScore / maxScore) * 100);
@@ -472,35 +427,31 @@ document.getElementById('rst-btn').addEventListener('click', function() {
   buildCards(); updateTotal(); setTimeout(drawMap, 50);
 });
 
-// ── WORLD-SCALE "WHAT IF [COUNTRY] ALONE POWERED THE WORLD" CARD ──
-// Uses this country's own sol100 land-per-TWh ratio (not a global blended average),
-// so sunnier/cloudier countries are compared honestly on their own solar conditions.
+// ── WORLD-SCALE CARD ──
 const WORLD_DEMAND_TWH = 31000;
-const COUNTRY_DEMAND_TWH = 260;
-const COUNTRY_SOL100_HA = 160000;
-const COUNTRY_HA = 50500000;
-const COUNTRY_LON = -3.7;
-const COUNTRY_LAT = 40.0;
-const COUNTRY_ISO = '724';
+const COUNTRY_DEMAND_TWH = 512;
+const COUNTRY_SOL100_HA = 425000;
+const COUNTRY_HA = 35800000;
+const COUNTRY_LON = 10.5;
+const COUNTRY_LAT = 51.2;
+const COUNTRY_ISO = '276';
 const HA_PER_TWH = COUNTRY_SOL100_HA / COUNTRY_DEMAND_TWH;
 const WORLD_HA_NEEDED = HA_PER_TWH * WORLD_DEMAND_TWH;
 
 const WORLD_STRINGS = {
   en: {
-    head: `🌍 What if Spain alone powered the whole world?`,
-    fit: `Powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) using Spain's own solar conditions would need about <strong>{haM} hectares</strong> — <strong>{pct}%</strong> of Spain's land area, shown below as a circle of equivalent area.`,
-    overflow: `Powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) using Spain's own solar conditions would need about <strong>{haM} hectares</strong> — <strong>{mult}× the entire country</strong>. The circle below shows that area centred on Spain — it spills well beyond the country's own borders, illustrating that solar geography and climate matter as much as land availability.`,
+    head: `🌍 What if Germany alone powered the whole world?`,
+    fit: `Powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) using Germany's own solar conditions would need about <strong>{haM} hectares</strong> — <strong>{pct}%</strong> of Germany's land area, shown below as a circle of equivalent area.`,
+    overflow: `Powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) using Germany's own solar conditions would need about <strong>{haM} hectares</strong> — <strong>{mult}× the entire country</strong>. The circle below shows that area centred on Germany — it spills beyond Germany's own borders, illustrating that solar geography and climate matter as much as land availability.`,
     foot: `The dashed circle is illustrative — sized to the correct land area, but not an actual proposed siting. It overlaps existing borders for scale only.`,
-    countryLabel: `Spain`,
-    circleLabel: `Land area needed`,
+    countryLabel: `Germany`, circleLabel: `Land area needed`,
   },
   local: {
-    head: `🌍 ¿Y si España sola abasteciera al mundo entero?`,
-    fit: `Abastecer toda la <strong>demanda eléctrica mundial</strong> (~31.000 TWh/año) usando las condiciones solares propias de España necesitaría unas <strong>{haM} hectáreas</strong> — el <strong>{pct}%</strong> del territorio español, representado abajo como un círculo de superficie equivalente.`,
-    overflow: `Abastecer toda la <strong>demanda eléctrica mundial</strong> (~31.000 TWh/año) usando las condiciones solares propias de España necesitaría unas <strong>{haM} hectáreas</strong> — <strong>{mult}× el territorio nacional</strong>. El círculo de abajo, centrado en España, se extiende ampliamente más allá de sus fronteras, mostrando que la geografía solar y el clima importan tanto como la disponibilidad de suelo.`,
-    foot: `El círculo punteado es ilustrativo — tiene el tamaño correcto, pero no es una ubicación realmente propuesta. Se superpone a fronteras existentes solo para dar escala.`,
-    countryLabel: `España`,
-    circleLabel: `Superficie necesaria`,
+    head: `🌍 Was wäre, wenn Deutschland allein die ganze Welt mit Strom versorgte?`,
+    fit: `Den gesamten <strong>weltweiten Strombedarf</strong> (~31.000 TWh/Jahr) mit deutschen Solarbedingungen zu decken, würde etwa <strong>{haM} Hektar</strong> benötigen — <strong>{pct}%</strong> der deutschen Landfläche, unten als flächengleicher Kreis dargestellt.`,
+    overflow: `Den gesamten <strong>weltweiten Strombedarf</strong> (~31.000 TWh/Jahr) mit deutschen Solarbedingungen zu decken, würde etwa <strong>{haM} Hektar</strong> benötigen — <strong>{mult}× die Fläche des gesamten Landes</strong>. Der Kreis unten zeigt dieses Gebiet, zentriert auf Deutschland — er reicht über Deutschlands Grenzen hinaus und verdeutlicht, dass die Solargeographie und das Klima genauso wichtig sind wie die Flächenverfügbarkeit.`,
+    foot: `Der gestrichelte Kreis ist illustrativ — auf die korrekte Landfläche bemessen, aber kein tatsächlicher Vorschlag. Er überlappt bestehende Grenzen nur zur Maßstabsdarstellung.`,
+    countryLabel: `Deutschland`, circleLabel: `Benötigte Fläche`,
   },
 };
 
@@ -510,12 +461,10 @@ function renderWorldCard() {
   const legendEl = document.getElementById('geo-legend');
   const headEl = document.getElementById('world-head');
   document.getElementById('world-card').style.display = 'block';
-
   const pctOfCountry = (WORLD_HA_NEEDED / COUNTRY_HA) * 100;
-  const millionWord = currentLang === 'local' ? 'millones' : 'million';
+  const millionWord = currentLang === 'local' ? 'Millionen' : 'million';
   const haM = WORLD_HA_NEEDED >= 1_000_000 ? (WORLD_HA_NEEDED / 1_000_000).toFixed(0) + ' ' + millionWord : Math.round(WORLD_HA_NEEDED / 1000).toLocaleString() + ',000';
   const multiple = (WORLD_HA_NEEDED / COUNTRY_HA).toFixed(1);
-
   const W = WORLD_STRINGS[currentLang];
   headEl.textContent = W.head;
   if (pctOfCountry <= 100) {
@@ -525,7 +474,6 @@ function renderWorldCard() {
   }
   footEl.textContent = W.foot;
   legendEl.innerHTML = `<span><span class="geo-dot" style="background:#8a7860;opacity:0.65"></span>${W.countryLabel}</span><span><span class="geo-dot" style="background:#EF9F27"></span>${W.circleLabel}</span>`;
-
   drawGeoMap(WORLD_HA_NEEDED);
   drawGeoInset(WORLD_HA_NEEDED);
 }
@@ -533,141 +481,56 @@ function renderWorldCard() {
 function drawGeoMap(haNeeded) {
   const container = document.getElementById('world-geo-map');
   container.innerHTML = '';
-  const width = container.clientWidth || 680;
-  const height = 280;
-
-  const svg = d3.select(container).append('svg')
-    .attr('viewBox', `0 0 ${width} ${height}`);
-
-  const projection = d3.geoOrthographic()
-    .scale(height * 0.62)
-    .translate([width / 2, height / 2])
-    .rotate([-COUNTRY_LON, -COUNTRY_LAT])
-    .clipAngle(90);
-
+  const width = container.clientWidth || 680; const height = 280;
+  const svg = d3.select(container).append('svg').attr('viewBox', `0 0 ${width} ${height}`);
+  const projection = d3.geoOrthographic().scale(height * 0.62).translate([width / 2, height / 2]).rotate([-COUNTRY_LON, -COUNTRY_LAT]).clipAngle(90);
   const path = d3.geoPath(projection);
-
-  svg.append('path')
-    .datum({ type: 'Sphere' })
-    .attr('d', path)
-    .attr('fill', '#16283c');
-
-  svg.append('path')
-    .datum(d3.geoGraticule()())
-    .attr('d', path)
-    .attr('fill', 'none')
-    .attr('stroke', '#22384f')
-    .attr('stroke-width', 0.4);
-
+  svg.append('path').datum({ type: 'Sphere' }).attr('d', path).attr('fill', '#16283c');
+  svg.append('path').datum(d3.geoGraticule()()).attr('d', path).attr('fill', 'none').attr('stroke', '#22384f').attr('stroke-width', 0.4);
   d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json').then(world => {
     const land = topojson.feature(world, world.objects.countries);
-    svg.append('g')
-      .selectAll('path')
-      .data(land.features)
-      .join('path')
-      .attr('class', 'geo-land')
-      .attr('d', path);
-
-    const countryFeature = land.features.find(f => String(f.id).padStart(3, '0') === COUNTRY_ISO);
-    if (countryFeature) {
-      svg.append('path')
-        .datum(countryFeature)
-        .attr('class', 'geo-country')
-        .attr('d', path);
-    }
-
-    const areaKm2 = haNeeded / 100;
-    const radiusKm = Math.sqrt(areaKm2 / Math.PI);
-    const earthRadiusKm = 6371;
-    const angularRadiusDeg = (radiusKm / earthRadiusKm) * (180 / Math.PI);
-
+    svg.append('g').selectAll('path').data(land.features).join('path').attr('class', 'geo-land').attr('d', path);
+    const cf = land.features.find(f => String(f.id).padStart(3,'0') === COUNTRY_ISO);
+    if (cf) svg.append('path').datum(cf).attr('class', 'geo-country').attr('d', path);
+    const areaKm2 = haNeeded / 100; const radiusKm = Math.sqrt(areaKm2 / Math.PI);
+    const angularRadiusDeg = (radiusKm / 6371) * (180 / Math.PI);
     const circleGen = d3.geoCircle().center([COUNTRY_LON, COUNTRY_LAT]).radius(angularRadiusDeg);
-    svg.append('path')
-      .datum(circleGen())
-      .attr('class', 'geo-circle')
-      .attr('d', path);
+    svg.append('path').datum(circleGen()).attr('class', 'geo-circle').attr('d', path);
   });
 }
 
 function drawGeoInset(haNeeded) {
   const container = document.getElementById('world-geo-inset');
   container.innerHTML = '';
-  const width = container.clientWidth || 300;
-  const height = 280;
-
-  const areaKm2 = haNeeded / 100;
-  const radiusKm = Math.sqrt(areaKm2 / Math.PI);
-  const earthRadiusKm = 6371;
-  const angularRadiusDeg = (radiusKm / earthRadiusKm) * (180 / Math.PI);
-
-  const svg = d3.select(container).append('svg')
-    .attr('viewBox', `0 0 ${width} ${height}`);
-
+  const width = container.clientWidth || 300; const height = 280;
+  const areaKm2 = haNeeded / 100; const radiusKm = Math.sqrt(areaKm2 / Math.PI);
+  const angularRadiusDeg = (radiusKm / 6371) * (180 / Math.PI);
+  const svg = d3.select(container).append('svg').attr('viewBox', `0 0 ${width} ${height}`);
   const targetPixelRadius = height * 0.30;
-  const degreesPerPixel = angularRadiusDeg / targetPixelRadius;
-  const scale = (180 / Math.PI) / degreesPerPixel / 2;
-
-  const projection = d3.geoMercator()
-    .center([COUNTRY_LON, COUNTRY_LAT])
-    .scale(scale)
-    .translate([width / 2, height / 2]);
-
+  const scale = (180 / Math.PI) / (angularRadiusDeg / targetPixelRadius) / 2;
+  const projection = d3.geoMercator().center([COUNTRY_LON, COUNTRY_LAT]).scale(scale).translate([width / 2, height / 2]);
   const path = d3.geoPath(projection);
-
   svg.append('rect').attr('width', width).attr('height', height).attr('fill', '#16283c');
-
-  svg.append('path')
-    .datum(d3.geoGraticule().step([5, 5])())
-    .attr('d', path)
-    .attr('fill', 'none')
-    .attr('stroke', '#22384f')
-    .attr('stroke-width', 0.4);
-
+  svg.append('path').datum(d3.geoGraticule().step([5, 5])()).attr('d', path).attr('fill', 'none').attr('stroke', '#22384f').attr('stroke-width', 0.4);
   d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json').then(world => {
     const land = topojson.feature(world, world.objects.countries);
-    svg.append('g')
-      .selectAll('path')
-      .data(land.features)
-      .join('path')
-      .attr('class', 'geo-land')
-      .attr('d', path);
-
-    const countryFeature = land.features.find(f => String(f.id).padStart(3, '0') === COUNTRY_ISO);
-    if (countryFeature) {
-      svg.append('path')
-        .datum(countryFeature)
-        .attr('class', 'geo-country')
-        .attr('d', path);
-    }
-
+    svg.append('g').selectAll('path').data(land.features).join('path').attr('class', 'geo-land').attr('d', path);
+    const cf = land.features.find(f => String(f.id).padStart(3,'0') === COUNTRY_ISO);
+    if (cf) svg.append('path').datum(cf).attr('class', 'geo-country').attr('d', path);
     const circleGen = d3.geoCircle().center([COUNTRY_LON, COUNTRY_LAT]).radius(angularRadiusDeg);
-    svg.append('path')
-      .datum(circleGen())
-      .attr('class', 'geo-circle')
-      .attr('d', path);
-
-    const niceSteps = [10, 25, 50, 100, 200, 250, 500, 1000, 2000, 5000];
-    let barKm = niceSteps.find(s => s >= radiusKm * 0.4) || niceSteps[niceSteps.length - 1];
-    const [x0, y0] = projection([COUNTRY_LON, COUNTRY_LAT]);
+    svg.append('path').datum(circleGen()).attr('class', 'geo-circle').attr('d', path);
+    const niceSteps = [10,25,50,100,200,250,500,1000,2000,5000];
+    let barKm = niceSteps.find(s => s >= radiusKm * 0.4) || 5000;
+    const [x0] = projection([COUNTRY_LON, COUNTRY_LAT]);
     const [x1] = projection([COUNTRY_LON + barKm / 111.32, COUNTRY_LAT]);
     const barPx = Math.abs(x1 - x0);
-
-    const scaleG = svg.append('g').attr('class', 'scale-bar-g');
-    scaleG.append('rect')
-      .attr('x', 8).attr('y', height - 26)
-      .attr('width', barPx).attr('height', 2.5)
-      .attr('fill', '#fff');
-    scaleG.append('text')
-      .attr('x', 8).attr('y', height - 12)
-      .attr('fill', '#fff')
-      .attr('font-size', 10)
-      .attr('style', 'text-shadow:0 1px 2px rgba(0,0,0,.6)')
-      .text(`${barKm.toLocaleString()} km`);
+    const g = svg.append('g');
+    g.append('rect').attr('x', 8).attr('y', height - 26).attr('width', barPx).attr('height', 2.5).attr('fill', '#fff');
+    g.append('text').attr('x', 8).attr('y', height - 12).attr('fill', '#fff').attr('font-size', 10).attr('style','text-shadow:0 1px 2px rgba(0,0,0,.6)').text(barKm.toLocaleString() + ' km');
   });
-
   const labelDiv = document.createElement('div');
   labelDiv.className = 'geo-inset-label';
-  labelDiv.textContent = 'Zoomed view';
+  labelDiv.textContent = currentLang === 'local' ? 'Vergrößerte Ansicht' : 'Zoomed view';
   container.style.position = 'relative';
   container.appendChild(labelDiv);
 }
