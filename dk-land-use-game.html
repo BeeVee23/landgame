@@ -104,7 +104,7 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 <body>
 <div class="page">
   <button class="lang-toggle" id="lang-btn" onclick="toggleLang()">English</button>
-  <h1>🇩🇰 How is Denmark's land actually used?</h1>
+  <h1><img src="https://flagcdn.com/32x24/dk.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Denmark's land actually used?</h1>
   <p class="subtitle">Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Danish land for each category — sliders are capped at 100% total. Denmark is one of the world's most intensively farmed nations — yet it is also a global pioneer in wind energy, generating more than half its electricity from turbines.</p>
 
   <div class="disclaimer"><strong>Note:</strong> The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. Denmark reached 4 GW of total solar capacity at the end of 2024 — most is rooftop; utility-scale ground-mounted is roughly 2.4 GW. Denmark's high latitude (~56°N) and frequent cloud cover mean more land is needed per TWh than in southern Europe; in practice, wind power already supplies ~55% of Danish electricity and offshore wind is expected to do most of the heavy lifting. Land use figures sourced from Eurostat LUCAS survey 2022 and Danmarks Statistik.</div>
@@ -181,7 +181,7 @@ const CATS_LO = [
 
 const STRINGS = {
   en: {
-    h1: `🇩🇰 How is Denmark's land actually used?`,
+    h1: `<img src="https://flagcdn.com/32x24/dk.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Denmark's land actually used?`,
     subtitle: `Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Danish land for each category — sliders are capped at 100% total. Denmark is one of the world's most intensively farmed nations — yet it is also a global pioneer in wind energy, generating more than half its electricity from turbines.`,
     disclaimer: `The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. Denmark reached 4 GW of total solar capacity at the end of 2024 — most is rooftop; utility-scale ground-mounted is roughly 2.4 GW. Denmark's high latitude (~56°N) and frequent cloud cover mean more land is needed per TWh than in southern Europe; in practice, wind power already supplies ~55% of Danish electricity and offshore wind is expected to do most of the heavy lifting. Land use figures sourced from Eurostat LUCAS survey 2022 and Danmarks Statistik.`,
     submit: `Submit all guesses`,
@@ -202,7 +202,7 @@ const STRINGS = {
     btn_label: `Dansk`,
   },
   local: {
-    h1: `🇩🇰 Hvordan bruges Danmarks jord egentlig?`,
+    h1: `<img src="https://flagcdn.com/32x24/dk.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> Hvordan bruges Danmarks jord egentlig?`,
     subtitle: `Inspireret af <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clarks YouTube-kort</a> (på engelsk). Gæt den procentdel af det danske areal for hver kategori — reglementer er begrænset til 100 % i alt. Danmark er en af verdens mest intensivt dyrkede nationer — og alligevel en global pioner inden for vindenergi, der producerer mere end halvdelen af sin elektricitet fra vindmøller.`,
     disclaimer: `Solar+batteri-tallene er et tankeeksperiment udarbejdet med hjælp fra en AI og er ikke en politisk anbefaling. Alle solar+batteri-tal henviser til storskalasol, nettilsluttede anlæg. Danmark nåede 4 GW samlet solkapacitet i slutningen af 2024 — det meste er taganlæg; storskalasol på terræn udgør ca. 2,4 GW. Danmarks høje breddegrad (~56°N) og hyppige skydække betyder, at der kræves mere jord pr. TWh end i Sydeuropa; i praksis leverer vindkraft allerede ~55 % af dansk el, og havvind forventes at gøre det tunge løft. Arealanvendelsesdata fra Eurostat LUCAS 2022 og Danmarks Statistik.`,
     submit: `Indsend alle svar`,

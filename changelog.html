@@ -44,6 +44,18 @@ ul li strong { color: var(--ink); font-weight: 500; }
 
   <div class="entry">
     <div class="entry-header">
+      <span class="version">v4.7.1</span>
+      <span class="date">2026</span>
+      <span class="badge badge-patch">patch</span>
+    </div>
+    <ul>
+      <li><strong>Flag images in all games</strong> — Chrome on Windows and Linux cannot render flag emoji, displaying them as two-letter codes (DK, FR, etc.) instead. All 15 game files and the hub now use <code>flagcdn.com</code> flag images in place of emoji, rendering correctly across all browsers and operating systems.</li>
+      <li><strong>Browser back button fixed</strong> — hitting the browser back button from inside a game now correctly returns to the world map. Root cause: setting <code>iframe.src</code> creates shadow history entries in the iframe's joint session history; the back button was stepping through those before reaching the map's <code>popstate</code>. Fixed by using <code>contentWindow.location.replace()</code> throughout, which navigates without adding history entries.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="entry-header">
       <span class="version">v4.7.0</span>
       <span class="date">2026</span>
       <span class="badge badge-minor">minor</span>

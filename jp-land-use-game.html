@@ -115,7 +115,7 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 <body>
 <div class="page">
   <button class="lang-toggle" id="lang-btn" onclick="toggleLang()">English</button>
-  <h1>🇯🇵 How is Japan's land actually used?</h1>
+  <h1><img src="https://flagcdn.com/32x24/jp.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Japan's land actually used?</h1>
   <p class="subtitle">Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Japanese land for each category — sliders are capped at 100% total. Japan is one of the world's most forested nations, yet also one of its most densely populated.</p>
   
   <div class="disclaimer"><strong>Note:</strong> The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. Japan's energy future will require diverse renewables — offshore wind is considered the key technology given Japan's limited flat land, and the country is also investing heavily in hydrogen, geothermal, and tidal energy. Japan's mountainous terrain makes large-scale ground-mounted solar challenging, which is reflected in the relatively large land area needed. Land use figures are approximate and sourced from official Japanese government statistics.</div>
@@ -194,7 +194,7 @@ const CATS_LO = [
 
 const STRINGS = {
   en: {
-    h1: `🇯🇵 How is Japan's land actually used?`,
+    h1: `<img src="https://flagcdn.com/32x24/jp.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Japan's land actually used?`,
     subtitle: `Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Japanese land for each category — sliders are capped at 100% total. Japan is one of the world's most forested nations, yet also one of its most densely populated.`,
     disclaimer: `The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. Japan's energy future will require diverse renewables — offshore wind is considered the key technology given Japan's limited flat land, and the country is also investing heavily in hydrogen, geothermal, and tidal energy. Japan's mountainous terrain makes large-scale ground-mounted solar challenging, which is reflected in the relatively large land area needed. Land use figures are approximate and sourced from official Japanese government statistics.`,
     submit: `Submit all guesses`,
@@ -218,7 +218,7 @@ const STRINGS = {
     btn_label: `日本語`,
   },
   local: {
-    h1: `🇯🇵 日本の土地はどのように使われているか？`,
+    h1: `<img src="https://flagcdn.com/32x24/jp.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> 日本の土地はどのように使われているか？`,
     subtitle: `<a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">サイモン・クラーク博士のYouTubeショート</a>（英語）に着想を得て。各カテゴリの日本の土地の割合を推測してください — スライダーは合計100%に制限されています。日本は世界で最も森林に覆われた国のひとつであり、同時に最も人口密度が高い国のひとつです。`,
     disclaimer: `太陽光+蓄電池の数値はAIの支援を受けて生成された思考実験であり、政策提言ではありません。すべての数値は電力系統に接続された産業規模のシステムを指しています。日本のエネルギーの未来には多様な再生可能エネルギーが必要です。土地利用データは日本政府の公式統計に基づいています。`,
     submit: `回答を送信する`,

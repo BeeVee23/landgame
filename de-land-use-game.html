@@ -104,7 +104,7 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 <body>
 <div class="page">
   <button class="lang-toggle" id="lang-btn" onclick="toggleLang()">English</button>
-  <h1>🇩🇪 How is Germany's land actually used?</h1>
+  <h1><img src="https://flagcdn.com/32x24/de.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Germany's land actually used?</h1>
   <p class="subtitle">Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of German land for each category — sliders are capped at 100% total. Germany is Europe's largest economy and the birthplace of the modern car industry — now facing its most turbulent transition in a century.</p>
   
   <div class="disclaimer"><strong>Note:</strong> The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. Germany reached 100 GW of total solar capacity at the end of 2024, but most is rooftop — utility-scale ground-mounted is roughly 30 GW. Germany's cloudier climate means more land is needed per TWh than in Spain or Australia; wind power (especially offshore in the North Sea) is likely to do more heavy lifting than solar alone. Note also: Germany's car industry — Volkswagen, BMW, Mercedes — directly employs 780,000 people and represents 6% of GDP. EV sales fell 27% in 2024 and VW alone is cutting 35,000 jobs by 2030 as Chinese rivals overtake it. The transition from ICE to EV is reshaping not just the land but the workforce. Land use figures sourced from Destatis (Federal Statistical Office) 2024.</div>
@@ -181,7 +181,7 @@ const CATS_LO = [
 
 const STRINGS = {
   en: {
-    h1: `🇩🇪 How is Germany's land actually used?`,
+    h1: `<img src="https://flagcdn.com/32x24/de.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Germany's land actually used?`,
     subtitle: `Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of German land for each category — sliders are capped at 100% total. Germany is Europe's largest economy and the birthplace of the modern car industry — now facing its most turbulent transition in a century.`,
     disclaimer: `The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. Germany reached 100 GW of total solar capacity at the end of 2024, but most is rooftop — utility-scale ground-mounted is roughly 30 GW. Germany's cloudier climate means more land is needed per TWh than in Spain or Australia; wind power (especially offshore in the North Sea) is likely to do more heavy lifting than solar alone. Note also: Germany's car industry — Volkswagen, BMW, Mercedes — directly employs 780,000 people and represents 6% of GDP. EV sales fell 27% in 2024 and VW alone is cutting 35,000 jobs by 2030 as Chinese rivals overtake it. The transition from ICE to EV is reshaping not just the land but the workforce. Land use figures sourced from Destatis (Federal Statistical Office) 2024.`,
     submit: `Submit all guesses`,
@@ -202,7 +202,7 @@ const STRINGS = {
     btn_label: `Deutsch`,
   },
   local: {
-    h1: `🇩🇪 Wie wird Deutschlands Fläche genutzt?`,
+    h1: `<img src="https://flagcdn.com/32x24/de.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> Wie wird Deutschlands Fläche genutzt?`,
     subtitle: `Inspiriert von <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clarks YouTube-Kurzfilm</a> (auf Englisch). Schätze den prozentualen Anteil der deutschen Landfläche für jede Kategorie — die Regler sind auf 100 % begrenzt. Deutschland ist Europas größte Volkswirtschaft und das Geburtsland des modernen Automobils — jetzt im größten Wandel seit einem Jahrhundert.`,
     disclaimer: `Die Solar+Batterie-Zahlen sind ein mit KI-Unterstützung erstelltes Gedankenexperiment, keine politische Empfehlung. Alle Zahlen beziehen sich auf netzgekoppelte Großanlagen. Deutschland erreichte Ende 2024 100 GW installierte Solarkapazität — davon ist jedoch der Großteil Dachanlagen, Freiflächenanlagen kommen auf ca. 30 GW. Außerdem: Volkswagen, BMW und Mercedes beschäftigen direkt 780.000 Menschen und stehen für 6 % des BIP. E-Auto-Verkäufe brachen 2024 um 27 % ein, und VW allein streicht bis 2030 35.000 Stellen, während chinesische Konkurrenten aufholen. Der Wandel von Verbrenner zu Elektro formt nicht nur die Landschaft, sondern auch die Arbeitswelt. Landnutzungsdaten vom Statistischen Bundesamt (Destatis) 2024.`,
     submit: `Antworten absenden`,
