@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇩🇰 Danmarks arealanvendelse</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f1117;--surface:#1a1d27;--surface2:#252836;
+  --text:#e8eaf0;--muted:#8892a4;--border:#2d3244;
+  --accent:#f4c430;--radius:8px;
+}
+@media(prefers-color-scheme:light){
+  :root{--bg:#f5f6fa;--surface:#ffffff;--surface2:#eef0f7;
+    --text:#1a1d27;--muted:#5a6275;--border:#d0d5e3;}
+}
+body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif;line-height:1.5;padding:1rem}
+.page{max-width:900px;margin:0 auto}
+.header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.5rem}
+.header h1{font-size:1.4rem;font-weight:700}
+.version-badge{font-size:.7rem;color:var(--muted);margin-top:.2rem}
+.lang-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:.35rem .7rem;cursor:pointer;font-size:.85rem;white-space:nowrap}
+.lang-btn:hover{border-color:var(--accent)}
+.subtitle{color:var(--muted);font-size:.9rem;margin-bottom:.75rem}
+.source{font-size:.78rem;color:var(--muted);margin-bottom:1.5rem}
+.source a{color:var(--muted);text-decoration:underline}
+#treemap{width:100%;height:50px;border-radius:6px;overflow:hidden;display:flex;margin-bottom:1.5rem;border:1px solid var(--border)}
+.tm-seg{height:100%;transition:width .12s;position:relative;min-width:0}
+.tm-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:.75rem;overflow:hidden;white-space:nowrap;padding:0 3px}
+.categories{display:grid;gap:.75rem;margin-bottom:1.5rem}
+.cat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;display:grid;grid-template-columns:2rem 1fr auto;gap:.3rem .75rem;align-items:start}
+.cat-icon{font-size:1.3rem;grid-row:1/3;padding-top:.1rem}
+.cat-name{font-weight:600;font-size:.95rem}
+.cat-desc{color:var(--muted);font-size:.82rem;grid-column:2/4;margin-top:-.1rem}
+.cat-slider-row{grid-column:2/4;display:flex;align-items:center;gap:.5rem;margin-top:.25rem}
+.cat-slider-row input[type=range]{flex:1;accent-color:var(--accent)}
+.cat-val{font-size:.9rem;font-weight:600;min-width:4.5ch;text-align:right;color:var(--accent)}
+.submit-row{display:flex;justify-content:center;margin-bottom:2rem}
+.submit-btn{background:var(--accent);color:#111;border:none;border-radius:8px;padding:.7rem 2.2rem;font-size:1rem;font-weight:700;cursor:pointer}
+.submit-btn:hover{opacity:.9}
+.submit-btn:disabled{opacity:.45;cursor:not-allowed}
+#results{display:none}
+.score-banner{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;text-align:center;margin-bottom:1.25rem}
+.score-pct{font-size:3rem;font-weight:800;color:var(--accent)}
+.score-grade{font-size:1.05rem;font-weight:600;margin:.2rem 0}
+.score-sub{color:var(--muted);font-size:.83rem}
+.result-row{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:.75rem 1rem;margin-bottom:.5rem;display:grid;grid-template-columns:1.8rem 1fr auto;gap:.2rem .6rem;align-items:center}
+.result-icon{font-size:1.15rem}
+.result-name{font-weight:600;font-size:.88rem}
+.result-pts{font-size:.78rem;color:var(--muted);white-space:nowrap}
+.result-bar-row{grid-column:2/4;display:flex;align-items:center;gap:.5rem}
+.result-bar-bg{flex:1;height:7px;background:var(--surface2);border-radius:4px;overflow:hidden}
+.result-bar-fill{height:100%;border-radius:4px}
+.result-bar-text{font-size:.75rem;color:var(--muted);white-space:nowrap}
+.result-note{grid-column:2/4;font-size:.76rem;color:var(--muted);margin-top:.15rem;font-style:italic}
+.reveal-card{background:linear-gradient(135deg,rgba(255,140,0,.13),rgba(244,196,48,.07));border:1px solid rgba(255,140,0,.45);border-radius:var(--radius);padding:1rem 1.1rem;margin-bottom:.75rem;margin-top:.25rem}
+.reveal-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#ff8c00;margin-bottom:.4rem}
+.reveal-title{font-weight:700;margin-bottom:.2rem}
+.reveal-pct{font-size:1.6rem;font-weight:800;color:#ff8c00}
+.reveal-ha{font-size:.82rem;color:var(--muted);margin-top:.1rem}
+.reveal-note{font-size:.82rem;color:var(--muted);margin-top:.4rem}
+#world-card{display:none;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-top:1.25rem}
+.wc-title{font-weight:700;font-size:1.05rem;margin-bottom:.2rem}
+.wc-sub{color:var(--muted);font-size:.85rem;margin-bottom:1rem}
+.wc-stat{font-size:.88rem;margin:.65rem 0;padding:.65rem .85rem;background:var(--surface2);border-radius:6px;line-height:1.55}
+.wc-stat strong{color:var(--accent)}
+.globe-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:.75rem 0}
+#globe-svg,#inset-svg{width:100%;border-radius:6px}
+.back-link{display:block;text-align:center;margin-top:2rem;color:var(--muted);font-size:.85rem;text-decoration:none}
+.back-link:hover{color:var(--text)}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <div>
+      <h1 id="h-title"></h1>
+      <div class="version-badge">v4.7.0</div>
+    </div>
+    <button class="lang-btn" id="lang-btn" onclick="toggleLang()"></button>
+  </div>
+  <p class="subtitle" id="h-subtitle"></p>
+  <p class="source" id="h-source"></p>
+
+  <div id="treemap"></div>
+  <div class="categories" id="cats-container"></div>
+
+  <div class="submit-row">
+    <button class="submit-btn" id="submit-btn" onclick="submitGuess()">
+      <span id="h-submit"></span>
+    </button>
+  </div>
+
+  <div id="results">
+    <div class="score-banner">
+      <div class="score-pct" id="score-pct">—</div>
+      <div class="score-grade" id="score-grade"></div>
+      <div class="score-sub" id="score-sub"></div>
+    </div>
+    <div id="result-rows"></div>
+    <div id="reveal-section"></div>
+    <div id="world-card">
+      <div class="wc-title" id="wc-title"></div>
+      <div class="wc-sub" id="wc-sub"></div>
+      <div class="wc-stat" id="wc-stat1"></div>
+      <div class="globe-row">
+        <svg id="globe-svg" viewBox="0 0 280 280"></svg>
+        <svg id="inset-svg" viewBox="0 0 280 280"></svg>
+      </div>
+      <div class="wc-stat" id="wc-stat2"></div>
+      <div class="wc-stat" id="wc-stat3"></div>
+    </div>
+  </div>
+
+  <a href="index.html" class="back-link" id="h-back"></a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
+
+const CATS_LO = [
+  {id:`agr`, icon:`🌾`, name:`Landbrug`, desc:`Markjord, græsarealer og haver — Danmark har verdens højeste andel af dyrkbar jord. Mere end 60 % af landet er landbrugsjord.`, answer:62.7, color:`#8db87a`, max:100, step:0.5, answerHa:2702000},
+  {id:`frs`, icon:`🌲`, name:`Skov`, desc:`Skovarealer og plantager — Danmarks skovdækning er tredoblet siden 1800 via aktive skovplantningsprogrammer.`, answer:15.8, color:`#2d6a4f`, max:50, step:0.5, answerHa:681000},
+  {id:`urb`, icon:`🏙️`, name:`Bebyggelse og veje`, desc:`Byer, landsbyer, veje og infrastruktur — inkl. Danmarks verdensberømte cykelinfrastruktur.`, answer:13.0, color:`#e8c07d`, max:50, step:0.5, answerHa:560000},
+  {id:`nat`, icon:`🌿`, name:`Naturarealer`, desc:`Hede, mose, klitter og strande — Jyllands hede er et af Danmarks mest ikoniske naturlandskaber.`, answer:6.0, color:`#c4a882`, max:30, step:0.5, answerHa:259000},
+  {id:`wat`, icon:`💧`, name:`Vand`, desc:`Søer, åer, vådområder og fjorde — Danmark har over 700 søer større end 1 hektar.`, answer:2.5, color:`#4a90d9`, max:15, step:0.1, answerHa:108000},
+  {id:`glf`, icon:`⛳`, name:`Golfbaner`, desc:`Ca. 180 golfbaner × ~58 ha = ~10.500 ha. Overraskende tæt på Danmarks storskalasol-anlæg.`, answer:0.24, color:`#6cbf6c`, max:2, step:0.01, answerHa:10500},
+  {id:`sol`, icon:`☀️`, name:`Storskalasol`, desc:`Ca. 2,4 GW jordbaserede solanlæg (60% af 4 GW i alt) ved ~2,5 ha/MW ≈ 6.000 ha.`, answer:0.14, color:`#f4c430`, max:2, step:0.01, answerHa:6000, isSolar:true, solarNote:`Danmark nåede 4 GW solcellekapacitet i alt i 2024 og sigter mod 20 GW inden 2030. Ca. 60% er storskalasol på terræn.`},
+  {id:`s100`, icon:`⚡`, name:`Sol til 100% el`, desc:`Hvis Danmarks elektricitet kom udelukkende fra solceller — hvor meget land ville være dækket?`, answer:0.77, color:`#ff8c00`, max:10, step:0.01, answerHa:33250, readOnly:true, solarNote:`Danmark bruger ~35 TWh/år el. Med ~950 ha/TWh (Danmarks overskyede klima) kræves ~33.250 ha — 0,77% af Danmarks areal. I virkeligheden leverer vind ~55% af dansk el — ikke sol.`}
+];
+const CATS_EN = [
+  {id:`agr`, icon:`🌾`, name:`Agriculture`, desc:`Cropland, pasture and market gardens — Denmark has the highest share of arable land of any country in the world. Over 60% is farmland.`, answer:62.7, color:`#8db87a`, max:100, step:0.5, answerHa:2702000},
+  {id:`frs`, icon:`🌲`, name:`Forest`, desc:`Woodland and managed forests — Denmark has tripled its forest cover since 1800 through active planting programmes.`, answer:15.8, color:`#2d6a4f`, max:50, step:0.5, answerHa:681000},
+  {id:`urb`, icon:`🏙️`, name:`Settlement & roads`, desc:`Cities, towns, villages and all roads and infrastructure — including Denmark's world-famous cycling infrastructure.`, answer:13.0, color:`#e8c07d`, max:50, step:0.5, answerHa:560000},
+  {id:`nat`, icon:`🌿`, name:`Natural areas`, desc:`Heathland, bogs, dunes and beaches — the Jutland heathland is one of Denmark's most iconic landscapes.`, answer:6.0, color:`#c4a882`, max:30, step:0.5, answerHa:259000},
+  {id:`wat`, icon:`💧`, name:`Water`, desc:`Lakes, rivers, wetlands and fjords — Denmark has over 700 lakes larger than 1 hectare.`, answer:2.5, color:`#4a90d9`, max:15, step:0.1, answerHa:108000},
+  {id:`glf`, icon:`⛳`, name:`Golf courses`, desc:`About 180 golf courses × ~58 ha each ≈ 10,500 ha. Surprisingly close to Denmark's utility-scale solar farms.`, answer:0.24, color:`#6cbf6c`, max:2, step:0.01, answerHa:10500},
+  {id:`sol`, icon:`☀️`, name:`Solar farms`, desc:`~2.4 GW ground-mounted utility solar (60% of 4 GW total) at ~2.5 ha/MW ≈ 6,000 ha.`, answer:0.14, color:`#f4c430`, max:2, step:0.01, answerHa:6000, isSolar:true, solarNote:`Denmark reached 4 GW total solar capacity in 2024, targeting 20 GW by 2030. Around 60% is utility-scale ground-mounted.`},
+  {id:`s100`, icon:`⚡`, name:`Solar for 100% electricity`, desc:`If Denmark's electricity came entirely from solar panels — how much land would be covered?`, answer:0.77, color:`#ff8c00`, max:10, step:0.01, answerHa:33250, readOnly:true, solarNote:`Denmark uses ~35 TWh/yr. At ~950 ha/TWh (Denmark's cloudy climate), you'd need ~33,250 ha — 0.77% of Denmark. In reality, wind provides ~55% of Danish electricity — not solar.`}
+];
+
+const STRINGS = {
+  lo: {
+    title:`🇩🇰 Danmarks arealanvendelse`,
+    subtitle:`Gæt, hvordan Danmarks 4,31 mio. hektar faktisk bruges`,
+    sourceHtml:`Kilder: <a href="https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Land_use_statistics" target="_blank">Eurostat LUCAS 2022</a>, <a href="https://www.dst.dk/en" target="_blank">Danmarks Statistik</a>, <a href="https://strategicenergy.eu/dinamarca-4-gw-capacidad-solar-2024/" target="_blank">Dansk Solcelleforening 2024</a>`,
+    submit:`Indsend gæt`,
+    back:`← Verdenskort`,
+    revealLabel:`AFSLØRET EFTER INDSENDELSE`,
+    pts:`point`,
+    yourGuess:`Dit gæt`,
+    answer:`Svar`,
+    wcTitle:`🌍 Hvad hvis Danmark skulle forsyne verden med sol?`,
+    wcSub:`Verden bruger ~31.000 TWh/år el. Hvor meget af Danmarks areal ville det kræve med solceller?`,
+    wcStat1:`Med Danmarks solforhold (~950 ha/TWh) ville det kræve <strong>{ha} mio. ha</strong> — svarende til <strong>{pct}% af Danmarks landareal</strong>.`,
+    wcStat2:`Det er mere end 6× hele Danmarks areal. Danmark er for nordligt og overskyget til at eksportere sol-el — men vindenergi er en helt anden sag.`,
+    wcStat3:`I 2024 kom ~55% af dansk el fra vind. Danmark eksporterer allerede vindstrøm til Europa og har 20 GW solmål inden 2030.`,
+    langBtn:`EN`,
+    grade:[[95, `Landmåler! 🗺️`], [85, `Imponerende! 🎯`], [70, `Godt gættet! 👍`], [50, `Nogenlunde 😐`], [30, `Under middel 😬`], [0, `Prøv igen! 🙈`]],
+  },
+  en: {
+    title:`🇩🇰 How is land used in Denmark?`,
+    subtitle:`Guess how Denmark's 4.31 million hectares are actually used`,
+    sourceHtml:`Sources: <a href="https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Land_use_statistics" target="_blank">Eurostat LUCAS 2022</a>, <a href="https://www.dst.dk/en" target="_blank">Statistics Denmark</a>, <a href="https://strategicenergy.eu/dinamarca-4-gw-capacidad-solar-2024/" target="_blank">Dansk Solcelleforening 2024</a>`,
+    submit:`Submit guess`,
+    back:`← World map`,
+    revealLabel:`REVEALED AFTER SUBMISSION`,
+    pts:`pts`,
+    yourGuess:`Your guess`,
+    answer:`Answer`,
+    wcTitle:`🌍 What if Denmark had to power the world with solar?`,
+    wcSub:`The world uses ~31,000 TWh/yr of electricity. How much of Denmark's land would be needed?`,
+    wcStat1:`At Denmark's solar conditions (~950 ha/TWh), it would require <strong>{ha} million ha</strong> — equivalent to <strong>{pct}% of Denmark's land area</strong>.`,
+    wcStat2:`That's more than 6× all of Denmark. Denmark is too far north and too cloudy to export solar power — but wind energy is a very different story.`,
+    wcStat3:`In 2024, ~55% of Danish electricity came from wind. Denmark already exports wind power to Europe and has a 20 GW solar target by 2030.`,
+    langBtn:`DA`,
+    grade:[[95, `Surveyor! 🗺️`], [85, `Impressive! 🎯`], [70, `Well guessed! 👍`], [50, `Not bad 😐`], [30, `Below average 😬`], [0, `Try again! 🙈`]],
+  }
+};
+
+const COUNTRY = {
+  landHa:4310000,
+  demandTwh:35,
+  sol100Ha:33250,
+  lon:10.0,
+  lat:56.3,
+  isoNum:208,
+};
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let currentLang = `lo`;
+let CATS = CATS_LO;
+let submitted = false;
+const guesses = {};
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+function init() {
+  CATS_LO.forEach(c => { guesses[c.id] = c.max / 2; });
+  applyLang(`lo`);
+}
+
+function applyLang(lang) {
+  currentLang = lang;
+  CATS = lang === `lo` ? CATS_LO : CATS_EN;
+  const S = STRINGS[lang];
+  document.documentElement.lang = lang === `lo` ? `da` : `en`;
+  document.getElementById(`h-title`).textContent    = S.title;
+  document.getElementById(`h-subtitle`).textContent = S.subtitle;
+  document.getElementById(`h-source`).innerHTML     = S.sourceHtml;
+  document.getElementById(`h-submit`).textContent   = S.submit;
+  document.getElementById(`h-back`).textContent     = S.back;
+  document.getElementById(`lang-btn`).textContent   = S.langBtn;
+  renderCats();
+  renderTreemap();
+  if (submitted) {
+    renderResults();
+    if (document.getElementById(`world-card`).style.display === `block`) renderWorldCard();
+  }
+}
+
+function toggleLang() {
+  applyLang(currentLang === `lo` ? `en` : `lo`);
+}
+
+// ── CATEGORIES ────────────────────────────────────────────────────────────────
+function fmtPct(val, step) {
+  const d = step < 0.1 ? 2 : step < 1 ? 1 : 0;
+  return val.toFixed(d) + `%`;
+}
+
+function renderCats() {
+  const container = document.getElementById(`cats-container`);
+  container.innerHTML = ``;
+  CATS.filter(c => !c.readOnly).forEach(c => {
+    const val = guesses[c.id] ?? c.max / 2;
+    const card = document.createElement(`div`);
+    card.className = `cat-card`;
+    card.innerHTML = `
+      <span class="cat-icon">${c.icon}</span>
+      <span class="cat-name">${c.name}</span>
+      <span class="cat-desc">${c.desc}</span>
+      <div class="cat-slider-row">
+        <input type="range" min="0" max="${c.max}" step="${c.step}" value="${val}"
+          oninput="onSlide('${c.id}', +this.value)" ${submitted?`disabled`:``}>
+        <span class="cat-val" id="val-${c.id}">${fmtPct(val, c.step)}</span>
+      </div>`;
+    container.appendChild(card);
+  });
+}
+
+function onSlide(id, val) {
+  guesses[id] = val;
+  const cat = CATS.find(c => c.id === id);
+  const el = document.getElementById(`val-${id}`);
+  if (el) el.textContent = fmtPct(val, cat.step);
+  renderTreemap();
+}
+
+// ── TREEMAP ───────────────────────────────────────────────────────────────────
+function renderTreemap() {
+  const tm = document.getElementById(`treemap`);
+  tm.innerHTML = ``;
+  const mainCats = CATS.filter(c => !c.readOnly && c.max >= 10); // only major cats in treemap
+  const total = mainCats.reduce((s,c) => s + (guesses[c.id] ?? 0), 0) || 1;
+  mainCats.forEach(c => {
+    const pct = ((guesses[c.id] ?? 0) / total) * 100;
+    const seg = document.createElement(`div`);
+    seg.className = `tm-seg`;
+    seg.style.cssText = `width:${pct.toFixed(2)}%;background:${c.color}`;
+    if (pct > 5) seg.innerHTML = `<div class="tm-label">${c.icon}</div>`;
+    tm.appendChild(seg);
+  });
+}
+
+// ── SCORING ───────────────────────────────────────────────────────────────────
+function scoreOne(guess, answer) {
+  if (answer === 0) return guess === 0 ? 100 : 0;
+  const relErr = Math.abs(guess - answer) / answer;
+  return Math.max(0, Math.round(100 * (1 - relErr)));
+}
+
+function getGrade(pct) {
+  const grades = STRINGS[currentLang].grade;
+  for (const [thresh, label] of grades) {
+    if (pct >= thresh) return label;
+  }
+  return grades[grades.length - 1][1];
+}
+
+// ── SUBMIT ────────────────────────────────────────────────────────────────────
+function submitGuess() {
+  if (submitted) return;
+  submitted = true;
+  document.getElementById(`submit-btn`).disabled = true;
+  document.querySelectorAll(`input[type=range]`).forEach(el => el.disabled = true);
+  document.getElementById(`results`).style.display = `block`;
+  renderResults();
+  document.getElementById(`world-card`).style.display = `block`;
+  setTimeout(renderWorldCard, 50);
+  document.getElementById(`results`).scrollIntoView({behavior:`smooth`});
+}
+
+function renderResults() {
+  const S = STRINGS[currentLang];
+  const mainCats = CATS.filter(c => !c.readOnly);
+  let total = 0;
+  mainCats.forEach(c => { total += scoreOne(guesses[c.id] ?? 0, c.answer); });
+  const maxScore = mainCats.length * 100;
+  const scorePct = Math.round((total / maxScore) * 100);
+
+  document.getElementById(`score-pct`).textContent = scorePct + `%`;
+  document.getElementById(`score-grade`).textContent = getGrade(scorePct);
+  document.getElementById(`score-sub`).textContent = `${total} / ${maxScore} ${S.pts}`;
+
+  const rows = document.getElementById(`result-rows`);
+  rows.innerHTML = ``;
+  mainCats.forEach(c => {
+    const pts  = scoreOne(guesses[c.id] ?? 0, c.answer);
+    const g    = fmtPct(guesses[c.id] ?? 0, c.step);
+    const a    = fmtPct(c.answer, c.step);
+    const haK  = c.answerHa >= 1000 ? `~${(c.answerHa/1000).toFixed(0)}k ha` : `~${c.answerHa} ha`;
+    const note = (c.isSolar && c.solarNote) ? `<div class="result-note">${c.solarNote}</div>` : ``;
+    const row  = document.createElement(`div`);
+    row.className = `result-row`;
+    row.innerHTML = `
+      <span class="result-icon">${c.icon}</span>
+      <span class="result-name">${c.name}</span>
+      <span class="result-pts">${pts} ${S.pts}</span>
+      <div class="result-bar-row">
+        <div class="result-bar-bg"><div class="result-bar-fill" style="width:${pts}%;background:${c.color}"></div></div>
+        <span class="result-bar-text">${S.yourGuess}: ${g} → ${S.answer}: ${a} (${haK})</span>
+      </div>${note}`;
+    rows.appendChild(row);
+  });
+
+  // Reveal readOnly (sol100)
+  const s100 = CATS.find(c => c.readOnly);
+  if (s100) {
+    document.getElementById(`reveal-section`).innerHTML = `
+      <div class="reveal-card">
+        <div class="reveal-label">${S.revealLabel}</div>
+        <div class="reveal-title">${s100.icon} ${s100.name}</div>
+        <div class="reveal-pct">${fmtPct(s100.answer, s100.step)}</div>
+        <div class="reveal-ha">≈ ${(s100.answerHa/1000).toFixed(1)}k ha (~${(s100.answerHa/1000).toFixed(0)} km²)</div>
+        <div class="reveal-note">${s100.solarNote ?? s100.desc}</div>
+      </div>`;
+  }
+}
+
+// ── WORLD CARD ────────────────────────────────────────────────────────────────
+function renderWorldCard() {
+  const S = STRINGS[currentLang];
+  const haPerTwh  = COUNTRY.sol100Ha / COUNTRY.demandTwh;
+  const worldHa   = Math.round(31000 * haPerTwh);
+  const worldPct  = (worldHa / COUNTRY.landHa * 100).toFixed(0);
+  const worldMHa  = (worldHa / 1e6).toFixed(1);
+
+  document.getElementById(`wc-title`).textContent = S.wcTitle;
+  document.getElementById(`wc-sub`).textContent   = S.wcSub;
+  document.getElementById(`wc-stat1`).innerHTML   = S.wcStat1
+    .replace(`{ha}`, worldMHa).replace(`{pct}`, worldPct);
+  document.getElementById(`wc-stat2`).textContent = S.wcStat2;
+  document.getElementById(`wc-stat3`).textContent = S.wcStat3;
+
+  drawGlobe();
+  drawInset();
+}
+
+let _worldTopo = null;
+async function getWorldTopo() {
+  if (_worldTopo) return _worldTopo;
+  const r = await fetch(`https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json`);
+  _worldTopo = await r.json();
+  return _worldTopo;
+}
+
+async function drawGlobe() {
+  const topo = await getWorldTopo();
+  const svg  = d3.select(`#globe-svg`);
+  svg.selectAll(`*`).remove();
+  const W = 280, H = 280, R = 128;
+  const proj = d3.geoOrthographic()
+    .scale(R).translate([W/2, H/2])
+    .rotate([-COUNTRY.lon, -COUNTRY.lat * 0.4]);
+  const path = d3.geoPath(proj);
+  const countries = topojson.feature(topo, topo.objects.countries);
+
+  svg.append(`circle`).attr(`cx`,W/2).attr(`cy`,H/2).attr(`r`,R)
+    .attr(`fill`,`#1a3a5c`).attr(`stroke`,`#2d5a8c`).attr(`stroke-width`,1);
+  svg.selectAll(`.land`).data(countries.features).enter()
+    .append(`path`).attr(`class`,`land`)
+    .attr(`d`, path)
+    .attr(`fill`, d => +d.id === COUNTRY.isoNum ? `#f4c430` : `#2d6a4f`)
+    .attr(`stroke`,`#111`).attr(`stroke-width`,.35);
+
+  let angle = 0;
+  const timer = d3.interval(() => {
+    angle += 0.4;
+    proj.rotate([-COUNTRY.lon - angle, -COUNTRY.lat * 0.25]);
+    svg.selectAll(`.land`).attr(`d`, path);
+    if (angle > 360) timer.stop();
+  }, 40);
+}
+
+async function drawInset() {
+  const topo = await getWorldTopo();
+  const svg  = d3.select(`#inset-svg`);
+  svg.selectAll(`*`).remove();
+  const W = 280, H = 280;
+  const proj = d3.geoMercator()
+    .center([COUNTRY.lon, COUNTRY.lat])
+    .scale(1100)
+    .translate([W/2, H/2]);
+  const path = d3.geoPath(proj);
+  const countries = topojson.feature(topo, topo.objects.countries);
+
+  svg.append(`rect`).attr(`width`,W).attr(`height`,H).attr(`fill`,`#1a3a5c`);
+  svg.selectAll(`.land`).data(countries.features).enter()
+    .append(`path`).attr(`class`,`land`)
+    .attr(`d`, path)
+    .attr(`fill`, d => +d.id === COUNTRY.isoNum ? `#f4c430` : `#3d7a54`)
+    .attr(`stroke`,`#111`).attr(`stroke-width`,.4);
+}
+
+// ── BOOT ──────────────────────────────────────────────────────────────────────
+init();
+</script>
+</body>
+</html>
