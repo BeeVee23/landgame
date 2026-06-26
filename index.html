@@ -372,7 +372,7 @@ html, body {
       <span class="site-title">How is land actually used?</span>
       <div class="site-right">
         <span class="site-tag">A guessing game</span>
-        <a href="changelog.html" class="site-version" style="text-decoration:none;">v4.7.1</a>
+        <a href="changelog.html" class="site-version" style="text-decoration:none;">v4.8.0</a>
       </div>
     </div>
   </div>
@@ -415,7 +415,7 @@ html, body {
   <nav class="game-nav">
     <button class="back-btn" id="back-btn">← Map</button>
     <span class="game-nav-title" id="game-nav-title"></span>
-    <a href="changelog.html" class="version-badge" target="_blank" style="text-decoration:none;">v4.7.1</a>
+    <a href="changelog.html" class="version-badge" target="_blank" style="text-decoration:none;">v4.8.0</a>
   </nav>
   <iframe id="game-iframe" src="" title="Land use game"></iframe>
 </div>
@@ -425,14 +425,14 @@ html, body {
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
 
 <script>
+// ISO numeric ID → game config
 // ISO numeric → ISO alpha-2 (for flag images; Chrome on Windows can't render flag emoji)
 const ISO_TO_ALPHA2 = {
   '036':'au','076':'br','156':'cn','208':'dk','250':'fr',
   '276':'de','356':'in','392':'jp','404':'ke','422':'lb',
-  '450':'mg','484':'mx','724':'es','826':'gb','840':'us',
+  '450':'mg','484':'mx','724':'es','818':'eg','826':'gb','840':'us',
 };
 
-// ISO numeric ID → game config
 const GAMES_BY_ISO = {
   '840': { file: 'us-land-use-game.html',          title: '🇺🇸 United States' },
   '826': { file: 'uk-land-use-game.html',          title: '🇬🇧 United Kingdom' },
@@ -449,6 +449,7 @@ const GAMES_BY_ISO = {
   '404': { file: 'ke-land-use-game.html',           title: '🇰🇪 Kenya' },
   '450': { file: 'mg-land-use-game.html',           title: '🇲🇬 Madagascar' },
   '208': { file: 'dk-land-use-game.html',           title: '🇩🇰 Denmark' },
+  '818': { file: 'eg-land-use-game.html',           title: '🇪🇬 Egypt' },
 };
 
 const landing      = document.getElementById('landing');
@@ -574,9 +575,8 @@ function setActiveCountry(iso) {
     const game = GAMES_BY_ISO[iso];
     if (game) {
       const [, ...nameParts] = game.title.split(' ');
-      const flagHtml = getFlagImg(iso, '20x15');
       document.getElementById('dropdown-btn').innerHTML =
-        `<span class="flag">${flagHtml}</span>${nameParts.join(' ')} <span class="chevron">▼</span>`;
+        `<span class="flag">${getFlagImg(iso, '20x15')}</span>${nameParts.join(' ')} <span class="chevron">▼</span>`;
     }
   } else {
     document.getElementById('dropdown-btn').innerHTML = '🌍 Select a country <span class="chevron">▼</span>';
@@ -601,7 +601,6 @@ function loadGame(iso, game, pushState = true) {
   setActiveCountry(iso);
   const [, ...nameParts] = game.title.split(' ');
   gameNavTitle.innerHTML = getFlagImg(iso, '20x15') + nameParts.join(' ');
-  // Use replace() so the iframe navigation doesn't create a shadow history entry
   gameView.style.display = 'flex';
   landing.style.display = 'none';
   gameIframe.contentWindow.location.replace(game.file);

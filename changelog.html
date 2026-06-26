@@ -44,13 +44,24 @@ ul li strong { color: var(--ink); font-weight: 500; }
 
   <div class="entry">
     <div class="entry-header">
+      <span class="version">v4.8.0</span>
+      <span class="date">2026</span>
+      <span class="badge badge-minor">minor</span>
+    </div>
+    <ul>
+      <li><strong>🇪🇬 Egypt added</strong> — Arabic/English toggle; Egypt is one of the world's most dramatically divided landscapes: over 92% is hyperarid desert, while a narrow Nile Valley and Delta — just 3.6% of the land — feeds 105 million people. The current solar category features Benban Solar Park near Aswan (~1.8 GW across 37 km²), one of the world's largest solar installations. The world card is unusually optimistic: Egypt's extraordinary sunshine means it could theoretically power all global electricity demand from just 17% of its own land — a patch of the Western Desert — making it the most solar-credible country in the game so far.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="entry-header">
       <span class="version">v4.7.1</span>
       <span class="date">2026</span>
       <span class="badge badge-patch">patch</span>
     </div>
     <ul>
       <li><strong>Flag images in all games</strong> — Chrome on Windows and Linux cannot render flag emoji, displaying them as two-letter codes (DK, FR, etc.) instead. All 15 game files and the hub now use <code>flagcdn.com</code> flag images in place of emoji, rendering correctly across all browsers and operating systems.</li>
-      <li><strong>Browser back button fixed</strong> — hitting the browser back button from inside a game now correctly returns to the world map. Root cause: setting <code>iframe.src</code> creates shadow history entries in the iframe's joint session history; the back button was stepping through those before reaching the map's <code>popstate</code>. Fixed by using <code>contentWindow.location.replace()</code> throughout, which navigates without adding history entries.</li>
+      <li><strong>Browser back button fixed</strong> — hitting the browser back button from inside a game now correctly returns to the world map. Root cause: setting <code>iframe.src</code> creates shadow history entries in the iframe's joint session history; the back button was stepping through those before reaching the map's <code>popstate</code>. Fixed by using <code>contentWindow.location.replace()</code> throughout, which navigates without adding history entries. Also fixed <code>iframe.src = ''</code> (which was inadvertently loading <code>index.html</code> into the hidden iframe) to use <code>'about:blank'</code> instead.</li>
     </ul>
   </div>
 
