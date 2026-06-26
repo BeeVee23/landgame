@@ -148,6 +148,7 @@ const CATS_AR = [
   {id:`scrub`, icon:`🌵`, name:`أراضٍ طبيعية وشبه قاحلة`, desc:`السواحل الشمالية والأراضي الهامشية وواحات الصحراء الغربية — تضمّ هذه الأراضي غطاءً نباتياً متفرقاً والمنطقة الساحلية المتوسطية بين الإسكندرية والحدود الليبية`, answer:3.0, color:`#b8a07a`, max:10, step:0.1, answerHa:3004350},
   {id:`settle`, icon:`🏙️`, name:`المناطق المبنية والطرق`, desc:`القاهرة الكبرى والإسكندرية والمدن الرئيسية وشبكة الطرق — تعدّ القاهرة الكبرى من أكثر مدن العالم كثافةً سكانية، وتضمّ نحو 20 مليون نسمة على مساحة ضيقة`, answer:0.7, color:`#73726c`, max:5, step:0.1, answerHa:701015},
   {id:`water`, icon:`💧`, name:`المسطحات المائية`, desc:`بحيرة ناصر ونهر النيل والبحيرات الساحلية في الدلتا — تبلغ مساحة بحيرة ناصر وحدها نحو 525,000 هكتار، مما يجعلها من أكبر البحيرات الصناعية في العالم`, answer:0.7, color:`#378ADD`, max:4, step:0.1, answerHa:701015},
+  {id:`golf`, icon:`⛳`, name:`ملاعب الغولف`, desc:`حوالي 20 ملعب غولف في مصر — في القاهرة (نادي المعادي، كتامية داونز، دريم لاند) وفي المنتجعات السياحية على البحر الأحمر (شرم الشيخ، الغردقة، الجونة، العين السخنة). من أقدم الملاعب على الإطلاق في أفريقيا`, answer:0.0013, color:`#5DCAA5`, max:0.05, step:0.001, answerHa:1300, dp:3},
   {id:`solar`, icon:`☀️🔋`, name:`محطات الطاقة الشمسية (الحالية)`, desc:`الطاقة الشمسية الكهروضوئية الكبرى المتصلة بالشبكة مع بطاريات تخزين؛ تضمّ محطة بنبان بأسوان (~1.8 جيجاواط على 37 كم²) واحدةً من أكبر محطات الطاقة الشمسية في العالم`, answer:0.01, color:`#EF9F27`, max:0.5, step:0.005, answerHa:10000, isSolar:true, solarNote:`تلميح: بنبان وحدها (~37 كم²) تشكّل معظم الطاقة الشمسية الكبرى في مصر`},
   {id:`sol100`, icon:`⚡🔋`, name:`طاقة شمسية لـ 100% من الكهرباء`, desc:`المساحة اللازمة من الطاقة الشمسية + التخزين لتوليد كامل احتياجات مصر الكهربائية على مدار الساعة (~175 TWh/سنة) — في منطقة شمسية استثنائية كالصحراء الغربية`, answer:0.096, color:`#BA7517`, max:5, step:0.005, answerHa:96250, isSolar:true, readOnly:true, solarNote:`يبلغ مناخ مصر المشمس ~550 هكتار/TWh — أفضل بكثير من ألمانيا (830) أو المملكة المتحدة (3333). تضاعف الطاقة الاحتياطية للتخزين المساحة مقارنةً بالألواح الشمسية وحدها. تمتلك مصر بالفعل محطة بنبان (~1.8 جيجاواط)، وتستهدف 42% من الطاقة المتجددة بحلول 2030`}
 ];
@@ -157,6 +158,7 @@ const CATS_EN = [
   {id:`scrub`, icon:`🌵`, name:`Natural & semi-arid land`, desc:`Northern coastal margins, scattered oases and desert transitional zones — includes the Mediterranean coastal strip between Alexandria and the Libyan border, and the oases of the Western Desert`, answer:3.0, color:`#b8a07a`, max:10, step:0.1, answerHa:3004350},
   {id:`settle`, icon:`🏙️`, name:`Settlement & roads`, desc:`Greater Cairo, Alexandria and Egypt's cities, towns and road network — Greater Cairo alone houses ~20 million people in an extraordinarily dense urban zone along the Nile`, answer:0.7, color:`#73726c`, max:5, step:0.1, answerHa:701015},
   {id:`water`, icon:`💧`, name:`Water bodies`, desc:`Lake Nasser, the Nile River and the Delta coastal lagoons — Lake Nasser alone covers ~525,000 ha, making it one of the world's largest artificial lakes, formed by the Aswan High Dam`, answer:0.7, color:`#378ADD`, max:4, step:0.1, answerHa:701015},
+  {id:`golf`, icon:`⛳`, name:`Golf courses`, desc:`Around 20 golf courses in Egypt — in Cairo (Maadi Club, Katameya Dunes, Dreamland) and Red Sea resorts (Sharm el-Sheikh, Hurghada, El Gouna, Ain Sokhna). Maadi Sporting Club is one of the oldest golf clubs in Africa`, answer:0.0013, color:`#5DCAA5`, max:0.05, step:0.001, answerHa:1300, dp:3},
   {id:`solar`, icon:`☀️🔋`, name:`Solar farms (current)`, desc:`Utility-scale grid-connected solar PV with battery storage; includes Benban Solar Park near Aswan (~1.8 GW across 37 km²), one of the world's largest solar installations`, answer:0.01, color:`#EF9F27`, max:0.5, step:0.005, answerHa:10000, isSolar:true, solarNote:`Hint: Benban alone (~37 km²) accounts for most of Egypt's utility solar`},
   {id:`sol100`, icon:`⚡🔋`, name:`Solar+battery for 100% electricity`, desc:`Land needed for utility-scale solar+battery to power Egypt's entire grid 24/7 (~175 TWh/yr) — in Egypt's exceptional desert sunshine, this is a much smaller area than you might expect`, answer:0.096, color:`#BA7517`, max:5, step:0.005, answerHa:96250, isSolar:true, readOnly:true, solarNote:`Egypt's sunny climate needs ~550 ha/TWh — far less than Germany (830) or the UK (3,333). Storage overcapacity roughly doubles the land vs panels alone. Egypt already has Benban (~1.8 GW) and targets 42% renewable electricity by 2030`}
 ];
@@ -322,7 +324,7 @@ function buildCards() {
         <div class="readout-text" id="rl-hint-sol100">${STRINGS[currentLang].reveal}</div>
         <div class="res-line" id="rl-sol100"></div>`;
     } else {
-      const dp=cat.isSolar?3:1; const initVal=`0.`+`0`.repeat(dp);
+      const dp=cat.dp!==undefined?cat.dp:(cat.isSolar?3:1); const initVal=`0.`+`0`.repeat(dp);
       div.innerHTML=`<div class="card-head"><span class="card-icon">${cat.icon}</span><span class="card-name">${cat.name}</span></div>
         <div class="card-desc">${cat.desc}</div>
         <div class="sl-row">
@@ -335,7 +337,7 @@ function buildCards() {
     container.appendChild(div);
     if(!cat.readOnly){
       document.getElementById(`sl-`+cat.id).addEventListener(`input`,function(){
-        const dp=cat.isSolar?3:1;
+        const dp=cat.dp!==undefined?cat.dp:(cat.isSolar?3:1);
         document.getElementById(`sv-`+cat.id).textContent=parseFloat(this.value).toFixed(dp)+`%`;
         clampAll(cat.id);
         document.getElementById(`sv-`+cat.id).textContent=parseFloat(document.getElementById(`sl-`+cat.id).value).toFixed(dp)+`%`;
@@ -371,7 +373,7 @@ document.getElementById(`sub-btn`).addEventListener(`click`,function(){
     const guess=getVal(cat); const pts=scoreGuess(guess,cat.answer);
     totalScore+=pts;
     const diff=guess-cat.answer; const sign=diff>=0?`+`:``;
-    const dp=cat.isSolar?3:1;
+    const dp=cat.dp!==undefined?cat.dp:(cat.isSolar?3:1);
     const diffStr=Math.abs(diff)<(cat.isSolar?0.002:0.3)?`spot on!`:sign+diff.toFixed(dp)+`% off`;
     const col=pts>=80?`#3b6d11`:pts>=40?`#ba7517`:`#a32d2d`;
     const haStr=cat.answerHa?` (~`+(cat.answerHa>=1000000?(cat.answerHa/1000000).toFixed(1)+`M`:Math.round(cat.answerHa/1000)+`k`)+` ha)`:``; 
