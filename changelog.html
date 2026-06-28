@@ -44,6 +44,19 @@ ul li strong { color: var(--ink); font-weight: 500; }
 
   <div class="entry">
     <div class="entry-header">
+      <span class="version">v4.8.3</span>
+      <span class="date">2026</span>
+      <span class="badge badge-patch">patch</span>
+    </div>
+    <ul>
+      <li><strong>Category cards truncated — fixed</strong> — the v4.8.2 language-toggle fix introduced a <code>ReferenceError</code> in older game files that don't use a <code>guesses</code> object (those files store state directly in DOM slider elements). The error silently stopped <code>buildCards()</code> mid-execution, leaving the card grid blank. Fixed by reading the existing slider's DOM value directly: <code>document.getElementById('sl-' + cat.id)?.value</code>.</li>
+      <li><strong>Changelog opens in same tab</strong> — the version badge link no longer has <code>target="_blank"</code>.</li>
+      <li><strong>LF line endings enforced</strong> across all files.</li>
+    </ul>
+  </div>
+
+
+    <div class="entry-header">
       <span class="version">v4.8.2</span>
       <span class="date">2026</span>
       <span class="badge badge-patch">patch</span>

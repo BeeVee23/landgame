@@ -324,7 +324,7 @@ function buildCards() {
         <div class="readout-text" id="rl-hint-sol100">${STRINGS[currentLang].reveal}</div>
         <div class="res-line" id="rl-sol100"></div>`;
     } else {
-      const dp=cat.dp!==undefined?cat.dp:(cat.isSolar?3:1); const curVal=guesses[cat.id]!==undefined?guesses[cat.id]:0; const initVal=curVal.toFixed(dp);
+      const dp=cat.dp!==undefined?cat.dp:(cat.isSolar?3:1); const existingEl=document.getElementById(`sl-`+cat.id); const curVal=existingEl?parseFloat(existingEl.value):0; const initVal=curVal.toFixed(dp);
       div.innerHTML=`<div class="card-head"><span class="card-icon">${cat.icon}</span><span class="card-name">${cat.name}</span></div>
         <div class="card-desc">${cat.desc}</div>
         <div class="sl-row">
