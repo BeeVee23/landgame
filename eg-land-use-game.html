@@ -411,7 +411,9 @@ document.getElementById(`rst-btn`).addEventListener(`click`,function(){
 });
 
 function renderWorldCard(){
-  document.getElementById(`world-card`).style.display=`block`;
+  const _wcEl = document.getElementById(`world-card`);
+  const _wcFirst = _wcEl.style.display !== `block`;
+  _wcEl.style.display = `block`;
   const W=WORLD_STRINGS[currentLang];
   const haNeeded=31000*HA_PER_TWH;
   const pct=(haNeeded/COUNTRY_HA*100).toFixed(1);
@@ -424,7 +426,12 @@ function renderWorldCard(){
     `<span><span class="geo-dot" style="background:#8a7860;opacity:0.65"></span>${S.country_label}</span>`+
     `<span><span class="geo-dot" style="background:#EF9F27"></span>${S.circle_label}</span>`;
   document.getElementById(`world-foot`).textContent=W.foot;
-  drawGeoMap(haNeeded); drawGeoInset(haNeeded);
+  if (_wcFirst) {
+    _wcEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(() => { drawGeoMap(haNeeded); drawGeoInset(haNeeded); }, 800);
+  } else {
+    drawGeoMap(haNeeded); drawGeoInset(haNeeded);
+  }
 }
 
 let _worldTopo=null;

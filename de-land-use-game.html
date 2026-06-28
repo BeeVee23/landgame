@@ -460,7 +460,9 @@ function renderWorldCard() {
   const footEl = document.getElementById('world-foot');
   const legendEl = document.getElementById('geo-legend');
   const headEl = document.getElementById('world-head');
-  document.getElementById('world-card').style.display = 'block';
+  const _wcEl = document.getElementById('world-card');
+  const _wcFirst = _wcEl.style.display !== 'block';
+  _wcEl.style.display = 'block';
   const pctOfCountry = (WORLD_HA_NEEDED / COUNTRY_HA) * 100;
   const millionWord = currentLang === 'local' ? 'Millionen' : 'million';
   const haM = WORLD_HA_NEEDED >= 1_000_000 ? (WORLD_HA_NEEDED / 1_000_000).toFixed(0) + ' ' + millionWord : Math.round(WORLD_HA_NEEDED / 1000).toLocaleString() + ',000';
@@ -474,8 +476,12 @@ function renderWorldCard() {
   }
   footEl.textContent = W.foot;
   legendEl.innerHTML = `<span><span class="geo-dot" style="background:#8a7860;opacity:0.65"></span>${W.countryLabel}</span><span><span class="geo-dot" style="background:#EF9F27"></span>${W.circleLabel}</span>`;
-  drawGeoMap(WORLD_HA_NEEDED);
-  drawGeoInset(WORLD_HA_NEEDED);
+  if (_wcFirst) {
+    _wcEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(() => { drawGeoMap(WORLD_HA_NEEDED); drawGeoInset(WORLD_HA_NEEDED); }, 800);
+  } else {
+    drawGeoMap(WORLD_HA_NEEDED); drawGeoInset(WORLD_HA_NEEDED);
+  }
 }
 
 function drawGeoMap(haNeeded) {
@@ -501,7 +507,7 @@ function drawGeoMap(haNeeded) {
     let _angle = 0;
     const _timer = d3.interval(() => {
       _angle += 0.4;
-      proj.rotate([-COUNTRY_LON - _angle, -COUNTRY_LAT * 0.25]);
+      projection.rotate([-COUNTRY_LON - _angle, -COUNTRY_LAT * 0.25]);
       svg.selectAll('.geo-land, .geo-country, .geo-circle').attr('d', path);
       if (_angle > 360) _timer.stop();
     }, 40);
