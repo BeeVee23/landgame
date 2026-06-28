@@ -494,6 +494,14 @@ function drawGeoMap(haNeeded) {
     const angularRadiusDeg = (radiusKm / 6371) * (180 / Math.PI);
     const circleGen = d3.geoCircle().center([COUNTRY_LON, COUNTRY_LAT]).radius(angularRadiusDeg);
     svg.append('path').datum(circleGen()).attr('class', 'geo-circle').attr('d', path);
+    // Rotation to situate the viewer
+    let _angle = 0;
+    const _timer = d3.interval(() => {
+      _angle += 0.4;
+      proj.rotate([-COUNTRY_LON - _angle, -COUNTRY_LAT * 0.25]);
+      svg.selectAll('.geo-land, .geo-country, .geo-circle').attr('d', path);
+      if (_angle > 360) _timer.stop();
+    }, 40);
   });
 }
 

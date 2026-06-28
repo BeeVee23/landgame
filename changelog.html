@@ -44,24 +44,14 @@ ul li strong { color: var(--ink); font-weight: 500; }
 
   <div class="entry">
     <div class="entry-header">
-      <span class="version">v4.8.0</span>
-      <span class="date">2026</span>
-      <span class="badge badge-minor">minor</span>
-    </div>
-    <ul>
-      <li><strong>🇪🇬 Egypt added</strong> — Arabic/English toggle; Egypt is one of the world's most dramatically divided landscapes: over 92% is hyperarid desert, while a narrow Nile Valley and Delta — just 3.6% of the land — feeds 105 million people. The current solar category features Benban Solar Park near Aswan (~1.8 GW across 37 km²), one of the world's largest solar installations. The world card is unusually optimistic: Egypt's extraordinary sunshine means it could theoretically power all global electricity demand from just 17% of its own land — a patch of the Western Desert — making it the most solar-credible country in the game so far.</li>
-    </ul>
-  </div>
-
-  <div class="entry">
-    <div class="entry-header">
-      <span class="version">v4.7.1</span>
+      <span class="version">v4.8.1</span>
       <span class="date">2026</span>
       <span class="badge badge-patch">patch</span>
     </div>
     <ul>
-      <li><strong>Flag images in all games</strong> — Chrome on Windows and Linux cannot render flag emoji, displaying them as two-letter codes (DK, FR, etc.) instead. All 15 game files and the hub now use <code>flagcdn.com</code> flag images in place of emoji, rendering correctly across all browsers and operating systems.</li>
-      <li><strong>Browser back button fixed</strong> — hitting the browser back button from inside a game now correctly returns to the world map. Root cause: setting <code>iframe.src</code> creates shadow history entries in the iframe's joint session history; the back button was stepping through those before reaching the map's <code>popstate</code>. Fixed by using <code>contentWindow.location.replace()</code> throughout, which navigates without adding history entries. Also fixed <code>iframe.src = ''</code> (which was inadvertently loading <code>index.html</code> into the hidden iframe) to use <code>'about:blank'</code> instead.</li>
+      <li><strong>Sol100 recalculated for consistency</strong> — three countries had solar land-use figures generated with different assumptions to the rest of the game. The US (<code>23 M ha → 2.4 M ha</code>), UK (<code>1.1 M ha → 297 k ha</code>) and France (<code>1.6 M ha → 336 k ha</code>) are now derived from the same model as all other countries: ~900,000 / solar yield (kWh/kWp/yr), calibrated against Germany (830 ha/TWh at ~1,100 kWh/kWp/yr) and Japan (789 ha/TWh at ~1,150). The US in particular appeared to have been calculated against total primary energy rather than electricity, inflating the figure ~10×. All three world cards now show more intuitive circles: the US needs ~2% of its land (a circle in the Southwest desert), the UK slightly overflows into Ireland and the Channel, France fills roughly the Occitanie region.</li>
+      <li><strong>Globe rotation in all games</strong> — the spinning orthographic globe that situates the country before settling on the world card was only present in Egypt. All 15 other games now have the same rotation on reveal.</li>
+      <li><strong>Flag images, back-button fix and Egypt</strong> — carries forward the v4.7.1 and v4.8.0 changes into this build.</li>
     </ul>
   </div>
 

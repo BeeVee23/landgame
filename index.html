@@ -372,7 +372,7 @@ html, body {
       <span class="site-title">How is land actually used?</span>
       <div class="site-right">
         <span class="site-tag">A guessing game</span>
-        <a href="changelog.html" class="site-version" style="text-decoration:none;">v4.8.0</a>
+        <a href="changelog.html" class="site-version" style="text-decoration:none;">v4.8.1</a>
       </div>
     </div>
   </div>
@@ -415,7 +415,7 @@ html, body {
   <nav class="game-nav">
     <button class="back-btn" id="back-btn">← Map</button>
     <span class="game-nav-title" id="game-nav-title"></span>
-    <a href="changelog.html" class="version-badge" target="_blank" style="text-decoration:none;">v4.8.0</a>
+    <a href="changelog.html" class="version-badge" target="_blank" style="text-decoration:none;">v4.8.1</a>
   </nav>
   <iframe id="game-iframe" src="" title="Land use game"></iframe>
 </div>
@@ -426,7 +426,6 @@ html, body {
 
 <script>
 // ISO numeric ID → game config
-// ISO numeric → ISO alpha-2 (for flag images; Chrome on Windows can't render flag emoji)
 const ISO_TO_ALPHA2 = {
   '036':'au','076':'br','156':'cn','208':'dk','250':'fr',
   '276':'de','356':'in','392':'jp','404':'ke','422':'lb',
@@ -604,6 +603,8 @@ function loadGame(iso, game, pushState = true) {
   gameView.style.display = 'flex';
   landing.style.display = 'none';
   gameIframe.contentWindow.location.replace(game.file);
+  landing.style.display = 'none';
+  gameView.style.display = 'flex';
   tooltip.style.opacity = '0';
   window.scrollTo(0, 0);
   if (pushState) {

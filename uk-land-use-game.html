@@ -162,7 +162,7 @@ const STRINGS = { en: { grades: [
     [44, `🏘️ Not bad! Most people overestimate how built-up the UK is.`],
     [22, `🌫️ The UK is greener than it feels — 94% is NOT built on.`],
     [0, `🤔 Surprising, right? The UK is overwhelmingly rural from the air.`]
-  ], sol100_reveal: `storage overcapacity for nights and cloudy days roughly doubles the land needed vs panels alone.`, map_answer: `Actual UK land use — proportional area map` } };
+  ], sol100_reveal: `The UK averages ~1,000 kWh/kWp/yr — similar to Germany given comparable cloud cover and latitude. At 900 ha/TWh, 1.22% of UK land is needed. Storage overcapacity roughly doubles the land vs panels alone.`, map_answer: `Actual UK land use — proportional area map` } };
 let submitted = false;
 let totalScore = 0;
 const currentLang = 'en';
@@ -175,7 +175,7 @@ let CATS = [
   {id:'golf', icon:`⛳`, name:`Golf courses`, desc:`Golf courses across the UK (~2,500 courses)`, answer:1.8, color:'#5DCAA5', max:8, step:0.5},
   {id:'h2o', icon:`💧`, name:`Inland water`, desc:`Rivers, lakes, reservoirs, canals`, answer:1.5, color:'#378ADD', max:8, step:0.5},
   {id:'solar', icon:`☀️🔋`, name:`Solar+battery (current)`, desc:`Utility-scale ground-mounted solar PV with battery storage, grid-connected (Sep 2024)`, answer:0.086, color:'#EF9F27', max:2, step:0.01, isSolar:true, answerHa:21200, solarNote:`Hint: surprisingly tiny`},
-  {id:'sol100', icon:`⚡🔋`, name:`Solar+battery for 100% electricity`, desc:`Land needed for utility-scale solar+battery to power the entire UK national grid 24/7 — roughly 2x panels-only due to storage overcapacity`, answer:4.5, color:'#BA7517', max:10, step:0.1, isSolar:true, answerHa:1100000, readOnly:true}
+  {id:'sol100', icon:`⚡🔋`, name:`Solar+battery for 100% electricity`, desc:`Land needed for utility-scale solar+battery to power the entire UK national grid 24/7 (~330 TWh/yr) — the UK's overcast climate is comparable to Germany's, requiring similar land per TWh`, answer:1.22, color:'#BA7517', max:5, step:0.05, isSolar:true, answerHa:297000, readOnly:true}
 ];
 let MAIN_CATS = CATS.filter(c => !c.readOnly);
 
@@ -368,7 +368,7 @@ document.getElementById('rst-btn').addEventListener('click', function() {
 // so sunnier/cloudier countries are compared honestly on their own solar conditions.
 const WORLD_DEMAND_TWH = 31000;
 const COUNTRY_DEMAND_TWH = 330;
-const COUNTRY_SOL100_HA = 1100000;
+const COUNTRY_SOL100_HA = 297000;
 const COUNTRY_HA = 24300000;
 const COUNTRY_LON = -2.5;
 const COUNTRY_LAT = 54.0;
@@ -454,6 +454,15 @@ function drawGeoMap(haNeeded) {
       .datum(circleGen())
       .attr('class', 'geo-circle')
       .attr('d', path);
+
+    // Globe rotation to situate the viewer
+    let _angle = 0;
+    const _timer = d3.interval(() => {
+      _angle += 0.4;
+      proj.rotate([-COUNTRY_LON - _angle, -COUNTRY_LAT * 0.25]);
+      svg.selectAll('.geo-land, .geo-country, .geo-circle').attr('d', path);
+      if (_angle > 360) _timer.stop();
+    }, 40);
   });
 }
 

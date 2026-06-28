@@ -162,7 +162,7 @@ const STRINGS = { en: { grades: [
     [35, `🏘️ Not bad! Most people overestimate how built-up the US is.`],
     [16, `🌾 The US is far greener and wilder than it might seem.`],
     [0, `🤔 Surprising, right? Cities cover only 3% — the US is overwhelmingly rural.`]
-  ], sol100_reveal: `storage overcapacity for nights and cloudy periods roughly doubles the land needed vs panels alone.`, map_answer: `Actual US land use — proportional area map` } };
+  ], sol100_reveal: `The US has some of the world's best utility solar conditions (~1,600 kWh/kWp/yr national average, much higher in the Southwest). At 560 ha/TWh, powering the whole country needs just 0.26% of US land. Storage overcapacity roughly doubles the land vs panels alone.`, map_answer: `Actual US land use — proportional area map` } };
 let submitted = false;
 let totalScore = 0;
 const currentLang = 'en';
@@ -175,7 +175,7 @@ let CATS = [
   {id:'golf', icon:`⛳`, name:`Golf courses`, desc:`The US has ~16,150 golf courses — more than any other country, almost as many as the rest of the world combined`, answer:0.132, color:'#5DCAA5', max:1, step:0.01},
   {id:'urban', icon:`🏙️`, name:`Urban areas`, desc:`Cities, suburbs, roads, airports, built infrastructure`, answer:3, color:'#73726c', max:15, step:0.5},
   {id:'solar', icon:`☀️🔋`, name:`Solar+battery (current)`, desc:`Utility-scale ground-mounted solar PV with battery storage, grid-connected (end 2024, ~121 GW)`, answer:0.048, color:'#EF9F27', max:1, step:0.001, isSolar:true, answerHa:437000, solarNote:`Hint: utility-scale grid-connected only — the US is huge`},
-  {id:'sol100', icon:`⚡🔋`, name:`Solar+battery for 100% electricity`, desc:`Land needed for utility-scale solar+battery to power the entire US national grid 24/7 (~4,000 TWh/yr)`, answer:1.0, color:'#BA7517', max:4, step:0.05, isSolar:true, answerHa:23000000, readOnly:true}
+  {id:'sol100', icon:`⚡🔋`, name:`Solar+battery for 100% electricity`, desc:`Land needed for utility-scale solar+battery to power the entire US national grid 24/7 (~4,300 TWh/yr) — the US has excellent solar resources, especially across the Southwest`, answer:0.26, color:'#BA7517', max:2, step:0.01, isSolar:true, answerHa:2408000, readOnly:true}
 ];
 let MAIN_CATS = CATS.filter(c => !c.readOnly);
 
@@ -368,7 +368,7 @@ document.getElementById('rst-btn').addEventListener('click', function() {
 // so sunnier/cloudier countries are compared honestly on their own solar conditions.
 const WORLD_DEMAND_TWH = 31000;
 const COUNTRY_DEMAND_TWH = 4300;
-const COUNTRY_SOL100_HA = 23000000;
+const COUNTRY_SOL100_HA = 2408000;
 const COUNTRY_HA = 915000000;
 const COUNTRY_LON = -98.0;
 const COUNTRY_LAT = 39.0;
@@ -454,6 +454,15 @@ function drawGeoMap(haNeeded) {
       .datum(circleGen())
       .attr('class', 'geo-circle')
       .attr('d', path);
+
+    // Globe rotation to situate the viewer
+    let _angle = 0;
+    const _timer = d3.interval(() => {
+      _angle += 0.4;
+      proj.rotate([-COUNTRY_LON - _angle, -COUNTRY_LAT * 0.25]);
+      svg.selectAll('.geo-land, .geo-country, .geo-circle').attr('d', path);
+      if (_angle > 360) _timer.stop();
+    }, 40);
   });
 }
 
