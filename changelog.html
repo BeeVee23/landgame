@@ -44,6 +44,17 @@ ul li strong { color: var(--ink); font-weight: 500; }
 
   <div class="entry">
     <div class="entry-header">
+      <span class="version">v4.8.2</span>
+      <span class="date">2026</span>
+      <span class="badge badge-patch">patch</span>
+    </div>
+    <ul>
+      <li><strong>Language toggle preserves slider positions</strong> — switching language rebuilt the card DOM with all sliders reset to zero. The underlying <code>guesses</code> object retained the correct values but the new slider elements always initialised with <code>value="0"</code>. Fixed by reading <code>guesses[cat.id]</code> when creating each slider, so the visual position matches the stored value after a toggle.</li>
+    </ul>
+  </div>
+
+
+    <div class="entry-header">
       <span class="version">v4.8.1</span>
       <span class="date">2026</span>
       <span class="badge badge-patch">patch</span>

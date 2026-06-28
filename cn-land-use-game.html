@@ -384,11 +384,12 @@ function buildCards() {
         <div class="res-line" id="rl-${cat.id}"></div>`;
     } else {
       const dp = cat.isSolar ? 3 : 1;
-      const initVal = '0.' + '0'.repeat(dp);
+      const curVal = guesses[cat.id] !== undefined ? guesses[cat.id] : 0;
+      const initVal = curVal.toFixed(dp);
       div.innerHTML = `<div class="card-head"><span class="card-icon">${cat.icon}</span><span class="card-name">${cat.name}</span></div>
         <div class="card-desc">${cat.desc}</div>
         <div class="sl-row">
-          <input type="range" min="0" max="${cat.max}" step="${cat.step}" value="0" id="sl-${cat.id}" aria-label="${cat.name}">
+          <input type="range" min="0" max="${cat.max}" step="${cat.step}" value="${curVal}" id="sl-${cat.id}" aria-label="${cat.name}">
           <span class="sl-val" id="sv-${cat.id}">${initVal}%</span>
         </div>
         ${cat.isSolar && cat.solarNote ? '<div class="solar-note">' + cat.solarNote + '</div>' : ''}
