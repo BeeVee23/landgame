@@ -49,33 +49,33 @@ ul li strong { color: var(--ink); font-weight: 500; }
       <span class="badge badge-patch">patch</span>
     </div>
     <ul>
-      <li><strong>Category cards truncated — fixed</strong> — the v4.8.2 language-toggle fix introduced a <code>ReferenceError</code> in older game files that don't use a <code>guesses</code> object (those files store state directly in DOM slider elements). The error silently stopped <code>buildCards()</code> mid-execution, leaving the card grid blank. Fixed by reading the existing slider's DOM value directly: <code>document.getElementById('sl-' + cat.id)?.value</code>.</li>
+      <li><strong>Category cards truncated — fixed</strong> — v4.8.2 introduced a <code>ReferenceError</code> in older files that store state in DOM sliders rather than a <code>guesses</code> object, silently aborting <code>buildCards()</code>. Fixed by reading each slider's current DOM value before rebuilding.</li>
       <li><strong>Changelog opens in same tab</strong> — the version badge link no longer has <code>target="_blank"</code>.</li>
       <li><strong>LF line endings enforced</strong> across all files.</li>
     </ul>
   </div>
 
-
+  <div class="entry">
     <div class="entry-header">
       <span class="version">v4.8.2</span>
       <span class="date">2026</span>
       <span class="badge badge-patch">patch</span>
     </div>
     <ul>
-      <li><strong>Language toggle preserves slider positions</strong> — switching language rebuilt the card DOM with all sliders reset to zero. The underlying <code>guesses</code> object retained the correct values but the new slider elements always initialised with <code>value="0"</code>. Fixed by reading <code>guesses[cat.id]</code> when creating each slider, so the visual position matches the stored value after a toggle.</li>
+      <li><strong>Language toggle preserves slider positions</strong> — card rebuild always set sliders to <code>value="0"</code>. Fixed by reading each slider's existing DOM value and writing it back to the new element.</li>
     </ul>
   </div>
 
-
+  <div class="entry">
     <div class="entry-header">
       <span class="version">v4.8.1</span>
       <span class="date">2026</span>
       <span class="badge badge-patch">patch</span>
     </div>
     <ul>
-      <li><strong>Sol100 recalculated for consistency</strong> — three countries had solar land-use figures generated with different assumptions to the rest of the game. The US (<code>23 M ha → 2.4 M ha</code>), UK (<code>1.1 M ha → 297 k ha</code>) and France (<code>1.6 M ha → 336 k ha</code>) are now derived from the same model as all other countries: ~900,000 / solar yield (kWh/kWp/yr), calibrated against Germany (830 ha/TWh at ~1,100 kWh/kWp/yr) and Japan (789 ha/TWh at ~1,150). The US in particular appeared to have been calculated against total primary energy rather than electricity, inflating the figure ~10×. All three world cards now show more intuitive circles: the US needs ~2% of its land (a circle in the Southwest desert), the UK slightly overflows into Ireland and the Channel, France fills roughly the Occitanie region.</li>
-      <li><strong>Globe rotation in all games</strong> — the spinning orthographic globe that situates the country before settling on the world card was only present in Egypt. All 15 other games now have the same rotation on reveal.</li>
-      <li><strong>Flag images, back-button fix and Egypt</strong> — carries forward the v4.7.1 and v4.8.0 changes into this build.</li>
+      <li><strong>Sol100 recalculated for consistency</strong> — US, UK and France used inconsistent assumptions from earlier sessions. Corrected to the same model as all other countries. US: <code>23 M → 2.4 M ha</code>; UK: <code>1.1 M → 297 k ha</code>; France: <code>1.6 M → 336 k ha</code>.</li>
+      <li><strong>Globe rotation in all games</strong> — the orthographic globe now spins on reveal in all 16 games; it had only been added to Egypt.</li>
+      <li><strong>Carries forward</strong> v4.7.1 flag images, back-button fix, and the v4.8.0 Egypt addition.</li>
     </ul>
   </div>
 
@@ -86,7 +86,7 @@ ul li strong { color: var(--ink); font-weight: 500; }
       <span class="badge badge-minor">minor</span>
     </div>
     <ul>
-      <li><strong>🇩🇰 Denmark added</strong> — Dansk/English toggle; Denmark has the highest share of arable land of any country in the world (&gt;62%), yet most people assume it's a small industrial nation. Golf courses (~0.24%) and utility-scale solar (~0.14%) occupy similarly tiny slivers — in the same order of magnitude as each other. The world card is particularly dramatic: Denmark's cloudy, high-latitude climate means it would need land equivalent to over 6× its entire territory to power the world with solar. Wind is, of course, a very different story — ~55% of Danish electricity already comes from it.</li>
+      <li><strong>🇩🇰 Denmark added</strong> — Dansk/English toggle; &gt;62% farmland (world's highest share). Golf courses and utility solar are similar-sized slivers. World card: Denmark would need 6× its land area for world solar — wind covers ~55% of its electricity.</li>
     </ul>
   </div>
 
@@ -97,7 +97,7 @@ ul li strong { color: var(--ink); font-weight: 500; }
       <span class="badge badge-minor">minor</span>
     </div>
     <ul>
-      <li><strong>🇩🇪 Germany added</strong> — Deutsch/English toggle; 50% farmland and 30% forest despite its industrial reputation. Golf courses (~0.157%) occupy almost exactly the same land as current utility-scale solar (~0.21%). The disclaimer addresses the German automotive industry's turbulent ICE-to-EV transition: VW, BMW and Mercedes directly employ 780,000 people, EV sales fell 27% in 2024, and VW is cutting 35,000 jobs by 2030 as Chinese rivals gain ground.</li>
+      <li><strong>🇩🇪 Germany added</strong> — Deutsch/English toggle; 50% farmland and 30% forest. Golf courses (~0.157%) and utility solar (~0.21%) cover almost exactly the same area. Includes a disclaimer on the automotive industry's EV transition: VW cutting 35,000 jobs, EV sales down 27% in 2024.</li>
     </ul>
   </div>
 
@@ -120,7 +120,7 @@ ul li strong { color: var(--ink); font-weight: 500; }
       <span class="badge badge-major">major</span>
     </div>
     <ul>
-      <li><strong>"What if [country] alone powered the whole world?"</strong> — new card revealed after submitting, showing how much land each country's own solar conditions would need to supply all of global electricity demand (~31,000 TWh/yr). Sunnier countries like Australia need under 3% of their own land; cloudier countries like the UK would need over 4× their entire land area, with the overflow visibly spilling into neighbouring countries on the map.</li>
+      <li><strong>"What if [country] alone powered the whole world?"</strong> — card revealed on submit, showing land needed at each country's own solar conditions for ~31,000 TWh/yr. Ranges from &lt;3% of land (sunny countries) to 4× the country's area (cloudy ones), with the circle overflowing into neighbours.</li>
       <li><strong>Zoomed inset map</strong> — alongside the world globe view, a second zoomed-in panel shows the same equivalent-area circle at a scale where it's actually visible, with a kilometre scale bar for a tangible sense of size.</li>
       <li><strong>Scores normalised to percentages</strong> — replaces the old "points out of 800" system, which was actually out of 700/800/900 depending on how many categories a country had. All games now show a single comparable 0–100% accuracy score, with grade thresholds rescaled to match.</li>
     </ul>
