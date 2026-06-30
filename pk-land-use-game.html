@@ -1,0 +1,494 @@
+<!-- v4.9.0 -->
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇵🇰 How is Pakistan's land actually used? — Guessing Game</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg-primary: #ffffff; --bg-secondary: #f5f4f0; --bg-tertiary: #eeede8;
+  --text-primary: #1a1a18; --text-secondary: #5f5e5a;
+  --border: rgba(0,0,0,0.12); --border-md: rgba(0,0,0,0.22);
+  --radius-md: 8px; --radius-lg: 12px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #1e1e1c; --bg-secondary: #2a2a27; --bg-tertiary: #313130;
+    --text-primary: #f0ede6; --text-secondary: #a09e97;
+    --border: rgba(255,255,255,0.10); --border-md: rgba(255,255,255,0.20);
+  }
+}
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg-tertiary); color: var(--text-primary); min-height: 100vh; padding: 2rem 1rem; }
+.page { max-width: 720px; margin: 0 auto; }
+h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
+.subtitle { font-size: 14px; color: var(--text-secondary); margin-bottom: 0.75rem; line-height: 1.5; }
+.disclaimer { font-size: 11px; color: var(--text-secondary); background: var(--bg-secondary); border-left: 3px solid var(--border-md); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 0.6rem 0.9rem; margin-bottom: 1rem; line-height: 1.7; }
+.disclaimer strong { color: var(--text-primary); }
+.lang-toggle { font-family: inherit; font-size: 11px; padding: 3px 9px; background: var(--bg-primary); border: 0.5px solid var(--border-md); border-radius: var(--radius-md); cursor: pointer; color: var(--text-secondary); float: right; margin: 2px 0 0 8px; }
+.lang-toggle:hover { background: var(--bg-secondary); color: var(--text-primary); }
+.data-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+.data-info { font-size: 11px; color: var(--text-secondary); flex: 1; min-width: 160px; }
+.data-info strong { color: var(--text-primary); }
+.score-bar { display: flex; gap: 10px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+.metric { background: var(--bg-secondary); border-radius: var(--radius-md); padding: .6rem .9rem; flex: 1; min-width: 80px; }
+.metric .lbl { font-size: 11px; color: var(--text-secondary); margin-bottom: 2px; }
+.metric .val { font-size: 20px; font-weight: 500; }
+.map-section { margin-bottom: 1.25rem; }
+.map-title { font-size: 13px; color: var(--text-secondary); margin-bottom: 6px; }
+#treemap { width: 100%; height: 200px; border-radius: var(--radius-md); overflow: hidden; display: flex; background: var(--bg-secondary); padding: 2px; gap: 2px; }
+.tm-block { display: flex; align-items: center; justify-content: center; border-radius: 3px; transition: flex .4s ease; overflow: hidden; }
+.tm-label { font-size: 11px; font-weight: 500; text-align: center; padding: 2px 3px; line-height: 1.3; pointer-events: none; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.5); }
+.legend { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 1.1rem; }
+.leg-item { display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-secondary); }
+.leg-dot { width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
+.total-bar-wrap { margin-bottom: .75rem; }
+.total-bar-track { height: 8px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden; margin-bottom: 4px; }
+.total-bar-fill { height: 100%; border-radius: 4px; transition: width .2s ease, background .2s ease; max-width: 100%; }
+.total-bar-label { font-size: 12px; color: var(--text-secondary); }
+.cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: .75rem; }
+@media (max-width: 520px) { .cards-grid { grid-template-columns: 1fr; } }
+.card { background: var(--bg-primary); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: .9rem; }
+.solar-card { grid-column: 1 / -1; }
+.card-head { display: flex; align-items: center; gap: 7px; margin-bottom: .4rem; }
+.card-icon { font-size: 18px; }
+.card-name { font-size: 13px; font-weight: 500; }
+.card-desc { font-size: 11px; color: var(--text-secondary); margin-bottom: .6rem; line-height: 1.4; }
+.sl-row { display: flex; align-items: center; gap: 8px; }
+.sl-row input[type=range] { flex: 1; accent-color: #639922; }
+.sl-val { font-size: 13px; font-weight: 500; min-width: 50px; text-align: right; }
+.solar-note { font-size: 11px; color: var(--text-secondary); margin-top: 4px; }
+.res-line { font-size: 11px; margin-top: 5px; min-height: 14px; display: none; line-height: 1.4; }
+.readout-text { font-size: 12px; color: var(--text-secondary); }
+.btn-row { display: flex; gap: 8px; margin-top: .5rem; }
+#sub-btn { flex: 1; padding: 9px 16px; font-size: 14px; background: var(--bg-primary); border: 0.5px solid var(--border-md); border-radius: var(--radius-md); color: var(--text-primary); cursor: pointer; }
+#sub-btn:hover:not(:disabled) { background: var(--bg-secondary); }
+#sub-btn:disabled { opacity: .4; cursor: default; }
+#rst-btn { padding: 9px 13px; font-size: 14px; background: var(--bg-primary); border: 0.5px solid var(--border-md); border-radius: var(--radius-md); color: var(--text-secondary); cursor: pointer; display: none; }
+#rst-btn:hover { background: var(--bg-secondary); }
+.final { background: var(--bg-secondary); border-radius: var(--radius-lg); padding: 1rem; margin-top: .75rem; display: none; text-align: center; }
+.final-num { font-size: 36px; font-weight: 500; }
+.final-sub { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+.final-grade { font-size: 15px; font-weight: 500; margin-top: 6px; }
+.world-card { background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary)); border: 0.5px solid var(--border-md); border-radius: var(--radius-lg); padding: 1.1rem; margin-top: .75rem; }
+.world-head { font-size: 15px; font-weight: 500; margin-bottom: .5rem; }
+.world-text { font-size: 12.5px; color: var(--text-secondary); line-height: 1.6; margin-bottom: .75rem; }
+.world-text strong { color: var(--text-primary); }
+.geo-maps-row { display: flex; gap: 8px; margin-bottom: .6rem; }
+#world-geo-map { flex: 1.4; height: 280px; border-radius: 8px; overflow: hidden; background: #0d1b2a; }
+#world-geo-map svg { width: 100%; height: 100%; display: block; }
+#world-geo-inset { flex: 1; height: 280px; border-radius: 8px; overflow: hidden; background: #16283c; position: relative; }
+#world-geo-inset svg { width: 100%; height: 100%; display: block; }
+.geo-inset-label { position: absolute; top: 6px; left: 8px; font-size: 9.5px; color: var(--text-secondary); background: rgba(13,27,42,0.7); padding: 2px 6px; border-radius: 4px; }
+.geo-land { fill: #2a3f54; stroke: #0d1b2a; stroke-width: 0.4; }
+.geo-country { fill: #8a7860; stroke: #f5f2eb; stroke-width: 0.6; opacity: 0.65; }
+.geo-circle { fill: #EF9F27; fill-opacity: 0.85; stroke: #fff; stroke-width: 1; stroke-dasharray: 3,2; }
+.geo-legend { display: flex; gap: 14px; font-size: 10.5px; color: var(--text-secondary); margin-bottom: .5rem; flex-wrap: wrap; }
+.geo-legend span { display: inline-flex; align-items: center; gap: 4px; }
+.geo-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+.world-foot { font-size: 11px; color: var(--text-secondary); line-height: 1.5; font-style: italic; }
+.source { font-size: 11px; color: var(--text-secondary); margin-top: 1.5rem; line-height: 1.8; }
+.source a { color: var(--text-secondary); text-decoration: underline; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
+</head>
+<body>
+<div class="page">
+  <button class="lang-toggle" id="lang-btn" onclick="toggleLang()">English</button>
+  <h1 id="h1-el"></h1>
+  <p class="subtitle" id="subtitle-el"></p>
+  <div class="disclaimer" id="disclaimer-el"></div>
+  <div class="data-bar">
+    <span class="data-info" id="data-info-el">Data: <strong>2023–2026</strong> · World Bank/FAO · Pakistan Bureau of Statistics · Ember · WRI</span>
+  </div>
+  <div class="score-bar">
+    <div class="metric"><div class="lbl" id="lbl-score">Score</div><div class="val" id="score-v">0%</div></div>
+    <div class="metric"><div class="lbl" id="lbl-land">Land used</div><div class="val" id="total-v">0%</div></div>
+    <div class="metric"><div class="lbl" id="lbl-remain">Remaining</div><div class="val" id="remain-v">100%</div></div>
+  </div>
+  <div class="map-section">
+    <div class="map-title" id="map-title">Your guesses — proportional area map (updates as you slide)</div>
+    <div id="treemap"></div>
+    <div class="legend" id="legend"></div>
+  </div>
+  <div class="total-bar-wrap">
+    <div class="total-bar-track"><div class="total-bar-fill" id="tot-fill" style="width:0%;background:#639922"></div></div>
+    <div class="total-bar-label" id="tot-label">0 / 100% allocated</div>
+  </div>
+  <div class="cards-grid" id="cards"></div>
+  <div class="btn-row">
+    <button id="sub-btn">Submit all guesses</button>
+    <button id="rst-btn"><i class="ti ti-refresh"></i> Play again</button>
+  </div>
+  <div class="final" id="final" style="display:none">
+    <div class="final-num" id="final-n">0%</div>
+    <div class="final-sub" id="final-sub">accuracy score</div>
+    <div class="final-grade" id="final-g"></div>
+  </div>
+  <div class="world-card" id="world-card" style="display:none">
+    <div class="world-head" id="world-head"></div>
+    <p class="world-text" id="world-text"></p>
+    <p class="world-text" id="world-text2" style="margin-bottom:.75rem"></p>
+    <div class="geo-legend" id="geo-legend"></div>
+    <div class="geo-maps-row">
+      <div id="world-geo-map"></div>
+      <div id="world-geo-inset"></div>
+    </div>
+    <p class="world-foot" id="world-foot"></p>
+  </div>
+  <p class="source">Sources: <a href="https://data.worldbank.org/country/pakistan" target="_blank">World Bank/FAO 2023</a> · <a href="https://www.pbs.gov.pk/" target="_blank">Pakistan Bureau of Statistics</a> · <a href="https://www.wri.org/insights/pakistan-solar-energy-boom" target="_blank">WRI: Pakistan's Solar Boom</a> · <a href="https://ember-energy.org/latest-insights/global-electricity-review-2025/" target="_blank">Ember Global Electricity Review 2025</a> · Pakistan total land area ~77.1M ha.</p>
+</div>
+<script>
+const CATS_UR = [
+  {id:`agri`, icon:`🌾`, name:`زرعی اراضی`, desc:`وادیٔ سندھ بھر میں فصلوں اور چراگاہوں کی زمین — دنیا کے سب سے بڑے مسلسل آبپاشی نظاموں میں سے ایک کی بدولت یہ زمین کے سب سے زیادہ شدت سے سیراب شدہ کھیتوں میں شامل ہے`, answer:46.7, color:`#639922`, max:70, step:0.5, answerHa:36000000},
+  {id:`desert`, icon:`🏜️`, name:`صحرا، پہاڑ اور دیگر بنجر زمین`, desc:`تھر اور چولستان کے صحرا، بلوچستان کا سطح مرتفع، اور قراقرم و ہمالیہ کی بلند چوٹیاں — پاکستان میں 7000 میٹر سے بلند چوٹیوں کی تعداد دنیا میں کہیں سے بھی زیادہ ہے`, answer:42.8, color:`#c4a96b`, max:70, step:0.5, answerHa:32995000},
+  {id:`forest`, icon:`🌲`, name:`جنگلات`, desc:`پاکستان دنیا کے کم جنگلات والے بڑے ممالک میں شامل ہے؛ 2014 سے 'بلین ٹری سونامی' اور اس کے بعد کے 'ٹین بلین ٹری سونامی' منصوبے تباہ شدہ پہاڑی ڈھلوانوں کو بحال کر رہے ہیں`, answer:4.7, color:`#3B6D11`, max:20, step:0.2, answerHa:3623000},
+  {id:`settle`, icon:`🏗️`, name:`آبادی اور سڑکیں`, desc:`کراچی، لاہور، اسلام آباد اور پاکستان کے دیگر شہر، قصبے اور سڑکوں کا جال — 24 کروڑ سے زائد آبادی کا گھر، دنیا کے سب سے زیادہ آبادی والے ممالک میں سے ایک`, answer:3.0, color:`#73726c`, max:15, step:0.2, answerHa:2313000},
+  {id:`water`, icon:`💧`, name:`آبی ذخائر`, desc:`دریائے سندھ اور اس کی معاون ندیاں، نیز تربیلا اور منگلا جیسے آبی ذخائر — دنیا کے سب سے بڑے مٹی کے بند ڈیموں میں شامل`, answer:2.8, color:`#378ADD`, max:10, step:0.1, answerHa:2159000},
+  {id:`golf`, icon:`⛳`, name:`گالف کورسز`, desc:`تقریباً ایک درجن گالف کورسز، زیادہ تر لاہور، راولپنڈی، کراچی اور اسلام آباد کی فوجی چھاؤنیوں سے منسلک`, answer:0.0008, color:`#5DCAA5`, max:0.02, step:0.0005, answerHa:600, dp:4},
+  {id:`solar`, icon:`☀️🔋`, name:`سولر فارمز (موجودہ)`, desc:`بڑے پیمانے کے، گرڈ سے منسلک سولر پی وی بمعہ بیٹری ذخیرہ — یہ پاکستان کے زبردست چھتوں پر سولر بوم سے الگ ہے جس نے تقریباً کوئی اضافی زمین استعمال نہیں کی`, answer:0.0036, color:`#EF9F27`, max:0.1, step:0.0005, answerHa:2750, dp:4, isSolar:true, solarNote:`اشارہ: صرف 2024 میں پاکستان نے چین اور امریکہ کے سوا کسی بھی ملک سے زیادہ سولر پینل درآمد کیے — مگر تقریباً سب پہلے سے موجود چھتوں پر نصب ہوئے، نئی زمین پر نہیں`},
+  {id:`sol100`, icon:`⚡🔋`, name:`100% بجلی کے لیے سولر`, desc:`پاکستان کے پورے قومی گرڈ کو چوبیس گھنٹے (تقریباً 145 TWh/سال) چلانے کے لیے بڑے پیمانے کے سولر+بیٹری کی درکار زمین — تھر اور چولستان کے صحراؤں کی شدید دھوپ میں`, answer:0.106, color:`#BA7517`, max:2, step:0.01, answerHa:81490, isSolar:true, readOnly:true, solarNote:`پاکستان کے صحراؤں میں تقریباً 1600 kWh/kWp/سال دھوپ ملتی ہے، امریکی جنوب مغرب کے برابر۔ 562 ہیکٹر/TWh کی شرح پر، پورے گرڈ کو ملک کی صرف 0.11% زمین درکار ہے۔ ذخیرہ کاری کی اضافی گنجائش زمین تقریباً دوگنی کر دیتی ہے۔ دریں اثنا پاکستان کا اصل سولر بوم تقریباً مکمل طور پر چھتوں پر رہا ہے — 2026 تک 50 گیگاواٹ سے زائد پینل درآمد ہو چکے، اسے دنیا کی سب سے بڑی سولر منڈیوں میں سے ایک بنا گیا، اس زمین کے بغیر۔`}
+];
+const CATS_EN = [
+  {id:`agri`, icon:`🌾`, name:`Agricultural land`, desc:`Cropland and pasture across the Indus Plain — fed by one of the world's largest contiguous irrigation systems, among the most intensively irrigated farmland on Earth`, answer:46.7, color:`#639922`, max:70, step:0.5, answerHa:36000000},
+  {id:`desert`, icon:`🏜️`, name:`Desert, mountains & other barren land`, desc:`The Thar and Cholistan deserts, the Balochistan plateau, and the high peaks of the Karakoram and Himalaya — Pakistan has more peaks over 7,000m than almost anywhere else on Earth`, answer:42.8, color:`#c4a96b`, max:70, step:0.5, answerHa:32995000},
+  {id:`forest`, icon:`🌲`, name:`Forest`, desc:`One of the world's most lightly forested large countries; the national 'Billion Tree Tsunami' and follow-up 'Ten Billion Tree Tsunami' have been restoring degraded hillsides since 2014`, answer:4.7, color:`#3B6D11`, max:20, step:0.2, answerHa:3623000},
+  {id:`settle`, icon:`🏗️`, name:`Settlement & roads`, desc:`Karachi, Lahore, Islamabad and Pakistan's other cities, towns and road network — home to over 240 million people, one of the most populous nations on Earth`, answer:3.0, color:`#73726c`, max:15, step:0.2, answerHa:2313000},
+  {id:`water`, icon:`💧`, name:`Water bodies`, desc:`The Indus River and its tributaries, plus reservoirs like Tarbela and Mangla — among the largest earth-filled dams in the world`, answer:2.8, color:`#378ADD`, max:10, step:0.1, answerHa:2159000},
+  {id:`golf`, icon:`⛳`, name:`Golf courses`, desc:`Around a dozen golf courses, mostly attached to military cantonments in Lahore, Rawalpindi, Karachi and Islamabad`, answer:0.0008, color:`#5DCAA5`, max:0.02, step:0.0005, answerHa:600, dp:4},
+  {id:`solar`, icon:`☀️🔋`, name:`Solar farms (current)`, desc:`Utility-scale, grid-connected solar PV with battery storage — distinct from Pakistan's enormous rooftop solar boom, which used almost no extra land at all`, answer:0.0036, color:`#EF9F27`, max:0.1, step:0.0005, answerHa:2750, dp:4, isSolar:true, solarNote:`Hint: in 2024 alone Pakistan imported more solar panels than any country except China and the US — but nearly all of it went onto existing rooftops, not new land`},
+  {id:`sol100`, icon:`⚡🔋`, name:`Solar+battery for 100% electricity`, desc:`Land needed for utility-scale solar+battery to power Pakistan's entire national grid 24/7 (~145 TWh/yr) — in the intense sunshine of the Thar and Cholistan deserts`, answer:0.106, color:`#BA7517`, max:2, step:0.01, answerHa:81490, isSolar:true, readOnly:true, solarNote:`Pakistan's deserts get ~1,600 kWh/kWp/yr, similar to the US Southwest. At 562 ha/TWh, the whole grid needs just 0.11% of the country's land. Storage overcapacity roughly doubles the land vs panels alone. Meanwhile Pakistan's real solar boom has been almost entirely rooftop: over 50 GW of panels imported by 2026, making it one of the world's largest solar markets in just a few years — without needing this land at all.`}
+];
+
+const STRINGS = {
+  local: {
+    h1:`<img src="https://flagcdn.com/32x24/pk.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> پاکستان کی زمین واقعی کیسے استعمال ہوتی ہے؟`,
+    subtitle:`ڈاکٹر سائمن کلارک کے <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">یوٹیوب شارٹ ویڈیو</a> (بالانگریزی) سے متاثر ہو کر۔ ہر زمرے کے لیے پاکستانی زمین کا فیصد اندازہ لگائیں — سلائیڈرز کا مجموعہ 100% تک محدود ہے۔ پاکستان دنیا کی تیزی سے ترقی کرنے والی سولر منڈیوں میں سے ایک بن چکا ہے، 2024 میں کسی بھی دوسرے ملک سے زیادہ سولر پینل درآمد کیے — تقریباً مکمل طور پر موجودہ چھتوں پر۔`,
+    disclaimer:`سولر+بیٹری کے اعداد و شمار مصنوعی ذہانت کی مدد سے تیار کردہ ایک فکری تجربہ ہیں، پالیسی کی سفارش نہیں۔ تمام سولر فارم اور sol100 اعداد و شمار بڑے پیمانے کے، گرڈ سے منسلک نظاموں کا حوالہ دیتے ہیں جنہیں نئی زمین درکار ہوتی ہے۔ پاکستان کی اصل سولر کہانی مختلف ہے: بلند بجلی کے نرخوں اور غیر یقینی گرڈ کی وجہ سے، گھرانوں اور کاروباروں نے صرف 2024 میں 17 گیگاواٹ سے زیادہ پینل درآمد کیے — برطانیہ یا کینیڈا کی پانچ سالہ مجموعی تنصیب سے بھی زیادہ — تقریباً مکمل طور پر پہلے سے موجود چھتوں پر، نئی زمین تقریباً صفر استعمال کرتے ہوئے۔ زمین کے استعمال کے اعداد و شمار ورلڈ بینک/FAO 2023 اور پاکستان بیورو آف سٹیٹسٹکس سے۔`,
+    submit:`تمام جوابات جمع کروائیں`,
+    play_again:`دوبارہ کھیلیں`,
+    score:`سکور`, land_used:`استعمال شدہ زمین`, remaining:`باقی`,
+    map_guess:`آپ کے اندازے — متناسب رقبہ نقشہ (سلائیڈ کرنے پر اپ ڈیٹ ہوتا ہے)`,
+    map_answer:`پاکستان میں زمین کا اصل استعمال — متناسب رقبہ نقشہ`,
+    allocated:`/ 100% مختص`, reveal:`جمع کروانے کے بعد ظاہر ہوگا۔`,
+    out_of:`درستگی کا سکور`,
+    sol100_reveal:`پاکستان کے صحراؤں میں تقریباً 1600 kWh/kWp/سال دھوپ ملتی ہے، امریکی جنوب مغرب کے برابر۔ 562 ہیکٹر/TWh کی شرح پر، پورے گرڈ کو ملک کی صرف 0.11% زمین درکار ہے۔ ذخیرہ کاری کی اضافی گنجائش زمین تقریباً دوگنی کر دیتی ہے۔ دریں اثنا پاکستان کا اصل سولر بوم تقریباً مکمل طور پر چھتوں پر رہا ہے — 2026 تک 50 گیگاواٹ سے زائد پینل درآمد ہو چکے، اسے دنیا کی سب سے بڑی سولر منڈیوں میں سے ایک بنا گیا، اس زمین کے بغیر۔`,
+    grades:[[86, `🏏 ماہر! آپ پاکستان کی غیر معمولی زمین کی تقسیم انتہائی درستگی سے جانتے ہیں۔`], [64, `🌾 بہت عمدہ — وادیٔ سندھ کی زرعی اہمیت کی گہری سمجھ۔`], [43, `🏔️ برا نہیں! بیشتر لوگ پاکستان کے بنجر اور پہاڑی رقبے کو کم سمجھتے ہیں۔`], [21, `☀️ کیا آپ جانتے ہیں؟ پاکستان دنیا کی تیز ترین سولر منڈیوں میں سے ایک بن چکا ہے۔`], [0, `🤔 حیران کن؟ پاکستان کا تقریباً 43% رقبہ صحرا، پہاڑ یا بنجر زمین پر مشتمل ہے۔`]],
+    btn_label:`English`,
+    country_label:`پاکستان`, circle_label:`درکار رقبہ`,
+    zoomed:`بڑا منظر`,
+  },
+  en: {
+    h1:`<img src="https://flagcdn.com/32x24/pk.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Pakistan's land actually used?`,
+    subtitle:`Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Pakistani land for each category — sliders are capped at 100% total. Pakistan has become one of the fastest-growing solar markets on Earth, importing more solar panels in 2024 than almost any other country — almost entirely onto existing rooftops.`,
+    disclaimer:`The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery 'farm' and 'sol100' figures refer to utility-scale, grid-connected systems that require new land. Pakistan's real solar story is different: driven by high tariffs and an unreliable grid, households and businesses imported over 17 GW of panels in 2024 alone — more than the UK or Canada have installed in five years combined — overwhelmingly onto rooftops that already existed, adding essentially zero new land use. Land use figures from World Bank/FAO 2023 and the Pakistan Bureau of Statistics.`,
+    submit:`Submit all guesses`,
+    play_again:`Play again`,
+    score:`Score`, land_used:`Land used`, remaining:`Remaining`,
+    map_guess:`Your guesses — proportional area map (updates as you slide)`,
+    map_answer:`Actual Pakistani land use — proportional area map`,
+    allocated:`/ 100% allocated`, reveal:`Revealed after you submit.`,
+    out_of:`accuracy score`,
+    sol100_reveal:`Pakistan's deserts get ~1,600 kWh/kWp/yr, similar to the US Southwest. At 562 ha/TWh, the whole grid needs just 0.11% of the country's land. Storage overcapacity roughly doubles the land vs panels alone. Meanwhile Pakistan's real solar boom has been almost entirely rooftop: over 50 GW of panels imported by 2026, making it one of the world's largest solar markets in just a few years — without needing this land at all.`,
+    grades:[[86, `🏏 Expert! You know Pakistan's extraordinary land split with remarkable precision.`], [64, `🌾 Very strong — great grasp of how dominant the Indus Plain really is.`], [43, `🏔️ Not bad! Most people underestimate how much of Pakistan is barren or mountainous.`], [21, `☀️ Did you know? Pakistan has become one of the fastest-growing solar markets on Earth.`], [0, `🤔 Surprising? Nearly 43% of Pakistan is desert, mountain or other barren land.`]],
+    btn_label:`اردو`,
+    country_label:`Pakistan`, circle_label:`Land area needed`,
+    zoomed:`Zoomed view`,
+  },
+};
+
+const WORLD_STRINGS = {
+  local: { head:`🌍 اگر پاکستان اکیلا پوری دنیا کو بجلی فراہم کرے تو؟`, fit:`پاکستان کے سولر حالات (~562 ہیکٹر/TWh) کے مطابق، پوری <strong>عالمی بجلی کی طلب</strong> (~31,000 TWh/سال) پوری کرنے کے لیے تقریباً <strong>{haM} ہیکٹر</strong> درکار ہوں گے — یعنی <strong>پاکستان کے رقبے کا صرف {pct}%</strong>، جو نیچے مساوی رقبے کے ایک دائرے کی صورت دکھایا گیا ہے۔ یہ دائرہ مکمل طور پر پاکستان کے اپنے صحراؤں کے اندر سما جاتا ہے۔`, stat2:`پاکستان کے وسیع تھر اور چولستان صحراؤں اور شدید دھوپ کا امتزاج اسے اس کھیل کے سب سے زیادہ قابلِ یقین سولر تصورات میں سے ایک بناتا ہے۔ حقیقت میں، پاکستان پہلے ہی چھتوں پر سولر کے ذریعے دنیا کی تیز ترین توانائی کی منتقلیوں میں سے ایک سے گزر رہا ہے۔`, foot:`نقطہ دار دائرہ محض وضاحتی ہے — درست رقبے کے مطابق سائز کیا گیا ہے، مگر کوئی حقیقی تجویز کردہ مقام نہیں۔ پاکستان کے غیر معمولی سولر وسائل اور وسیع صحراؤں کے پیش نظر، یہ فکری تجربہ بیشتر ممالک کی نسبت کم تصوراتی ہے۔` },
+  en: { head:`🌍 What if Pakistan alone powered the whole world?`, fit:`At Pakistan's solar conditions (~562 ha/TWh), powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) would need about <strong>{haM} hectares</strong> — just <strong>{pct}% of Pakistan's land area</strong>, shown below as a circle of equivalent area. That entire patch fits within Pakistan's own deserts.`, stat2:`Pakistan's combination of vast desert (Thar, Cholistan) and exceptional sunshine makes this one of the most compelling solar thought experiments in the game. In reality, Pakistan is already living through one of the world's fastest energy transitions via rooftop solar.`, foot:`The dashed circle is illustrative — sized to the correct land area, but not an actual proposed siting. Given Pakistan's exceptional solar resource and vast deserts, this thought experiment is less fanciful than for most countries.` },
+};
+
+const COUNTRY_LON = 69.3, COUNTRY_LAT = 30.0;
+const COUNTRY_ISO = `586`;
+const COUNTRY_HA = 77088000;
+const SOL100_HA = 81490;
+const DEMAND_TWH = 145;
+const HA_PER_TWH = SOL100_HA / DEMAND_TWH;
+
+let currentLang = `local`;
+let submitted = false, totalScore = 0;
+let CATS = [...CATS_UR];
+let MAIN_CATS = CATS.filter(c => !c.readOnly);
+
+function applyLang(lang) {
+  const s = STRINGS[lang];
+  CATS = lang === `local` ? [...CATS_UR] : [...CATS_EN];
+  MAIN_CATS = CATS.filter(c => !c.readOnly);
+  document.documentElement.lang = lang === `local` ? `ur` : `en`;
+  document.getElementById(`h1-el`).innerHTML = s.h1;
+  document.getElementById(`subtitle-el`).innerHTML = s.subtitle;
+  document.getElementById(`disclaimer-el`).innerHTML = `<strong>Note:</strong> ` + s.disclaimer;
+  document.getElementById(`lbl-score`).textContent = s.score;
+  document.getElementById(`lbl-land`).textContent = s.land_used;
+  document.getElementById(`lbl-remain`).textContent = s.remaining;
+  if (!submitted) buildCards();
+  const subBtn = document.getElementById(`sub-btn`);
+  if (subBtn && !subBtn.disabled) subBtn.textContent = s.submit;
+  const rstBtn = document.getElementById(`rst-btn`);
+  if (rstBtn) rstBtn.innerHTML = `<i class="ti ti-refresh"></i> ` + s.play_again;
+  const mapTitle = document.getElementById(`map-title`);
+  if (mapTitle) mapTitle.textContent = submitted ? s.map_answer : s.map_guess;
+  const totLabel = document.getElementById(`tot-label`);
+  if (totLabel) { const pct = totLabel.textContent.split(`/`)[0].trim(); totLabel.textContent = pct + ` ` + s.allocated; }
+  const hint = document.getElementById(`rl-hint-sol100`);
+  if (hint && hint.style.display !== `none`) hint.textContent = s.reveal;
+  document.getElementById(`final-sub`).textContent = s.out_of;
+  document.getElementById(`lang-btn`).textContent = s.btn_label;
+  if (document.getElementById(`world-card`).style.display === `block`) renderWorldCard();
+  drawMap();
+}
+function toggleLang() { currentLang = currentLang === `local` ? `en` : `local`; applyLang(currentLang); }
+
+function getVal(cat) {
+  if (cat.readOnly) return 0;
+  const el = document.getElementById(`sl-` + cat.id);
+  return el ? parseFloat(el.value) : 0;
+}
+function getMainTotal() { return MAIN_CATS.reduce((s, c) => s + getVal(c), 0); }
+function clampAll(changedId) {
+  const total = MAIN_CATS.reduce((s,c) => { const el=document.getElementById(`sl-`+c.id); return s+(el?parseFloat(el.value):0); },0);
+  const over = total - 100;
+  if (over <= 0.0001) return;
+  const others = MAIN_CATS.filter(c => c.id !== changedId);
+  const othersTotal = others.reduce((s,c) => { const el=document.getElementById(`sl-`+c.id); return s+(el?parseFloat(el.value):0); },0);
+  if (othersTotal <= 0) return;
+  let remaining = over;
+  others.forEach((cat,i) => {
+    const el=document.getElementById(`sl-`+cat.id); if(!el) return;
+    const cur=parseFloat(el.value);
+    const share=(i===others.length-1)?remaining:Math.min(cur,(cur/othersTotal)*over);
+    const newVal=Math.max(0,parseFloat((cur-share).toFixed(4)));
+    remaining-=(cur-newVal); el.value=newVal;
+    const dp = cat.dp !== undefined ? cat.dp : (cat.isSolar?3:1);
+    document.getElementById(`sv-`+cat.id).textContent=newVal.toFixed(dp)+`%`;
+  });
+}
+function updateTotal() {
+  const t=getMainTotal(); const tD=Math.min(t,100);
+  document.getElementById(`total-v`).textContent=tD.toFixed(1)+`%`;
+  document.getElementById(`remain-v`).textContent=Math.max(0,100-t).toFixed(1)+`%`;
+  const fill=document.getElementById(`tot-fill`);
+  fill.style.width=tD+`%`;
+  const p=tD/100;
+  fill.style.background=`rgb(${Math.round(99*p+59*(1-p))},${Math.round(153*p+153*(1-p))},${Math.round(34*p+17*(1-p))})`;
+  document.getElementById(`tot-label`).textContent=tD.toFixed(1)+` `+STRINGS[currentLang].allocated;
+}
+function drawMap() {
+  const tm=document.getElementById(`treemap`);
+  let cats;
+  if (submitted) {
+    cats=CATS.filter(c=>!c.readOnly).map(c=>({...c,pct:c.answer}));
+    const s=CATS.find(c=>c.id===`sol100`); if(s) cats.push({...s,pct:s.answer});
+  } else { cats=MAIN_CATS.map(c=>({...c,pct:getVal(c)})); }
+  cats=cats.filter(c=>c.pct>0).sort((a,b)=>b.pct-a.pct);
+  const total=cats.reduce((s,c)=>s+c.pct,0)||1;
+  tm.innerHTML=``;
+  cats.forEach(cat=>{
+    const block=document.createElement(`div`); block.className=`tm-block`;
+    const pctStr=cat.pct<0.01?cat.pct.toFixed(4):cat.pct.toFixed(1);
+    block.title=cat.name+`: `+pctStr+`%`;
+    block.style.cssText=`background:${cat.color};flex:${cat.pct} 1 0%;min-width:2px;height:100%`;
+    const estW=(cat.pct/total)*(tm.clientWidth||680);
+    if(estW>22){ const lbl=document.createElement(`div`); lbl.className=`tm-label`; lbl.innerHTML=estW>44?cat.icon+`<br>`+pctStr+`%`:cat.icon; block.appendChild(lbl); }
+    tm.appendChild(block);
+  });
+  document.getElementById(`legend`).innerHTML=cats.map(c=>{
+    const pctStr=c.pct<0.01?c.pct.toFixed(4):c.pct.toFixed(1);
+    return `<span class="leg-item"><span class="leg-dot" style="background:${c.color}"></span>${c.name} ${pctStr}%</span>`;
+  }).join(``);
+}
+function buildCards() {
+  const container=document.getElementById(`cards`); container.innerHTML=``;
+  CATS.forEach(cat=>{
+    const div=document.createElement(`div`);
+    div.className=`card`+(cat.isSolar?` solar-card`:``);
+    if(cat.readOnly){
+      div.innerHTML=`<div class="card-head"><span class="card-icon">${cat.icon}</span><span class="card-name">${cat.name}</span></div>
+        <div class="card-desc">${cat.desc}</div>
+        <div class="readout-text" id="rl-hint-sol100">${STRINGS[currentLang].reveal}</div>
+        <div class="res-line" id="rl-sol100"></div>`;
+    } else {
+      const dp=cat.dp!==undefined?cat.dp:(cat.isSolar?3:1);
+      const existingEl=document.getElementById(`sl-`+cat.id);
+      const curVal=existingEl?parseFloat(existingEl.value):0;
+      const initVal=curVal.toFixed(dp);
+      div.innerHTML=`<div class="card-head"><span class="card-icon">${cat.icon}</span><span class="card-name">${cat.name}</span></div>
+        <div class="card-desc">${cat.desc}</div>
+        <div class="sl-row">
+          <input type="range" min="0" max="${cat.max}" step="${cat.step}" value="${curVal}" id="sl-${cat.id}" aria-label="${cat.name}">
+          <span class="sl-val" id="sv-${cat.id}">${initVal}%</span>
+        </div>
+        ${cat.isSolar&&cat.solarNote?`<div class="solar-note">${cat.solarNote}</div>`:``}
+        <div class="res-line" id="rl-${cat.id}"></div>`;
+    }
+    container.appendChild(div);
+    if(!cat.readOnly){
+      document.getElementById(`sl-`+cat.id).addEventListener(`input`,function(){
+        const dp=cat.dp!==undefined?cat.dp:(cat.isSolar?3:1);
+        document.getElementById(`sv-`+cat.id).textContent=parseFloat(this.value).toFixed(dp)+`%`;
+        clampAll(cat.id);
+        document.getElementById(`sv-`+cat.id).textContent=parseFloat(document.getElementById(`sl-`+cat.id).value).toFixed(dp)+`%`;
+        updateTotal(); drawMap();
+      });
+    }
+  });
+}
+function scoreGuess(guess,answer){
+  const rel=Math.abs(guess-answer)/answer;
+  if(rel<=0.08) return 100;
+  if(rel<=0.25) return Math.round(100-(rel-0.08)/0.17*50);
+  if(rel<=0.80) return Math.round(50-(rel-0.25)/0.55*40);
+  return Math.max(0,Math.round(10-(rel-0.8)*8));
+}
+function gradeLabel(s){
+  const labels=STRINGS[currentLang].grades;
+  for(const [t,l] of labels){ if(s>=t) return l; }
+  return labels[labels.length-1][1];
+}
+document.getElementById(`sub-btn`).addEventListener(`click`,function(){
+  if(submitted) return;
+  submitted=true; totalScore=0;
+  CATS.forEach(cat=>{
+    const rl=document.getElementById(`rl-`+cat.id); if(!rl) return;
+    rl.style.display=`block`;
+    const dp=cat.dp!==undefined?cat.dp:(cat.isSolar?3:1);
+    if(cat.readOnly){
+      const hint=document.getElementById(`rl-hint-sol100`); if(hint) hint.style.display=`none`;
+      const haStr=cat.answerHa?` (~`+(cat.answerHa>=1000000?(cat.answerHa/1000000).toFixed(1)+`M`:Math.round(cat.answerHa/1000)+`k`)+` ha)`:``; 
+      rl.innerHTML=`<span style="color:var(--text-secondary)">Answer: <strong style="color:#BA7517">`+cat.answer+`%</strong>`+haStr+` — `+STRINGS[currentLang].sol100_reveal+`</span>`;
+      return;
+    }
+    const guess=getVal(cat); const pts=scoreGuess(guess,cat.answer);
+    totalScore+=pts;
+    const diff=guess-cat.answer; const sign=diff>=0?`+`:``;
+    const diffStr=Math.abs(diff)<(cat.isSolar?0.0005:0.3)?`spot on!`:sign+diff.toFixed(dp)+`% off`;
+    const col=pts>=80?`#3b6d11`:pts>=40?`#ba7517`:`#a32d2d`;
+    const haStr=cat.answerHa?` (~`+(cat.answerHa>=1000000?(cat.answerHa/1000000).toFixed(1)+`M`:Math.round(cat.answerHa/1000)+`k`)+` ha)`:``; 
+    const answerStr=cat.answer<0.01?cat.answer.toFixed(4):String(cat.answer);
+    rl.innerHTML=`<span style="color:var(--text-secondary)">Answer: <strong style="color:var(--text-primary)">`+answerStr+`%</strong>`+haStr+`</span> <span style="color:`+col+`;font-weight:500">`+diffStr+` → `+pts+`pts</span>`;
+    const sl=document.getElementById(`sl-`+cat.id); if(sl) sl.disabled=true;
+  });
+  const maxScore=MAIN_CATS.length*100;
+  const scorePct=Math.round((totalScore/maxScore)*100);
+  document.getElementById(`score-v`).textContent=scorePct+`%`;
+  document.getElementById(`map-title`).textContent=STRINGS[currentLang].map_answer;
+  document.getElementById(`final`).style.display=`block`;
+  document.getElementById(`final-n`).textContent=scorePct+`%`;
+  document.getElementById(`final-g`).textContent=gradeLabel(scorePct);
+  document.getElementById(`rst-btn`).style.display=`inline-flex`;
+  this.disabled=true;
+  drawMap();
+  renderWorldCard();
+});
+document.getElementById(`rst-btn`).addEventListener(`click`,function(){
+  submitted=false; totalScore=0;
+  CATS=currentLang===`local`?[...CATS_UR]:[...CATS_EN];
+  MAIN_CATS=CATS.filter(c=>!c.readOnly);
+  document.getElementById(`score-v`).textContent=`0%`;
+  document.getElementById(`total-v`).textContent=`0%`;
+  document.getElementById(`remain-v`).textContent=`100%`;
+  document.getElementById(`final`).style.display=`none`;
+  document.getElementById(`world-card`).style.display=`none`;
+  document.getElementById(`map-title`).textContent=STRINGS[currentLang].map_guess;
+  document.getElementById(`tot-fill`).style.width=`0%`;
+  document.getElementById(`tot-label`).textContent=`0 `+STRINGS[currentLang].allocated;
+  this.style.display=`none`;
+  document.getElementById(`sub-btn`).disabled=false;
+  buildCards(); updateTotal(); setTimeout(drawMap,50);
+});
+
+function renderWorldCard(){
+  const _wcEl = document.getElementById(`world-card`);
+  const _wcFirst = _wcEl.style.display !== `block`;
+  _wcEl.style.display = `block`;
+  const W=WORLD_STRINGS[currentLang];
+  const haNeeded=31000*HA_PER_TWH;
+  const pct=(haNeeded/COUNTRY_HA*100).toFixed(1);
+  const haM=(haNeeded/1e6).toFixed(1);
+  document.getElementById(`world-head`).textContent=W.head;
+  document.getElementById(`world-text`).innerHTML=W.fit.replace(`{haM}`,haM).replace(`{pct}`,pct);
+  document.getElementById(`world-text2`).textContent=W.stat2;
+  const S=STRINGS[currentLang];
+  document.getElementById(`geo-legend`).innerHTML=
+    `<span><span class="geo-dot" style="background:#8a7860;opacity:0.65"></span>${S.country_label}</span>`+
+    `<span><span class="geo-dot" style="background:#EF9F27"></span>${S.circle_label}</span>`;
+  document.getElementById(`world-foot`).textContent=W.foot;
+  if (_wcFirst) {
+    _wcEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(() => { drawGeoMap(haNeeded); drawGeoInset(haNeeded); }, 800);
+  } else {
+    drawGeoMap(haNeeded); drawGeoInset(haNeeded);
+  }
+}
+
+let _worldTopo=null;
+async function getWorldTopo(){
+  if(_worldTopo) return _worldTopo;
+  const r=await fetch(`https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json`);
+  _worldTopo=await r.json(); return _worldTopo;
+}
+async function drawGeoMap(haNeeded){
+  const topo=await getWorldTopo();
+  const cont=document.getElementById(`world-geo-map`); cont.innerHTML=``;
+  const W=cont.clientWidth||440,H=280,R=H*0.62;
+  const svg=d3.select(cont).append(`svg`).attr(`viewBox`,`0 0 ${W} ${H}`);
+  const projection=d3.geoOrthographic().scale(R).translate([W/2,H/2]).rotate([-COUNTRY_LON,-COUNTRY_LAT]).clipAngle(90);
+  const path=d3.geoPath(projection);
+  svg.append(`path`).datum({type:`Sphere`}).attr(`d`,path).attr(`fill`,`#16283c`);
+  svg.append(`path`).datum(d3.geoGraticule()()).attr(`d`,path).attr(`fill`,`none`).attr(`stroke`,`#22384f`).attr(`stroke-width`,0.4);
+  const land=topojson.feature(topo,topo.objects.countries);
+  svg.append(`g`).selectAll(`path`).data(land.features).join(`path`).attr(`class`,`geo-land`).attr(`d`,path);
+  const cf=land.features.find(f=>String(f.id).padStart(3,`0`)===COUNTRY_ISO);
+  if(cf) svg.append(`path`).datum(cf).attr(`class`,`geo-country`).attr(`d`,path);
+  const aKm2=haNeeded/100,rKm=Math.sqrt(aKm2/Math.PI),angRad=(rKm/6371)*(180/Math.PI);
+  svg.append(`path`).datum(d3.geoCircle().center([COUNTRY_LON,COUNTRY_LAT]).radius(angRad)()).attr(`class`,`geo-circle`).attr(`d`,path);
+
+    // Globe rotation to situate the viewer
+    let _angle = 0;
+    const _timer = d3.interval(() => {
+      _angle += 0.4;
+      projection.rotate([-COUNTRY_LON - _angle, -COUNTRY_LAT * 0.25]);
+      svg.selectAll('.geo-land, .geo-country, .geo-circle').attr('d', path);
+      if (_angle > 360) _timer.stop();
+    }, 40);
+}
+async function drawGeoInset(haNeeded){
+  const topo=await getWorldTopo();
+  const cont=document.getElementById(`world-geo-inset`); cont.innerHTML=``;
+  const W=cont.clientWidth||300,H=280;
+  const aKm2=haNeeded/100,rKm=Math.sqrt(aKm2/Math.PI),angRad=(rKm/6371)*(180/Math.PI);
+  const targetPR=H*0.30,scale=(180/Math.PI)/(angRad/targetPR)/2;
+  const svg=d3.select(cont).append(`svg`).attr(`viewBox`,`0 0 ${W} ${H}`);
+  const proj=d3.geoMercator().center([COUNTRY_LON,COUNTRY_LAT]).scale(scale).translate([W/2,H/2]);
+  const path=d3.geoPath(proj);
+  svg.append(`rect`).attr(`width`,W).attr(`height`,H).attr(`fill`,`#16283c`);
+  svg.append(`path`).datum(d3.geoGraticule().step([5,5])()).attr(`d`,path).attr(`fill`,`none`).attr(`stroke`,`#22384f`).attr(`stroke-width`,0.4);
+  const land=topojson.feature(topo,topo.objects.countries);
+  svg.append(`g`).selectAll(`path`).data(land.features).join(`path`).attr(`class`,`geo-land`).attr(`d`,path);
+  const cf=land.features.find(f=>String(f.id).padStart(3,`0`)===COUNTRY_ISO);
+  if(cf) svg.append(`path`).datum(cf).attr(`class`,`geo-country`).attr(`d`,path);
+  svg.append(`path`).datum(d3.geoCircle().center([COUNTRY_LON,COUNTRY_LAT]).radius(angRad)()).attr(`class`,`geo-circle`).attr(`d`,path);
+  const niceSteps=[10,25,50,100,200,500,1000,2000,5000];
+  let barKm=niceSteps.find(s=>s>=rKm*0.4)||5000;
+  const [x0]=proj([COUNTRY_LON,COUNTRY_LAT]);
+  const [x1]=proj([COUNTRY_LON+barKm/111.32,COUNTRY_LAT]);
+  const barPx=Math.abs(x1-x0);
+  const g=svg.append(`g`);
+  g.append(`rect`).attr(`x`,8).attr(`y`,H-26).attr(`width`,barPx).attr(`height`,2.5).attr(`fill`,`#fff`);
+  g.append(`text`).attr(`x`,8).attr(`y`,H-12).attr(`fill`,`#fff`).attr(`font-size`,10).attr(`style`,`text-shadow:0 1px 2px rgba(0,0,0,.6)`).text(barKm.toLocaleString()+` km`);
+  const lbl=document.createElement(`div`); lbl.className=`geo-inset-label`; lbl.textContent=STRINGS[currentLang].zoomed;
+  cont.style.position=`relative`; cont.appendChild(lbl);
+}
+
+buildCards(); updateTotal(); setTimeout(drawMap,50); applyLang(`local`);
+window.addEventListener(`resize`,drawMap);
+</script>
+</body>
+</html>
