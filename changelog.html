@@ -44,6 +44,18 @@ ul li strong { color: var(--ink); font-weight: 500; }
 
   <div class="entry">
     <div class="entry-header">
+      <span class="version">v4.10.1</span>
+      <span class="date">2026</span>
+      <span class="badge badge-patch">patch</span>
+    </div>
+    <ul>
+      <li><strong>Russia: golf courses added as a category</strong> — ~35 clubs × ~65 ha ≈ 1,700 ha = 0.0001% of Russia's land. Strikingly, this is roughly the same area as all of Russia's solar farms combined, making it the most vivid illustration in the game of how little solar Russia has deployed.</li>
+      <li><strong>Pakistan: "spot on!" scoring fixed</strong> — the spot-on threshold was a fixed 0.3% absolute for all non-solar categories, enormous relative to a 0.0008% answer. Now uses <code>cat.step × 0.5</code> so the threshold scales with the category's resolution. (Fix was in v4.10.0; this patch confirms the correct file is in the zip.)</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="entry-header">
       <span class="version">v4.10.0</span>
       <span class="date">2026</span>
       <span class="badge badge-minor">minor</span>
