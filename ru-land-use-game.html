@@ -147,7 +147,7 @@ const CATS_RU = [
   {id:`other`, icon:`🏔️`, name:`Прочие земли (тундра, степи, горы, города)`, desc:`Арктическая тундра и вечная мерзлота на севере, плодородные степи на юге и горные хребты Кавказа, Урала и Сибири — самый разнообразный ландшафтный массив в мире`, answer:36.9, color:`#b8a07a`, max:60, step:0.5, answerHa:630926000},
   {id:`agri`, icon:`🌾`, name:`Сельскохозяйственные угодья`, desc:`Пашни, постоянные культуры и пастбища по всей стране — Россия входит в число ведущих мировых производителей пшеницы, ячменя, подсолнечника и сахарной свёклы`, answer:13.3, color:`#639922`, max:30, step:0.2, answerHa:227405000},
   {id:`water`, icon:`💧`, name:`Водоёмы`, desc:`Крупнейшее в мире хранилище пресной воды: Байкал (содержит ~20% мировых запасов поверхностной пресной воды), Волга, Обь, Лена и тысячи других рек и озёр`, answer:2.4, color:`#378ADD`, max:10, step:0.1, answerHa:41036000},
-  {id:`solar`, icon:`☀️🔋`, name:`Солнечные электростанции (текущие)`, desc:`Сетевые солнечные электростанции с накопителями — по данным IRENA (2023), Россия имеет лишь ~2,1 ГВт солнечных мощностей: одна из самых низких показателей в мире для крупной экономики`, answer:0.0003, color:`#EF9F27`, max:0.01, step:0.0001, answerHa:5250, dp:4, isSolar:true, solarNote:`Подсказка: в 2023 году солнечная генерация обеспечила лишь 0,28% электроэнергии России (IRENA). Страна по-прежнему зависит от ископаемого топлива (~66% мощностей) и гидроэнергетики (~18%)`},
+  {id:`solar`, icon:`☀️🔋`, name:`Солнечные электростанции (текущие)`, desc:`Сетевые солнечные электростанции с накопителями — по данным IRENA (2023), Россия имеет лишь ~2,1 ГВт солнечных мощностей: одна из самых низких показателей в мире для крупной экономики`, answer:0.0003, color:`#EF9F27`, max:0.01, step:0.0001, answerHa:5250, dp:4, isSolar:true, solarNote:`Подсказка: в 2023 году солнечная генерация обеспечила лишь 0,28% электроэнергии России (IRENA). Страна по-прежнему зависит от ископаемого топлива (~66% мощностей) и гидроэнергетики (~18%). Для справки: ~35 гольф-клубов России занимают примерно столько же земли, сколько все солнечные электростанции страны вместе взятые`},
   {id:`sol100`, icon:`⚡🔋`, name:`Солнечная энергия для 100% электричества`, desc:`Площадь под крупные солнечные электростанции с накопителями для обеспечения всего потребления электроэнергии в России 24/7 (~1147 ТВт·ч/год) — в солнечных южных степях`, answer:0.055, color:`#BA7517`, max:1, step:0.005, answerHa:938000, isSolar:true, readOnly:true, solarNote:`Южные степи России получают ~1100 кВт·ч/кВт·п в год (уровень Германии). При 818 га/ТВт·ч для всей сети России нужно лишь 0,055% территории страны. Накопители примерно удваивают площадь по сравнению с одними панелями. На практике Россия производит ~81% электроэнергии из ископаемого топлива и газа; солнечная генерация остаётся незначительной (0,28% в 2023 г. по данным IRENA)`}
 ];
 const CATS_EN = [
@@ -155,7 +155,7 @@ const CATS_EN = [
   {id:`other`, icon:`🏔️`, name:`Other land (tundra, steppe, mountains, cities)`, desc:`Arctic tundra and permafrost in the north, fertile steppes in the south, and the mountain ranges of the Caucasus, Urals and Siberia — the world's most diverse single national landscape`, answer:36.9, color:`#b8a07a`, max:60, step:0.5, answerHa:630926000},
   {id:`agri`, icon:`🌾`, name:`Agricultural land`, desc:`Cropland, permanent crops and pasture — Russia is one of the world's largest producers of wheat, barley, sunflower and sugar beet, feeding much of the world from its vast black-soil belt`, answer:13.3, color:`#639922`, max:30, step:0.2, answerHa:227405000},
   {id:`water`, icon:`💧`, name:`Water bodies`, desc:`The world's greatest reservoir of fresh water: Lake Baikal alone holds ~20% of global surface fresh water, plus the Volga, Ob, Lena and thousands of other rivers and lakes`, answer:2.4, color:`#378ADD`, max:10, step:0.1, answerHa:41036000},
-  {id:`solar`, icon:`☀️🔋`, name:`Solar farms (current)`, desc:`Grid-connected utility solar PV with battery storage — Russia has just ~2.1 GW of solar capacity (IRENA 2023), one of the lowest figures in the world for a major economy`, answer:0.0003, color:`#EF9F27`, max:0.01, step:0.0001, answerHa:5250, dp:4, isSolar:true, solarNote:`Hint: solar provided just 0.28% of Russia's electricity in 2023 (IRENA). Russia still relies heavily on fossil fuels (~66% of capacity) and hydropower (~18%)`},
+  {id:`solar`, icon:`☀️🔋`, name:`Solar farms (current)`, desc:`Grid-connected utility solar PV with battery storage — Russia has just ~2.1 GW of solar capacity (IRENA 2023), one of the lowest figures in the world for a major economy`, answer:0.0003, color:`#EF9F27`, max:0.01, step:0.0001, answerHa:5250, dp:4, isSolar:true, solarNote:`Hint: solar provided just 0.28% of Russia's electricity in 2023 (IRENA). Russia still relies heavily on fossil fuels (~66% of capacity) and hydropower (~18%). For context: Russia's ~35 golf clubs occupy roughly the same land area as all its solar farms combined`},
   {id:`sol100`, icon:`⚡🔋`, name:`Solar+battery for 100% electricity`, desc:`Land needed for utility-scale solar+battery to power Russia's entire national grid 24/7 (~1,147 TWh/yr, IRENA 2023) — sited in the sunnier southern steppes`, answer:0.055, color:`#BA7517`, max:1, step:0.005, answerHa:938000, isSolar:true, readOnly:true, solarNote:`Russia's southern steppes get ~1,100 kWh/kWp/yr (similar to Germany). At 818 ha/TWh the whole grid needs just 0.055% of Russia's land. Storage overcapacity roughly doubles land vs panels alone. In practice Russia generates ~81% of electricity from fossil fuels and gas; solar remains negligible at 0.28% in 2023 (IRENA)`}
 ];
 
@@ -346,7 +346,7 @@ document.getElementById(`sub-btn`).addEventListener(`click`,function(){
     const guess=getVal(cat); const pts=scoreGuess(guess,cat.answer);
     totalScore+=pts;
     const diff=guess-cat.answer; const sign=diff>=0?`+`:``;
-    const diffStr=Math.abs(diff)<(cat.isSolar?0.0001:0.3)?`spot on!`:sign+diff.toFixed(dp)+`% off`;
+    const spotOnThresh=cat.step*0.5;const diffStr=Math.abs(diff)<spotOnThresh?`spot on!`:sign+diff.toFixed(dp)+`% off`;
     const col=pts>=80?`#3b6d11`:pts>=40?`#ba7517`:`#a32d2d`;
     const haStr=cat.answerHa?` (~`+(cat.answerHa>=1000000?(cat.answerHa/1000000).toFixed(1)+`M`:Math.round(cat.answerHa/1000)+`k`)+` ha)`:``; 
     const answerStr=cat.answer.toFixed(dp);
@@ -422,7 +422,7 @@ async function drawGeoMap(haNeeded){
   const cf=land.features.find(f=>String(f.id).padStart(3,`0`)===COUNTRY_ISO);
   if(cf) svg.append(`path`).datum(cf).attr(`class`,`geo-country`).attr(`d`,path);
   const aKm2=haNeeded/100,rKm=Math.sqrt(aKm2/Math.PI),angRad=(rKm/6371)*(180/Math.PI);
-  svg.append(`path`).datum(d3.geoCircle().center([COUNTRY_LON,COUNTRY_LAT-10]).radius(angRad)()).attr(`class`,`geo-circle`).attr(`d`,path);
+  svg.append(`path`).datum(d3.geoCircle().center([90,58]).radius(angRad)()).attr(`class`,`geo-circle`).attr(`d`,path);
   let _angle=0;
   const _timer=d3.interval(()=>{
     _angle+=0.4;
@@ -438,7 +438,7 @@ async function drawGeoInset(haNeeded){
   const aKm2=haNeeded/100,rKm=Math.sqrt(aKm2/Math.PI),angRad=(rKm/6371)*(180/Math.PI);
   const targetPR=H*0.30,scale=(180/Math.PI)/(angRad/targetPR)/2;
   const svg=d3.select(cont).append(`svg`).attr(`viewBox`,`0 0 ${W} ${H}`);
-  const proj=d3.geoMercator().center([COUNTRY_LON-10,COUNTRY_LAT-10]).scale(scale).translate([W/2,H/2]);
+  const proj=d3.geoMercator().center([90,58]).scale(scale).translate([W/2,H/2]);
   const path=d3.geoPath(proj);
   svg.append(`rect`).attr(`width`,W).attr(`height`,H).attr(`fill`,`#16283c`);
   svg.append(`path`).datum(d3.geoGraticule().step([10,10])()).attr(`d`,path).attr(`fill`,`none`).attr(`stroke`,`#22384f`).attr(`stroke-width`,0.4);
@@ -446,11 +446,11 @@ async function drawGeoInset(haNeeded){
   svg.append(`g`).selectAll(`path`).data(land.features).join(`path`).attr(`class`,`geo-land`).attr(`d`,path);
   const cf=land.features.find(f=>String(f.id).padStart(3,`0`)===COUNTRY_ISO);
   if(cf) svg.append(`path`).datum(cf).attr(`class`,`geo-country`).attr(`d`,path);
-  svg.append(`path`).datum(d3.geoCircle().center([COUNTRY_LON-10,COUNTRY_LAT-10]).radius(angRad)()).attr(`class`,`geo-circle`).attr(`d`,path);
+  svg.append(`path`).datum(d3.geoCircle().center([90,58]).radius(angRad)()).attr(`class`,`geo-circle`).attr(`d`,path);
   const niceSteps=[10,25,50,100,200,500,1000,2000,5000];
   let barKm=niceSteps.find(s=>s>=rKm*0.4)||5000;
-  const [x0]=proj([COUNTRY_LON-10,COUNTRY_LAT-10]);
-  const [x1]=proj([COUNTRY_LON-10+barKm/111.32,COUNTRY_LAT-10]);
+  const [x0]=proj([90,58]);
+  const [x1]=proj([90+barKm/111.32,58]);
   const barPx=Math.abs(x1-x0);
   const g=svg.append(`g`);
   g.append(`rect`).attr(`x`,8).attr(`y`,H-26).attr(`width`,barPx).attr(`height`,2.5).attr(`fill`,`#fff`);

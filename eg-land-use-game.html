@@ -374,7 +374,7 @@ document.getElementById(`sub-btn`).addEventListener(`click`,function(){
     totalScore+=pts;
     const diff=guess-cat.answer; const sign=diff>=0?`+`:``;
     const dp=cat.dp!==undefined?cat.dp:(cat.isSolar?3:1);
-    const diffStr=Math.abs(diff)<(cat.isSolar?0.002:0.3)?`spot on!`:sign+diff.toFixed(dp)+`% off`;
+    const spotOnThresh=cat.step*0.5;const diffStr=Math.abs(diff)<spotOnThresh?`spot on!`:sign+diff.toFixed(dp)+`% off`;
     const col=pts>=80?`#3b6d11`:pts>=40?`#ba7517`:`#a32d2d`;
     const haStr=cat.answerHa?` (~`+(cat.answerHa>=1000000?(cat.answerHa/1000000).toFixed(1)+`M`:Math.round(cat.answerHa/1000)+`k`)+` ha)`:``; 
     const answerStr=cat.answer<0.01?cat.answer.toFixed(4):String(cat.answer);
