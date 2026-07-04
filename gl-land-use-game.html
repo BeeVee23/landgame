@@ -96,7 +96,7 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 <body>
 <div class="page">
   <h1><img src="https://flagcdn.com/32x24/gl.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Greenland's land actually used?</h1>
-  <p class="subtitle">Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Greenland's land for each category — sliders are capped at 100% total. Greenland is the world's largest island, but over 79% of it is buried under the second-largest ice sheet on Earth.</p>
+  <p class="subtitle">Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Greenland's land for each category — sliders are capped at 100% total. Greenland is the world's largest island, but over 79% of it is buried under the second-largest ice sheet on Earth. Note: Kalaallisut (Greenlandic) has been the sole official language of Greenland since 2009.</p>
   <div class="disclaimer"><strong>Note:</strong> The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar figures refer to utility-scale, grid-connected systems. Greenland already generates ~87% of its electricity from hydropower (Nukissiorfiit 2024), using glacial meltwater — one of the world's cleanest electricity grids. The polar night makes year-round solar challenging, requiring large battery storage. Land use figures from Statistics Greenland (Grønlands Statistik) and the National Snow and Ice Data Center (NSIDC). Electricity from Statistics Greenland 2023.</div>
   <div class="data-bar">
     <span class="data-info">Data: <strong>2023–2024</strong> · Statistics Greenland (Grønlands Statistik) · NSIDC · Nukissiorfiit · FAO</span>
@@ -343,7 +343,7 @@ async function drawGeoMap(haNeeded){
   const cf=land.features.find(f=>String(f.id).padStart(3,`0`)===COUNTRY_ISO);
   if(cf) svg.append(`path`).datum(cf).attr(`class`,`geo-country`).attr(`d`,path);
   const aKm2=haNeeded/100,rKm=Math.sqrt(aKm2/Math.PI),angRad=(rKm/6371)*(180/Math.PI);
-  svg.append(`path`).datum(d3.geoCircle().center([COUNTRY_LON,COUNTRY_LAT-8]).radius(angRad)()).attr(`class`,`geo-circle`).attr(`d`,path);
+  svg.append(`path`).datum(d3.geoCircle().center([COUNTRY_LON,COUNTRY_LAT]).radius(angRad)()).attr(`class`,`geo-circle`).attr(`d`,path);
   let _angle=0;
   const _timer=d3.interval(()=>{
     _angle+=0.4;
@@ -359,7 +359,7 @@ async function drawGeoInset(haNeeded){
   const aKm2=haNeeded/100,rKm=Math.sqrt(aKm2/Math.PI),angRad=(rKm/6371)*(180/Math.PI);
   const targetPR=H*0.28,scale=(180/Math.PI)/(angRad/targetPR)/2;
   const svg=d3.select(cont).append(`svg`).attr(`viewBox`,`0 0 ${W} ${H}`);
-  const circleLon=COUNTRY_LON, circleLat=COUNTRY_LAT-8;
+  const circleLon=COUNTRY_LON, circleLat=COUNTRY_LAT;
   const proj=d3.geoMercator().center([circleLon,circleLat]).scale(scale).translate([W/2,H/2]);
   const path=d3.geoPath(proj);
   svg.append(`rect`).attr(`width`,W).attr(`height`,H).attr(`fill`,`#16283c`);
