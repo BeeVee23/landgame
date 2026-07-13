@@ -308,7 +308,6 @@ document.getElementById(`sub-btn`).addEventListener(`click`,function(){
   const haM=(haNeeded/1e6).toFixed(1);
   document.getElementById(`world-text`).innerHTML=`At Nigeria's national solar conditions (~531 ha/TWh), powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) would need about <strong>{haM} hectares</strong> — just <strong>{pct}% of Nigeria's land area</strong>, shown below as a circle of equivalent area. That circle fits entirely within Nigeria.`.replace(`{haM}`,haM).replace(`{pct}`,pct);
   _wcEl.style.display=`block`;
-  _wcEl.scrollIntoView({behavior:`smooth`,block:`start`});
   setTimeout(()=>{drawGeoMap(haNeeded);drawGeoInset(haNeeded);},800);
 });
 document.getElementById(`rst-btn`).addEventListener(`click`,function(){

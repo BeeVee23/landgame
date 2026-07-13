@@ -306,7 +306,6 @@ document.getElementById(`sub-btn`).addEventListener(`click`,function(){
   const haM=(haNeeded/1e6).toFixed(1);
   document.getElementById(`world-text`).innerHTML=`Using Greenland's annual average solar yield (~1,200 ha/TWh), powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) would need about <strong>{haM} hectares</strong> — <strong>{pct}% of Greenland's total land area</strong>, shown as a circle below. But this is a <strong>land-area thought experiment, not a feasibility claim</strong>: the polar night means Greenland receives zero sun for weeks to months in winter, making year-round solar alone physically impractical — the battery storage required to bridge the gap would be enormous.`.replace(`{haM}`,haM).replace(`{pct}`,pct);
   _wcEl.style.display=`block`;
-  _wcEl.scrollIntoView({behavior:`smooth`,block:`start`});
   setTimeout(()=>{drawGeoMap(haNeeded);drawGeoInset(haNeeded);},800);
 });
 document.getElementById(`rst-btn`).addEventListener(`click`,function(){

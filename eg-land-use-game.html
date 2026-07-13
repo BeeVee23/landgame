@@ -428,7 +428,6 @@ function renderWorldCard(){
     `<span><span class="geo-dot" style="background:#EF9F27"></span>${S.circle_label}</span>`;
   document.getElementById(`world-foot`).textContent=W.foot;
   if (_wcFirst) {
-    _wcEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
     setTimeout(() => { drawGeoMap(haNeeded); drawGeoInset(haNeeded); }, 800);
   } else {
     drawGeoMap(haNeeded); drawGeoInset(haNeeded);

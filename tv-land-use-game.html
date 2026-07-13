@@ -306,7 +306,6 @@ document.getElementById(`sub-btn`).addEventListener(`click`,function(){
   const mult=Math.round(haNeeded/COUNTRY_HA).toLocaleString();
   document.getElementById(`world-text`).innerHTML=`At Tuvalu's near-equatorial solar conditions (~538 ha/TWh), powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) would need about <strong>{haM} million hectares</strong> — a circle over <strong>{mult}&times; the size of Tuvalu's entire national territory</strong>. Put another way: Tuvalu's whole country could fit inside that circle more than {mult} times over.`.replace(`{haM}`,haM).replace(/\{mult\}/g,mult);
   _wcEl.style.display=`block`;
-  _wcEl.scrollIntoView({behavior:`smooth`,block:`start`});
   setTimeout(()=>{drawGeoMap(haNeeded);drawGeoInset(haNeeded);},800);
 });
 document.getElementById(`rst-btn`).addEventListener(`click`,function(){

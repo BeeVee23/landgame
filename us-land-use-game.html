@@ -399,7 +399,6 @@ function renderWorldCard() {
   footEl.textContent = 'The dashed circle is illustrative — sized to the correct land area, but not an actual proposed siting. It overlaps existing borders for scale only.';
   legendEl.innerHTML = `<span><span class="geo-dot" style="background:#8a7860;opacity:0.65"></span>US</span><span><span class="geo-dot" style="background:#EF9F27"></span>Land area needed</span>`;
   if (_wcFirst) {
-    _wcEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
     setTimeout(() => { drawGeoMap(WORLD_HA_NEEDED); drawGeoInset(WORLD_HA_NEEDED); }, 800);
   } else {
     drawGeoMap(WORLD_HA_NEEDED); drawGeoInset(WORLD_HA_NEEDED);
