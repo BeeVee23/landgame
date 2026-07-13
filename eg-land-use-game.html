@@ -361,6 +361,7 @@ function gradeLabel(s){
 document.getElementById(`sub-btn`).addEventListener(`click`,function(){
   if(submitted) return;
   submitted=true; totalScore=0;
+  document.querySelector('.map-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
   CATS.forEach(cat=>{
     const rl=document.getElementById(`rl-`+cat.id); if(!rl) return;
     rl.style.display=`block`;
