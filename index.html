@@ -232,6 +232,7 @@ html, body {
 .c-path.available { fill: var(--accent2); cursor: pointer; }
 .c-path.available:hover { fill: var(--accent); }
 .c-path.active { fill: var(--accent); }
+.c-path.highlighted { fill: var(--accent); }
 
 .map-loading {
   display: flex;
@@ -372,7 +373,7 @@ html, body {
       <span class="site-title">How is land actually used?</span>
       <div class="site-right">
         <span class="site-tag">A guessing game</span>
-        <a href="changelog.html" class="site-version" style="text-decoration:none;">v4.16.0</a>
+        <a href="changelog.html" class="site-version" style="text-decoration:none;">v5.0.0</a>
       </div>
     </div>
   </div>
@@ -415,7 +416,7 @@ html, body {
   <nav class="game-nav">
     <button class="back-btn" id="back-btn">← Map</button>
     <span class="game-nav-title" id="game-nav-title"></span>
-    <a href="changelog.html" class="version-badge" style="text-decoration:none;">v4.16.0</a>
+    <a href="changelog.html" class="version-badge" style="text-decoration:none;">v5.0.0</a>
   </nav>
   <iframe id="game-iframe" src="" title="Land use game"></iframe>
 </div>
@@ -470,7 +471,7 @@ let activeIso = null;
 
 // Render map using D3 + Natural Earth TopoJSON (50m)
 const W = 960, H = 500;
-const projection = d3.geoNaturalEarth1()
+const projection = d3.geoEqualEarth()
   .scale(153)
   .translate([W / 2, H / 2]);
 const pathGen = d3.geoPath().projection(projection);
@@ -509,6 +510,13 @@ fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json')
       const flagImg = alpha2 ? `<img src="https://flagcdn.com/20x15/${alpha2}.png" alt="" style="height:15px;vertical-align:middle;border-radius:1px">` : '';
       btn.innerHTML = `<span class="flag">${flagImg}</span>${nameParts.join(' ')}`;
       btn.addEventListener('click', () => { closeDropdown(); loadGame(iso, game); });
+      btn.addEventListener('mouseenter', () => {
+        const p = svg.select(`.c-path[data-iso="${iso}"]`);
+        if (!p.empty()) p.raise().classed('highlighted', true);
+      });
+      btn.addEventListener('mouseleave', () => {
+        svg.select(`.c-path[data-iso="${iso}"]`).classed('highlighted', false);
+      });
       menu.appendChild(btn);
     });
 
