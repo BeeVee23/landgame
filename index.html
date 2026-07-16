@@ -163,9 +163,9 @@ html, body {
   top: calc(100% + 4px);
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(245, 242, 235, 0.62);
-  backdrop-filter: blur(9px);
-  -webkit-backdrop-filter: blur(9px);
+  background: rgba(245, 242, 235, 0.50);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
   border: 1px solid var(--paper3);
   border-radius: var(--radius);
   box-shadow: 0 4px 20px rgba(0,0,0,0.10);
@@ -233,6 +233,7 @@ html, body {
 .c-path.available:hover { fill: var(--accent); }
 .c-path.active { fill: var(--accent); }
 .c-path.highlighted { fill: var(--accent); }
+.locator-ring { fill: none; stroke: var(--accent); stroke-width: 2.5; pointer-events: none; opacity: 0; }
 
 .map-loading {
   display: flex;
@@ -373,7 +374,7 @@ html, body {
       <span class="site-title">How is land actually used?</span>
       <div class="site-right">
         <span class="site-tag">A guessing game</span>
-        <a href="changelog.html" class="site-version" style="text-decoration:none;">v5.1.1</a>
+        <a href="changelog.html" class="site-version" style="text-decoration:none;">v5.1.2</a>
       </div>
     </div>
   </div>
@@ -416,7 +417,7 @@ html, body {
   <nav class="game-nav">
     <button class="back-btn" id="back-btn">← Map</button>
     <span class="game-nav-title" id="game-nav-title"></span>
-    <a href="changelog.html" class="version-badge" style="text-decoration:none;">v5.1.1</a>
+    <a href="changelog.html" class="version-badge" style="text-decoration:none;">v5.1.2</a>
   </nav>
   <iframe id="game-iframe" src="" title="Land use game"></iframe>
 </div>
@@ -567,6 +568,60 @@ fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json')
       .attr('stroke', 'var(--paper)')
       .attr('stroke-width', 0.5)
       .attr('d', pathGen);
+
+    // Locator ring for pinpointing tiny countries (e.g. Tuvalu) that are too
+    // small to reliably see or click directly on the map.
+    const locatorRing = svg.append('circle').attr('class', 'locator-ring');
+    const TINY_PX = 10; // bounding-box diagonal below this = "tiny"
+    const HOVER_RADIUS = 26; // px, how close the pointer must be to trigger it
+    const tinyCentroids = {}; // iso -> {x, y}
+
+    countries.features.forEach(d => {
+      const iso = String(d.id).padStart(3, '0');
+      if (!GAMES_BY_ISO[iso]) return;
+      const b = pathGen.bounds(d);
+      const diag = Math.hypot(b[1][0] - b[0][0], b[1][1] - b[0][1]);
+      if (diag < TINY_PX) {
+        const c = pathGen.centroid(d);
+        tinyCentroids[iso] = { x: c[0], y: c[1] };
+      }
+    });
+
+    function showLocator(x, y) {
+      locatorRing.interrupt()
+        .attr('cx', x).attr('cy', y)
+        .attr('r', 24).style('opacity', 0.9)
+        .transition().duration(850).ease(d3.easeCubicOut)
+        .attr('r', 5).style('opacity', 1);
+    }
+    function hideLocator() {
+      locatorRing.interrupt()
+        .transition().duration(200)
+        .style('opacity', 0);
+    }
+
+    // Hovering the map itself near a tiny country's location also triggers it,
+    // even though the country's rendered shape is too small to hit directly.
+    svg.on('mousemove.locator', function(event) {
+      const [mx, my] = d3.pointer(event, this);
+      let nearestIso = null, nearestDist = HOVER_RADIUS;
+      for (const iso in tinyCentroids) {
+        const c = tinyCentroids[iso];
+        const dist = Math.hypot(mx - c.x, my - c.y);
+        if (dist < nearestDist) { nearestIso = iso; nearestDist = dist; }
+      }
+      if (nearestIso) showLocator(tinyCentroids[nearestIso].x, tinyCentroids[nearestIso].y);
+      else hideLocator();
+    });
+    svg.on('mouseleave.locator', hideLocator);
+
+    // Also trigger the locator when hovering the country's entry in the dropdown
+    document.querySelectorAll('.map-dropdown-item').forEach(el => {
+      const iso = el.id.replace('list-item-', '');
+      if (!tinyCentroids[iso]) return;
+      el.addEventListener('mouseenter', () => showLocator(tinyCentroids[iso].x, tinyCentroids[iso].y));
+      el.addEventListener('mouseleave', hideLocator);
+    });
   })
   .then(() => {
     // Push initial map state so browser back has somewhere to go
