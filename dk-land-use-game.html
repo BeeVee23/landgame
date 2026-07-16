@@ -27,6 +27,9 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 .subtitle { font-size: 14px; color: var(--text-secondary); margin-bottom: 0.75rem; line-height: 1.5; }
 .disclaimer { font-size: 11px; color: var(--text-secondary); background: var(--bg-secondary); border-left: 3px solid var(--border-md); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 0.6rem 0.9rem; margin-bottom: 1rem; line-height: 1.7; }
 .disclaimer strong { color: var(--text-primary); }
+.country-note { font-size: 11px; color: #6b4a1f; background: #fdf1de; border-left: 3px solid #e0a94a; border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 0.6rem 0.9rem; margin-bottom: 0.6rem; line-height: 1.7; }
+@media (prefers-color-scheme: dark) { .country-note { color: #f0d9ae; background: #3a2f1a; border-left-color: #b8842e; } }
+.country-note strong { color: inherit; }
 .lang-toggle {
   font-family: inherit; font-size: 11px; padding: 3px 9px;
   background: var(--bg-primary); border: 0.5px solid var(--border-md);
@@ -107,7 +110,8 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
   <h1><img src="https://flagcdn.com/32x24/dk.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Denmark's land actually used?</h1>
   <p class="subtitle">Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Danish land for each category — sliders are capped at 100% total. Denmark is one of the world's most intensively farmed nations — yet it is also a global pioneer in wind energy, generating more than half its electricity from turbines.</p>
 
-  <div class="disclaimer"><strong>Note:</strong> The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. Denmark reached 4 GW of total solar capacity at the end of 2024 — most is rooftop; utility-scale ground-mounted is roughly 2.4 GW. Denmark's high latitude (~56°N) and frequent cloud cover mean more land is needed per TWh than in southern Europe; in practice, wind power already supplies ~55% of Danish electricity and offshore wind is expected to do most of the heavy lifting. Land use figures sourced from Eurostat LUCAS survey 2022 and Danmarks Statistik.</div>
+  <div class="country-note"><strong>Country context:</strong> Denmark reached 4 GW of total solar capacity at the end of 2024 — most is rooftop; utility-scale ground-mounted is roughly 2.4 GW. Denmark's high latitude (~56°N) and frequent cloud cover mean more land is needed per TWh than in southern Europe; in practice, wind power already supplies ~55% of Danish electricity and offshore wind is expected to do most of the heavy lifting. Land use figures sourced from Eurostat LUCAS survey 2022 and Danmarks Statistik.</div>
+  <div class="disclaimer"><strong>Note:</strong> The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems.</div>
 
   <div class="data-bar">
     <span class="data-info">Data: <strong>2022–2024</strong> · Eurostat LUCAS · Danmarks Statistik · Energistyrelsen · DEA</span>

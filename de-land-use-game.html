@@ -27,6 +27,9 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 .subtitle { font-size: 14px; color: var(--text-secondary); margin-bottom: 0.75rem; line-height: 1.5; }
 .disclaimer { font-size: 11px; color: var(--text-secondary); background: var(--bg-secondary); border-left: 3px solid var(--border-md); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 0.6rem 0.9rem; margin-bottom: 1rem; line-height: 1.7; }
 .disclaimer strong { color: var(--text-primary); }
+.country-note { font-size: 11px; color: #6b4a1f; background: #fdf1de; border-left: 3px solid #e0a94a; border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 0.6rem 0.9rem; margin-bottom: 0.6rem; line-height: 1.7; }
+@media (prefers-color-scheme: dark) { .country-note { color: #f0d9ae; background: #3a2f1a; border-left-color: #b8842e; } }
+.country-note strong { color: inherit; }
 .lang-toggle {
   font-family: inherit; font-size: 11px; padding: 3px 9px;
   background: var(--bg-primary); border: 0.5px solid var(--border-md);
@@ -107,7 +110,8 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
   <h1><img src="https://flagcdn.com/32x24/de.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Germany's land actually used?</h1>
   <p class="subtitle">Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of German land for each category — sliders are capped at 100% total. Germany is Europe's largest economy and the birthplace of the modern car industry — now facing its most turbulent transition in a century.</p>
   
-  <div class="disclaimer"><strong>Note:</strong> The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. Germany reached 100 GW of total solar capacity at the end of 2024, but most is rooftop — utility-scale ground-mounted is roughly 30 GW. Germany's cloudier climate means more land is needed per TWh than in Spain or Australia; wind power (especially offshore in the North Sea) is likely to do more heavy lifting than solar alone. Note also: Germany's car industry — Volkswagen, BMW, Mercedes — directly employs 780,000 people and represents 6% of GDP. EV sales fell 27% in 2024 and VW alone is cutting 35,000 jobs by 2030 as Chinese rivals overtake it. The transition from ICE to EV is reshaping not just the land but the workforce. Land use figures sourced from Destatis (Federal Statistical Office) 2024.</div>
+  <div class="country-note"><strong>Country context:</strong> Germany reached 100 GW of total solar capacity at the end of 2024, but most is rooftop — utility-scale ground-mounted is roughly 30 GW. Germany's cloudier climate means more land is needed per TWh than in Spain or Australia; wind power (especially offshore in the North Sea) is likely to do more heavy lifting than solar alone. Note also: Germany's car industry — Volkswagen, BMW, Mercedes — directly employs 780,000 people and represents 6% of GDP. EV sales fell 27% in 2024 and VW alone is cutting 35,000 jobs by 2030 as Chinese rivals overtake it. The transition from ICE to EV is reshaping not just the land but the workforce. Land use figures sourced from Destatis (Federal Statistical Office) 2024.</div>
+  <div class="disclaimer"><strong>Note:</strong> The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems.</div>
 
   <div class="data-bar">
     <span class="data-info">Data: <strong>2024</strong> · Destatis · Fraunhofer ISE · BSW Solar · Bundesnetzagentur</span>

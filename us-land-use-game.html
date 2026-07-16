@@ -27,6 +27,9 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 .subtitle { font-size: 14px; color: var(--text-secondary); margin-bottom: 0.75rem; line-height: 1.5; }
 .disclaimer { font-size: 11px; color: var(--text-secondary); background: var(--bg-secondary); border-left: 3px solid var(--border-md); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 0.6rem 0.9rem; margin-bottom: 1rem; line-height: 1.7; }
 .disclaimer strong { color: var(--text-primary); }
+.country-note { font-size: 11px; color: #6b4a1f; background: #fdf1de; border-left: 3px solid #e0a94a; border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 0.6rem 0.9rem; margin-bottom: 0.6rem; line-height: 1.7; }
+@media (prefers-color-scheme: dark) { .country-note { color: #f0d9ae; background: #3a2f1a; border-left-color: #b8842e; } }
+.country-note strong { color: inherit; }
 
 .data-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 1.25rem; flex-wrap: wrap; }
 .data-info { font-size: 11px; color: var(--text-secondary); flex: 1; min-width: 160px; }
@@ -104,7 +107,8 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
   <h1><img src="https://flagcdn.com/32x24/us.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is US land actually used?</h1>
   <p class="subtitle">Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of US land for each category — sliders are capped at 100% total. Submit to see how you did and reveal the proportional area map.</p>
   
-  <div class="disclaimer"><strong>Note:</strong> The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. The US has exceptional diversity of renewable resources — wind across the Great Plains, hydro in the Pacific Northwest, geothermal in the West, and offshore wind on both coasts — and a realistic clean energy transition will draw on all of them. Land use figures are approximate and sourced from official statistics; always consult primary sources before drawing conclusions.</div>
+  <div class="country-note"><strong>Country context:</strong> The US has exceptional diversity of renewable resources — wind across the Great Plains, hydro in the Pacific Northwest, geothermal in the West, and offshore wind on both coasts — and a realistic clean energy transition will draw on all of them. Land use figures are approximate and sourced from official statistics; always consult primary sources before drawing conclusions.</div>
+  <div class="disclaimer"><strong>Note:</strong> The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems.</div>
 
   <div class="data-bar">
     <span class="data-info">Data: <strong>2017–2024</strong> · USDA ERS · EIA · NREL</span>

@@ -27,6 +27,9 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 .subtitle { font-size: 14px; color: var(--text-secondary); margin-bottom: 0.75rem; line-height: 1.5; }
 .disclaimer { font-size: 11px; color: var(--text-secondary); background: var(--bg-secondary); border-left: 3px solid var(--border-md); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 0.6rem 0.9rem; margin-bottom: 1rem; line-height: 1.7; }
 .disclaimer strong { color: var(--text-primary); }
+.country-note { font-size: 11px; color: #6b4a1f; background: #fdf1de; border-left: 3px solid #e0a94a; border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 0.6rem 0.9rem; margin-bottom: 0.6rem; line-height: 1.7; }
+@media (prefers-color-scheme: dark) { .country-note { color: #f0d9ae; background: #3a2f1a; border-left-color: #b8842e; } }
+.country-note strong { color: inherit; }
 .lang-toggle { font-family: inherit; font-size: 11px; padding: 3px 9px; background: var(--bg-primary); border: 0.5px solid var(--border-md); border-radius: var(--radius-md); cursor: pointer; color: var(--text-secondary); float: right; margin: 2px 0 0 8px; }
 .lang-toggle:hover { background: var(--bg-secondary); color: var(--text-primary); }
 .data-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 1.25rem; flex-wrap: wrap; }
@@ -100,6 +103,7 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
   <button class="lang-toggle" id="lang-btn" onclick="toggleLang()">English</button>
   <h1 id="h1-el"></h1>
   <p class="subtitle" id="subtitle-el"></p>
+  <div class="country-note" id="country-note-el"></div>
   <div class="disclaimer" id="disclaimer-el"></div>
   <div class="data-bar">
     <span class="data-info">Data: <strong>2023</strong> · FAO FAOSTAT · World Bank · IRENA Energy Profile Russia 2023</span>
@@ -165,7 +169,8 @@ const CATS_EN = [
 
 const STRINGS = {
   local: {
-    h1:`<img src="https://flagcdn.com/32x24/ru.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> Как на самом деле используются земли России?`, subtitle:`Вдохновлено <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">коротким видео доктора Саймона Кларка на YouTube</a> (на английском). Угадайте процент российских земель для каждой категории — сумма ползунков ограничена 100%. Россия содержит около 20% мировых лесов и крупнейшие запасы пресной воды в мире — однако получает лишь 0,28% электроэнергии от солнечных установок.`, disclaimer:`Цифры по солнечной энергии и накопителям — это мысленный эксперимент, подготовленный с помощью ИИ, а не политическая рекомендация. Все данные по солнечной энергии относятся к сетевым установкам промышленного масштаба. Электроэнергетика России доминируется ископаемым топливом (природный газ ~47%, уголь ~14%), атомной (~20%) и гидроэнергетикой (~18%); доля ВИЭ (ветер+солнце) ниже 1% (IRENA 2023). Данные о землепользовании: FAO FAOSTAT 2023 и Всемирный банк. Солнечные мощности: IRENA 2023. Производство электроэнергии: Энергетический профиль России IRENA 2023.`,
+    h1:`<img src="https://flagcdn.com/32x24/ru.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> Как на самом деле используются земли России?`, subtitle:`Вдохновлено <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">коротким видео доктора Саймона Кларка на YouTube</a> (на английском). Угадайте процент российских земель для каждой категории — сумма ползунков ограничена 100%. Россия содержит около 20% мировых лесов и крупнейшие запасы пресной воды в мире — однако получает лишь 0,28% электроэнергии от солнечных установок.`, disclaimer:`Цифры по солнечной энергии и накопителям — это мысленный эксперимент, подготовленный с помощью ИИ, а не политическая рекомендация. Все данные по солнечной энергии относятся к сетевым установкам промышленного масштаба.`,
+    countryNote:`Электроэнергетика России доминируется ископаемым топливом (природный газ ~47%, уголь ~14%), атомной (~20%) и гидроэнергетикой (~18%); доля ВИЭ (ветер+солнце) ниже 1% (IRENA 2023). Данные о землепользовании: FAO FAOSTAT 2023 и Всемирный банк. Солнечные мощности: IRENA 2023. Производство электроэнергии: Энергетический профиль России IRENA 2023.`,
     submit:`Отправить все ответы`, play_again:`Играть снова`,
     score:`Счёт`, land_used:`Использовано земли`, remaining:`Остаток`,
     map_guess:`Ваши ответы — карта площадей (обновляется при перетаскивании)`,
@@ -178,7 +183,8 @@ const STRINGS = {
     zoomed:`Увеличенный вид`,
   },
   en: {
-    h1:`<img src="https://flagcdn.com/32x24/ru.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Russia's land actually used?`, subtitle:`Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Russian land for each category — sliders are capped at 100% total. Russia contains about 20% of the world's forests and the world's greatest freshwater reserves — yet generates just 0.28% of its electricity from solar.`, disclaimer:`The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar figures refer to utility-scale, grid-connected systems. Russia's electricity mix is dominated by fossil fuels (natural gas ~47%, coal ~14%), nuclear (~20%) and hydropower (~18%), with renewables (wind+solar) below 1% (IRENA 2023). Russia plans to raise renewables to 12.5% of capacity by 2042. Land use data from FAO FAOSTAT 2023 and World Bank. Solar capacity from IRENA 2023. Electricity generation from IRENA Energy Profile Russia 2023.`,
+    h1:`<img src="https://flagcdn.com/32x24/ru.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Russia's land actually used?`, subtitle:`Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Russian land for each category — sliders are capped at 100% total. Russia contains about 20% of the world's forests and the world's greatest freshwater reserves — yet generates just 0.28% of its electricity from solar.`, disclaimer:`The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar figures refer to utility-scale, grid-connected systems.`,
+    countryNote:`Russia's electricity mix is dominated by fossil fuels (natural gas ~47%, coal ~14%), nuclear (~20%) and hydropower (~18%), with renewables (wind+solar) below 1% (IRENA 2023). Russia plans to raise renewables to 12.5% of capacity by 2042. Land use data from FAO FAOSTAT 2023 and World Bank. Solar capacity from IRENA 2023. Electricity generation from IRENA Energy Profile Russia 2023.`,
     submit:`Submit all guesses`, play_again:`Play again`,
     score:`Score`, land_used:`Land used`, remaining:`Remaining`,
     map_guess:`Your guesses — proportional area map (updates as you slide)`,
@@ -215,6 +221,7 @@ function applyLang(lang){
   document.getElementById(`h1-el`).innerHTML=s.h1;
   document.getElementById(`subtitle-el`).innerHTML=s.subtitle;
   document.getElementById(`disclaimer-el`).innerHTML=`<strong>Note:</strong> `+s.disclaimer;
+  document.getElementById(`country-note-el`).innerHTML=`<strong>Country context:</strong> `+s.countryNote;
   document.getElementById(`lbl-score`).textContent=s.score;
   document.getElementById(`lbl-land`).textContent=s.land_used;
   document.getElementById(`lbl-remain`).textContent=s.remaining;

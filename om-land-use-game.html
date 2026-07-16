@@ -27,6 +27,9 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 .subtitle { font-size: 14px; color: var(--text-secondary); margin-bottom: 0.75rem; line-height: 1.5; }
 .disclaimer { font-size: 11px; color: var(--text-secondary); background: var(--bg-secondary); border-left: 3px solid var(--border-md); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 0.6rem 0.9rem; margin-bottom: 1rem; line-height: 1.7; }
 .disclaimer strong { color: var(--text-primary); }
+.country-note { font-size: 11px; color: #6b4a1f; background: #fdf1de; border-left: 3px solid #e0a94a; border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 0.6rem 0.9rem; margin-bottom: 0.6rem; line-height: 1.7; }
+@media (prefers-color-scheme: dark) { .country-note { color: #f0d9ae; background: #3a2f1a; border-left-color: #b8842e; } }
+.country-note strong { color: inherit; }
 .lang-toggle { font-family: inherit; font-size: 11px; padding: 3px 9px; background: var(--bg-primary); border: 0.5px solid var(--border-md); border-radius: var(--radius-md); cursor: pointer; color: var(--text-secondary); float: right; margin: 2px 0 0 8px; }
 .lang-toggle:hover { background: var(--bg-secondary); color: var(--text-primary); }
 .data-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 1.25rem; flex-wrap: wrap; }
@@ -100,6 +103,7 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
   <button class="lang-toggle" id="lang-btn" onclick="toggleLang()">English</button>
   <h1 id="h1-el"></h1>
   <p class="subtitle" id="subtitle-el"></p>
+  <div class="country-note" id="country-note-el"></div>
   <div class="disclaimer" id="disclaimer-el"></div>
   <div class="data-bar">
     <span class="data-info">Data: <strong>2022–2026</strong> · FAO/AQUASTAT · World Bank · IEA · Enerdata · Carnegie Endowment</span>
@@ -165,7 +169,8 @@ const CATS_EN = [
 
 const STRINGS = {
   local: {
-    h1:`<img src="https://flagcdn.com/32x24/om.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> كيف تُستخدم أراضي عُمان فعلاً؟`, subtitle:`مستوحى من <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">فيديو قصير على يوتيوب لدكتور سايمون كلارك</a> (بالإنجليزية). خمّن نسبة أراضي عُمان لكل فئة — مجموع المحددات لا يتجاوز 100%. لا تزال عُمان تعتمد على المحروقات في نحو 75% من إيرادات الحكومة، لكنها تراهن بقوة على الطاقة الشمسية وطاقة الرياح وصادرات الهيدروجين الأخضر لإعادة تشكيل اقتصادها بحلول 2040.`, disclaimer:`أرقام الطاقة الشمسية والبطاريات هي تجربة فكرية أُعدّت بمساعدة الذكاء الاصطناعي، وليست توصية سياسية. تشير جميع أرقام الطاقة الشمسية إلى أنظمة كبرى متصلة بالشبكة. تستهدف عُمان الوصول إلى 30% من الكهرباء المتجددة بحلول 2030 (مقارنة بـ4% فقط في 2023)، وتسعى لأن تصبح مُصدّرًا رئيسيًا للهيدروجين الأخضر بموجب استراتيجيتها الخاصة بالهيدروجين الأخضر، عبر مشاريع مثل Hyport Duqm ومزادات هيدروم الوطنية. تشير تحليلات مستقلة إلى أن أهداف عُمان للهيدروجين الأخضر بحلول 2030 وحدها ستحتاج إلى نحو 50 تيراواط ساعة من الكهرباء المتجددة — أي أكثر من كامل نظامها الكهربائي الحالي. مثّلت المحروقات نحو 75% من الإيرادات المالية الحكومية و68% من الصادرات في 2024. بيانات استخدام الأراضي من FAO/AQUASTAT والبنك الدولي؛ يُلاحظ أن جغرافية عُمان تهيمن عليها الصحراء (82%) والجبال (15%)، بينما تنحصر الزراعة والعمران والمياه في شريط ساحلي وواحات ضيقة. بيانات الكهرباء من الوكالة الدولية للطاقة وإنيرداتا ومصادر أكاديمية 2022–2024.`,
+    h1:`<img src="https://flagcdn.com/32x24/om.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> كيف تُستخدم أراضي عُمان فعلاً؟`, subtitle:`مستوحى من <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">فيديو قصير على يوتيوب لدكتور سايمون كلارك</a> (بالإنجليزية). خمّن نسبة أراضي عُمان لكل فئة — مجموع المحددات لا يتجاوز 100%. لا تزال عُمان تعتمد على المحروقات في نحو 75% من إيرادات الحكومة، لكنها تراهن بقوة على الطاقة الشمسية وطاقة الرياح وصادرات الهيدروجين الأخضر لإعادة تشكيل اقتصادها بحلول 2040.`, disclaimer:`أرقام الطاقة الشمسية والبطاريات هي تجربة فكرية أُعدّت بمساعدة الذكاء الاصطناعي، وليست توصية سياسية. تشير جميع أرقام الطاقة الشمسية إلى أنظمة كبرى متصلة بالشبكة.`,
+    countryNote:`تستهدف عُمان الوصول إلى 30% من الكهرباء المتجددة بحلول 2030 (مقارنة بـ4% فقط في 2023)، وتسعى لأن تصبح مُصدّرًا رئيسيًا للهيدروجين الأخضر بموجب استراتيجيتها الخاصة بالهيدروجين الأخضر، عبر مشاريع مثل Hyport Duqm ومزادات هيدروم الوطنية. تشير تحليلات مستقلة إلى أن أهداف عُمان للهيدروجين الأخضر بحلول 2030 وحدها ستحتاج إلى نحو 50 تيراواط ساعة من الكهرباء المتجددة — أي أكثر من كامل نظامها الكهربائي الحالي. مثّلت المحروقات نحو 75% من الإيرادات المالية الحكومية و68% من الصادرات في 2024. بيانات استخدام الأراضي من FAO/AQUASTAT والبنك الدولي؛ يُلاحظ أن جغرافية عُمان تهيمن عليها الصحراء (82%) والجبال (15%)، بينما تنحصر الزراعة والعمران والمياه في شريط ساحلي وواحات ضيقة. بيانات الكهرباء من الوكالة الدولية للطاقة وإنيرداتا ومصادر أكاديمية 2022–2024.`,
     submit:`إرسال جميع الإجابات`, play_again:`العب مرة أخرى`,
     score:`النتيجة`, land_used:`الأرض المستخدمة`, remaining:`المتبقي`,
     map_guess:`تخميناتك — خريطة مساحة تناسبية (تتحدث عند التمرير)`,
@@ -178,7 +183,8 @@ const STRINGS = {
     zoomed:`عرض مكبّر`,
   },
   en: {
-    h1:`<img src="https://flagcdn.com/32x24/om.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Oman's land actually used?`, subtitle:`Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Omani land for each category — sliders are capped at 100% total. Oman still relies on hydrocarbons for around 75% of government revenue, but is betting heavily on solar, wind and green hydrogen exports to reshape its economy by 2040.`, disclaimer:`The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar figures refer to utility-scale, grid-connected systems. Oman targets 30% renewable electricity by 2030 (up from just 4% in 2023) and aims to become a major green hydrogen exporter under its Green Hydrogen Strategy, with projects like Hyport Duqm and Hydrom's national auctions. Independent analysis suggests Oman's 2030 green hydrogen targets alone would require roughly 50 TWh of renewable electricity — exceeding its entire current electricity system. Hydrocarbons represented about 75% of government fiscal revenue and 68% of exports in 2024. Land use figures from FAO/AQUASTAT and World Bank; note that Oman's physiographic land is dominated by desert (82%) and mountains (15%), with agriculture, settlement and water confined to a narrow coastal and oasis fringe. Electricity figures from IEA, Enerdata and academic sources 2022–2024.`,
+    h1:`<img src="https://flagcdn.com/32x24/om.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Oman's land actually used?`, subtitle:`Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Omani land for each category — sliders are capped at 100% total. Oman still relies on hydrocarbons for around 75% of government revenue, but is betting heavily on solar, wind and green hydrogen exports to reshape its economy by 2040.`, disclaimer:`The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar figures refer to utility-scale, grid-connected systems.`,
+    countryNote:`Oman targets 30% renewable electricity by 2030 (up from just 4% in 2023) and aims to become a major green hydrogen exporter under its Green Hydrogen Strategy, with projects like Hyport Duqm and Hydrom's national auctions. Independent analysis suggests Oman's 2030 green hydrogen targets alone would require roughly 50 TWh of renewable electricity — exceeding its entire current electricity system. Hydrocarbons represented about 75% of government fiscal revenue and 68% of exports in 2024. Land use figures from FAO/AQUASTAT and World Bank; note that Oman's physiographic land is dominated by desert (82%) and mountains (15%), with agriculture, settlement and water confined to a narrow coastal and oasis fringe. Electricity figures from IEA, Enerdata and academic sources 2022–2024.`,
     submit:`Submit all guesses`, play_again:`Play again`,
     score:`Score`, land_used:`Land used`, remaining:`Remaining`,
     map_guess:`Your guesses — proportional area map (updates as you slide)`,
@@ -215,6 +221,7 @@ function applyLang(lang){
   document.getElementById(`h1-el`).innerHTML=s.h1;
   document.getElementById(`subtitle-el`).innerHTML=s.subtitle;
   document.getElementById(`disclaimer-el`).innerHTML=`<strong>Note:</strong> `+s.disclaimer;
+  document.getElementById(`country-note-el`).innerHTML=`<strong>Country context:</strong> `+s.countryNote;
   document.getElementById(`lbl-score`).textContent=s.score;
   document.getElementById(`lbl-land`).textContent=s.land_used;
   document.getElementById(`lbl-remain`).textContent=s.remaining;

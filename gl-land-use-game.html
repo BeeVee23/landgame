@@ -27,6 +27,9 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 .subtitle { font-size: 14px; color: var(--text-secondary); margin-bottom: 0.75rem; line-height: 1.5; }
 .disclaimer { font-size: 11px; color: var(--text-secondary); background: var(--bg-secondary); border-left: 3px solid var(--border-md); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 0.6rem 0.9rem; margin-bottom: 1rem; line-height: 1.7; }
 .disclaimer strong { color: var(--text-primary); }
+.country-note { font-size: 11px; color: #6b4a1f; background: #fdf1de; border-left: 3px solid #e0a94a; border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 0.6rem 0.9rem; margin-bottom: 0.6rem; line-height: 1.7; }
+@media (prefers-color-scheme: dark) { .country-note { color: #f0d9ae; background: #3a2f1a; border-left-color: #b8842e; } }
+.country-note strong { color: inherit; }
 .data-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 1.25rem; flex-wrap: wrap; }
 .data-info { font-size: 11px; color: var(--text-secondary); flex: 1; min-width: 160px; }
 .data-info strong { color: var(--text-primary); }
@@ -97,7 +100,8 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 <div class="page">
   <h1><img src="https://flagcdn.com/32x24/gl.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Greenland's land actually used?</h1>
   <p class="subtitle">Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Greenland's land for each category — sliders are capped at 100% total. Greenland is the world's largest island, but over 79% of it is buried under the second-largest ice sheet on Earth. Note: Kalaallisut (Greenlandic) has been the sole official language of Greenland since 2009 — Danish, which carries colonial baggage that many Greenlanders are actively pushing back against, is no longer official. This game is in English rather than Kalaallisut because Kalaallisut is a polysynthetic language where a single word can encode what English expresses in a whole sentence, and generating it from training data without a native speaker to verify would risk embarrassing errors.</p>
-  <div class="disclaimer"><strong>Note:</strong> The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar figures refer to utility-scale, grid-connected systems. Greenland already generates ~87% of its electricity from hydropower (Nukissiorfiit 2024), using glacial meltwater — one of the world's cleanest electricity grids. The polar night makes year-round solar challenging, requiring large battery storage. Land use figures from Statistics Greenland (Grønlands Statistik) and the National Snow and Ice Data Center (NSIDC). Electricity from Statistics Greenland 2023.</div>
+  <div class="country-note"><strong>Country context:</strong> Greenland already generates ~87% of its electricity from hydropower (Nukissiorfiit 2024), using glacial meltwater — one of the world's cleanest electricity grids. The polar night makes year-round solar challenging, requiring large battery storage. Land use figures from Statistics Greenland (Grønlands Statistik) and the National Snow and Ice Data Center (NSIDC). Electricity from Statistics Greenland 2023.</div>
+  <div class="disclaimer"><strong>Note:</strong> The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar figures refer to utility-scale, grid-connected systems.</div>
   <div class="data-bar">
     <span class="data-info">Data: <strong>2023–2024</strong> · Statistics Greenland (Grønlands Statistik) · NSIDC · Nukissiorfiit · FAO</span>
   </div>
