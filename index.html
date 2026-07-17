@@ -372,7 +372,7 @@ html, body {
       <span class="site-title">How is land actually used?</span>
       <div class="site-right">
         <span class="site-tag">A guessing game</span>
-        <a href="changelog.html" class="site-version" style="text-decoration:none;">v5.1.3</a>
+        <a href="changelog.html" class="site-version" style="text-decoration:none;">v5.1.4</a>
       </div>
     </div>
   </div>
@@ -415,7 +415,7 @@ html, body {
   <nav class="game-nav">
     <button class="back-btn" id="back-btn">← Map</button>
     <span class="game-nav-title" id="game-nav-title"></span>
-    <a href="changelog.html" class="version-badge" style="text-decoration:none;">v5.1.3</a>
+    <a href="changelog.html" class="version-badge" style="text-decoration:none;">v5.1.4</a>
   </nav>
   <iframe id="game-iframe" src="" title="Land use game"></iframe>
 </div>
@@ -615,6 +615,7 @@ fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json')
 
     // Hovering the map itself near a tiny country's location also triggers it,
     // even though the country's rendered shape is too small to hit directly.
+    let hoveredTinyIso = null;
     svg.on('mousemove.locator', function(event) {
       const [mx, my] = d3.pointer(event, this);
       let nearestIso = null, nearestDist = HOVER_RADIUS;
@@ -623,10 +624,21 @@ fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json')
         const dist = Math.hypot(mx - c.x, my - c.y);
         if (dist < nearestDist) { nearestIso = iso; nearestDist = dist; }
       }
+      hoveredTinyIso = nearestIso;
+      svg.style('cursor', nearestIso ? 'pointer' : null);
       if (nearestIso) showLocator(tinyCentroids[nearestIso].x, tinyCentroids[nearestIso].y);
       else hideLocator();
     });
-    svg.on('mouseleave.locator', hideLocator);
+    svg.on('mouseleave.locator', () => { hoveredTinyIso = null; svg.style('cursor', null); hideLocator(); });
+    // Clicking inside the ring loads that country's game, same as clicking its
+    // (possibly too-small-to-hit) shape directly would. Skip if the click
+    // already landed on a path that handles its own click, to avoid firing twice.
+    svg.on('click.locator', function(event) {
+      if (!hoveredTinyIso) return;
+      if (event.target.closest('.c-path')) return;
+      const game = GAMES_BY_ISO[hoveredTinyIso];
+      if (game) loadGame(hoveredTinyIso, game);
+    });
 
     // Also trigger the locator when hovering the country's entry in the dropdown
     document.querySelectorAll('.map-dropdown-item').forEach(el => {
