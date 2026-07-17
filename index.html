@@ -354,8 +354,6 @@ html, body {
   #map-container svg {
     width: 100%;
     height: 100%;
-    /* Crop top/bottom whitespace (Antarctica) by shifting viewBox focus */
-    preserveAspectRatio: xMidYMid slice;
   }
   .map-dropdown-wrap { margin-bottom: 0.4rem; }
   .footer-note { padding: 0.6rem 1rem 1rem; }
@@ -374,7 +372,7 @@ html, body {
       <span class="site-title">How is land actually used?</span>
       <div class="site-right">
         <span class="site-tag">A guessing game</span>
-        <a href="changelog.html" class="site-version" style="text-decoration:none;">v5.1.2</a>
+        <a href="changelog.html" class="site-version" style="text-decoration:none;">v5.1.3</a>
       </div>
     </div>
   </div>
@@ -417,7 +415,7 @@ html, body {
   <nav class="game-nav">
     <button class="back-btn" id="back-btn">← Map</button>
     <span class="game-nav-title" id="game-nav-title"></span>
-    <a href="changelog.html" class="version-badge" style="text-decoration:none;">v5.1.2</a>
+    <a href="changelog.html" class="version-badge" style="text-decoration:none;">v5.1.3</a>
   </nav>
   <iframe id="game-iframe" src="" title="Land use game"></iframe>
 </div>
@@ -481,7 +479,7 @@ const pathGen = d3.geoPath().projection(projection);
 const svg = d3.select('#map-container')
   .append('svg')
   .attr('viewBox', `0 0 ${W} ${H}`)
-  .attr('preserveAspectRatio', 'xMidYMid slice');
+  .attr('preserveAspectRatio', 'xMidYMid meet');
 
 // Ocean background
 svg.append('rect')
@@ -586,6 +584,21 @@ fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json')
         tinyCentroids[iso] = { x: c[0], y: c[1] };
       }
     });
+
+    // Manual coordinate overrides for countries too small, or absent, in the
+    // 50m topojson dataset (Natural Earth commonly omits micro-states like
+    // Tuvalu even at this resolution). Real-world [lon, lat], converted to
+    // screen coords via the live projection rather than trusting a possibly
+    // missing or malformed map feature.
+    const MANUAL_TINY_COORDS = {
+      '798': [179.2, -8.0], // Tuvalu (matches tv-land-use-game.html's own constants)
+    };
+    for (const iso in MANUAL_TINY_COORDS) {
+      if (!GAMES_BY_ISO[iso]) continue;
+      const [lon, lat] = MANUAL_TINY_COORDS[iso];
+      const xy = projection([lon, lat]);
+      if (xy) tinyCentroids[iso] = { x: xy[0], y: xy[1] };
+    }
 
     function showLocator(x, y) {
       locatorRing.interrupt()
