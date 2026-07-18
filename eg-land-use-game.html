@@ -353,12 +353,14 @@ function buildCards() {
     }
   });
 }
-function scoreGuess(guess,answer){
-  const rel=Math.abs(guess-answer)/answer;
-  if(rel<=0.08) return 100;
-  if(rel<=0.25) return Math.round(100-(rel-0.08)/0.17*50);
-  if(rel<=0.80) return Math.round(50-(rel-0.25)/0.55*40);
-  return Math.max(0,Math.round(10-(rel-0.8)*8));
+function scoreGuess(guess,answer,step){
+  const diff=Math.abs(guess-answer);
+  const rel=diff/answer;
+  if(step!==undefined && diff<=step*1.5) return 100;
+  if(rel<=0.15) return 100;
+  if(rel<=0.35) return Math.round(100-(rel-0.15)/0.20*50);
+  if(rel<=0.90) return Math.round(50-(rel-0.35)/0.55*40);
+  return Math.max(0,Math.round(10-(rel-0.9)*8));
 }
 function gradeLabel(s){
   const labels=STRINGS[currentLang].grades;
@@ -378,11 +380,11 @@ document.getElementById(`sub-btn`).addEventListener(`click`,function(){
       rl.innerHTML=`<span style="color:var(--text-secondary)">Answer: <strong style="color:#BA7517">`+cat.answer+`%</strong>`+haStr+` — `+STRINGS[currentLang].sol100_reveal+`</span>`;
       return;
     }
-    const guess=getVal(cat); const pts=scoreGuess(guess,cat.answer);
+    const guess=getVal(cat); const pts=scoreGuess(guess,cat.answer,cat.step);
     totalScore+=pts;
     const diff=guess-cat.answer; const sign=diff>=0?`+`:``;
     const dp=cat.dp!==undefined?cat.dp:(cat.isSolar?3:1);
-    const spotOnThresh=cat.step*0.5;const diffStr=Math.abs(diff)<spotOnThresh?`spot on!`:sign+diff.toFixed(dp)+`% off`;
+    const spotOnThresh=cat.step*1.5;const diffStr=Math.abs(diff)<spotOnThresh?`spot on!`:sign+diff.toFixed(dp)+`% off`;
     const col=pts>=80?`#3b6d11`:pts>=40?`#ba7517`:`#a32d2d`;
     const haStr=cat.answerHa?` (~`+(cat.answerHa>=1000000?(cat.answerHa/1000000).toFixed(1)+`M`:Math.round(cat.answerHa/1000)+`k`)+` ha)`:``; 
     const answerStr=cat.answer<0.01?cat.answer.toFixed(4):String(cat.answer);

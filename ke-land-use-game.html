@@ -406,12 +406,17 @@ function buildCards() {
     }
   });
 }
-function scoreGuess(guess, answer) {
-  const rel = Math.abs(guess - answer) / answer;
-  if (rel <= 0.08) return 100;
-  if (rel <= 0.25) return Math.round(100 - (rel - 0.08) / 0.17 * 50);
-  if (rel <= 0.80) return Math.round(50 - (rel - 0.25) / 0.55 * 40);
-  return Math.max(0, Math.round(10 - (rel - 0.8) * 8));
+function scoreGuess(guess, answer, step) {
+  const diff = Math.abs(guess - answer);
+  const rel = diff / answer;
+  // Slider precision is hard to nail exactly, so getting within about 1.5
+  // steps of the true answer always counts as a perfect guess, regardless
+  // of how large that looks in relative-percentage terms.
+  if (step !== undefined && diff <= step * 1.5) return 100;
+  if (rel <= 0.15) return 100;
+  if (rel <= 0.35) return Math.round(100 - (rel - 0.15) / 0.20 * 50);
+  if (rel <= 0.90) return Math.round(50 - (rel - 0.35) / 0.55 * 40);
+  return Math.max(0, Math.round(10 - (rel - 0.9) * 8));
 }
 function gradeLabel(s) {
   const labels = STRINGS[currentLang].grades;
@@ -435,7 +440,7 @@ document.getElementById('sub-btn').addEventListener('click', function() {
       return;
     }
     const guess = getVal(cat);
-    const pts = scoreGuess(guess, cat.answer);
+    const pts = scoreGuess(guess, cat.answer, cat.step);
     totalScore += pts;
     const diff = guess - cat.answer;
     const sign = diff >= 0 ? '+' : '';

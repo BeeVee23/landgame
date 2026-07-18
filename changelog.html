@@ -44,6 +44,17 @@ ul li strong { color: var(--ink); font-weight: 500; }
 
   <div class="entry">
     <div class="entry-header">
+      <span class="version">v5.2.2</span>
+      <span class="date">2026</span>
+      <span class="badge badge-patch">patch</span>
+    </div>
+    <ul>
+      <li><strong>Scoring made more forgiving of slider precision</strong> - it was possible to be rounded to "0.0% off" on screen and still only score 75 points, because the display rounds to a category's decimal precision while scoring compared the true, unrounded slider value. Sliders are hard to place exactly, so full marks are now awarded either within a relative error of 15% (up from 8%) or within about 1.5 slider steps of the true answer, whichever is more generous - the second rule directly targets the display-vs-scoring mismatch. Middle and low scoring bands were widened to match. The "spot on!" label now uses the same 1.5-step tolerance as the 100-point band, so it never appears next to a score under 100.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="entry-header">
       <span class="version">v5.2.1</span>
       <span class="date">2026</span>
       <span class="badge badge-patch">patch</span>
