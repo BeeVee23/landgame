@@ -372,7 +372,7 @@ html, body {
       <span class="site-title">How is land actually used?</span>
       <div class="site-right">
         <span class="site-tag">A guessing game</span>
-        <a href="changelog.html" class="site-version" style="text-decoration:none;">v5.3.0</a>
+        <a href="changelog.html" class="site-version" style="text-decoration:none;">v5.4.0</a>
       </div>
     </div>
   </div>
@@ -415,7 +415,7 @@ html, body {
   <nav class="game-nav">
     <button class="back-btn" id="back-btn">← Map</button>
     <span class="game-nav-title" id="game-nav-title"></span>
-    <a href="changelog.html" class="version-badge" style="text-decoration:none;">v5.3.0</a>
+    <a href="changelog.html" class="version-badge" style="text-decoration:none;">v5.4.0</a>
   </nav>
   <iframe id="game-iframe" src="" title="Land use game"></iframe>
 </div>
@@ -429,14 +429,21 @@ html, body {
 const ISO_TO_ALPHA2 = {
   '036':'au','076':'br','156':'cn','208':'dk','250':'fr','304':'gl',
   '276':'de','348':'hu','356':'in','392':'jp','404':'ke','422':'lb',
-  '450':'mg','484':'mx','504':'ma','512':'om','566':'ng','586':'pk','634':'qa','643':'ru','724':'es','764':'th','862':'ve','798':'tv','818':'eg','826':'gb','840':'us',
+  '450':'mg','484':'mx','504':'ma','512':'om','566':'ng','586':'pk','634':'qa','643':'ru','724':'es','764':'th','862':'ve','798':'tv','818':'eg','826':'gb','840':'us','894':'zm',
 };
+// Reverse lookup so URL hashes can use human-readable codes (#fr, #tv) instead
+// of raw ISO numeric IDs (#250, #798). Note the UK/US use their common two-letter
+// codes (gb/us) rather than the ISO-3166 alpha-2 for GB, to match existing usage.
+const ALPHA2_TO_ISO = Object.fromEntries(
+  Object.entries(ISO_TO_ALPHA2).map(([iso, a2]) => [a2, iso])
+);
 
 const GAMES_BY_ISO = {
   '840': { file: 'us-land-use-game.html',          title: '🇺🇸 United States' },
+  '894': { file: 'zm-land-use-game.html',          title: '🇿🇲 Zambia' },
   '862': { file: 've-land-use-game.html',          title: '🇻🇪 Venezuela' },
   '826': { file: 'uk-land-use-game.html',          title: '🇬🇧 United Kingdom' },
-  '250': { file: 'france-utilisation-terres.html',  title: '🇫🇷 France' },
+  '250': { file: 'fr-land-use-game.html',           title: '🇫🇷 France' },
   '036': { file: 'au-land-use-game.html',           title: '🇦🇺 Australia' },
   '724': { file: 'es-land-use-game.html',           title: '🇪🇸 Spain' },
   '422': { file: 'lb-land-use-game.html',           title: '🇱🇧 Lebanon' },
@@ -655,8 +662,13 @@ fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json')
     if (!window.location.hash) {
       history.replaceState({ map: true }, '', window.location.pathname);
     } else {
-      // Restore from hash if present (e.g. shared link)
-      const hash = window.location.hash.replace('#', '').padStart(3, '0');
+      // Restore from hash if present (e.g. shared link). Supports both the
+      // human-readable alpha2 code (#fr) and legacy numeric ISO hashes (#250)
+      // for links shared before this format existed.
+      const rawHash = window.location.hash.replace('#', '').toLowerCase();
+      const isoFromAlpha2 = ALPHA2_TO_ISO[rawHash];
+      const isoLegacy = /^\d+$/.test(rawHash) ? rawHash.padStart(3, '0') : null;
+      const hash = isoFromAlpha2 || isoLegacy;
       if (hash && GAMES_BY_ISO[hash]) {
         loadGame(hash, GAMES_BY_ISO[hash], false);
       }
@@ -712,7 +724,8 @@ function loadGame(iso, game, pushState = true) {
   tooltip.style.opacity = '0';
   window.scrollTo(0, 0);
   if (pushState) {
-    history.pushState({ iso }, '', '#' + iso);
+    const urlCode = ISO_TO_ALPHA2[iso] || iso;
+    history.pushState({ iso }, '', '#' + urlCode);
   }
 }
 
