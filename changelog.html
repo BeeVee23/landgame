@@ -44,6 +44,17 @@ ul li strong { color: var(--ink); font-weight: 500; }
 
   <div class="entry">
     <div class="entry-header">
+      <span class="version">v5.4.1</span>
+      <span class="date">2026</span>
+      <span class="badge badge-patch">patch</span>
+    </div>
+    <ul>
+      <li><strong>Fixed manual URL hash edits not navigating</strong> - changing the address bar directly (e.g. editing <code>#au</code> to <code>#fr</code>) didn't load the new country, because the hash was only ever parsed once, on initial page load. Editing the address bar fires a <code>hashchange</code> event rather than <code>popstate</code>, and nothing was listening for it. Added a <code>hashchange</code> listener that reuses the same alpha2/legacy-numeric resolution logic as the initial load and click-through navigation, and made sure the resulting history entry carries the same state object our own navigation uses, so the back button keeps working correctly afterwards too.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="entry-header">
       <span class="version">v5.4.0</span>
       <span class="date">2026</span>
       <span class="badge badge-major">major</span>

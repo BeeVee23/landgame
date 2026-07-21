@@ -372,7 +372,7 @@ html, body {
       <span class="site-title">How is land actually used?</span>
       <div class="site-right">
         <span class="site-tag">A guessing game</span>
-        <a href="changelog.html" class="site-version" style="text-decoration:none;">v5.4.0</a>
+        <a href="changelog.html" class="site-version" style="text-decoration:none;">v5.4.1</a>
       </div>
     </div>
   </div>
@@ -415,7 +415,7 @@ html, body {
   <nav class="game-nav">
     <button class="back-btn" id="back-btn">← Map</button>
     <span class="game-nav-title" id="game-nav-title"></span>
-    <a href="changelog.html" class="version-badge" style="text-decoration:none;">v5.4.0</a>
+    <a href="changelog.html" class="version-badge" style="text-decoration:none;">v5.4.1</a>
   </nav>
   <iframe id="game-iframe" src="" title="Land use game"></iframe>
 </div>
@@ -665,12 +665,10 @@ fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json')
       // Restore from hash if present (e.g. shared link). Supports both the
       // human-readable alpha2 code (#fr) and legacy numeric ISO hashes (#250)
       // for links shared before this format existed.
-      const rawHash = window.location.hash.replace('#', '').toLowerCase();
-      const isoFromAlpha2 = ALPHA2_TO_ISO[rawHash];
-      const isoLegacy = /^\d+$/.test(rawHash) ? rawHash.padStart(3, '0') : null;
-      const hash = isoFromAlpha2 || isoLegacy;
-      if (hash && GAMES_BY_ISO[hash]) {
-        loadGame(hash, GAMES_BY_ISO[hash], false);
+      const resolved = resolveHashToGame(window.location.hash);
+      if (resolved) {
+        loadGame(resolved.iso, resolved.game, false);
+        history.replaceState({ iso: resolved.iso }, '', window.location.hash);
       }
     }
   })
@@ -740,6 +738,37 @@ window.addEventListener('popstate', (e) => {
     landing.style.display = 'flex';
     setActiveCountry(null);
     window.scrollTo(0, 0);
+  }
+});
+
+// Resolve a raw URL hash (alpha2 code, or legacy numeric ISO) to a game.
+function resolveHashToGame(rawHash) {
+  const hash = rawHash.replace('#', '').toLowerCase();
+  const isoFromAlpha2 = ALPHA2_TO_ISO[hash];
+  const isoLegacy = /^\d+$/.test(hash) ? hash.padStart(3, '0') : null;
+  const iso = isoFromAlpha2 || isoLegacy;
+  return iso && GAMES_BY_ISO[iso] ? { iso, game: GAMES_BY_ISO[iso] } : null;
+}
+
+// Handle the hash being edited directly in the address bar (doesn't fire
+// popstate — only hashchange — since no history entry is being traversed).
+window.addEventListener('hashchange', () => {
+  const resolved = resolveHashToGame(window.location.hash);
+  if (resolved) {
+    if (!gameIframe.contentWindow || gameIframe.contentWindow.location.href.indexOf(resolved.game.file) === -1) {
+      loadGame(resolved.iso, resolved.game, false);
+    }
+    // The browser already created a history entry for this hash edit, but
+    // without our {iso} state object attached — replace it so back/forward
+    // stays consistent with clicks made through the UI.
+    history.replaceState({ iso: resolved.iso }, '', window.location.hash);
+  } else if (window.location.hash === '') {
+    gameView.style.display = 'none';
+    gameIframe.contentWindow.location.replace('about:blank');
+    landing.style.display = 'flex';
+    setActiveCountry(null);
+    window.scrollTo(0, 0);
+    history.replaceState({ map: true }, '', window.location.pathname);
   }
 });
 
