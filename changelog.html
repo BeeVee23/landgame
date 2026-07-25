@@ -44,6 +44,29 @@ ul li strong { color: var(--ink); font-weight: 500; }
 
   <div class="entry">
     <div class="entry-header">
+      <span class="version">v5.5.1</span>
+      <span class="date">2026</span>
+      <span class="badge badge-patch">patch</span>
+    </div>
+    <ul>
+      <li><strong>DR Congo: added the diesel-desulfurisation cobalt comparison</strong> - the country context box now notes that cobalt-molybdenum catalysts have stripped sulphur from diesel since the 1950s-60s, decades before EV batteries existed, with far less public scrutiny despite the same DRC supply chain. Refinery catalysts deactivate and are typically discarded or regenerated roughly every one to two years, historically often to landfill, versus an EV battery's 10-20 year service life - though actual battery recycling rates remain low in practice today (under 5% in the US) even as the technology to recover 90%+ of a battery's cobalt already exists.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="entry-header">
+      <span class="version">v5.5.0</span>
+      <span class="date">2026</span>
+      <span class="badge badge-minor">minor</span>
+    </div>
+    <ul>
+      <li><strong>DR Congo added</strong> - French/English toggle; two-thirds Congo Basin rainforest, the world's second-largest tropical forest after the Amazon. The country context box covers artisanal cobalt mining (an estimated 40,000 child labourers, often for under $2/day) alongside the shift in EV battery chemistry away from cobalt entirely: cobalt-free LFP batteries now exceed half of global EV battery volume and 90% of grid storage, with industry projections of cobalt-containing chemistries falling below 10% of the mix within a decade. Also covers off-grid pay-as-you-go solar as the practical, working answer to energy poverty for the 80%+ of Congolese without grid access - genuinely affordable relative to grid infrastructure, but still a real daily trade-off against food and other essentials for extremely poor households. World card: DRC's vast size keeps the thought experiment well within physical bounds despite only moderate rainforest-dampened sunshine.</li>
+      <li><strong>Fixed locator ring hijacking Australia's clicks</strong> - the tiny-country auto-detection heuristic was occasionally misclassifying Australia as "tiny" under certain conditions, producing a locator ring that overlapped Australia's own clickable shape - so clicking inside a ring meant for another country (e.g. Tuvalu) sometimes loaded Australia instead. Australia is now explicitly excluded from the locator system.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="entry-header">
       <span class="version">v5.4.2</span>
       <span class="date">2026</span>
       <span class="badge badge-patch">patch</span>

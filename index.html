@@ -372,7 +372,7 @@ html, body {
       <span class="site-title">How is land actually used?</span>
       <div class="site-right">
         <span class="site-tag">A guessing game</span>
-        <a href="changelog.html" class="site-version" style="text-decoration:none;">v5.4.1</a>
+        <a href="changelog.html" class="site-version" style="text-decoration:none;">v5.5.1</a>
       </div>
     </div>
   </div>
@@ -415,7 +415,7 @@ html, body {
   <nav class="game-nav">
     <button class="back-btn" id="back-btn">← Map</button>
     <span class="game-nav-title" id="game-nav-title"></span>
-    <a href="changelog.html" class="version-badge" style="text-decoration:none;">v5.4.1</a>
+    <a href="changelog.html" class="version-badge" style="text-decoration:none;">v5.5.1</a>
   </nav>
   <iframe id="game-iframe" src="" title="Land use game"></iframe>
 </div>
@@ -429,7 +429,7 @@ html, body {
 const ISO_TO_ALPHA2 = {
   '036':'au','076':'br','156':'cn','208':'dk','250':'fr','304':'gl',
   '276':'de','348':'hu','356':'in','392':'jp','404':'ke','422':'lb',
-  '450':'mg','484':'mx','504':'ma','512':'om','566':'ng','586':'pk','634':'qa','643':'ru','724':'es','764':'th','862':'ve','798':'tv','818':'eg','826':'gb','840':'us','894':'zm',
+  '450':'mg','484':'mx','504':'ma','512':'om','566':'ng','586':'pk','634':'qa','643':'ru','724':'es','764':'th','862':'ve','798':'tv','818':'eg','826':'gb','840':'us','894':'zm','180':'cd',
 };
 // Reverse lookup so URL hashes can use human-readable codes (#fr, #tv) instead
 // of raw ISO numeric IDs (#250, #798). Note the UK/US use their common two-letter
@@ -440,6 +440,7 @@ const ALPHA2_TO_ISO = Object.fromEntries(
 
 const GAMES_BY_ISO = {
   '840': { file: 'us-land-use-game.html',          title: '🇺🇸 United States' },
+  '180': { file: 'cd-land-use-game.html',          title: '🇨🇩 DR Congo' },
   '894': { file: 'zm-land-use-game.html',          title: '🇿🇲 Zambia' },
   '862': { file: 've-land-use-game.html',          title: '🇻🇪 Venezuela' },
   '826': { file: 'uk-land-use-game.html',          title: '🇬🇧 United Kingdom' },
@@ -582,10 +583,15 @@ fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json')
     const TINY_PX = 10; // bounding-box diagonal below this = "tiny"
     const HOVER_RADIUS = 26; // px, how close the pointer must be to trigger it
     const tinyCentroids = {}; // iso -> {x, y}
+    // Australia (036) was incorrectly flagged as "tiny" by the bounding-box
+    // check below in some conditions, producing a locator ring that overlapped
+    // Australia's own clickable shape and hijacked clicks meant for the ring's
+    // real target. Explicitly excluded rather than relying on the heuristic.
+    const EXCLUDE_FROM_LOCATOR = new Set(['036']);
 
     countries.features.forEach(d => {
       const iso = String(d.id).padStart(3, '0');
-      if (!GAMES_BY_ISO[iso]) return;
+      if (!GAMES_BY_ISO[iso] || EXCLUDE_FROM_LOCATOR.has(iso)) return;
       const b = pathGen.bounds(d);
       const diag = Math.hypot(b[1][0] - b[0][0], b[1][1] - b[0][1]);
       if (diag < TINY_PX) {
