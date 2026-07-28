@@ -372,7 +372,7 @@ html, body {
       <span class="site-title">How is land actually used?</span>
       <div class="site-right">
         <span class="site-tag">A guessing game</span>
-        <a href="changelog.html" class="site-version" style="text-decoration:none;">v5.5.1</a>
+        <a href="changelog.html" class="site-version" style="text-decoration:none;">v5.6.0</a>
       </div>
     </div>
   </div>
@@ -415,7 +415,7 @@ html, body {
   <nav class="game-nav">
     <button class="back-btn" id="back-btn">← Map</button>
     <span class="game-nav-title" id="game-nav-title"></span>
-    <a href="changelog.html" class="version-badge" style="text-decoration:none;">v5.5.1</a>
+    <a href="changelog.html" class="version-badge" style="text-decoration:none;">v5.6.0</a>
   </nav>
   <iframe id="game-iframe" src="" title="Land use game"></iframe>
 </div>
@@ -429,7 +429,7 @@ html, body {
 const ISO_TO_ALPHA2 = {
   '036':'au','076':'br','156':'cn','208':'dk','250':'fr','304':'gl',
   '276':'de','348':'hu','356':'in','392':'jp','404':'ke','422':'lb',
-  '450':'mg','484':'mx','504':'ma','512':'om','566':'ng','586':'pk','634':'qa','643':'ru','724':'es','764':'th','862':'ve','798':'tv','818':'eg','826':'gb','840':'us','894':'zm','180':'cd',
+  '450':'mg','484':'mx','504':'ma','512':'om','566':'ng','586':'pk','634':'qa','643':'ru','724':'es','764':'th','862':'ve','798':'tv','818':'eg','826':'gb','840':'us','894':'zm','180':'cd','352':'is',
 };
 // Reverse lookup so URL hashes can use human-readable codes (#fr, #tv) instead
 // of raw ISO numeric IDs (#250, #798). Note the UK/US use their common two-letter
@@ -441,6 +441,7 @@ const ALPHA2_TO_ISO = Object.fromEntries(
 const GAMES_BY_ISO = {
   '840': { file: 'us-land-use-game.html',          title: '🇺🇸 United States' },
   '180': { file: 'cd-land-use-game.html',          title: '🇨🇩 DR Congo' },
+  '352': { file: 'is-land-use-game.html',          title: '🇮🇸 Iceland' },
   '894': { file: 'zm-land-use-game.html',          title: '🇿🇲 Zambia' },
   '862': { file: 've-land-use-game.html',          title: '🇻🇪 Venezuela' },
   '826': { file: 'uk-land-use-game.html',          title: '🇬🇧 United Kingdom' },
