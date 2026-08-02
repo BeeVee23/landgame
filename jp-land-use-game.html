@@ -404,17 +404,23 @@ function buildCards() {
     }
   });
 }
-function scoreGuess(guess, answer, step) {
+function scoreGuess(guess, answer, step, catMax) {
   const diff = Math.abs(guess - answer);
-  const rel = diff / answer;
   // Slider precision is hard to nail exactly, so getting within about 1.5
-  // steps of the true answer always counts as a perfect guess, regardless
-  // of how large that looks in relative-percentage terms.
+  // steps of the true answer always counts as a perfect guess.
   if (step !== undefined && diff <= step * 1.5) return 100;
-  if (rel <= 0.15) return 100;
-  if (rel <= 0.35) return Math.round(100 - (rel - 0.15) / 0.20 * 50);
-  if (rel <= 0.90) return Math.round(50 - (rel - 0.35) / 0.55 * 40);
-  return Math.max(0, Math.round(10 - (rel - 0.9) * 8));
+  // Error is measured as a fraction of the category's own slider range
+  // (catMax), not of the answer itself. Scoring against the answer meant
+  // large-answer categories tolerated huge absolute misses while small-answer
+  // categories were punished harshly for similarly-sized absolute misses -
+  // the same slip in percentage points scored very differently depending on
+  // which category it was in. Scoring against the range fixes that: a miss
+  // of a given size means roughly the same thing everywhere.
+  const frac = catMax ? diff / catMax : Math.abs(diff / (answer || 1));
+  if (frac <= 0.06) return 100;
+  if (frac <= 0.15) return Math.round(100 - (frac - 0.06) / 0.09 * 50);
+  if (frac <= 0.40) return Math.round(50 - (frac - 0.15) / 0.25 * 40);
+  return Math.max(0, Math.round(10 - (frac - 0.40) * 8));
 }
 function gradeLabel(s) {
   const labels = STRINGS[currentLang].grades;
@@ -438,7 +444,7 @@ document.getElementById('sub-btn').addEventListener('click', function() {
       return;
     }
     const guess = getVal(cat);
-    const pts = scoreGuess(guess, cat.answer, cat.step);
+    const pts = scoreGuess(guess, cat.answer, cat.step, cat.max);
     totalScore += pts;
     const diff = guess - cat.answer;
     const sign = diff >= 0 ? '+' : '';

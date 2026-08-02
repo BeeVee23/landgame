@@ -44,6 +44,18 @@ ul li strong { color: var(--ink); font-weight: 500; }
 
   <div class="entry">
     <div class="entry-header">
+      <span class="version">v5.6.1</span>
+      <span class="date">2026</span>
+      <span class="badge badge-patch">patch</span>
+    </div>
+    <ul>
+      <li><strong>Fixed inconsistent scoring across categories</strong> - two guesses off by nearly the same amount (8.8 and 9.7 percentage points) were scoring 100 and 38 respectively, because error was measured relative to each category's own answer size. A big-answer category (e.g. 62% barren land) tolerated a huge absolute miss before losing points, while a smaller-answer category (e.g. 19% farmland) was punished harshly for a similarly-sized absolute miss. Error is now measured as a fraction of each category's own slider range instead, so a miss of a given size means roughly the same thing wherever it happens. The same two example guesses now score 72 and 22 - both clearly "off," rather than one masquerading as perfect.</li>
+      <li><strong>Verified source citations are already consistent</strong> - audited all 30 games for the reported inconsistency in where/how sources are cited; every game already has a single "Sources:" footer with real, clickable links in the same position, so no changes were needed here.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="entry-header">
       <span class="version">v5.6.0</span>
       <span class="date">2026</span>
       <span class="badge badge-minor">minor</span>
