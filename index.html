@@ -3,807 +3,95 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>How is land actually used? — A guessing game</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>How is land actually used? — World Map</title>
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-  --ink: #0f0e0c;
-  --paper: #f5f2eb;
-  --paper2: #ece8de;
-  --paper3: #e0dbd0;
-  --accent: #c8522a;
-  --accent2: #4a7c3f;
-  --muted: #7a7468;
-  --radius: 4px;
-  --serif: 'DM Serif Display', Georgia, serif;
-  --mono: 'DM Mono', monospace;
-  --content-w: 860px;
-}
-
-html, body {
-  height: 100%;
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--mono);
-  overflow-x: hidden;
-}
-
-/* ── LANDING ── */
-#landing {
-  height: 100vh;
-  min-height: 520px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-/* ── MASTHEAD ── */
-.masthead {
-  padding: 0.75rem 1.5rem 0;
-  border-bottom: 1px solid var(--paper3);
-  flex-shrink: 0;
-}
-
-.masthead-inner {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  padding-bottom: 0.6rem;
-}
-
-.site-title {
-  font-family: var(--serif);
-  font-size: clamp(15px, 1.8vw, 20px);
-  font-weight: 400;
-  letter-spacing: -0.02em;
-}
-
-.site-right { display: flex; align-items: baseline; gap: 0.75rem; }
-
-.site-tag {
-  font-size: 10px;
-  color: var(--muted);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.site-version {
-  font-size: 10px;
-  color: var(--muted);
-  background: var(--paper2);
-  padding: 2px 6px;
-  border-radius: var(--radius);
-  border: 1px solid var(--paper3);
-}
-
-/* ── HERO ── */
-.hero {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem 1.5rem 0;
-  min-height: 0;
-}
-
-.hero-inner {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 1;
-  min-height: 0;
-}
-
-.hero-text {
-  text-align: center;
-  margin-bottom: 0.6rem;
-  flex-shrink: 0;
-}
-
-.hero-text h2 {
-  font-family: var(--serif);
-  font-size: clamp(26px, 4.5vw, 54px);
-  font-weight: 400;
-  font-style: italic;
-  line-height: 1.1;
-  margin-bottom: 0.35rem;
-}
-
-.hero-text p {
-  font-size: 13px;
-  color: var(--muted);
-  max-width: 440px;
-  margin: 0 auto;
-  line-height: 1.6;
-}
-
-.hero-text p a { color: var(--accent); text-decoration: none; }
-.hero-text p a:hover { text-decoration: underline; }
-
-/* ── DROPDOWN — above the map, full content width ── */
-.map-dropdown-wrap {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 0.5rem;
-  flex-shrink: 0;
-  position: relative;
-}
-
-.map-dropdown-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 16px;
-  font-family: var(--mono);
-  font-size: 13px;
-  color: var(--ink);
-  background: var(--paper2);
-  border: 1px solid var(--paper3);
-  border-radius: var(--radius);
-  cursor: pointer;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-  transition: background 0.12s;
-  white-space: nowrap;
-}
-
-.map-dropdown-btn:hover { background: var(--paper3); }
-.map-dropdown-btn .chevron { font-size: 9px; color: var(--muted); margin-left: 2px; transition: transform 0.15s; }
-.map-dropdown-btn[aria-expanded="true"] .chevron { transform: rotate(180deg); }
-
-.map-dropdown-menu {
-  position: absolute;
-  top: calc(100% + 4px);
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(245, 242, 235, 0.50);
-  backdrop-filter: blur(7px);
-  -webkit-backdrop-filter: blur(7px);
-  border: 1px solid var(--paper3);
-  border-radius: var(--radius);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.10);
-  overflow: hidden;
-  min-width: 200px;
-  display: none;
-  z-index: 30;
-}
-
-.map-dropdown-menu.open { display: block; }
-
-.map-dropdown-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 7px 16px;
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--ink);
-  cursor: pointer;
-  border: none;
-  background: none;
-  width: 100%;
-  text-align: left;
-  border-bottom: 1px solid var(--paper3);
-  transition: background 0.1s;
-}
-
-.map-dropdown-item:last-child { border-bottom: none; }
-.map-dropdown-item:hover { background: var(--paper3); }
-.map-dropdown-item.active { background: var(--accent); color: #fff; }
-.map-dropdown-item .flag { font-size: 15px; flex-shrink: 0; }
-
-/* ── MAP SECTION ── */
-.map-section {
-  flex: 1;
-  position: relative;
-  min-height: 0;
-  width: 100%;
-}
-
-#map-container {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  background: var(--paper);
-  overflow: hidden;
-}
-
-#map-container svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-.c-path {
-  fill: var(--paper3);
-  stroke: var(--paper);
-  stroke-width: 0.4;
-  cursor: default;
-  transition: fill 0.15s ease;
-}
-
-.c-path.available { fill: var(--accent2); cursor: pointer; }
-.c-path.available:hover { fill: var(--accent); }
-.c-path.active { fill: var(--accent); }
-.c-path.highlighted { fill: var(--accent); }
-.locator-ring { fill: none; stroke: var(--accent); stroke-width: 2.5; pointer-events: none; opacity: 0; }
-
-.map-loading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  font-size: 12px;
-  color: var(--muted);
-  letter-spacing: 0.05em;
-}
-
-/* ── TOOLTIP ── */
-.map-tooltip {
-  position: fixed;
-  background: var(--ink);
-  color: var(--paper);
-  font-family: var(--mono);
-  font-size: 11px;
-  padding: 4px 9px;
-  border-radius: var(--radius);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.1s;
-  z-index: 100;
-  white-space: nowrap;
-}
-
-/* ── FOOTER ── */
-.footer-note {
-  font-size: 11px;
-  color: var(--muted);
-  text-align: center;
-  padding: 0.4rem 1rem 0.6rem;
-  line-height: 1.6;
-  flex-shrink: 0;
-}
-.footer-note a { color: var(--muted); }
-
-/* ── GAME VIEW ── */
-#game-view {
-  display: none;
-  height: 100vh;
-  flex-direction: column;
-}
-
-.game-nav {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.75rem 1.5rem;
-  border-bottom: 1px solid var(--paper3);
-  background: var(--paper);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  flex-shrink: 0;
-}
-
-.back-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--muted);
-  background: none;
-  border: 1px solid var(--paper3);
-  border-radius: var(--radius);
-  padding: 5px 10px;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.back-btn:hover { background: var(--paper2); color: var(--ink); }
-
-.game-nav-title {
-  font-family: var(--serif);
-  font-size: 18px;
-  font-weight: 400;
-}
-
-.version-badge {
-  margin-left: auto;
-  font-size: 10px;
-  color: var(--muted);
-  background: var(--paper2);
-  padding: 3px 7px;
-  border-radius: var(--radius);
-  border: 1px solid var(--paper3);
-}
-
-#game-iframe {
-  flex: 1;
-  width: 100%;
-  border: none;
-  min-height: 0;
-}
-
-/* ── MOBILE ── */
-@media (max-width: 600px) {
-  /* Let landing scroll naturally on mobile */
-  #landing { height: auto; min-height: 100vh; overflow: visible; }
-  html, body { height: auto; }
-  .masthead { padding: 0.6rem 1rem 0; }
-  .hero { padding: 0.75rem 0.75rem 0; flex: none; }
-  .hero-inner { flex: none; }
-  .hero-text { margin-bottom: 0.5rem; }
-  .hero-text h2 { font-size: clamp(26px, 7.5vw, 38px); }
-  .hero-text p { font-size: 12px; }
-  /* Map takes a fixed proportion of viewport width as height,
-     so the SVG aspect ratio (960x500 ≈ 1.92:1) fills without gaps */
-  .map-section {
-    flex: none;
-    height: calc(100vw / 1.92);
-    min-height: 180px;
-    max-height: 340px;
-  }
-  #map-container svg {
-    width: 100%;
-    height: 100%;
-  }
-  .map-dropdown-wrap { margin-bottom: 0.4rem; }
-  .footer-note { padding: 0.6rem 1rem 1rem; }
-  .game-nav { padding: 0.75rem 1rem; }
-  #game-view { height: auto; min-height: 100vh; }
-}</style>
+  :root { --bg:#f4f4f5; --card:#fff; --text:#18181b; --muted:#71717a; --border:#e4e4e7; --accent:#059669; --blue:#3b82f6; --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; }
+  body { margin:0; font-family:var(--font); background:var(--bg); color:var(--text); }
+  .container { max-width:960px; margin:0 auto; padding:24px 16px 64px; }
+  h1 { font-size:1.6rem; margin:0 0 6px; }
+  .subtitle { color:var(--muted); font-size:0.95rem; margin-bottom:18px; }
+  .controls { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:16px; align-items:center; }
+  select { padding:8px 12px; border:1px solid var(--border); border-radius:8px; font-size:1rem; background:var(--card); }
+  .btn { padding:8px 16px; background:var(--accent); color:#fff; border:none; border-radius:8px; cursor:pointer; font-size:0.9rem; text-decoration:none; display:inline-block; }
+  #map { width:100%; height:500px; background:var(--card); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+  .tooltip { position:absolute; background:rgba(0,0,0,0.8); color:#fff; padding:6px 10px; border-radius:6px; font-size:0.85rem; pointer-events:none; opacity:0; transition:opacity 0.15s; }
+  .links { margin-top:20px; text-align:center; }
+  .links a { margin:0 10px; color:var(--blue); text-decoration:none; }
+  .links a:hover { text-decoration:underline; }
+  @media(max-width:600px){ #map{height:350px;} h1{font-size:1.25rem;} }
+</style>
 </head>
 <body>
-
-<div class="map-tooltip" id="tooltip"></div>
-
-<!-- LANDING PAGE -->
-<div id="landing">
-  <div class="masthead">
-    <div class="masthead-inner">
-      <span class="site-title">How is land actually used?</span>
-      <div class="site-right">
-        <span class="site-tag">A guessing game</span>
-        <a href="changelog.html" class="site-version" style="text-decoration:none;">v5.6.1</a>
-      </div>
-    </div>
+<div class="container">
+  <h1>🌍 How is land actually used?</h1>
+  <div class="subtitle">Click a country on the map or use the dropdown to play. Inspired by Dr. Simon Clark.</div>
+  <div class="controls">
+    <select id="countrySelect"><option value="">Select a country…</option></select>
+    <a class="btn" href="stats.html">📊 Stats</a>
+    <a class="btn" href="changelog.html">📝 Changelog</a>
   </div>
-
-  <div class="hero">
-    <div class="hero-inner">
-      <div class="hero-text">
-        <h2>Pick a country,<br>make your guesses.</h2>
-        <p>
-          Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank">Dr. Simon Clark's YouTube short</a>.
-          How well do you know how your country's land is actually used?
-          More countries coming soon.
-        </p>
-      </div>
-
-      <div class="map-dropdown-wrap">
-        <button class="map-dropdown-btn" id="dropdown-btn" aria-haspopup="listbox" aria-expanded="false">
-          🌍 Select a country <span class="chevron">▼</span>
-        </button>
-        <div class="map-dropdown-menu" id="dropdown-menu" role="listbox"></div>
-      </div>
-
-      <div class="map-section">
-        <div id="map-container">
-          <div class="map-loading" id="map-loading">Loading map…</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="footer-note">
-    Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank">Dr. Simon Clark</a> ·
-    Data from USDA ERS, DLUHC, Agreste-Teruti, DESNZ, EIA, ABARES, Red Eléctrica ·
-    More countries coming soon
+  <div id="map"></div>
+  <div class="tooltip" id="tooltip"></div>
+  <div class="links">
+    <a href="https://www.youtube.com/@DrSimonClark" target="_blank">Dr. Simon Clark on YouTube</a>
   </div>
 </div>
 
-<!-- GAME VIEW -->
-<div id="game-view">
-  <nav class="game-nav">
-    <button class="back-btn" id="back-btn">← Map</button>
-    <span class="game-nav-title" id="game-nav-title"></span>
-    <a href="changelog.html" class="version-badge" style="text-decoration:none;">v5.6.1</a>
-  </nav>
-  <iframe id="game-iframe" src="" title="Land use game"></iframe>
-</div>
-
-<!-- D3 + TopoJSON -->
-<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
-
+<script src="data.js"></script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://unpkg.com/topojson-client@3"></script>
 <script>
-// ISO numeric ID → game config
-const ISO_TO_ALPHA2 = {
-  '036':'au','076':'br','156':'cn','208':'dk','250':'fr','304':'gl',
-  '276':'de','348':'hu','356':'in','392':'jp','404':'ke','422':'lb',
-  '450':'mg','484':'mx','504':'ma','512':'om','566':'ng','586':'pk','634':'qa','643':'ru','724':'es','764':'th','862':'ve','798':'tv','818':'eg','826':'gb','840':'us','894':'zm','180':'cd','352':'is',
-};
-// Reverse lookup so URL hashes can use human-readable codes (#fr, #tv) instead
-// of raw ISO numeric IDs (#250, #798). Note the UK/US use their common two-letter
-// codes (gb/us) rather than the ISO-3166 alpha-2 for GB, to match existing usage.
-const ALPHA2_TO_ISO = Object.fromEntries(
-  Object.entries(ISO_TO_ALPHA2).map(([iso, a2]) => [a2, iso])
-);
+const width = document.getElementById('map').clientWidth;
+const height = 500;
+const svg = d3.select("#map").append("svg").attr("width", width).attr("height", height);
+const projection = d3.geoEqualEarth().scale(width / 5.5).translate([width / 2, height / 2]);
+const path = d3.geoPath().projection(projection);
+const tooltip = d3.select("#tooltip");
 
-const GAMES_BY_ISO = {
-  '840': { file: 'us-land-use-game.html',          title: '🇺🇸 United States' },
-  '180': { file: 'cd-land-use-game.html',          title: '🇨🇩 DR Congo' },
-  '352': { file: 'is-land-use-game.html',          title: '🇮🇸 Iceland' },
-  '894': { file: 'zm-land-use-game.html',          title: '🇿🇲 Zambia' },
-  '862': { file: 've-land-use-game.html',          title: '🇻🇪 Venezuela' },
-  '826': { file: 'uk-land-use-game.html',          title: '🇬🇧 United Kingdom' },
-  '250': { file: 'fr-land-use-game.html',           title: '🇫🇷 France' },
-  '036': { file: 'au-land-use-game.html',           title: '🇦🇺 Australia' },
-  '724': { file: 'es-land-use-game.html',           title: '🇪🇸 Spain' },
-  '422': { file: 'lb-land-use-game.html',           title: '🇱🇧 Lebanon' },
-  '356': { file: 'in-land-use-game.html',           title: '🇮🇳 India' },
-  '392': { file: 'jp-land-use-game.html',           title: '🇯🇵 Japan' },
-  '076': { file: 'br-land-use-game.html',           title: '🇧🇷 Brazil' },
-  '276': { file: 'de-land-use-game.html',           title: '🇩🇪 Germany' },
-  '348': { file: 'hu-land-use-game.html',           title: '🇭🇺 Hungary' },
-  '304': { file: 'gl-land-use-game.html',           title: '🇬🇱 Greenland' },
-  '484': { file: 'mx-land-use-game.html',           title: '🇲🇽 Mexico' },
-  '504': { file: 'ma-land-use-game.html',           title: '🇲🇦 Morocco' },
-  '512': { file: 'om-land-use-game.html',           title: '🇴🇲 Oman' },
-  '156': { file: 'cn-land-use-game.html',           title: '🇨🇳 China' },
-  '404': { file: 'ke-land-use-game.html',           title: '🇰🇪 Kenya' },
-  '450': { file: 'mg-land-use-game.html',           title: '🇲🇬 Madagascar' },
-  '208': { file: 'dk-land-use-game.html',           title: '🇩🇰 Denmark' },
-  '764': { file: 'th-land-use-game.html',           title: '🇹🇭 Thailand' },
-  '798': { file: 'tv-land-use-game.html',           title: '🇹🇻 Tuvalu' },
-  '818': { file: 'eg-land-use-game.html',           title: '🇪🇬 Egypt' },
-  '566': { file: 'ng-land-use-game.html',           title: '🇳🇬 Nigeria' },
-  '586': { file: 'pk-land-use-game.html',           title: '🇵🇰 Pakistan' },
-  '634': { file: 'qa-land-use-game.html',           title: '🇶🇦 Qatar' },
-  '643': { file: 'ru-land-use-game.html',           title: '🇷🇺 Russia' },
-};
-
-const landing      = document.getElementById('landing');
-const gameView     = document.getElementById('game-view');
-const gameIframe   = document.getElementById('game-iframe');
-const gameNavTitle = document.getElementById('game-nav-title');
-const tooltip      = document.getElementById('tooltip');
-const mapContainer = document.getElementById('map-container');
-
-let activeIso = null;
-
-// Render map using D3 + Natural Earth TopoJSON (50m)
-const W = 960, H = 500;
-const projection = d3.geoEqualEarth()
-  .scale(153)
-  .translate([W / 2, H / 2]);
-const pathGen = d3.geoPath().projection(projection);
-
-const svg = d3.select('#map-container')
-  .append('svg')
-  .attr('viewBox', `0 0 ${W} ${H}`)
-  .attr('preserveAspectRatio', 'xMidYMid meet');
-
-// Ocean background
-svg.append('rect')
-  .attr('width', W).attr('height', H)
-  .attr('fill', 'var(--paper)');
-
-fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json')
-  .then(r => r.json())
-  .then(world => {
-    document.getElementById('map-loading')?.remove();
-
-    const countries = topojson.feature(world, world.objects.countries);
-
-    // Populate dropdown menu — sorted alphabetically by country name
-    const menu = document.getElementById('dropdown-menu');
-    const sortedEntries = Object.entries(GAMES_BY_ISO).sort((a, b) => {
-      const nameA = a[1].title.split(' ').slice(1).join(' ');
-      const nameB = b[1].title.split(' ').slice(1).join(' ');
-      return nameA.localeCompare(nameB);
-    });
-    sortedEntries.forEach(([iso, game]) => {
-      const btn = document.createElement('button');
-      btn.className = 'map-dropdown-item';
-      btn.id = 'list-item-' + iso;
-      btn.setAttribute('role', 'option');
-      const [, ...nameParts] = game.title.split(' ');
-      const alpha2 = ISO_TO_ALPHA2[iso];
-      const flagImg = alpha2 ? `<img src="https://flagcdn.com/20x15/${alpha2}.png" alt="" style="height:15px;vertical-align:middle;border-radius:1px">` : '';
-      btn.innerHTML = `<span class="flag">${flagImg}</span>${nameParts.join(' ')}`;
-      btn.addEventListener('click', () => { closeDropdown(); loadGame(iso, game); });
-      btn.addEventListener('mouseenter', () => {
-        svg.selectAll('.c-path').classed('highlighted', false);
-        const p = svg.select(`.c-path[data-iso="${iso}"]`);
-        if (!p.empty()) p.raise().classed('highlighted', true);
-      });
-      btn.addEventListener('mouseleave', () => {
-        svg.select(`.c-path[data-iso="${iso}"]`).classed('highlighted', false);
-      });
-      menu.appendChild(btn);
-    });
-    // Safety net: clear any stray highlight if the pointer leaves the whole menu
-    menu.addEventListener('mouseleave', () => {
-      svg.selectAll('.c-path').classed('highlighted', false);
-    });
-
-    svg.selectAll('.c-path')
-      .data(countries.features)
-      .enter()
-      .append('path')
-      .attr('class', d => {
-        const game = GAMES_BY_ISO[String(d.id).padStart(3, '0')];
-        if (!game) return 'c-path';
-
-        return 'c-path available';
-      })
-      .attr('d', pathGen)
-      .attr('data-iso', d => String(d.id).padStart(3, '0'))
-      .on('mouseenter', function(event, d) {
-        const game = GAMES_BY_ISO[String(d.id).padStart(3, '0')];
-        if (!game) return;
-        const iso3 = String(d.id).padStart(3,'0');
-        const [, ...nameParts2] = game.title.split(' ');
-        tooltip.innerHTML = getFlagImg(iso3,'20x15') + nameParts2.join(' ');
-        tooltip.style.opacity = '1';
-      })
-      .on('mousemove', function(event) {
-        tooltip.style.left = (event.clientX + 14) + 'px';
-        tooltip.style.top  = (event.clientY - 28) + 'px';
-      })
-      .on('mouseleave', function() {
-        tooltip.style.opacity = '0';
-      })
-      .on('click', function(event, d) {
-        const iso = String(d.id).padStart(3, '0');
-        const game = GAMES_BY_ISO[iso];
-        if (!game) return;
-        loadGame(iso, game);
-      });
-
-    // Country borders
-    svg.append('path')
-      .datum(topojson.mesh(world, world.objects.countries, (a, b) => a !== b))
-      .attr('fill', 'none')
-      .attr('stroke', 'var(--paper)')
-      .attr('stroke-width', 0.5)
-      .attr('d', pathGen);
-
-    // Locator ring for pinpointing tiny countries (e.g. Tuvalu) that are too
-    // small to reliably see or click directly on the map.
-    const locatorRing = svg.append('circle').attr('class', 'locator-ring');
-    const TINY_PX = 10; // bounding-box diagonal below this = "tiny"
-    const HOVER_RADIUS = 26; // px, how close the pointer must be to trigger it
-    const tinyCentroids = {}; // iso -> {x, y}
-    // Australia (036) was incorrectly flagged as "tiny" by the bounding-box
-    // check below in some conditions, producing a locator ring that overlapped
-    // Australia's own clickable shape and hijacked clicks meant for the ring's
-    // real target. Explicitly excluded rather than relying on the heuristic.
-    const EXCLUDE_FROM_LOCATOR = new Set(['036']);
-
-    countries.features.forEach(d => {
-      const iso = String(d.id).padStart(3, '0');
-      if (!GAMES_BY_ISO[iso] || EXCLUDE_FROM_LOCATOR.has(iso)) return;
-      const b = pathGen.bounds(d);
-      const diag = Math.hypot(b[1][0] - b[0][0], b[1][1] - b[0][1]);
-      if (diag < TINY_PX) {
-        const c = pathGen.centroid(d);
-        tinyCentroids[iso] = { x: c[0], y: c[1] };
-      }
-    });
-
-    // Manual coordinate overrides for countries too small, or absent, in the
-    // 50m topojson dataset (Natural Earth commonly omits micro-states like
-    // Tuvalu even at this resolution). Real-world [lon, lat], converted to
-    // screen coords via the live projection rather than trusting a possibly
-    // missing or malformed map feature.
-    const MANUAL_TINY_COORDS = {
-      '798': [179.2, -8.0], // Tuvalu (matches tv-land-use-game.html's own constants)
-    };
-    for (const iso in MANUAL_TINY_COORDS) {
-      if (!GAMES_BY_ISO[iso]) continue;
-      const [lon, lat] = MANUAL_TINY_COORDS[iso];
-      const xy = projection([lon, lat]);
-      if (xy) tinyCentroids[iso] = { x: xy[0], y: xy[1] };
-    }
-
-    function showLocator(x, y) {
-      locatorRing.interrupt()
-        .attr('cx', x).attr('cy', y)
-        .attr('r', 24).style('opacity', 0.9)
-        .transition().duration(850).ease(d3.easeCubicOut)
-        .attr('r', 5).style('opacity', 1);
-    }
-    function hideLocator() {
-      locatorRing.interrupt()
-        .transition().duration(200)
-        .style('opacity', 0);
-    }
-
-    // Hovering the map itself near a tiny country's location also triggers it,
-    // even though the country's rendered shape is too small to hit directly.
-    let hoveredTinyIso = null;
-    svg.on('mousemove.locator', function(event) {
-      const [mx, my] = d3.pointer(event, this);
-      let nearestIso = null, nearestDist = HOVER_RADIUS;
-      for (const iso in tinyCentroids) {
-        const c = tinyCentroids[iso];
-        const dist = Math.hypot(mx - c.x, my - c.y);
-        if (dist < nearestDist) { nearestIso = iso; nearestDist = dist; }
-      }
-      hoveredTinyIso = nearestIso;
-      svg.style('cursor', nearestIso ? 'pointer' : null);
-      if (nearestIso) showLocator(tinyCentroids[nearestIso].x, tinyCentroids[nearestIso].y);
-      else hideLocator();
-    });
-    svg.on('mouseleave.locator', () => { hoveredTinyIso = null; svg.style('cursor', null); hideLocator(); });
-    // Clicking inside the ring loads that country's game, same as clicking its
-    // (possibly too-small-to-hit) shape directly would. Skip if the click
-    // already landed on a path that handles its own click, to avoid firing twice.
-    svg.on('click.locator', function(event) {
-      if (!hoveredTinyIso) return;
-      if (event.target.closest('.c-path')) return;
-      const game = GAMES_BY_ISO[hoveredTinyIso];
-      if (game) loadGame(hoveredTinyIso, game);
-    });
-
-    // Also trigger the locator when hovering the country's entry in the dropdown
-    document.querySelectorAll('.map-dropdown-item').forEach(el => {
-      const iso = el.id.replace('list-item-', '');
-      if (!tinyCentroids[iso]) return;
-      el.addEventListener('mouseenter', () => showLocator(tinyCentroids[iso].x, tinyCentroids[iso].y));
-      el.addEventListener('mouseleave', hideLocator);
-    });
-  })
-  .then(() => {
-    // Push initial map state so browser back has somewhere to go
-    if (!window.location.hash) {
-      history.replaceState({ map: true }, '', window.location.pathname);
-    } else {
-      // Restore from hash if present (e.g. shared link). Supports both the
-      // human-readable alpha2 code (#fr) and legacy numeric ISO hashes (#250)
-      // for links shared before this format existed.
-      const resolved = resolveHashToGame(window.location.hash);
-      if (resolved) {
-        loadGame(resolved.iso, resolved.game, false);
-        history.replaceState({ iso: resolved.iso }, '', window.location.hash);
-      }
-    }
-  })
-  .catch(() => {
-    document.getElementById('map-loading').textContent = 'Map failed to load — check your connection.';
-  });
-
-function setActiveCountry(iso) {
-  activeIso = iso;
-  svg.selectAll('.c-path')
-    .classed('active', d => String(d.id).padStart(3, '0') === iso);
-  document.querySelectorAll('.map-dropdown-item').forEach(el => {
-    el.classList.toggle('active', el.id === 'list-item-' + iso);
-  });
-  // Update button label
-  if (iso) {
-    const game = GAMES_BY_ISO[iso];
-    if (game) {
-      const [, ...nameParts] = game.title.split(' ');
-      document.getElementById('dropdown-btn').innerHTML =
-        `<span class="flag">${getFlagImg(iso, '20x15')}</span>${nameParts.join(' ')} <span class="chevron">▼</span>`;
-    }
-  } else {
-    document.getElementById('dropdown-btn').innerHTML = '🌍 Select a country <span class="chevron">▼</span>';
-  }
-}
-
-function showMap() {
-  gameView.style.display = 'none';
-  gameIframe.contentWindow.location.replace('about:blank');
-  landing.style.display = 'flex';
-  setActiveCountry(null);
-  window.scrollTo(0, 0);
-  // Update URL without triggering popstate
-  history.replaceState({ map: true }, '', window.location.pathname);
-}
-
-function getFlagImg(iso, h) {
-  const alpha2 = ISO_TO_ALPHA2[iso];
-  return alpha2 ? `<img src="https://flagcdn.com/${h}/${alpha2}.png" alt="" style="height:${h.split('x')[1]}px;vertical-align:middle;border-radius:1px;margin-right:5px">` : '';
-}
-function loadGame(iso, game, pushState = true) {
-  setActiveCountry(iso);
-  const [, ...nameParts] = game.title.split(' ');
-  gameNavTitle.innerHTML = getFlagImg(iso, '20x15') + nameParts.join(' ');
-  gameView.style.display = 'flex';
-  landing.style.display = 'none';
-  gameIframe.contentWindow.location.replace(game.file);
-  landing.style.display = 'none';
-  gameView.style.display = 'flex';
-  tooltip.style.opacity = '0';
-  window.scrollTo(0, 0);
-  if (pushState) {
-    const urlCode = ISO_TO_ALPHA2[iso] || iso;
-    history.pushState({ iso }, '', '#' + urlCode);
-  }
-}
-
-// Handle browser back/forward - only fires from browser chrome, not our nav button
-window.addEventListener('popstate', (e) => {
-  if (e.state && e.state.iso && GAMES_BY_ISO[e.state.iso]) {
-    loadGame(e.state.iso, GAMES_BY_ISO[e.state.iso], false);
-  } else {
-    // Going back to map state
-    gameView.style.display = 'none';
-    gameIframe.contentWindow.location.replace('about:blank');
-    landing.style.display = 'flex';
-    setActiveCountry(null);
-    window.scrollTo(0, 0);
-  }
+// Populate dropdown
+const sel = document.getElementById('countrySelect');
+COUNTRY_LIST.forEach(c => {
+  const opt = document.createElement('option');
+  opt.value = c.code; opt.textContent = `${c.flag} ${c.name}`;
+  sel.appendChild(opt);
 });
+sel.addEventListener('change', e => { if(e.target.value) location.href = `game.html?c=${e.target.value}`; });
 
-// Resolve a raw URL hash (alpha2 code, or legacy numeric ISO) to a game.
-function resolveHashToGame(rawHash) {
-  const hash = rawHash.replace('#', '').toLowerCase();
-  const isoFromAlpha2 = ALPHA2_TO_ISO[hash];
-  const isoLegacy = /^\d+$/.test(hash) ? hash.padStart(3, '0') : null;
-  const iso = isoFromAlpha2 || isoLegacy;
-  return iso && GAMES_BY_ISO[iso] ? { iso, game: GAMES_BY_ISO[iso] } : null;
-}
+// Load world map
+d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(world => {
+  const countries = topojson.feature(world, world.objects.countries).features;
+  const numericMap = {};
+  COUNTRY_LIST.forEach(c => { const d = COUNTRIES[c.code]; if(d) numericMap[d.numeric] = c.code; });
 
-// Handle the hash being edited directly in the address bar (doesn't fire
-// popstate — only hashchange — since no history entry is being traversed).
-window.addEventListener('hashchange', () => {
-  const resolved = resolveHashToGame(window.location.hash);
-  if (resolved) {
-    if (!gameIframe.contentWindow || gameIframe.contentWindow.location.href.indexOf(resolved.game.file) === -1) {
-      loadGame(resolved.iso, resolved.game, false);
-    }
-    // The browser already created a history entry for this hash edit, but
-    // without our {iso} state object attached — replace it so back/forward
-    // stays consistent with clicks made through the UI.
-    history.replaceState({ iso: resolved.iso }, '', window.location.hash);
-  } else if (window.location.hash === '') {
-    gameView.style.display = 'none';
-    gameIframe.contentWindow.location.replace('about:blank');
-    landing.style.display = 'flex';
-    setActiveCountry(null);
-    window.scrollTo(0, 0);
-    history.replaceState({ map: true }, '', window.location.pathname);
-  }
+  svg.selectAll("path")
+    .data(countries)
+    .enter().append("path")
+    .attr("d", path)
+    .attr("fill", d => numericMap[d.id] ? "#86efac" : "#e4e4e7")
+    .attr("stroke", "#fff")
+    .attr("stroke-width", 0.5)
+    .style("cursor", d => numericMap[d.id] ? "pointer" : "default")
+    .on("mouseover", function(event, d) {
+      if (!numericMap[d.id]) return;
+      const code = numericMap[d.id];
+      const c = COUNTRIES[code];
+      d3.select(this).attr("fill", "#22c55e");
+      tooltip.style("opacity", 1).html(`${c.flag} ${c.name}`);
+    })
+    .on("mousemove", function(event) {
+      tooltip.style("left", (event.pageX + 12) + "px").style("top", (event.pageY - 28) + "px");
+    })
+    .on("mouseout", function(event, d) {
+      d3.select(this).attr("fill", numericMap[d.id] ? "#86efac" : "#e4e4e7");
+      tooltip.style("opacity", 0);
+    })
+    .on("click", function(event, d) {
+      const code = numericMap[d.id];
+      if (code) location.href = `game.html?c=${code}`;
+    });
+}).catch(err => {
+  document.getElementById('map').innerHTML = '<p style="padding:20px;color:#71717a">Map loading failed. Use the dropdown above to select a country.</p>';
 });
-
-// Back button in nav - go directly to map, don't use history.back()
-document.getElementById('back-btn').addEventListener('click', () => {
-  showMap();
-});
-
-// Dropdown toggle
-const dropBtn = document.getElementById('dropdown-btn');
-const dropMenu = document.getElementById('dropdown-menu');
-
-function closeDropdown() {
-  dropMenu.classList.remove('open');
-  dropBtn.setAttribute('aria-expanded', 'false');
-}
-
-dropBtn.addEventListener('click', (e) => {
-  e.stopPropagation();
-  const isOpen = dropMenu.classList.contains('open');
-  if (isOpen) { closeDropdown(); } else {
-    dropMenu.classList.add('open');
-    dropBtn.setAttribute('aria-expanded', 'true');
-  }
-});
-
-document.addEventListener('click', closeDropdown);
-dropMenu.addEventListener('click', e => e.stopPropagation());
 </script>
 </body>
 </html>
