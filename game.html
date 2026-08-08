@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">Land Use Game</title>
+<style>
+  :root {
+    --bg: #f4f4f5; --card: #ffffff; --text: #18181b; --muted: #71717a;
+    --border: #e4e4e7; --accent: #059669; --amber: #f59e0b; --red: #ef4444;
+    --blue: #3b82f6; --font: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.55; }
+  .container { max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 6px; }
+  .subtitle { color: var(--muted); font-size: 0.95rem; margin-bottom: 18px; }
+  .lang-toggle { float: right; margin-top: 4px; background: var(--card); border: 1px solid var(--border);
+    border-radius: 6px; padding: 4px 10px; font-size: 0.85rem; cursor: pointer; }
+  .box { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-bottom: 16px; }
+  .context-box { border-left: 4px solid var(--amber); }
+  .context-box h3 { margin: 0 0 8px; font-size: 1rem; }
+  .context-box p, .disclaimer p { margin: 0; font-size: 0.92rem; color: var(--muted); }
+  .disclaimer { background: #fafafa; }
+  .scorebar { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+  .scorepill { background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 10px 14px; text-align: center; flex: 1; min-width: 100px; }
+  .scorepill .num { font-size: 1.4rem; font-weight: 700; display: block; }
+  .scorepill .lbl { font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+  .category { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px; margin-bottom: 12px; }
+  .cat-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+  .cat-title { font-weight: 600; }
+  .cat-val { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--accent); }
+  .cat-desc { font-size: 0.85rem; color: var(--muted); margin-bottom: 10px; }
+  input[type=range] { width: 100%; accent-color: var(--accent); }
+  .remaining { text-align: center; font-size: 0.9rem; color: var(--muted); margin: 8px 0 16px; }
+  .remaining.warn { color: var(--red); font-weight: 600; }
+  .btn { display: block; width: 100%; padding: 14px; font-size: 1rem; font-weight: 600;
+    color: #fff; background: var(--accent); border: none; border-radius: 10px; cursor: pointer; margin: 16px 0; }
+  .btn:disabled { background: var(--border); color: var(--muted); cursor: not-allowed; }
+  .treemap { display: grid; gap: 3px; margin: 16px 0; min-height: 200px; }
+  .tcell { display: flex; align-items: center; justify-content: center; color: #fff;
+    font-size: 0.8rem; font-weight: 600; text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    border-radius: 6px; padding: 8px; text-align: center; }
+  .result-grade { text-align: center; font-size: 1.3rem; font-weight: 700; margin: 12px 0; }
+  .world-card { border: 2px solid var(--blue); border-radius: 12px; padding: 16px; margin-top: 20px; background: #eff6ff; }
+  .world-card h3 { margin: 0 0 10px; color: #1e40af; }
+  .globe-wrap { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 12px; }
+  .globe-box { flex: 1; min-width: 240px; text-align: center; }
+  .globe-box svg { max-width: 100%; height: auto; }
+  .sources { font-size: 0.85rem; color: var(--muted); margin-top: 24px; }
+  .sources a { color: var(--muted); }
+  .hidden { display: none; }
+  .score-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--border); }
+  .score-row span:last-child { font-variant-numeric: tabular-nums; }
+  @media (max-width: 600px) { h1 { font-size: 1.25rem; } .globe-wrap { flex-direction: column; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <button class="lang-toggle" id="langBtn" onclick="toggleLang()">Lang</button>
+  <h1 id="h1"></h1>
+  <div class="subtitle" id="subtitle"></div>
+
+  <div class="box context-box">
+    <h3 id="ctxTitle"></h3>
+    <p id="ctxBody"></p>
+  </div>
+  <div class="box disclaimer">
+    <p id="note"></p>
+  </div>
+
+  <div class="scorebar">
+    <div class="scorepill"><span class="num" id="scoreNum">0</span><span class="lbl" id="lblScore">Score</span></div>
+    <div class="scorepill"><span class="num" id="usedNum">0%</span><span class="lbl" id="lblUsed">Land used</span></div>
+    <div class="scorepill"><span class="num" id="remNum">100%</span><span class="lbl" id="lblRem">Remaining</span></div>
+  </div>
+
+  <div id="sliderBox"></div>
+  <div class="remaining" id="remainingText">0 / 100% allocated</div>
+  <button class="btn" id="submitBtn" onclick="submitGuesses()">Submit all guesses</button>
+
+  <div id="results" class="hidden">
+    <div class="box">
+      <div class="result-grade" id="gradeText"></div>
+      <div id="treemap" class="treemap"></div>
+      <div id="scoreBreakdown"></div>
+    </div>
+    <div class="world-card" id="worldCard">
+      <h3 id="worldTitle"></h3>
+      <p id="worldBody"></p>
+      <div class="globe-wrap">
+        <div class="globe-box"><div id="globeViz"></div><div class="lbl" id="globeLbl"></div></div>
+        <div class="globe-box"><div id="zoomViz"></div><div class="lbl" id="zoomLbl"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sources">
+    <p><strong id="lblSources">Sources:</strong> <span id="sourcesBody"></span></p>
+  </div>
+  <p style="text-align:center; margin-top:24px;">
+    <a href="index.html">← <span id="lblBack">Back to map</span></a> · <a href="stats.html">📊 Stats</a>
+  </p>
+</div>
+
+<script src="data.js"></script>
+<script>
+/* ---------- Router & Language ---------- */
+const params = new URLSearchParams(location.search);
+const COUNTRY = params.get('c') || params.get('country') || 'ca';
+const D = COUNTRIES[COUNTRY];
+if (!D) { document.body.innerHTML = '<div class="container"><h1>Country not found</h1><p><a href="index.html">Back to map</a></p></div>'; throw new Error('Unknown country'); }
+
+// Language resolution: URL param > navigator > fallback
+const urlLang = params.get('lang');
+const navLang = navigator.language.slice(0,2);
+let LANG = urlLang || (D.languages.includes(navLang) ? navLang : D.languages[0]);
+
+// Helper: get text for current language with fallback
+function L(obj) {
+  if (!obj) return '';
+  return obj[LANG] || obj[D.languages[0]] || obj['en'] || '';
+}
+
+/* ---------- DOM hydration ---------- */
+function setText(id, val) { const el = document.getElementById(id); if (el) el.textContent = val || ''; }
+function setHTML(id, val) { const el = document.getElementById(id); if (el) el.innerHTML = val || ''; }
+
+const ctxText = L(D.context);
+const discText = L(D.disclaimer);
+const srcText = L(D.sources);
+const wc = D.worldCard || {};
+const wcLang = wc[LANG] || wc[D.languages[0]] || wc['en'] || {};
+
+document.getElementById('pageTitle').textContent = `${D.flag} ${D.name}`;
+document.getElementById('h1').textContent = `${D.flag} ${D.name}`;
+setText('subtitle', 'Guess the percentage of land for each category — sliders are capped at 100% total.');
+setText('ctxTitle', 'Country context');
+setHTML('ctxBody', ctxText);
+setHTML('note', discText || '<strong>Note:</strong> The solar+battery figures are a thought experiment, not a policy recommendation.');
+setText('lblScore', 'Score');
+setText('lblUsed', 'Land used');
+setText('lblRem', 'Remaining');
+setText('submitBtn', 'Submit all guesses');
+setText('worldTitle', wcLang.title || '');
+setHTML('worldBody', wcLang.body || '');
+setText('globeLbl', 'National scale view');
+setText('zoomLbl', 'Zoomed scale view');
+setText('lblSources', 'Sources:');
+setText('sourcesBody', srcText);
+setText('lblBack', 'Back to map');
+
+// Language toggle button
+const langBtn = document.getElementById('langBtn');
+if (D.languages.length > 1) {
+  const nextIdx = (D.languages.indexOf(LANG) + 1) % D.languages.length;
+  const nextLang = D.languages[nextIdx];
+  const labels = { en: 'English', fr: 'Français', de: 'Deutsch', es: 'Español', pt: 'Português', zh: '中文', ja: '日本語', hi: 'हिन्दी', ar: 'العربية', ru: 'Русский', da: 'Dansk', hu: 'Magyar', sw: 'Kiswahili', mg: 'Malagasy', th: 'ไทย', ur: 'اردو' };
+  langBtn.textContent = labels[nextLang] || nextLang;
+} else {
+  langBtn.style.display = 'none';
+}
+
+function toggleLang() {
+  if (D.languages.length < 2) return;
+  const idx = D.languages.indexOf(LANG);
+  const nextLang = D.languages[(idx + 1) % D.languages.length];
+  const newParams = new URLSearchParams(location.search);
+  newParams.set('lang', nextLang);
+  location.search = newParams.toString();
+}
+
+/* ---------- Sliders ---------- */
+const guesses = {};
+D.categories.forEach(c => guesses[c.id] = 0);
+
+function buildSliders() {
+  const box = document.getElementById('sliderBox');
+  box.innerHTML = '';
+  D.categories.forEach(cat => {
+    const t = cat[LANG] || cat[D.languages[0]] || cat['en'];
+    if (!t) return;
+    const div = document.createElement('div');
+    div.className = 'category';
+    div.innerHTML = `
+      <div class="cat-header">
+        <span class="cat-title">${cat.emoji} ${t.name}</span>
+        <span class="cat-val" id="val-${cat.id}">${cat.step < 0.01 ? guesses[cat.id].toFixed(3) : guesses[cat.id].toFixed(1)}%</span>
+      </div>
+      <div class="cat-desc">${t.desc}</div>
+      <input type="range" id="range-${cat.id}" min="0" max="100" step="${cat.step}" value="${guesses[cat.id]}" oninput="onSlide('${cat.id}')">
+    `;
+    box.appendChild(div);
+  });
+}
+
+function onSlide(id) {
+  const input = document.getElementById('range-' + id);
+  let val = parseFloat(input.value);
+  const other = D.categories.filter(c => c.id !== id).reduce((s, c) => s + guesses[c.id], 0);
+  if (other + val > 100) { val = Math.max(0, 100 - other); input.value = val; }
+  guesses[id] = val;
+  updateUI();
+}
+
+function updateUI() {
+  const used = D.categories.reduce((s, c) => s + guesses[c.id], 0);
+  const rem = Math.max(0, 100 - used);
+  document.getElementById('usedNum').textContent = used.toFixed(1) + '%';
+  document.getElementById('remNum').textContent = rem.toFixed(1) + '%';
+  document.getElementById('remainingText').textContent = `${used.toFixed(1)} / 100% allocated`;
+  document.getElementById('remainingText').classList.toggle('warn', rem < 0.01 && used < 100);
+  D.categories.forEach(c => {
+    const el = document.getElementById('val-' + c.id);
+    if (el) el.textContent = (c.step < 0.01 ? guesses[c.id].toFixed(3) : guesses[c.id].toFixed(1)) + '%';
+  });
+}
+
+/* ---------- Submit & Score ---------- */
+function submitGuesses() {
+  const used = D.categories.reduce((s, c) => s + guesses[c.id], 0);
+  if (used < 99.9) { alert('Please allocate 100% before submitting.'); return; }
+
+  let totalScore = 0;
+  const rows = D.categories.map(c => {
+    const diff = Math.abs(guesses[c.id] - c.answer);
+    const stepTol = c.step * 1.5;
+    const relTol = c.answer * 0.15;
+    const tol = Math.max(stepTol, relTol, 0.5);
+    let pts = 0;
+    if (diff <= tol) pts = 100;
+    else if (diff <= tol * 2.5) pts = 75;
+    else if (diff <= tol * 5) pts = 50;
+    else if (diff <= tol * 10) pts = 25;
+    else pts = Math.max(0, 100 - diff * 5);
+    totalScore += pts;
+    return { ...c, guess: guesses[c.id], diff, pts };
+  });
+
+  const overall = Math.round(totalScore / D.categories.length);
+  document.getElementById('scoreNum').textContent = overall;
+  document.getElementById('results').classList.remove('hidden');
+
+  const g = document.getElementById('gradeText');
+  const labels = { spoton: 'Spot on!', close: 'Close', good: 'Good', off: 'Off', wayoff: 'Way off' };
+  if (overall >= 90) g.textContent = labels.spoton + ' — ' + overall + '%';
+  else if (overall >= 70) g.textContent = labels.close + ' — ' + overall + '%';
+  else if (overall >= 50) g.textContent = labels.good + ' — ' + overall + '%';
+  else if (overall >= 30) g.textContent = labels.off + ' — ' + overall + '%';
+  else g.textContent = labels.wayoff + ' — ' + overall + '%';
+
+  // Treemap
+  const tm = document.getElementById('treemap');
+  tm.innerHTML = '<h4 style="grid-column:1/-1;margin:0 0 6px;">Your guesses — proportional area map</h4>';
+  const valid = rows.filter(r => r.guess > 0);
+  valid.forEach(r => {
+    const d = document.createElement('div');
+    d.className = 'tcell';
+    d.style.background = r.color;
+    d.style.gridColumn = 'span ' + Math.max(1, Math.round(r.guess));
+    d.style.gridRow = 'span ' + Math.max(1, Math.round(r.guess / 5));
+    d.textContent = r.emoji + ' ' + (r.step < 0.01 ? r.guess.toFixed(2) : r.guess.toFixed(1)) + '%';
+    tm.appendChild(d);
+  });
+
+  // Breakdown
+  const sb = document.getElementById('scoreBreakdown');
+  sb.innerHTML = '<h4 style="margin:16px 0 8px;">Actual land use — proportional area map</h4>' +
+    rows.map(r => {
+      const label = (r[LANG] || r[D.languages[0]] || r['en']).name;
+      return `<div class="score-row">
+        <span>${r.emoji} ${label}</span>
+        <span>
+          ${r.step < 0.01 ? r.guess.toFixed(2) : r.guess.toFixed(1)}% vs ${r.step < 0.01 ? r.answer.toFixed(2) : r.answer.toFixed(1)}%
+          <span style="color:${r.pts>=75?'var(--accent)':r.pts>=50?'var(--amber)':'var(--red)'}">(${r.pts})</span>
+        </span>
+      </div>`;
+    }).join('');
+
+  // Globe visualisations
+  drawGlobe();
+  document.getElementById('submitBtn').disabled = true;
+
+  // Save score
+  try {
+    const key = 'landgame_scores';
+    const data = JSON.parse(localStorage.getItem(key) || '{}');
+    if (!data[COUNTRY] || overall > (data[COUNTRY].score || 0)) {
+      data[COUNTRY] = { score: overall, date: new Date().toISOString().slice(0, 10), name: D.name, flag: D.flag };
+      localStorage.setItem(key, JSON.stringify(data));
+    }
+  } catch (e) {}
+}
+
+function drawGlobe() {
+  const solPct = ((D.worldCard && D.worldCard.sol100Ha) || 0) / D.areaHa * 100;
+  const r = Math.max(2, Math.sqrt(solPct) * 15);
+  const globe = `<svg viewBox="0 0 200 200" width="200" height="200">
+    <circle cx="100" cy="100" r="98" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+    <circle cx="100" cy="100" r="40" fill="#22c55e" opacity="0.6"/>
+    <circle cx="110" cy="95" r="${r}" fill="#f59e0b" stroke="#ea580c" stroke-width="0.5"/>
+    <text x="115" y="98" font-size="6" fill="#1e40af">${solPct < 0.01 ? '<0.01' : solPct.toFixed(2)}%</text>
+  </svg>`;
+  document.getElementById('globeViz').innerHTML = globe;
+
+  const zoom = `<svg viewBox="0 0 200 200" width="200" height="200">
+    <rect width="200" height="200" fill="#e0f2fe"/>
+    <rect x="20" y="40" width="160" height="120" fill="#86efac" opacity="0.3" rx="4"/>
+    <text x="100" y="30" text-anchor="middle" font-size="8" fill="#334155">~100 km × 100 km window</text>
+    <rect x="80" y="80" width="40" height="40" fill="#fbbf24" opacity="0.9" rx="2"/>
+    <text x="100" y="105" text-anchor="middle" font-size="7" fill="#78350f">${((D.worldCard && D.worldCard.sol100Ha) || 0).toLocaleString()} ha</text>
+    <text x="100" y="140" text-anchor="middle" font-size="7" fill="#334155">Equivalent solar footprint</text>
+  </svg>`;
+  document.getElementById('zoomViz').innerHTML = zoom;
+}
+
+/* ---------- Init ---------- */
+buildSliders();
+updateUI();
+</script>
+</body>
+</html>
