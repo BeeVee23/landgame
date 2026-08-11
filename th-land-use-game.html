@@ -1,0 +1,485 @@
+<!-- v4.15.0 -->
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇹🇭 How is Thailand's land actually used? — Guessing Game</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg-primary: #ffffff; --bg-secondary: #f5f4f0; --bg-tertiary: #eeede8;
+  --text-primary: #1a1a18; --text-secondary: #5f5e5a;
+  --border: rgba(0,0,0,0.12); --border-md: rgba(0,0,0,0.22);
+  --radius-md: 8px; --radius-lg: 12px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #1e1e1c; --bg-secondary: #2a2a27; --bg-tertiary: #313130;
+    --text-primary: #f0ede6; --text-secondary: #a09e97;
+    --border: rgba(255,255,255,0.10); --border-md: rgba(255,255,255,0.20);
+  }
+}
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans Thai', Roboto, sans-serif; background: var(--bg-tertiary); color: var(--text-primary); min-height: 100vh; padding: 2rem 1rem; }
+.page { max-width: 720px; margin: 0 auto; }
+h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
+.subtitle { font-size: 14px; color: var(--text-secondary); margin-bottom: 0.75rem; line-height: 1.6; }
+.disclaimer { font-size: 11px; color: var(--text-secondary); background: var(--bg-secondary); border-left: 3px solid var(--border-md); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 0.6rem 0.9rem; margin-bottom: 1rem; line-height: 1.8; }
+.disclaimer strong { color: var(--text-primary); }
+.country-note { font-size: 11px; color: #6b4a1f; background: #fdf1de; border-left: 3px solid #e0a94a; border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 0.6rem 0.9rem; margin-bottom: 0.6rem; line-height: 1.8; }
+@media (prefers-color-scheme: dark) { .country-note { color: #f0d9ae; background: #3a2f1a; border-left-color: #b8842e; } }
+.country-note strong { color: inherit; }
+.lang-toggle { font-family: inherit; font-size: 11px; padding: 3px 9px; background: var(--bg-primary); border: 0.5px solid var(--border-md); border-radius: var(--radius-md); cursor: pointer; color: var(--text-secondary); float: right; margin: 2px 0 0 8px; }
+.lang-toggle:hover { background: var(--bg-secondary); color: var(--text-primary); }
+.data-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+.data-info { font-size: 11px; color: var(--text-secondary); flex: 1; min-width: 160px; }
+.data-info strong { color: var(--text-primary); }
+.score-bar { display: flex; gap: 10px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+.metric { background: var(--bg-secondary); border-radius: var(--radius-md); padding: .6rem .9rem; flex: 1; min-width: 80px; }
+.metric .lbl { font-size: 11px; color: var(--text-secondary); margin-bottom: 2px; }
+.metric .val { font-size: 20px; font-weight: 500; }
+.map-section { margin-bottom: 1.25rem; }
+.map-title { font-size: 13px; color: var(--text-secondary); margin-bottom: 6px; }
+#treemap { width: 100%; height: 200px; border-radius: var(--radius-md); overflow: hidden; display: flex; background: var(--bg-secondary); padding: 2px; gap: 2px; }
+.tm-block { display: flex; align-items: center; justify-content: center; border-radius: 3px; transition: flex .4s ease; overflow: hidden; }
+.tm-label { font-size: 11px; font-weight: 500; text-align: center; padding: 2px 3px; line-height: 1.3; pointer-events: none; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.5); }
+.legend { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 1.1rem; }
+.leg-item { display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-secondary); }
+.leg-dot { width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
+.total-bar-wrap { margin-bottom: .75rem; }
+.total-bar-track { height: 8px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden; margin-bottom: 4px; }
+.total-bar-fill { height: 100%; border-radius: 4px; transition: width .2s ease, background .2s ease; max-width: 100%; }
+.total-bar-label { font-size: 12px; color: var(--text-secondary); }
+.cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: .75rem; }
+@media (max-width: 520px) { .cards-grid { grid-template-columns: 1fr; } }
+.card { background: var(--bg-primary); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: .9rem; }
+.solar-card { grid-column: 1 / -1; }
+.card-head { display: flex; align-items: center; gap: 7px; margin-bottom: .4rem; }
+.card-icon { font-size: 18px; }
+.card-name { font-size: 13px; font-weight: 500; }
+.card-desc { font-size: 11px; color: var(--text-secondary); margin-bottom: .6rem; line-height: 1.5; }
+.sl-row { display: flex; align-items: center; gap: 8px; }
+.sl-row input[type=range] { flex: 1; accent-color: #639922; }
+.sl-val { font-size: 13px; font-weight: 500; min-width: 50px; text-align: right; }
+.solar-note { font-size: 11px; color: var(--text-secondary); margin-top: 4px; }
+.res-line { font-size: 11px; margin-top: 5px; min-height: 14px; display: none; line-height: 1.5; }
+.readout-text { font-size: 12px; color: var(--text-secondary); }
+.btn-row { display: flex; gap: 8px; margin-top: .5rem; }
+#sub-btn { flex: 1; padding: 9px 16px; font-size: 14px; background: var(--bg-primary); border: 0.5px solid var(--border-md); border-radius: var(--radius-md); color: var(--text-primary); cursor: pointer; }
+#sub-btn:hover:not(:disabled) { background: var(--bg-secondary); }
+#sub-btn:disabled { opacity: .4; cursor: default; }
+#rst-btn { padding: 9px 13px; font-size: 14px; background: var(--bg-primary); border: 0.5px solid var(--border-md); border-radius: var(--radius-md); color: var(--text-secondary); cursor: pointer; display: none; }
+#rst-btn:hover { background: var(--bg-secondary); }
+.final { background: var(--bg-secondary); border-radius: var(--radius-lg); padding: 1rem; margin-top: .75rem; display: none; text-align: center; }
+.final-num { font-size: 36px; font-weight: 500; }
+.final-sub { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+.final-grade { font-size: 15px; font-weight: 500; margin-top: 6px; }
+.world-card { background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary)); border: 0.5px solid var(--border-md); border-radius: var(--radius-lg); padding: 1.1rem; margin-top: .75rem; }
+.world-head { font-size: 15px; font-weight: 500; margin-bottom: .5rem; }
+.world-text { font-size: 12.5px; color: var(--text-secondary); line-height: 1.7; margin-bottom: .75rem; }
+.world-text strong { color: var(--text-primary); }
+.geo-maps-row { display: flex; gap: 8px; margin-bottom: .6rem; }
+#world-geo-map { flex: 1.4; height: 280px; border-radius: 8px; overflow: hidden; background: #0d1b2a; }
+#world-geo-map svg { width: 100%; height: 100%; display: block; }
+#world-geo-inset { flex: 1; height: 280px; border-radius: 8px; overflow: hidden; background: #16283c; position: relative; }
+#world-geo-inset svg { width: 100%; height: 100%; display: block; }
+.geo-inset-label { position: absolute; top: 6px; left: 8px; font-size: 9.5px; color: var(--text-secondary); background: rgba(13,27,42,0.7); padding: 2px 6px; border-radius: 4px; }
+.geo-land { fill: #2a3f54; stroke: #0d1b2a; stroke-width: 0.4; }
+.geo-country { fill: #8a7860; stroke: #f5f2eb; stroke-width: 0.6; opacity: 0.65; }
+.geo-circle { fill: #EF9F27; fill-opacity: 0.85; stroke: #fff; stroke-width: 1; stroke-dasharray: 3,2; }
+.geo-legend { display: flex; gap: 14px; font-size: 10.5px; color: var(--text-secondary); margin-bottom: .5rem; flex-wrap: wrap; }
+.geo-legend span { display: inline-flex; align-items: center; gap: 4px; }
+.geo-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+.world-foot { font-size: 11px; color: var(--text-secondary); line-height: 1.6; font-style: italic; }
+.source { font-size: 11px; color: var(--text-secondary); margin-top: 1.5rem; line-height: 1.8; }
+.source a { color: var(--text-secondary); text-decoration: underline; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
+</head>
+<body>
+<div class="page">
+  <button class="lang-toggle" id="lang-btn" onclick="toggleLang()">English</button>
+  <h1 id="h1-el"></h1>
+  <p class="subtitle" id="subtitle-el"></p>
+  <div class="country-note" id="country-note-el"></div>
+  <div class="disclaimer" id="disclaimer-el"></div>
+  <div class="data-bar">
+    <span class="data-info">Data: <strong>2018–2023</strong> · FAO FAOSTAT · CIA World Factbook · IRENA Thailand Country Profile</span>
+  </div>
+  <div class="score-bar">
+    <div class="metric"><div class="lbl" id="lbl-score">Score</div><div class="val" id="score-v">0%</div></div>
+    <div class="metric"><div class="lbl" id="lbl-land">Land used</div><div class="val" id="total-v">0%</div></div>
+    <div class="metric"><div class="lbl" id="lbl-remain">Remaining</div><div class="val" id="remain-v">100%</div></div>
+  </div>
+  <div class="map-section">
+    <div class="map-title" id="map-title">Your guesses — proportional area map (updates as you slide)</div>
+    <div id="treemap"></div>
+    <div class="legend" id="legend"></div>
+  </div>
+  <div class="total-bar-wrap">
+    <div class="total-bar-track"><div class="total-bar-fill" id="tot-fill" style="width:0%;background:#639922"></div></div>
+    <div class="total-bar-label" id="tot-label">0 / 100% allocated</div>
+  </div>
+  <div class="cards-grid" id="cards"></div>
+  <div class="btn-row">
+    <button id="sub-btn">Submit all guesses</button>
+    <button id="rst-btn"><i class="ti ti-refresh"></i> Play again</button>
+  </div>
+  <div class="final" id="final" style="display:none">
+    <div class="final-num" id="final-n">0%</div>
+    <div class="final-sub" id="final-sub">accuracy score</div>
+    <div class="final-grade" id="final-g"></div>
+  </div>
+  <div class="world-card" id="world-card" style="display:none">
+    <div class="world-head" id="world-head"></div>
+    <p class="world-text" id="world-text"></p>
+    <p class="world-text" id="world-text2" style="margin-bottom:.75rem"></p>
+    <div class="geo-legend" id="geo-legend"></div>
+    <div class="geo-maps-row">
+      <div id="world-geo-map"></div>
+      <div id="world-geo-inset"></div>
+    </div>
+    <p class="world-foot" id="world-foot"></p>
+  </div>
+  <p class="source">Sources: <a href="https://www.fao.org/faostat/en/#data/RL" target="_blank">FAO FAOSTAT Land Use</a> · <a href="https://www.cia.gov/the-world-factbook/countries/thailand/" target="_blank">CIA World Factbook: Thailand</a> · <a href="https://www.irena.org/-/media/Files/IRENA/Agency/Statistics/Statistical_Profiles/Asia/Thailand_Asia_RE_SP.pdf" target="_blank">IRENA Thailand Country Profile 2023</a> · Thailand total land area ~51.1M ha (510,890 km²).</p>
+</div>
+<script>
+const CATS_TH = [
+  {id:`agri`, icon:`🌾`, name:`พื้นที่เกษตรกรรม`, desc:`นาข้าว สวนยางพารา ไร่อ้อย และสวนผลไม้ — ประเทศไทยเป็นหนึ่งในผู้ส่งออกข้าวรายใหญ่ที่สุดของโลกอย่างต่อเนื่อง และที่ราบภาคกลางเป็นหนึ่งในพื้นที่เกษตรชลประทานที่เข้มข้นที่สุดในเอเชียตะวันออกเฉียงใต้`, answer:41.2, color:`#639922`, max:65, step:0.5, answerHa:21048700},
+  {id:`forest`, icon:`🌲`, name:`ป่าไม้`, desc:`ป่าดิบชื้นในภาคใต้ ป่าสักบนภูเขาทางภาคเหนือ และป่าชายเลนตามชายฝั่ง ประเทศไทยห้ามการทำไม้เชิงพาณิชย์ตั้งแต่ปี 2532 หลังเกิดอุทกภัยรุนแรงที่เชื่อมโยงกับการตัดไม้ทำลายป่า พื้นที่ป่าจึงค่อย ๆ ฟื้นตัวและคงที่นับแต่นั้น`, answer:37.2, color:`#3B6D11`, max:55, step:0.5, answerHa:19005100},
+  {id:`settle`, icon:`🏙️`, name:`ชุมชนและถนน`, desc:`กรุงเทพมหานคร (ประมาณ 11 ล้านคนในเขตปริมณฑล) เชียงใหม่ และโครงข่ายถนนที่หนาแน่นของไทย กรุงเทพฯ กำลังทรุดตัวอย่างช้า ๆ จากการสูบน้ำบาดาลและดินเหนียวอ่อน ซึ่งเป็นปัญหาคล้ายกับระดับน้ำทะเลสูงขึ้นในภูมิภาคนี้`, answer:6.0, color:`#73726c`, max:15, step:0.2, answerHa:3065300},
+  {id:`water`, icon:`💧`, name:`แหล่งน้ำ`, desc:`ระบบแม่น้ำเจ้าพระยาและแม่น้ำโขง รวมถึงอ่างเก็บน้ำขนาดใหญ่ เช่น เขื่อนสิรินธร ซึ่งเป็นที่ตั้งของโครงการโซลาร์เซลล์ลอยน้ำผสมพลังน้ำที่ใหญ่ที่สุดในโลก โดยผสานพลังน้ำและพลังงานแสงอาทิตย์ไว้บนผิวน้ำเดียวกัน`, answer:3.0, color:`#378ADD`, max:10, step:0.1, answerHa:1532700},
+  {id:`other`, icon:`🏔️`, name:`พื้นที่อื่น ๆ`, desc:`พื้นที่รกร้าง พื้นที่ชุ่มน้ำ ที่ราบเกลือ และพุ่มไม้ที่ไม่จัดอยู่ในหมวดหมู่ข้างต้น รวมถึงภูมิประเทศหินปูนทางภาคใต้และที่ราบน้ำท่วมถึงตามฤดูกาล`, answer:12.532, color:`#c4b8a0`, max:25, step:0.5, answerHa:6404400},
+  {id:`golf`, icon:`⛳`, name:`สนามกอล์ฟ`, desc:`สนามกอล์ฟกว่า 250 แห่งทั่วประเทศ ทำให้ไทยเป็นหนึ่งในจุดหมายปลายทางกอล์ฟชั้นนำของโลก สนามรีสอร์ตส่วนใหญ่กระจุกตัวอยู่รอบกรุงเทพฯ พัทยา หัวหิน และเชียงใหม่ ดึงดูดนักกอล์ฟจากทั่วเอเชียและไกลกว่านั้น`, answer:0.037, color:`#5DCAA5`, max:0.3, step:0.002, answerHa:18900, dp:3},
+  {id:`solar`, icon:`☀️🔋`, name:`โซลาร์ฟาร์ม (ปัจจุบัน)`, desc:`ระบบโซลาร์เซลล์ขนาดใหญ่ทั้งแบบติดตั้งบนพื้นดินและลอยน้ำที่เชื่อมต่อกับโครงข่ายไฟฟ้า ไทยเป็นผู้นำด้านกำลังการผลิตไฟฟ้าจากแสงอาทิตย์ในเอเชียตะวันออกเฉียงใต้ รวมถึงโครงการโซลาร์ลอยน้ำของ กฟผ. บนอ่างเก็บน้ำเก้าแห่ง ซึ่งแทบไม่ต้องใช้พื้นที่ใหม่เลยเพราะใช้ผิวน้ำร่วมกับเขื่อนที่มีอยู่แล้ว`, answer:0.031, color:`#EF9F27`, max:0.3, step:0.002, answerHa:15800, dp:3, isSolar:true, solarNote:`คำใบ้: โซลาร์ลอยน้ำบนอ่างเก็บน้ำอย่างเขื่อนสิรินธรแทบไม่ใช้พื้นที่ใหม่เลย เพราะใช้ผิวน้ำร่วมกับพลังงานน้ำที่มีอยู่แล้ว ส่วนใหญ่ของพื้นที่โซลาร์บนบกของไทยมาจากฟาร์มที่ติดตั้งบนพื้นดิน ไม่ใช่แบบลอยน้ำ`},
+  {id:`sol100`, icon:`⚡🔋`, name:`พลังงานแสงอาทิตย์+แบตเตอรี่เพื่อผลิตไฟฟ้า 100%`, desc:`พื้นที่ที่จำเป็นสำหรับโซลาร์เซลล์ขนาดใหญ่ร่วมกับระบบกักเก็บพลังงานเพื่อผลิตไฟฟ้าให้กับโครงข่ายไฟฟ้าทั้งประเทศไทยตลอด 24 ชั่วโมง (ประมาณ 205 เทระวัตต์ชั่วโมงต่อปี) โดยใช้ทรัพยากรแสงอาทิตย์เขตร้อนของไทย`, answer:0.219, color:`#BA7517`, max:2, step:0.01, answerHa:111900, dp:3, isSolar:true, readOnly:true, solarNote:`ละติจูดเขตร้อนของไทยให้ผลผลิตพลังงานประมาณ 545 เฮกตาร์ต่อเทระวัตต์ชั่วโมง ใกล้เคียงกับไนจีเรียหรืออียิปต์ ที่อัตรานี้ การผลิตไฟฟ้าทั้งประเทศต้องใช้พื้นที่เพียง 0.22% ของประเทศ หรือประมาณ 112,000 เฮกตาร์ ปัจจุบันก๊าซธรรมชาติยังคงเป็นแหล่งพลังงานหลักราว 64% ของไฟฟ้าไทย ส่วนพลังงานหมุนเวียน (ส่วนใหญ่เป็นชีวมวล) มีสัดส่วนราวหนึ่งในห้า ไทยยังมีศักยภาพด้านพลังงานแสงอาทิตย์ที่ยังไม่ได้ใช้อีกมาก โดยเฉพาะโครงการโซลาร์ลอยน้ำของ กฟผ. ที่หลีกเลี่ยงข้อจำกัดด้านที่ดินได้อย่างสิ้นเชิงด้วยการใช้ผิวอ่างเก็บน้ำที่มีเขื่อนพลังน้ำอยู่แล้ว`}
+];
+const CATS_EN = [
+  {id:`agri`, icon:`🌾`, name:`Agricultural land`, desc:`Rice paddies, rubber, sugarcane and fruit plantations — Thailand is consistently one of the world's largest rice exporters, and its Central Plains form one of the most intensively irrigated farming regions in Southeast Asia`, answer:41.2, color:`#639922`, max:65, step:0.5, answerHa:21048700},
+  {id:`forest`, icon:`🌲`, name:`Forest`, desc:`Tropical monsoon forest, mountainous teak forest in the north, and mangroves along the coasts. Thailand banned commercial logging in 1989 after severe floods linked to deforestation — forest cover has since stabilised and slightly recovered`, answer:37.2, color:`#3B6D11`, max:55, step:0.5, answerHa:19005100},
+  {id:`settle`, icon:`🏙️`, name:`Settlement & roads`, desc:`Bangkok (~11 million in the metro area), Chiang Mai, and Thailand's dense highway and rail network — Bangkok itself is also slowly sinking due to groundwater extraction and soft clay soil, a slow-motion counterpart to sea-level rise elsewhere in the region`, answer:6.0, color:`#73726c`, max:15, step:0.2, answerHa:3065300},
+  {id:`water`, icon:`💧`, name:`Water bodies`, desc:`The Chao Phraya and Mekong river systems, and vast reservoirs including Sirindhorn Dam — the site of the world's largest hydro-floating solar hybrid project, combining hydropower and solar on the same reservoir surface`, answer:3.0, color:`#378ADD`, max:10, step:0.1, answerHa:1532700},
+  {id:`other`, icon:`🏔️`, name:`Other land`, desc:`Barren land, wetlands, salt flats and scrubland not captured in the categories above — includes the limestone karst landscapes of southern Thailand and seasonal floodplains`, answer:12.532, color:`#c4b8a0`, max:25, step:0.5, answerHa:6404400},
+  {id:`golf`, icon:`⛳`, name:`Golf courses`, desc:`Around 250+ golf courses, making Thailand one of the world's top golf tourism destinations — many resort courses cluster around Bangkok, Pattaya, Hua Hin and Chiang Mai, drawing golfers from across Asia and beyond`, answer:0.037, color:`#5DCAA5`, max:0.3, step:0.002, answerHa:18900, dp:3},
+  {id:`solar`, icon:`☀️🔋`, name:`Solar farms (current)`, desc:`Utility-scale ground-mounted and floating solar — Thailand leads Southeast Asia in installed solar capacity, including EGAT's floating solar roadmap across nine hydropower reservoirs, which avoids new land entirely by sharing the water surface with existing dams`, answer:0.031, color:`#EF9F27`, max:0.3, step:0.002, answerHa:15800, dp:3, isSolar:true, solarNote:`Hint: floating solar on reservoirs like Sirindhorn Dam uses almost no new land — it shares the water surface with hydropower already there. Most of Thailand's land-based solar footprint comes from ground-mounted farms, not floating installations`},
+  {id:`sol100`, icon:`⚡🔋`, name:`Solar+battery for 100% electricity`, desc:`Land needed for utility-scale solar+battery to power Thailand's entire national grid 24/7 (~205 TWh/yr, IRENA 2023) — using Thailand's tropical solar resource`, answer:0.219, color:`#BA7517`, max:2, step:0.01, answerHa:111900, dp:3, isSolar:true, readOnly:true, solarNote:`Thailand's tropical latitude yields roughly 545 ha/TWh — similar to Nigeria or Egypt. At that rate, powering the whole country needs just 0.22% of its land, about 112,000 hectares. Today, natural gas still supplies ~64% of Thailand's electricity and renewables (mostly biomass) about a fifth — Thailand has significant untapped solar potential, particularly given its EGAT floating solar programme, which sidesteps land constraints entirely by using reservoir surfaces already dammed for hydropower`}
+];
+
+const STRINGS = {
+  local: {
+    h1:`<img src="https://flagcdn.com/32x24/th.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> ที่ดินของไทยถูกใช้อย่างไรกันแน่?`, subtitle:`ได้แรงบันดาลใจจาก<a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">คลิปสั้นบน YouTube ของ ดร. Simon Clark</a> (ภาษาอังกฤษ) ลองเดาสัดส่วนพื้นที่ของไทยในแต่ละหมวดหมู่ — แถบเลื่อนรวมกันได้ไม่เกิน 100% ประเทศไทยเป็นเศรษฐกิจใหญ่อันดับสองของเอเชียตะวันออกเฉียงใต้ และเป็นหนึ่งในผู้ส่งออกข้าวชั้นนำของโลก มีพื้นที่ป่ามากกว่าที่หลายคนคาดคิด และมีโครงการพลังงานแสงอาทิตย์ที่ก้าวหน้าที่สุดแห่งหนึ่งในภูมิภาค`, disclaimer:`ตัวเลขพลังงานแสงอาทิตย์และแบตเตอรี่เป็นการทดลองทางความคิดที่สร้างขึ้นด้วยความช่วยเหลือของ AI ไม่ใช่ข้อเสนอแนะเชิงนโยบาย ตัวเลขพลังงานแสงอาทิตย์ทั้งหมดหมายถึงระบบขนาดใหญ่ที่เชื่อมต่อกับโครงข่ายไฟฟ้า`,
+    countryNote:`โครงสร้างพลังงานไฟฟ้าของไทยยังคงพึ่งพาก๊าซธรรมชาติเป็นหลัก (ประมาณ 64%) และถ่านหิน (ประมาณ 15%) โดยพลังงานหมุนเวียน — ส่วนใหญ่เป็นชีวมวล บวกกับพลังงานแสงอาทิตย์ที่กำลังเติบโตและพลังน้ำบางส่วน — คิดเป็นประมาณหนึ่งในห้าของการผลิตไฟฟ้า ไทยยังนำเข้าไฟฟ้าจากพลังน้ำของลาวประมาณ 15% แผนพัฒนากำลังผลิตไฟฟ้าฉบับร่างของรัฐบาลตั้งเป้าให้พลังงานหมุนเวียน มีสัดส่วน 51% ภายในปี 2580 ข้อมูลการใช้ที่ดินจาก FAO FAOSTAT และ CIA World Factbook ประมาณการปี 2561–2566 ข้อมูลไฟฟ้าจากรายงานประเทศไทยของ IRENA ปี 2566`,
+    submit:`ส่งคำตอบทั้งหมด`, play_again:`เล่นอีกครั้ง`,
+    score:`คะแนน`, land_used:`พื้นที่ที่ใช้ไป`, remaining:`ที่เหลืออยู่`,
+    map_guess:`คำตอบของคุณ — แผนที่พื้นที่ตามสัดส่วน (อัปเดตขณะเลื่อน)`,
+    map_answer:`การใช้ที่ดินจริงของไทย — แผนที่พื้นที่ตามสัดส่วน`,
+    allocated:`/ จัดสรรแล้ว 100%`, reveal:`จะเปิดเผยหลังจากส่งคำตอบ`,
+    out_of:`คะแนนความแม่นยำ`,
+    sol100_reveal:`ละติจูดเขตร้อนของไทยให้ผลผลิตพลังงานประมาณ 545 เฮกตาร์ต่อเทระวัตต์ชั่วโมง ใกล้เคียงกับไนจีเรียหรืออียิปต์ ที่อัตรานี้ การผลิตไฟฟ้าทั้งประเทศต้องใช้พื้นที่เพียง 0.22% ของประเทศ หรือประมาณ 112,000 เฮกตาร์ ปัจจุบันก๊าซธรรมชาติยังคงเป็นแหล่งพลังงานหลักราว 64% ของไฟฟ้าไทย ส่วนพลังงานหมุนเวียน (ส่วนใหญ่เป็นชีวมวล) มีสัดส่วนราวหนึ่งในห้า ไทยยังมีศักยภาพด้านพลังงานแสงอาทิตย์ที่ยังไม่ได้ใช้อีกมาก โดยเฉพาะโครงการโซลาร์ลอยน้ำของ กฟผ. ที่หลีกเลี่ยงข้อจำกัดด้านที่ดินได้อย่างสิ้นเชิงด้วยการใช้ผิวอ่างเก็บน้ำที่มีเขื่อนพลังน้ำอยู่แล้ว`,
+    grades:[[86, `🌾 ผู้เชี่ยวชาญ! คุณรู้จักสัดส่วนพื้นที่ของไทยได้อย่างแม่นยำน่าประทับใจ`], [64, `🌲 ยอดเยี่ยมมาก — เข้าใจดีว่าไทยยังมีพื้นที่ป่าไม้มากเพียงใดแม้จะพัฒนามาหลายทศวรรษ`], [43, `⛳ ไม่เลวเลย! หลายคนไม่รู้ว่าไทยมีสนามกอล์ฟกว่า 250 แห่ง หนาแน่นที่สุดแห่งหนึ่งในเอเชีย`], [21, `🌊 รู้หรือไม่? ไทยเป็นที่ตั้งของโครงการโซลาร์ลอยน้ำผสมพลังน้ำที่ใหญ่ที่สุดในโลก ที่เขื่อนสิรินธร`], [0, `🤔 น่าประหลาดใจไหม? แม้จะพัฒนาอย่างรวดเร็ว แต่กว่าหนึ่งในสามของไทยยังคงเป็นป่าไม้`]],
+    btn_label:`English`, country_label:`ประเทศไทย`, circle_label:`พื้นที่ที่ต้องใช้`,
+    zoomed:`มุมมองขยาย`,
+  },
+  en: {
+    h1:`<img src="https://flagcdn.com/32x24/th.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Thailand's land actually used?`, subtitle:`Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Thai land for each category — sliders are capped at 100% total. Thailand is Southeast Asia's second-largest economy and one of the world's top rice exporters, with more forest cover than many people expect and one of the region's most advanced solar programmes.`, disclaimer:`The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar figures refer to utility-scale, grid-connected systems.`,
+    countryNote:`Thailand's electricity mix remains dominated by natural gas (~64%) and coal (~15%), with renewables — mostly biomass, plus growing solar and some hydro — making up roughly a fifth of generation. Thailand also imports around 15% of its electricity from Laotian hydropower. The government's draft power development plan targets 51% renewable electricity by 2037. Land use figures from FAO FAOSTAT and CIA World Factbook 2018–2023 estimates; electricity figures from IRENA Thailand Country Profile 2023.`,
+    submit:`Submit all guesses`, play_again:`Play again`,
+    score:`Score`, land_used:`Land used`, remaining:`Remaining`,
+    map_guess:`Your guesses — proportional area map (updates as you slide)`,
+    map_answer:`Actual Thai land use — proportional area map`,
+    allocated:`/ 100% allocated`, reveal:`Revealed after you submit.`,
+    out_of:`accuracy score`,
+    sol100_reveal:`Thailand's tropical latitude yields roughly 545 ha/TWh — similar to Nigeria or Egypt. At that rate, powering the whole country needs just 0.22% of its land, about 112,000 hectares. Today, natural gas still supplies ~64% of Thailand's electricity and renewables (mostly biomass) about a fifth — Thailand has significant untapped solar potential, particularly given its EGAT floating solar programme, which sidesteps land constraints entirely by using reservoir surfaces already dammed for hydropower`,
+    grades:[[86, `🌾 Expert! You know Thailand's land balance with impressive precision.`], [64, `🌲 Very strong — sharp grasp of just how forested Thailand still is despite decades of development.`], [43, `⛳ Not bad! Most people don't realise Thailand has over 250 golf courses — one of the densest concentrations in Asia.`], [21, `🌊 Did you know? Thailand hosts the world's largest hydro-floating solar hybrid project, on Sirindhorn Dam.`], [0, `🤔 Surprising? Despite rapid development, well over a third of Thailand remains forested.`]],
+    btn_label:`ภาษาไทย`, country_label:`Thailand`, circle_label:`Land area needed`,
+    zoomed:`Zoomed view`,
+  },
+};
+
+const WORLD_STRINGS = {
+  local: { head:`🌍 ถ้าประเทศไทยผลิตไฟฟ้าให้กับทั้งโลกเพียงประเทศเดียวล่ะ?`, fit:`ด้วยสภาพแสงอาทิตย์เขตร้อนของไทย (ประมาณ 545 เฮกตาร์ต่อเทระวัตต์ชั่วโมง) การผลิตไฟฟ้าให้เพียงพอต่อ<strong>ความต้องการไฟฟ้าทั่วโลก</strong> (ประมาณ 31,000 เทระวัตต์ชั่วโมงต่อปี) จะต้องใช้พื้นที่ประมาณ <strong>{haM} ล้านเฮกตาร์</strong> — <strong>คิดเป็น {pct}% ของพื้นที่ประเทศไทย</strong> แสดงด้านล่างเป็นวงกลมที่มีพื้นที่เท่ากัน วงกลมนี้พอดีอยู่ภายในพรมแดนของไทยอย่างสบาย ๆ`, stat2:`การผสมผสานระหว่างแสงแดดเขตร้อนที่ดีพอสมควรกับพื้นที่ประเทศที่ค่อนข้างใหญ่ ทำให้การทดลองทางความคิดนี้อยู่ในขอบเขตที่เป็นไปได้จริง — ต่างจากประเทศเล็ก ๆ ที่วงกลมเทียบเท่าจะล้นออกไปนอกพรมแดนมาก ในความเป็นจริง ไทยกำลังลงทุนอย่างหนักในโซลาร์ลอยน้ำ เพื่อหลีกเลี่ยงความขัดแย้งด้านการใช้ที่ดินกับพื้นที่เกษตรที่มีผลผลิตสูง โดยจับคู่แผงโซลาร์กับอ่างเก็บน้ำที่ใช้ผลิตไฟฟ้าพลังน้ำอยู่แล้ว`, foot:`วงกลมเส้นประเป็นเพียงภาพประกอบ — มีขนาดตามพื้นที่ที่ถูกต้อง แต่ไม่ใช่ข้อเสนอสถานที่ตั้งจริง ทรัพยากรแสงอาทิตย์และพื้นที่ของไทยทำให้การทดลองทางความคิดนี้สมเหตุสมผลในเชิงกายภาพ แม้จะยังมีขนาดมหาศาลก็ตาม` },
+  en:    { head:`🌍 What if Thailand alone powered the whole world?`, fit:`At Thailand's tropical solar conditions (~545 ha/TWh), powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) would need about <strong>{haM} million hectares</strong> — <strong>{pct}% of Thailand's land area</strong>, shown below as a circle of equivalent area. That circle fits comfortably within Thailand's borders.`, stat2:`Thailand's combination of decent tropical sun and a reasonably large land area puts this thought experiment well within physical bounds — unlike tiny nations where the equivalent circle would spill far beyond their borders. In reality, Thailand is investing heavily in floating solar to avoid land-use conflicts with its highly productive farmland altogether, pairing panels with reservoirs already used for hydropower.`, foot:`The dashed circle is illustrative — sized to the correct land area, not an actual proposed siting. Thailand's solar resource and land area make this a physically reasonable, if still enormous, thought experiment.` },
+};
+
+const COUNTRY_LON=101.0, COUNTRY_LAT=15.0;
+const COUNTRY_ISO=`764`;
+const COUNTRY_HA=51089000;
+const SOL100_HA=111900;
+const DEMAND_TWH=205.24;
+const HA_PER_TWH=SOL100_HA/DEMAND_TWH;
+
+let currentLang=`local`, submitted=false, totalScore=0;
+let CATS=[...CATS_TH], MAIN_CATS=CATS.filter(c=>!c.readOnly);
+
+function applyLang(lang){
+  const s=STRINGS[lang];
+  CATS=lang===`local`?[...CATS_TH]:[...CATS_EN];
+  MAIN_CATS=CATS.filter(c=>!c.readOnly);
+  document.documentElement.lang=lang===`local`?`th`:`en`;
+  document.getElementById(`h1-el`).innerHTML=s.h1;
+  document.getElementById(`subtitle-el`).innerHTML=s.subtitle;
+  document.getElementById(`disclaimer-el`).innerHTML=`<strong>Note:</strong> `+s.disclaimer;
+  document.getElementById(`country-note-el`).innerHTML=`<strong>Country context:</strong> `+s.countryNote;
+  document.getElementById(`lbl-score`).textContent=s.score;
+  document.getElementById(`lbl-land`).textContent=s.land_used;
+  document.getElementById(`lbl-remain`).textContent=s.remaining;
+  if(!submitted) buildCards();
+  const sb=document.getElementById(`sub-btn`); if(sb&&!sb.disabled) sb.textContent=s.submit;
+  const rb=document.getElementById(`rst-btn`); if(rb) rb.innerHTML=`<i class="ti ti-refresh"></i> `+s.play_again;
+  const mt=document.getElementById(`map-title`); if(mt) mt.textContent=submitted?s.map_answer:s.map_guess;
+  const tl=document.getElementById(`tot-label`); if(tl){ const p=tl.textContent.split(`/`)[0].trim(); tl.textContent=p+` `+s.allocated; }
+  const h=document.getElementById(`rl-hint-sol100`); if(h&&h.style.display!==`none`) h.textContent=s.reveal;
+  document.getElementById(`final-sub`).textContent=s.out_of;
+  document.getElementById(`lang-btn`).textContent=s.btn_label;
+  if(document.getElementById(`world-card`).style.display===`block`) renderWorldCard();
+  drawMap();
+}
+function toggleLang(){ currentLang=currentLang===`local`?`en`:`local`; applyLang(currentLang); }
+
+function getVal(cat){
+  if(cat.readOnly) return 0;
+  const el=document.getElementById(`sl-`+cat.id);
+  return el?parseFloat(el.value):0;
+}
+function getMainTotal(){ return MAIN_CATS.reduce((s,c)=>s+getVal(c),0); }
+function clampAll(changedId){
+  const total=MAIN_CATS.reduce((s,c)=>{const el=document.getElementById(`sl-`+c.id);return s+(el?parseFloat(el.value):0);},0);
+  const over=total-100; if(over<=0.0001) return;
+  const others=MAIN_CATS.filter(c=>c.id!==changedId);
+  const ot=others.reduce((s,c)=>{const el=document.getElementById(`sl-`+c.id);return s+(el?parseFloat(el.value):0);},0);
+  if(ot<=0) return;
+  let rem=over;
+  others.forEach((cat,i)=>{
+    const el=document.getElementById(`sl-`+cat.id); if(!el) return;
+    const cur=parseFloat(el.value);
+    const share=(i===others.length-1)?rem:Math.min(cur,(cur/ot)*over);
+    const nv=Math.max(0,parseFloat((cur-share).toFixed(5)));
+    rem-=(cur-nv); el.value=nv;
+    const dp=cat.dp!==undefined?cat.dp:(cat.isSolar?3:1);
+    document.getElementById(`sv-`+cat.id).textContent=nv.toFixed(dp)+`%`;
+  });
+}
+function updateTotal(){
+  const t=getMainTotal(); const tD=Math.min(t,100);
+  document.getElementById(`total-v`).textContent=tD.toFixed(1)+`%`;
+  document.getElementById(`remain-v`).textContent=Math.max(0,100-t).toFixed(1)+`%`;
+  const fill=document.getElementById(`tot-fill`);
+  fill.style.width=tD+`%`;
+  const p=tD/100;
+  fill.style.background=`rgb(${Math.round(99*p+59*(1-p))},${Math.round(153*p+153*(1-p))},${Math.round(34*p+17*(1-p))})`;
+  document.getElementById(`tot-label`).textContent=tD.toFixed(1)+` `+STRINGS[currentLang].allocated;
+}
+function drawMap(){
+  const tm=document.getElementById(`treemap`);
+  let cats=submitted
+    ?[...CATS.filter(c=>!c.readOnly).map(c=>({...c,pct:c.answer})),...CATS.filter(c=>c.readOnly).map(c=>({...c,pct:c.answer}))]
+    :MAIN_CATS.map(c=>({...c,pct:getVal(c)}));
+  cats=cats.filter(c=>c.pct>0).sort((a,b)=>b.pct-a.pct);
+  const total=cats.reduce((s,c)=>s+c.pct,0)||1;
+  tm.innerHTML=``;
+  cats.forEach(cat=>{
+    const block=document.createElement(`div`); block.className=`tm-block`;
+    const dp=cat.dp!==undefined?cat.dp:(cat.isSolar?3:1);
+    const pctStr=cat.pct.toFixed(cat.pct<0.01?dp:1);
+    block.title=cat.name+`: `+pctStr+`%`;
+    block.style.cssText=`background:${cat.color};flex:${cat.pct} 1 0%;min-width:2px;height:100%`;
+    const estW=(cat.pct/total)*(tm.clientWidth||680);
+    if(estW>22){ const lbl=document.createElement(`div`); lbl.className=`tm-label`; lbl.innerHTML=estW>44?cat.icon+`<br>`+pctStr+`%`:cat.icon; block.appendChild(lbl); }
+    tm.appendChild(block);
+  });
+  document.getElementById(`legend`).innerHTML=cats.map(c=>{
+    const dp=c.dp!==undefined?c.dp:(c.isSolar?3:1);
+    const pctStr=c.pct.toFixed(c.pct<0.01?dp:1);
+    return `<span class="leg-item"><span class="leg-dot" style="background:${c.color}"></span>${c.name} ${pctStr}%</span>`;
+  }).join(``);
+}
+function buildCards(){
+  const container=document.getElementById(`cards`); container.innerHTML=``;
+  CATS.forEach(cat=>{
+    const div=document.createElement(`div`);
+    div.className=`card`+(cat.isSolar?` solar-card`:``);
+    if(cat.readOnly){
+      div.innerHTML=`<div class="card-head"><span class="card-icon">${cat.icon}</span><span class="card-name">${cat.name}</span></div>
+        <div class="card-desc">${cat.desc}</div>
+        <div class="readout-text" id="rl-hint-sol100">${STRINGS[currentLang].reveal}</div>
+        <div class="res-line" id="rl-sol100"></div>`;
+    } else {
+      const dp=cat.dp!==undefined?cat.dp:(cat.isSolar?3:1);
+      const existingEl=document.getElementById(`sl-`+cat.id);
+      const curVal=existingEl?parseFloat(existingEl.value):0;
+      const initVal=curVal.toFixed(dp);
+      div.innerHTML=`<div class="card-head"><span class="card-icon">${cat.icon}</span><span class="card-name">${cat.name}</span></div>
+        <div class="card-desc">${cat.desc}</div>
+        <div class="sl-row">
+          <input type="range" min="0" max="${cat.max}" step="${cat.step}" value="${curVal}" id="sl-${cat.id}" aria-label="${cat.name}">
+          <span class="sl-val" id="sv-${cat.id}">${initVal}%</span>
+        </div>
+        ${cat.isSolar&&cat.solarNote?`<div class="solar-note">${cat.solarNote}</div>`:``}
+        <div class="res-line" id="rl-${cat.id}"></div>`;
+    }
+    container.appendChild(div);
+    if(!cat.readOnly){
+      document.getElementById(`sl-`+cat.id).addEventListener(`input`,function(){
+        const dp=cat.dp!==undefined?cat.dp:(cat.isSolar?3:1);
+        document.getElementById(`sv-`+cat.id).textContent=parseFloat(this.value).toFixed(dp)+`%`;
+        clampAll(cat.id);
+        document.getElementById(`sv-`+cat.id).textContent=parseFloat(document.getElementById(`sl-`+cat.id).value).toFixed(dp)+`%`;
+        updateTotal(); drawMap();
+      });
+    }
+  });
+}
+function scoreGuess(guess,answer,step,catMax){
+  const diff=Math.abs(guess-answer);
+  if(step!==undefined && diff<=step*1.5) return 100;
+  const frac=catMax?diff/catMax:Math.abs(diff/(answer||1));
+  if(frac<=0.06) return 100;
+  if(frac<=0.15) return Math.round(100-(frac-0.06)/0.09*50);
+  if(frac<=0.40) return Math.round(50-(frac-0.15)/0.25*40);
+  return Math.max(0,Math.round(10-(frac-0.40)*8));
+}
+function gradeLabel(s){
+  const labels=STRINGS[currentLang].grades;
+  for(const [t,l] of labels){ if(s>=t) return l; }
+  return labels[labels.length-1][1];
+}
+document.getElementById(`sub-btn`).addEventListener(`click`,function(){
+  if(submitted) return;
+  submitted=true; totalScore=0;
+  document.querySelector('.map-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  CATS.forEach(cat=>{
+    const rl=document.getElementById(`rl-`+cat.id); if(!rl) return;
+    rl.style.display=`block`;
+    const dp=cat.dp!==undefined?cat.dp:(cat.isSolar?3:1);
+    if(cat.readOnly){
+      const hint=document.getElementById(`rl-hint-sol100`); if(hint) hint.style.display=`none`;
+      const answerHaM=cat.answerHa>=1000000?(cat.answerHa/1000000).toFixed(1)+`M`:Math.round(cat.answerHa/1000)+`k`;
+      const haStr=` (~`+answerHaM+` ha)`;
+      rl.innerHTML=`<span style="color:var(--text-secondary)">Answer: <strong style="color:#BA7517">`+cat.answer.toFixed(dp)+`%</strong>`+haStr+` — `+STRINGS[currentLang].sol100_reveal+`</span>`;
+      return;
+    }
+    const guess=getVal(cat); const pts=scoreGuess(guess,cat.answer,cat.step,cat.max);
+    totalScore+=pts;
+    const diff=guess-cat.answer; const sign=diff>=0?`+`:``;
+    const spotOnThresh=cat.step*1.5;
+    const diffStr=Math.abs(diff)<spotOnThresh?`spot on!`:sign+diff.toFixed(dp)+`% off`;
+    const col=pts>=80?`#3b6d11`:pts>=40?`#ba7517`:`#a32d2d`;
+    const answerHaM=cat.answerHa>=1000000?(cat.answerHa/1000000).toFixed(1)+`M`:Math.round(cat.answerHa/1000)+`k`;
+    const haStr=` (~`+answerHaM+` ha)`;
+    rl.innerHTML=`<span style="color:var(--text-secondary)">Answer: <strong style="color:var(--text-primary)">`+cat.answer.toFixed(dp)+`%</strong>`+haStr+`</span> <span style="color:`+col+`;font-weight:500">`+diffStr+` → `+pts+`pts</span>`;
+    const sl=document.getElementById(`sl-`+cat.id); if(sl) sl.disabled=true;
+  });
+  const maxScore=MAIN_CATS.length*100;
+  const scorePct=Math.round((totalScore/maxScore)*100);
+  document.getElementById(`score-v`).textContent=scorePct+`%`;
+  document.getElementById(`map-title`).textContent=STRINGS[currentLang].map_answer;
+  document.getElementById(`final`).style.display=`block`;
+  document.getElementById(`final-n`).textContent=scorePct+`%`;
+  document.getElementById(`final-g`).textContent=gradeLabel(scorePct);
+  document.getElementById(`rst-btn`).style.display=`inline-flex`;
+  this.disabled=true; drawMap(); renderWorldCard();
+});
+document.getElementById(`rst-btn`).addEventListener(`click`,function(){
+  submitted=false; totalScore=0;
+  CATS=currentLang===`local`?[...CATS_TH]:[...CATS_EN];
+  MAIN_CATS=CATS.filter(c=>!c.readOnly);
+  document.getElementById(`score-v`).textContent=`0%`;
+  document.getElementById(`total-v`).textContent=`0%`;
+  document.getElementById(`remain-v`).textContent=`100%`;
+  document.getElementById(`final`).style.display=`none`;
+  document.getElementById(`world-card`).style.display=`none`;
+  document.getElementById(`map-title`).textContent=STRINGS[currentLang].map_guess;
+  document.getElementById(`tot-fill`).style.width=`0%`;
+  document.getElementById(`tot-label`).textContent=`0 `+STRINGS[currentLang].allocated;
+  this.style.display=`none`;
+  document.getElementById(`sub-btn`).disabled=false;
+  buildCards(); updateTotal(); setTimeout(drawMap,50);
+});
+
+function renderWorldCard(){
+  const _wcEl=document.getElementById(`world-card`);
+  const _wcFirst=_wcEl.style.display!==`block`;
+  _wcEl.style.display=`block`;
+  const W=WORLD_STRINGS[currentLang];
+  const haNeeded=31000*HA_PER_TWH;
+  const pct=(haNeeded/COUNTRY_HA*100).toFixed(1);
+  const haM=(haNeeded/1e6).toFixed(1);
+  document.getElementById(`world-head`).textContent=W.head;
+  document.getElementById(`world-text`).innerHTML=W.fit.replace(`{haM}`,haM).replace(`{pct}`,pct);
+  document.getElementById(`world-text2`).textContent=W.stat2;
+  const S=STRINGS[currentLang];
+  document.getElementById(`geo-legend`).innerHTML=
+    `<span><span class="geo-dot" style="background:#8a7860;opacity:0.65"></span>${S.country_label}</span>`+
+    `<span><span class="geo-dot" style="background:#EF9F27"></span>${S.circle_label}</span>`;
+  document.getElementById(`world-foot`).textContent=W.foot;
+  if(_wcFirst){
+    setTimeout(()=>{drawGeoMap(haNeeded);drawGeoInset(haNeeded);},800);
+  } else {
+    drawGeoMap(haNeeded); drawGeoInset(haNeeded);
+  }
+}
+
+let _worldTopo=null;
+async function getWorldTopo(){
+  if(_worldTopo) return _worldTopo;
+  const r=await fetch(`https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json`);
+  _worldTopo=await r.json(); return _worldTopo;
+}
+async function drawGeoMap(haNeeded){
+  const topo=await getWorldTopo();
+  const cont=document.getElementById(`world-geo-map`); cont.innerHTML=``;
+  const W=cont.clientWidth||440,H=280,R=H*0.62;
+  const svg=d3.select(cont).append(`svg`).attr(`viewBox`,`0 0 ${W} ${H}`);
+  const projection=d3.geoOrthographic().scale(R).translate([W/2,H/2]).rotate([-COUNTRY_LON,-COUNTRY_LAT]).clipAngle(90);
+  const path=d3.geoPath(projection);
+  svg.append(`path`).datum({type:`Sphere`}).attr(`d`,path).attr(`fill`,`#16283c`);
+  svg.append(`path`).datum(d3.geoGraticule()()).attr(`d`,path).attr(`fill`,`none`).attr(`stroke`,`#22384f`).attr(`stroke-width`,0.4);
+  const land=topojson.feature(topo,topo.objects.countries);
+  svg.append(`g`).selectAll(`path`).data(land.features).join(`path`).attr(`class`,`geo-land`).attr(`d`,path);
+  const cf=land.features.find(f=>String(f.id).padStart(3,`0`)===COUNTRY_ISO);
+  if(cf) svg.append(`path`).datum(cf).attr(`class`,`geo-country`).attr(`d`,path);
+  const aKm2=haNeeded/100,rKm=Math.sqrt(aKm2/Math.PI),angRad=(rKm/6371)*(180/Math.PI);
+  svg.append(`path`).datum(d3.geoCircle().center([COUNTRY_LON,COUNTRY_LAT]).radius(angRad)()).attr(`class`,`geo-circle`).attr(`d`,path);
+  let _angle=0;
+  const _timer=d3.interval(()=>{
+    _angle+=0.4;
+    projection.rotate([-COUNTRY_LON-_angle,-COUNTRY_LAT]);
+    svg.selectAll(`.geo-land,.geo-country,.geo-circle`).attr(`d`,path);
+    if(_angle>360) _timer.stop();
+  },40);
+}
+async function drawGeoInset(haNeeded){
+  const topo=await getWorldTopo();
+  const cont=document.getElementById(`world-geo-inset`); cont.innerHTML=``;
+  const W=cont.clientWidth||300,H=280;
+  const aKm2=haNeeded/100,rKm=Math.sqrt(aKm2/Math.PI),angRad=(rKm/6371)*(180/Math.PI);
+  const targetPR=H*0.30,scale=(180/Math.PI)/(angRad/targetPR)/2;
+  const svg=d3.select(cont).append(`svg`).attr(`viewBox`,`0 0 ${W} ${H}`);
+  const proj=d3.geoMercator().center([COUNTRY_LON,COUNTRY_LAT]).scale(scale).translate([W/2,H/2]);
+  const path=d3.geoPath(proj);
+  svg.append(`rect`).attr(`width`,W).attr(`height`,H).attr(`fill`,`#16283c`);
+  svg.append(`path`).datum(d3.geoGraticule().step([5,5])()).attr(`d`,path).attr(`fill`,`none`).attr(`stroke`,`#22384f`).attr(`stroke-width`,0.4);
+  const land=topojson.feature(topo,topo.objects.countries);
+  svg.append(`g`).selectAll(`path`).data(land.features).join(`path`).attr(`class`,`geo-land`).attr(`d`,path);
+  const cf=land.features.find(f=>String(f.id).padStart(3,`0`)===COUNTRY_ISO);
+  if(cf) svg.append(`path`).datum(cf).attr(`class`,`geo-country`).attr(`d`,path);
+  svg.append(`path`).datum(d3.geoCircle().center([COUNTRY_LON,COUNTRY_LAT]).radius(angRad)()).attr(`class`,`geo-circle`).attr(`d`,path);
+  const niceSteps=[10,25,50,100,200,500];
+  let barKm=niceSteps.find(s=>s>=rKm*0.4)||500;
+  const [x0]=proj([COUNTRY_LON,COUNTRY_LAT]);
+  const [x1]=proj([COUNTRY_LON+barKm/111.32,COUNTRY_LAT]);
+  const barPx=Math.abs(x1-x0);
+  const g=svg.append(`g`);
+  g.append(`rect`).attr(`x`,8).attr(`y`,H-26).attr(`width`,barPx).attr(`height`,2.5).attr(`fill`,`#fff`);
+  g.append(`text`).attr(`x`,8).attr(`y`,H-12).attr(`fill`,`#fff`).attr(`font-size`,10).attr(`style`,`text-shadow:0 1px 2px rgba(0,0,0,.6)`).text(barKm.toLocaleString()+` km`);
+  const lbl=document.createElement(`div`); lbl.className=`geo-inset-label`; lbl.textContent=STRINGS[currentLang].zoomed;
+  cont.style.position=`relative`; cont.appendChild(lbl);
+}
+
+buildCards(); updateTotal(); setTimeout(drawMap,50); applyLang(`local`);
+window.addEventListener(`resize`,drawMap);
+</script>
+</body>
+</html>
