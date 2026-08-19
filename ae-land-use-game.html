@@ -1,0 +1,480 @@
+<!-- v5.8.0 -->
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇦🇪 How is the UAE's land actually used? — Guessing Game</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg-primary: #ffffff; --bg-secondary: #f5f4f0; --bg-tertiary: #eeede8;
+  --text-primary: #1a1a18; --text-secondary: #5f5e5a;
+  --border: rgba(0,0,0,0.12); --border-md: rgba(0,0,0,0.22);
+  --radius-md: 8px; --radius-lg: 12px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #1e1e1c; --bg-secondary: #2a2a27; --bg-tertiary: #313130;
+    --text-primary: #f0ede6; --text-secondary: #a09e97;
+    --border: rgba(255,255,255,0.10); --border-md: rgba(255,255,255,0.20);
+  }
+}
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg-tertiary); color: var(--text-primary); min-height: 100vh; padding: 2rem 1rem; }
+.page { max-width: 720px; margin: 0 auto; }
+h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
+.subtitle { font-size: 14px; color: var(--text-secondary); margin-bottom: 0.75rem; line-height: 1.5; }
+.country-note { font-size: 11px; color: #6b4a1f; background: #fdf1de; border-left: 3px solid #e0a94a; border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 0.6rem 0.9rem; margin-bottom: 0.6rem; line-height: 1.7; }
+@media (prefers-color-scheme: dark) { .country-note { color: #f0d9ae; background: #3a2f1a; border-left-color: #b8842e; } }
+.country-note strong { color: inherit; }
+.disclaimer { font-size: 11px; color: var(--text-secondary); background: var(--bg-secondary); border-left: 3px solid var(--border-md); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 0.6rem 0.9rem; margin-bottom: 1rem; line-height: 1.7; }
+.disclaimer strong { color: var(--text-primary); }
+.lang-toggle { font-family: inherit; font-size: 11px; padding: 3px 9px; background: var(--bg-primary); border: 0.5px solid var(--border-md); border-radius: var(--radius-md); cursor: pointer; color: var(--text-secondary); float: right; margin: 2px 0 0 8px; }
+.lang-toggle:hover { background: var(--bg-secondary); color: var(--text-primary); }
+.data-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+.data-info { font-size: 11px; color: var(--text-secondary); flex: 1; min-width: 160px; }
+.data-info strong { color: var(--text-primary); }
+.score-bar { display: flex; gap: 10px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+.metric { background: var(--bg-secondary); border-radius: var(--radius-md); padding: .6rem .9rem; flex: 1; min-width: 80px; }
+.metric .lbl { font-size: 11px; color: var(--text-secondary); margin-bottom: 2px; }
+.metric .val { font-size: 20px; font-weight: 500; }
+.map-section { margin-bottom: 1.25rem; }
+.map-title { font-size: 13px; color: var(--text-secondary); margin-bottom: 6px; }
+#treemap { width: 100%; height: 200px; border-radius: var(--radius-md); overflow: hidden; display: flex; background: var(--bg-secondary); padding: 2px; gap: 2px; }
+.tm-block { display: flex; align-items: center; justify-content: center; border-radius: 3px; transition: flex .4s ease; overflow: hidden; }
+.tm-label { font-size: 11px; font-weight: 500; text-align: center; padding: 2px 3px; line-height: 1.3; pointer-events: none; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.5); }
+.legend { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 1.1rem; }
+.leg-item { display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-secondary); }
+.leg-dot { width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
+.total-bar-wrap { margin-bottom: .75rem; }
+.total-bar-track { height: 8px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden; margin-bottom: 4px; }
+.total-bar-fill { height: 100%; border-radius: 4px; transition: width .2s ease, background .2s ease; max-width: 100%; }
+.total-bar-label { font-size: 12px; color: var(--text-secondary); }
+.cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: .75rem; }
+@media (max-width: 520px) { .cards-grid { grid-template-columns: 1fr; } }
+.card { background: var(--bg-primary); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: .9rem; }
+.solar-card { grid-column: 1 / -1; }
+.card-head { display: flex; align-items: center; gap: 7px; margin-bottom: .4rem; }
+.card-icon { font-size: 18px; }
+.card-name { font-size: 13px; font-weight: 500; }
+.card-desc { font-size: 11px; color: var(--text-secondary); margin-bottom: .6rem; line-height: 1.4; }
+.sl-row { display: flex; align-items: center; gap: 8px; }
+.sl-row input[type=range] { flex: 1; accent-color: #c4a96b; }
+.sl-val { font-size: 13px; font-weight: 500; min-width: 50px; text-align: right; }
+.solar-note { font-size: 11px; color: var(--text-secondary); margin-top: 4px; }
+.res-line { font-size: 11px; margin-top: 5px; min-height: 14px; display: none; line-height: 1.4; }
+.readout-text { font-size: 12px; color: var(--text-secondary); }
+.btn-row { display: flex; gap: 8px; margin-top: .5rem; }
+#sub-btn { flex: 1; padding: 9px 16px; font-size: 14px; background: var(--bg-primary); border: 0.5px solid var(--border-md); border-radius: var(--radius-md); color: var(--text-primary); cursor: pointer; }
+#sub-btn:hover:not(:disabled) { background: var(--bg-secondary); }
+#sub-btn:disabled { opacity: .4; cursor: default; }
+#rst-btn { padding: 9px 13px; font-size: 14px; background: var(--bg-primary); border: 0.5px solid var(--border-md); border-radius: var(--radius-md); color: var(--text-secondary); cursor: pointer; display: none; }
+#rst-btn:hover { background: var(--bg-secondary); }
+.final { background: var(--bg-secondary); border-radius: var(--radius-lg); padding: 1rem; margin-top: .75rem; display: none; text-align: center; }
+.final-num { font-size: 36px; font-weight: 500; }
+.final-sub { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+.final-grade { font-size: 15px; font-weight: 500; margin-top: 6px; }
+.world-card { background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary)); border: 0.5px solid var(--border-md); border-radius: var(--radius-lg); padding: 1.1rem; margin-top: .75rem; }
+.world-head { font-size: 15px; font-weight: 500; margin-bottom: .5rem; }
+.world-text { font-size: 12.5px; color: var(--text-secondary); line-height: 1.6; margin-bottom: .75rem; }
+.world-text strong { color: var(--text-primary); }
+.geo-maps-row { display: flex; gap: 8px; margin-bottom: .6rem; }
+#world-geo-map { flex: 1.4; height: 280px; border-radius: 8px; overflow: hidden; background: #0d1b2a; }
+#world-geo-map svg { width: 100%; height: 100%; display: block; }
+#world-geo-inset { flex: 1; height: 280px; border-radius: 8px; overflow: hidden; background: #16283c; position: relative; }
+#world-geo-inset svg { width: 100%; height: 100%; display: block; }
+.geo-inset-label { position: absolute; top: 6px; left: 8px; font-size: 9.5px; color: var(--text-secondary); background: rgba(13,27,42,0.7); padding: 2px 6px; border-radius: 4px; }
+.geo-land { fill: #2a3f54; stroke: #0d1b2a; stroke-width: 0.4; }
+.geo-country { fill: #8a7860; stroke: #f5f2eb; stroke-width: 0.6; opacity: 0.65; }
+.geo-circle { fill: #EF9F27; fill-opacity: 0.85; stroke: #fff; stroke-width: 1; stroke-dasharray: 3,2; }
+.geo-legend { display: flex; gap: 14px; font-size: 10.5px; color: var(--text-secondary); margin-bottom: .5rem; flex-wrap: wrap; }
+.geo-legend span { display: inline-flex; align-items: center; gap: 4px; }
+.geo-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+.world-foot { font-size: 11px; color: var(--text-secondary); line-height: 1.5; font-style: italic; }
+.source { font-size: 11px; color: var(--text-secondary); margin-top: 1.5rem; line-height: 1.8; }
+.source a { color: var(--text-secondary); text-decoration: underline; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
+</head>
+<body>
+<div class="page">
+  <button class="lang-toggle" id="lang-btn" onclick="toggleLang()">English</button>
+  <h1 id="h1-el"></h1>
+  <p class="subtitle" id="subtitle-el"></p>
+  <div class="country-note" id="country-note-el"></div>
+  <div class="disclaimer" id="disclaimer-el"></div>
+  <div class="data-bar">
+    <span class="data-info">Data: <strong>2021–2026</strong> · CIA World Factbook · EIA · Enerdata · Masdar</span>
+  </div>
+  <div class="score-bar">
+    <div class="metric"><div class="lbl" id="lbl-score">Score</div><div class="val" id="score-v">0%</div></div>
+    <div class="metric"><div class="lbl" id="lbl-land">Land used</div><div class="val" id="total-v">0%</div></div>
+    <div class="metric"><div class="lbl" id="lbl-remain">Remaining</div><div class="val" id="remain-v">100%</div></div>
+  </div>
+  <div class="map-section">
+    <div class="map-title" id="map-title">Your guesses — proportional area map (updates as you slide)</div>
+    <div id="treemap"></div>
+    <div class="legend" id="legend"></div>
+  </div>
+  <div class="total-bar-wrap">
+    <div class="total-bar-track"><div class="total-bar-fill" id="tot-fill" style="width:0%;background:#c4a96b"></div></div>
+    <div class="total-bar-label" id="tot-label">0 / 100% allocated</div>
+  </div>
+  <div class="cards-grid" id="cards"></div>
+  <div class="btn-row">
+    <button id="sub-btn">Submit all guesses</button>
+    <button id="rst-btn"><i class="ti ti-refresh"></i> Play again</button>
+  </div>
+  <div class="final" id="final" style="display:none">
+    <div class="final-num" id="final-n">0%</div>
+    <div class="final-sub" id="final-sub">accuracy score</div>
+    <div class="final-grade" id="final-g"></div>
+  </div>
+  <div class="world-card" id="world-card" style="display:none">
+    <div class="world-head" id="world-head"></div>
+    <p class="world-text" id="world-text"></p>
+    <p class="world-text" id="world-text2" style="margin-bottom:.75rem"></p>
+    <div class="geo-legend" id="geo-legend"></div>
+    <div class="geo-maps-row">
+      <div id="world-geo-map"></div>
+      <div id="world-geo-inset"></div>
+    </div>
+    <p class="world-foot" id="world-foot"></p>
+  </div>
+  <p class="source">Sources: <a href="https://en.wikipedia.org/wiki/Geography_of_the_United_Arab_Emirates" target="_blank">Geography of the UAE</a> · <a href="https://www.eia.gov/international/content/analysis/countries_long/United_Arab_Emirates" target="_blank">EIA: UAE Energy Overview</a> · <a href="https://www.enerdata.net/estore/energy-market/united-arab-emirates/" target="_blank">Enerdata: UAE Energy Information</a> · <a href="https://masdar.ae/en/news" target="_blank">Masdar</a> · <a href="https://www.barakah.ae/en/" target="_blank">Barakah Nuclear Energy Plant</a> · UAE total land area ~8.36M ha (83,600 km²).</p>
+</div>
+<script>
+const CATS_AR = [
+  {id:`desert`, icon:`🏜️`, name:`الصحراء والكثبان الرملية`, desc:`سهول صحراوية مسطحة تمتد إلى كثبان رملية متموجة تغطي الجزء الأكبر من دولة الإمارات — تُعد كثبان ليوا في الربع الخالي من بين أعلى الكثبان الرملية في العالم`, answer:92.1185, color:`#c4a96b`, max:100, step:0.5, answerHa:7701107},
+  {id:`mountain`, icon:`⛰️`, name:`جبال الحجر`, desc:`امتداد سلسلة جبال الحجر في الفجيرة ورأس الخيمة، حيث يقع أعلى قمم الإمارات — منطقة جبلية استثنائية داخل بلد يغلب عليه المشهد الصحراوي المسطح`, answer:3.0, color:`#8a7860`, max:10, step:0.2, answerHa:250800},
+  {id:`agri`, icon:`🌴`, name:`الأراضي الزراعية`, desc:`مزارع النخيل والواحات المروية، معظمها بالقرب من العين والفجيرة — الزراعة محدودة للغاية بسبب شح المياه العذبة الطبيعية، إذ تعتمد الإمارات بشكل شبه كامل على تحلية مياه البحر`, answer:0.6, color:`#639922`, max:3, step:0.05, answerHa:50160},
+  {id:`settle`, icon:`🏙️`, name:`المناطق العمرانية والطرق`, desc:`دبي وأبوظبي والشارقة، إلى جانب شبكة طرق حديثة كثيفة — تُعد الإمارات من أكثر دول العالم تحضّرًا، إذ يعيش أكثر من 87% من سكانها في المناطق الحضرية رغم صغر المساحة العمرانية نسبيًا`, answer:4.0, color:`#73726c`, max:10, step:0.2, answerHa:334400},
+  {id:`water`, icon:`💧`, name:`المسطحات المائية والسبخات`, desc:`سبخة مطي الساحلية وبحيرة زاخر الاصطناعية — لا توجد أنهار دائمة في الإمارات، وتعتمد البلاد بالكامل تقريبًا على محطات تحلية المياه لتلبية احتياجاتها من المياه العذبة`, answer:0.1, color:`#378ADD`, max:1, step:0.02, answerHa:8360, dp:3},
+  {id:`golf`, icon:`⛳`, name:`ملاعب الغولف`, desc:`أكثر من 30 ملعبًا فاخرًا، معظمها في دبي — تُروى بمياه معالَجة نظرًا لندرة المياه العذبة، وتجذب سياحة الغولف من جميع أنحاء العالم رغم موقعها في قلب الصحراء`, answer:0.0215, color:`#5DCAA5`, max:0.1, step:0.002, answerHa:1797, dp:3},
+  {id:`solar`, icon:`☀️🔋`, name:`محطات الطاقة الشمسية (الحالية)`, desc:`محطات كبرى متصلة بالشبكة، تشمل مجمع محمد بن راشد آل مكتوم للطاقة الشمسية في دبي (سيصبح أكبر محطة طاقة شمسية أحادية الموقع في العالم عند اكتماله) ومحطتي نور أبوظبي والظفرة`, answer:0.16, color:`#EF9F27`, max:0.5, step:0.01, answerHa:13376, dp:3, isSolar:true, solarNote:`تلميح: تمتلك الإمارات بالفعل واحدة من أعلى نسب الطاقة الشمسية الكبرى في الخليج، إذ تجمع بين مجمع محمد بن راشد ومحطتي نور أبوظبي والظفرة أكثر من 5 غيغاواط من السعة التشغيلية`},
+  {id:`sol100`, icon:`⚡🔋`, name:`طاقة شمسية لتوليد 100% من الكهرباء`, desc:`المساحة اللازمة من محطات الطاقة الشمسية الكبرى مع أنظمة التخزين لتزويد شبكة الإمارات الكهربائية بالكامل على مدار الساعة (نحو 135 تيراواط ساعة سنويًا)، باستخدام الإشعاع الشمسي الاستثنائي في صحراء الإمارات`, answer:0.6136, color:`#BA7517`, max:2, step:0.01, answerHa:51300, dp:3, isSolar:true, readOnly:true, solarNote:`تتمتع صحراء الإمارات بإشعاع شمسي مباشر استثنائي يقارب 2000 كيلوواط ساعة لكل كيلوواط ذروة سنويًا. عند معدل 380 هكتارًا لكل تيراواط ساعة، يحتاج تزويد الشبكة بأكملها إلى 0.61% فقط من مساحة الإمارات. لكن الإمارات لا تراهن على الطاقة الشمسية وحدها: محطة براكة النووية — أول محطة نووية في العالم العربي — توفر بالفعل نحو ربع كهرباء الإمارات، وقد بُنيت خصيصًا لتحرير كميات أكبر من الغاز الطبيعي للتصدير بدلاً من حرقه محليًا`}
+];
+const CATS_EN = [
+  {id:`desert`, icon:`🏜️`, name:`Desert & sand dunes`, desc:`Flat desert plains rising into rolling sand dunes across most of the UAE — the dunes of Liwa in the Empty Quarter are among the tallest on Earth`, answer:92.1185, color:`#c4a96b`, max:100, step:0.5, answerHa:7701107},
+  {id:`mountain`, icon:`⛰️`, name:`Hajar Mountains`, desc:`The extension of the Hajar range through Fujairah and Ras Al Khaimah, home to the UAE's highest peaks - a genuine mountain landscape inside an otherwise overwhelmingly flat, desert country`, answer:3.0, color:`#8a7860`, max:10, step:0.2, answerHa:250800},
+  {id:`agri`, icon:`🌴`, name:`Agricultural land`, desc:`Date palm groves and irrigated oases, mostly near Al Ain and Fujairah - farming is severely constrained by a lack of natural fresh water, with the UAE relying almost entirely on seawater desalination`, answer:0.6, color:`#639922`, max:3, step:0.05, answerHa:50160},
+  {id:`settle`, icon:`🏙️`, name:`Settlement & roads`, desc:`Dubai, Abu Dhabi and Sharjah, plus a dense modern road network - the UAE is one of the most urbanised countries on Earth, with over 87% of the population living in cities despite a relatively small built-up footprint`, answer:4.0, color:`#73726c`, max:10, step:0.2, answerHa:334400},
+  {id:`water`, icon:`💧`, name:`Water bodies & sabkha`, desc:`Sabkhat Matti coastal salt flats and the artificial Lake Zakher - the UAE has no permanent rivers, relying almost entirely on desalination plants for fresh water`, answer:0.1, color:`#378ADD`, max:1, step:0.02, answerHa:8360, dp:3},
+  {id:`golf`, icon:`⛳`, name:`Golf courses`, desc:`Over 30 lavish courses, mostly in Dubai - irrigated with treated wastewater given the scarcity of fresh water, and a genuine draw for golf tourism despite sitting in the middle of a desert`, answer:0.0215, color:`#5DCAA5`, max:0.1, step:0.002, answerHa:1797, dp:3},
+  {id:`solar`, icon:`☀️🔋`, name:`Solar farms (current)`, desc:`Grid-connected utility-scale solar, including the Mohammed bin Rashid Al Maktoum Solar Park in Dubai (set to become the world's largest single-site solar park once complete) plus the Noor Abu Dhabi and Al Dhafra plants`, answer:0.16, color:`#EF9F27`, max:0.5, step:0.01, answerHa:13376, dp:3, isSolar:true, solarNote:`Hint: the UAE already has one of the highest shares of utility-scale solar in the Gulf - the Mohammed bin Rashid park plus Noor Abu Dhabi and Al Dhafra together exceed 5 GW of operating capacity`},
+  {id:`sol100`, icon:`⚡🔋`, name:`Solar+battery for 100% electricity`, desc:`Land needed for utility-scale solar+battery to power the UAE's entire national grid 24/7 (~135 TWh/yr), using the exceptional solar irradiance of the Emirati desert`, answer:0.6136, color:`#BA7517`, max:2, step:0.01, answerHa:51300, dp:3, isSolar:true, readOnly:true, solarNote:`The UAE's desert receives exceptional direct solar irradiance of roughly 2,000 kWh/kWp/yr. At 380 ha/TWh, powering the whole grid needs just 0.61% of the UAE's land. But the UAE isn't betting on solar alone: the Barakah nuclear plant - the Arab world's first - already supplies roughly a quarter of UAE electricity, built specifically to free up more natural gas for export rather than burning it domestically`}
+];
+
+const STRINGS = {
+  local: {
+    h1:`<img src="https://flagcdn.com/32x24/ae.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> كيف تُستخدم أراضي الإمارات فعلاً؟`, subtitle:`مستوحى من <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">فيديو قصير على يوتيوب لدكتور سايمون كلارك</a> (بالإنجليزية). خمّن نسبة أراضي الإمارات لكل فئة — مجموع المحددات لا يتجاوز 100%. تستخدم الإمارات ثروتها النفطية لتمويل فصل جديد: الطاقة النووية، والطاقة الشمسية على نطاق صحراوي واسع، وذراع استثماري للطاقة النظيفة نشط في أكثر من 40 دولة.`, disclaimer:`أرقام الطاقة الشمسية والبطاريات هي تجربة فكرية أُعدّت بمساعدة الذكاء الاصطناعي، وليست توصية سياسية. تشير جميع أرقام الطاقة الشمسية إلى أنظمة كبرى متصلة بالشبكة. تستهدف الإمارات أن تبلغ حصة الطاقة النظيفة (المتجددة والنووية) 32% من مزيج الكهرباء بحلول 2030، و44% من إجمالي استهلاك الطاقة من مصادر متجددة بحلول 2050. بيانات استخدام الأراضي هي تقديرات تقريبية مبنية على طبيعة تضاريس الإمارات (وكالة المخابرات المركزية، مصادر جغرافية وطنية)؛ بيانات الكهرباء من وكالة معلومات الطاقة الأمريكية وإنيرداتا، 2021-2025.`,
+    countryNote:`انقلب اقتصاد الإمارات بهدوء: كان النفط يشكل نحو 90% من الناتج المحلي الإجمالي عام 1980، لكن القطاعات غير النفطية تمثل اليوم أكثر من 70%. هذا التحول تموّله ثروة النفط، لا يلغيها. توفر محطة براكة النووية — أول محطة نووية في العالم العربي وتضم أربعة مفاعلات — بالفعل نحو ربع كهرباء الإمارات، وقد بُنيت خصيصًا لتحرير كميات أكبر من الغاز الطبيعي للتصدير بدلاً من حرقه محليًا. أما مصدر، الذراع الاستثماري للطاقة النظيفة المدعوم من الدولة، فتمتلك اليوم قدرة متجددة في أكثر من 40 دولة، نمت من 20 غيغاواط في 2022 إلى 65 غيغاواط بحلول يناير 2026، وتستهدف 100 غيغاواط بحلول 2030 — ما يجعل الإمارات فعليًا قوة طاقة لدول أخرى عبر الاستثمار، لا عبر تصدير النفط فقط. الهيدروجين الأخضر هو الفصل التالي: تستهدف الإمارات تجاوز غيغاواط واحد من القدرة الإنتاجية بحلول 2026، موجّهة جزئيًا للتصدير، لتمدد بذلك دورها كمصدّر للطاقة إلى عصر الطاقة النظيفة. لكن هذا لا يعني التخلي عن النفط: لا تزال أدنوك توسّع طاقتها الإنتاجية نحو نحو 5 ملايين برميل يوميًا بحلول أواخر العقد. الاستراتيجية ليست نفطًا مقابل طاقة نظيفة، بل ثروة نفطية تموّل عملية تصدير طاقة موازية وثانية.`,
+    submit:`إرسال جميع الإجابات`, play_again:`العب مرة أخرى`,
+    score:`النتيجة`, land_used:`الأرض المستخدمة`, remaining:`المتبقي`,
+    map_guess:`تخميناتك — خريطة مساحة تناسبية (تتحدث عند التمرير)`,
+    map_answer:`استخدام الأراضي الفعلي في الإمارات — خريطة مساحة تناسبية`,
+    allocated:`/ 100% مخصص`, reveal:`يُكشف بعد الإرسال.`,
+    out_of:`نتيجة الدقة`,
+    sol100_reveal:`تتمتع صحراء الإمارات بإشعاع شمسي مباشر استثنائي يقارب 2000 كيلوواط ساعة لكل كيلوواط ذروة سنويًا. عند معدل 380 هكتارًا لكل تيراواط ساعة، يحتاج تزويد الشبكة بأكملها إلى 0.61% فقط من مساحة الإمارات. لكن الإمارات لا تراهن على الطاقة الشمسية وحدها: محطة براكة النووية — أول محطة نووية في العالم العربي — توفر بالفعل نحو ربع كهرباء الإمارات، وقد بُنيت خصيصًا لتحرير كميات أكبر من الغاز الطبيعي للتصدير بدلاً من حرقه محليًا`,
+    grades:[[86, `🇦🇪 خبير! أنت تعرف توازن الأراضي في الإمارات بدقة مثيرة للإعجاب.`], [64, `🏜️ قوي جدًا — فهم دقيق لمدى هيمنة الصحراء على البلاد.`], [43, `⛰️ ليس سيئًا! يجهل كثيرون وجود سلسلة جبلية حقيقية في الفجيرة ورأس الخيمة.`], [21, `⛳ هل تعلم؟ تُروى ملاعب الغولف في دبي بمياه معالَجة، وليس بمياه عذبة.`], [0, `🤔 مفاجأة؟ توفر محطة براكة النووية بالفعل نحو ربع كهرباء الإمارات — بُنيت لتحرير الغاز للتصدير، لا لتعويض ثروة النفط.`]],
+    btn_label:`English`, country_label:`الإمارات`, circle_label:`المساحة المطلوبة`,
+    zoomed:`عرض مكبّر`,
+  },
+  en: {
+    h1:`<img src="https://flagcdn.com/32x24/ae.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is the UAE's land actually used?`, subtitle:`Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Emirati land for each category — sliders are capped at 100% total. The UAE is using its oil wealth to fund a second act: nuclear power, desert-scale solar, and a clean-energy investment arm active in over 40 countries.`, disclaimer:`The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar figures refer to utility-scale, grid-connected systems. The UAE targets 32% clean electricity (renewables plus nuclear) by 2030 and 44% of total energy consumption from renewables by 2050. Land use figures are approximate estimates based on the UAE's terrain profile (CIA World Factbook, national geographic sources); electricity figures from the EIA and Enerdata, 2021-2025.`,
+    countryNote:`The UAE's economy has quietly flipped: oil made up roughly 90% of GDP in 1980, but non-oil sectors now account for over 70%. That shift is being funded, not abandoned, by oil wealth. The Barakah nuclear plant - the Arab world's first, with four reactors - already supplies about a quarter of the UAE's electricity, built explicitly to free up more natural gas for export rather than burning it domestically. Masdar, the UAE's state-backed clean energy investor, now has renewable capacity across 40+ countries that grew from 20 GW in 2022 to 65 GW by January 2026, targeting 100 GW by 2030 - effectively making the UAE an energy power for other nations through investment, not just oil exports. Green hydrogen is the next act: the UAE is targeting over 1 GW of production capacity by 2026, aimed partly at export, extending its role as an energy exporter into the clean-energy era. None of this means abandoning oil, though - ADNOC is still expanding production capacity toward roughly 5 million barrels a day by the late 2020s. The strategy isn't oil versus clean energy; it's oil wealth funding a second, parallel energy export business.`,
+    submit:`Submit all guesses`, play_again:`Play again`,
+    score:`Score`, land_used:`Land used`, remaining:`Remaining`,
+    map_guess:`Your guesses — proportional area map (updates as you slide)`,
+    map_answer:`Actual Emirati land use — proportional area map`,
+    allocated:`/ 100% allocated`, reveal:`Revealed after you submit.`,
+    out_of:`accuracy score`,
+    sol100_reveal:`The UAE's desert receives exceptional direct solar irradiance of roughly 2,000 kWh/kWp/yr. At 380 ha/TWh, powering the whole grid needs just 0.61% of the UAE's land. But the UAE isn't betting on solar alone: the Barakah nuclear plant - the Arab world's first - already supplies roughly a quarter of UAE electricity, built specifically to free up more natural gas for export rather than burning it domestically`,
+    grades:[[86, `🇦🇪 Expert! You know the UAE's land balance with impressive precision.`], [64, `🏜️ Very strong — sharp grasp of just how desert-dominated the country really is.`], [43, `⛰️ Not bad! Most people don't realise the UAE has a genuine mountain range in Fujairah and Ras Al Khaimah.`], [21, `⛳ Did you know? Dubai's golf courses are irrigated with treated wastewater, not fresh water.`], [0, `🤔 Surprising? The Barakah nuclear plant already supplies about a quarter of the UAE's electricity - built to free up gas for export, not to replace oil wealth.`]],
+    btn_label:`عربي`, country_label:`UAE`, circle_label:`Land area needed`,
+    zoomed:`Zoomed view`,
+  },
+};
+
+const WORLD_STRINGS = {
+  local: { head:`🌍 ماذا لو أمدّت الإمارات وحدها العالم بالكهرباء؟`, fit:`بفضل الظروف الشمسية الصحراوية الاستثنائية في الإمارات (نحو 380 هكتار لكل تيراواط ساعة، من بين الأفضل على وجه الأرض)، فإن تغطية <strong>الطلب العالمي على الكهرباء</strong> بأكمله (نحو 31,000 تيراواط ساعة سنويًا) تحتاج إلى نحو <strong>{haM} مليون هكتار</strong> — أي دائرة تفوق مساحتها <strong>{mult} ضعف مساحة الإمارات بأكملها</strong>. حتى مع شمس عالمية المستوى، تبقى الإمارات ببساطة بلدًا أصغر من أن تتسع هذه التجربة الفكرية داخل حدودها.`, stat2:`هذه حالة تجاوز طفيف — المورد الشمسي في الإمارات عالمي المستوى بالفعل، ولو كانت المساحة أكبر قليلًا بنفس الظروف الشمسية لكانت قادرة على تزويد العالم بأكمله بالكهرباء من داخل حدودها بارتياح. إنها تذكير مفيد بأن حتى أشعة الشمس الاستثنائية لكل هكتار لا يمكنها أن تعوّض بالكامل عن صغر المساحة الإجمالية للأرض.`, foot:`الدائرة المنقّطة توضيحية فقط — بحجم المساحة الصحيحة، وليست موقعًا مقترحًا فعليًا. نظرًا للتجاوز الكبير، لا يمكن عرض سوى قوس صغير من الدائرة بالقرب من موقع الإمارات نفسها.` },
+  en:    { head:`🌍 What if the UAE alone powered the whole world?`, fit:`At the UAE's exceptional desert solar conditions (~380 ha/TWh, among the best on Earth), powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) would need about <strong>{haM} million hectares</strong> — a circle over <strong>{mult}&times; the size of the UAE's entire land area</strong>. Even with world-class sunshine, the UAE is simply too small a country for this thought experiment to fit within its own borders.`, stat2:`This is a near-miss overflow case — the UAE's solar resource is genuinely world-class, and a slightly larger country with the same conditions would comfortably power the whole world from within its own borders. It's a useful reminder that even exceptional sunshine per hectare can't fully compensate for a small total land area.`, foot:`The dashed circle is illustrative — sized to the correct land area, not an actual proposed siting. Given the vast overflow, only a small arc of the circle can be shown near the UAE's own location.` },
+};
+
+const COUNTRY_LON=54.3, COUNTRY_LAT=24.0;
+const COUNTRY_ISO=`784`;
+const COUNTRY_HA=8360000;
+const SOL100_HA=51300;
+const DEMAND_TWH=135;
+const HA_PER_TWH=SOL100_HA/DEMAND_TWH;
+
+let currentLang=`local`, submitted=false, totalScore=0;
+let CATS=[...CATS_AR], MAIN_CATS=CATS.filter(c=>!c.readOnly);
+
+function applyLang(lang){
+  const s=STRINGS[lang];
+  CATS=lang===`local`?[...CATS_AR]:[...CATS_EN];
+  MAIN_CATS=CATS.filter(c=>!c.readOnly);
+  document.documentElement.lang=lang===`local`?`ar`:`en`;
+  document.getElementById(`h1-el`).innerHTML=s.h1;
+  document.getElementById(`subtitle-el`).innerHTML=s.subtitle;
+  document.getElementById(`country-note-el`).innerHTML=`<strong>Country context:</strong> `+s.countryNote;
+  document.getElementById(`disclaimer-el`).innerHTML=`<strong>Note:</strong> `+s.disclaimer;
+  document.getElementById(`lbl-score`).textContent=s.score;
+  document.getElementById(`lbl-land`).textContent=s.land_used;
+  document.getElementById(`lbl-remain`).textContent=s.remaining;
+  if(!submitted) buildCards();
+  const sb=document.getElementById(`sub-btn`); if(sb&&!sb.disabled) sb.textContent=s.submit;
+  const rb=document.getElementById(`rst-btn`); if(rb) rb.innerHTML=`<i class="ti ti-refresh"></i> `+s.play_again;
+  const mt=document.getElementById(`map-title`); if(mt) mt.textContent=submitted?s.map_answer:s.map_guess;
+  const tl=document.getElementById(`tot-label`); if(tl){ const p=tl.textContent.split(`/`)[0].trim(); tl.textContent=p+` `+s.allocated; }
+  const h=document.getElementById(`rl-hint-sol100`); if(h&&h.style.display!==`none`) h.textContent=s.reveal;
+  document.getElementById(`final-sub`).textContent=s.out_of;
+  document.getElementById(`lang-btn`).textContent=s.btn_label;
+  if(document.getElementById(`world-card`).style.display===`block`) renderWorldCard();
+  drawMap();
+}
+function toggleLang(){ currentLang=currentLang===`local`?`en`:`local`; applyLang(currentLang); }
+
+function getVal(cat){
+  if(cat.readOnly) return 0;
+  const el=document.getElementById(`sl-`+cat.id);
+  return el?parseFloat(el.value):0;
+}
+function getMainTotal(){ return MAIN_CATS.reduce((s,c)=>s+getVal(c),0); }
+function clampAll(changedId){
+  const total=MAIN_CATS.reduce((s,c)=>{const el=document.getElementById(`sl-`+c.id);return s+(el?parseFloat(el.value):0);},0);
+  const over=total-100; if(over<=0.0001) return;
+  const others=MAIN_CATS.filter(c=>c.id!==changedId);
+  const ot=others.reduce((s,c)=>{const el=document.getElementById(`sl-`+c.id);return s+(el?parseFloat(el.value):0);},0);
+  if(ot<=0) return;
+  let rem=over;
+  others.forEach((cat,i)=>{
+    const el=document.getElementById(`sl-`+cat.id); if(!el) return;
+    const cur=parseFloat(el.value);
+    const share=(i===others.length-1)?rem:Math.min(cur,(cur/ot)*over);
+    const nv=Math.max(0,parseFloat((cur-share).toFixed(5)));
+    rem-=(cur-nv); el.value=nv;
+    const dp=cat.dp!==undefined?cat.dp:(cat.isSolar?3:1);
+    document.getElementById(`sv-`+cat.id).textContent=nv.toFixed(dp)+`%`;
+  });
+}
+function updateTotal(){
+  const t=getMainTotal(); const tD=Math.min(t,100);
+  document.getElementById(`total-v`).textContent=tD.toFixed(1)+`%`;
+  document.getElementById(`remain-v`).textContent=Math.max(0,100-t).toFixed(1)+`%`;
+  const fill=document.getElementById(`tot-fill`);
+  fill.style.width=tD+`%`;
+  const p=tD/100;
+  fill.style.background=`rgb(${Math.round(196*p+59*(1-p))},${Math.round(169*p+153*(1-p))},${Math.round(107*p+17*(1-p))})`;
+  document.getElementById(`tot-label`).textContent=tD.toFixed(1)+` `+STRINGS[currentLang].allocated;
+}
+function drawMap(){
+  const tm=document.getElementById(`treemap`);
+  let cats=submitted
+    ?[...CATS.filter(c=>!c.readOnly).map(c=>({...c,pct:c.answer})),...CATS.filter(c=>c.readOnly).map(c=>({...c,pct:c.answer}))]
+    :MAIN_CATS.map(c=>({...c,pct:getVal(c)}));
+  cats=cats.filter(c=>c.pct>0).sort((a,b)=>b.pct-a.pct);
+  const total=cats.reduce((s,c)=>s+c.pct,0)||1;
+  tm.innerHTML=``;
+  cats.forEach(cat=>{
+    const block=document.createElement(`div`); block.className=`tm-block`;
+    const dp=cat.dp!==undefined?cat.dp:(cat.isSolar?3:1);
+    const pctStr=cat.pct.toFixed(cat.pct<0.01?dp:1);
+    block.title=cat.name+`: `+pctStr+`%`;
+    block.style.cssText=`background:${cat.color};flex:${cat.pct} 1 0%;min-width:2px;height:100%`;
+    const estW=(cat.pct/total)*(tm.clientWidth||680);
+    if(estW>22){ const lbl=document.createElement(`div`); lbl.className=`tm-label`; lbl.innerHTML=estW>44?cat.icon+`<br>`+pctStr+`%`:cat.icon; block.appendChild(lbl); }
+    tm.appendChild(block);
+  });
+  document.getElementById(`legend`).innerHTML=cats.map(c=>{
+    const dp=c.dp!==undefined?c.dp:(c.isSolar?3:1);
+    const pctStr=c.pct.toFixed(c.pct<0.01?dp:1);
+    return `<span class="leg-item"><span class="leg-dot" style="background:${c.color}"></span>${c.name} ${pctStr}%</span>`;
+  }).join(``);
+}
+function buildCards(){
+  const container=document.getElementById(`cards`); container.innerHTML=``;
+  CATS.forEach(cat=>{
+    const div=document.createElement(`div`);
+    div.className=`card`+(cat.isSolar?` solar-card`:``);
+    if(cat.readOnly){
+      div.innerHTML=`<div class="card-head"><span class="card-icon">${cat.icon}</span><span class="card-name">${cat.name}</span></div>
+        <div class="card-desc">${cat.desc}</div>
+        <div class="readout-text" id="rl-hint-sol100">${STRINGS[currentLang].reveal}</div>
+        <div class="res-line" id="rl-sol100"></div>`;
+    } else {
+      const dp=cat.dp!==undefined?cat.dp:(cat.isSolar?3:1);
+      const existingEl=document.getElementById(`sl-`+cat.id);
+      const curVal=existingEl?parseFloat(existingEl.value):0;
+      const initVal=curVal.toFixed(dp);
+      div.innerHTML=`<div class="card-head"><span class="card-icon">${cat.icon}</span><span class="card-name">${cat.name}</span></div>
+        <div class="card-desc">${cat.desc}</div>
+        <div class="sl-row">
+          <input type="range" min="0" max="${cat.max}" step="${cat.step}" value="${curVal}" id="sl-${cat.id}" aria-label="${cat.name}">
+          <span class="sl-val" id="sv-${cat.id}">${initVal}%</span>
+        </div>
+        ${cat.isSolar&&cat.solarNote?`<div class="solar-note">${cat.solarNote}</div>`:``}
+        <div class="res-line" id="rl-${cat.id}"></div>`;
+    }
+    container.appendChild(div);
+    if(!cat.readOnly){
+      document.getElementById(`sl-`+cat.id).addEventListener(`input`,function(){
+        const dp=cat.dp!==undefined?cat.dp:(cat.isSolar?3:1);
+        document.getElementById(`sv-`+cat.id).textContent=parseFloat(this.value).toFixed(dp)+`%`;
+        clampAll(cat.id);
+        document.getElementById(`sv-`+cat.id).textContent=parseFloat(document.getElementById(`sl-`+cat.id).value).toFixed(dp)+`%`;
+        updateTotal(); drawMap();
+      });
+    }
+  });
+}
+function scoreGuess(guess,answer,step,catMax){
+  const diff=Math.abs(guess-answer);
+  if(step!==undefined && diff<=step*1.5) return 100;
+  const frac=catMax?diff/catMax:Math.abs(diff/(answer||1));
+  if(frac<=0.06) return 100;
+  if(frac<=0.15) return Math.round(100-(frac-0.06)/0.09*50);
+  if(frac<=0.40) return Math.round(50-(frac-0.15)/0.25*40);
+  return Math.max(0,Math.round(10-(frac-0.40)*8));
+}
+function gradeLabel(s){
+  const labels=STRINGS[currentLang].grades;
+  for(const [t,l] of labels){ if(s>=t) return l; }
+  return labels[labels.length-1][1];
+}
+document.getElementById(`sub-btn`).addEventListener(`click`,function(){
+  if(submitted) return;
+  submitted=true; totalScore=0;
+  document.querySelector('.map-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  CATS.forEach(cat=>{
+    const rl=document.getElementById(`rl-`+cat.id); if(!rl) return;
+    rl.style.display=`block`;
+    const dp=cat.dp!==undefined?cat.dp:(cat.isSolar?3:1);
+    if(cat.readOnly){
+      const hint=document.getElementById(`rl-hint-sol100`); if(hint) hint.style.display=`none`;
+      const answerHaM=cat.answerHa>=1000000?(cat.answerHa/1000000).toFixed(1)+`M`:Math.round(cat.answerHa/1000)+`k`;
+      const haStr=` (~`+answerHaM+` ha)`;
+      rl.innerHTML=`<span style="color:var(--text-secondary)">Answer: <strong style="color:#BA7517">`+cat.answer.toFixed(dp)+`%</strong>`+haStr+` — `+STRINGS[currentLang].sol100_reveal+`</span>`;
+      return;
+    }
+    const guess=getVal(cat); const pts=scoreGuess(guess,cat.answer,cat.step,cat.max);
+    totalScore+=pts;
+    const diff=guess-cat.answer; const sign=diff>=0?`+`:``;
+    const spotOnThresh=cat.step*1.5;
+    const diffStr=Math.abs(diff)<spotOnThresh?`spot on!`:sign+diff.toFixed(dp)+`% off`;
+    const col=pts>=80?`#3b6d11`:pts>=40?`#ba7517`:`#a32d2d`;
+    const answerHaM=cat.answerHa>=1000000?(cat.answerHa/1000000).toFixed(1)+`M`:Math.round(cat.answerHa/1000)+`k`;
+    const haStr=` (~`+answerHaM+` ha)`;
+    rl.innerHTML=`<span style="color:var(--text-secondary)">Answer: <strong style="color:var(--text-primary)">`+cat.answer.toFixed(dp)+`%</strong>`+haStr+`</span> <span style="color:`+col+`;font-weight:500">`+diffStr+` → `+pts+`pts</span>`;
+    const sl=document.getElementById(`sl-`+cat.id); if(sl) sl.disabled=true;
+  });
+  const maxScore=MAIN_CATS.length*100;
+  const scorePct=Math.round((totalScore/maxScore)*100);
+  document.getElementById(`score-v`).textContent=scorePct+`%`;
+  document.getElementById(`map-title`).textContent=STRINGS[currentLang].map_answer;
+  document.getElementById(`final`).style.display=`block`;
+  document.getElementById(`final-n`).textContent=scorePct+`%`;
+  document.getElementById(`final-g`).textContent=gradeLabel(scorePct);
+  document.getElementById(`rst-btn`).style.display=`inline-flex`;
+  this.disabled=true; drawMap(); renderWorldCard();
+});
+document.getElementById(`rst-btn`).addEventListener(`click`,function(){
+  submitted=false; totalScore=0;
+  CATS=currentLang===`local`?[...CATS_AR]:[...CATS_EN];
+  MAIN_CATS=CATS.filter(c=>!c.readOnly);
+  document.getElementById(`score-v`).textContent=`0%`;
+  document.getElementById(`total-v`).textContent=`0%`;
+  document.getElementById(`remain-v`).textContent=`100%`;
+  document.getElementById(`final`).style.display=`none`;
+  document.getElementById(`world-card`).style.display=`none`;
+  document.getElementById(`map-title`).textContent=STRINGS[currentLang].map_guess;
+  document.getElementById(`tot-fill`).style.width=`0%`;
+  document.getElementById(`tot-label`).textContent=`0 `+STRINGS[currentLang].allocated;
+  this.style.display=`none`;
+  document.getElementById(`sub-btn`).disabled=false;
+  buildCards(); updateTotal(); setTimeout(drawMap,50);
+});
+
+function renderWorldCard(){
+  const _wcEl=document.getElementById(`world-card`);
+  _wcEl.style.display=`block`;
+  const W=WORLD_STRINGS[currentLang];
+  const haNeeded=31000*HA_PER_TWH;
+  const mult=Math.round(haNeeded/COUNTRY_HA).toLocaleString();
+  const haM=(haNeeded/1e6).toFixed(1);
+  document.getElementById(`world-head`).textContent=W.head;
+  document.getElementById(`world-text`).innerHTML=W.fit.replace(`{haM}`,haM).replace(/\{mult\}/g,mult);
+  document.getElementById(`world-text2`).textContent=W.stat2;
+  const S=STRINGS[currentLang];
+  document.getElementById(`geo-legend`).innerHTML=
+    `<span><span class="geo-dot" style="background:#8a7860;opacity:0.65"></span>${S.country_label}</span>`+
+    `<span><span class="geo-dot" style="background:#EF9F27"></span>${S.circle_label}</span>`;
+  document.getElementById(`world-foot`).textContent=W.foot;
+  setTimeout(()=>{drawGeoMap(haNeeded);drawGeoInset(haNeeded);},800);
+}
+
+let _worldTopo=null;
+async function getWorldTopo(){
+  if(_worldTopo) return _worldTopo;
+  const r=await fetch(`https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json`);
+  _worldTopo=await r.json(); return _worldTopo;
+}
+async function drawGeoMap(haNeeded){
+  const topo=await getWorldTopo();
+  const cont=document.getElementById(`world-geo-map`); cont.innerHTML=``;
+  const W=cont.clientWidth||440,H=280,R=H*0.62;
+  const svg=d3.select(cont).append(`svg`).attr(`viewBox`,`0 0 ${W} ${H}`);
+  const projection=d3.geoOrthographic().scale(R).translate([W/2,H/2]).rotate([-COUNTRY_LON,-COUNTRY_LAT]).clipAngle(90);
+  const path=d3.geoPath(projection);
+  svg.append(`path`).datum({type:`Sphere`}).attr(`d`,path).attr(`fill`,`#16283c`);
+  svg.append(`path`).datum(d3.geoGraticule()()).attr(`d`,path).attr(`fill`,`none`).attr(`stroke`,`#22384f`).attr(`stroke-width`,0.4);
+  const land=topojson.feature(topo,topo.objects.countries);
+  svg.append(`g`).selectAll(`path`).data(land.features).join(`path`).attr(`class`,`geo-land`).attr(`d`,path);
+  const cf=land.features.find(f=>String(f.id).padStart(3,`0`)===COUNTRY_ISO);
+  if(cf) svg.append(`path`).datum(cf).attr(`class`,`geo-country`).attr(`d`,path);
+  const aKm2=haNeeded/100,rKm=Math.sqrt(aKm2/Math.PI),angRad=(rKm/6371)*(180/Math.PI);
+  svg.append(`path`).datum(d3.geoCircle().center([COUNTRY_LON,COUNTRY_LAT]).radius(angRad)()).attr(`class`,`geo-circle`).attr(`d`,path);
+  let _angle=0;
+  const _timer=d3.interval(()=>{
+    _angle+=0.4;
+    projection.rotate([-COUNTRY_LON-_angle,-COUNTRY_LAT]);
+    svg.selectAll(`.geo-land,.geo-country,.geo-circle`).attr(`d`,path);
+    if(_angle>360) _timer.stop();
+  },40);
+}
+async function drawGeoInset(haNeeded){
+  const topo=await getWorldTopo();
+  const cont=document.getElementById(`world-geo-inset`); cont.innerHTML=``;
+  const W=cont.clientWidth||300,H=280;
+  const aKm2=haNeeded/100,rKm=Math.sqrt(aKm2/Math.PI),angRad=(rKm/6371)*(180/Math.PI);
+  const targetPR=H*0.30,scale=(180/Math.PI)/(angRad/targetPR)/2;
+  const svg=d3.select(cont).append(`svg`).attr(`viewBox`,`0 0 ${W} ${H}`);
+  const proj=d3.geoMercator().center([COUNTRY_LON,COUNTRY_LAT]).scale(scale).translate([W/2,H/2]);
+  const path=d3.geoPath(proj);
+  svg.append(`rect`).attr(`width`,W).attr(`height`,H).attr(`fill`,`#16283c`);
+  svg.append(`path`).datum(d3.geoGraticule().step([5,5])()).attr(`d`,path).attr(`fill`,`none`).attr(`stroke`,`#22384f`).attr(`stroke-width`,0.4);
+  const land=topojson.feature(topo,topo.objects.countries);
+  svg.append(`g`).selectAll(`path`).data(land.features).join(`path`).attr(`class`,`geo-land`).attr(`d`,path);
+  const cf=land.features.find(f=>String(f.id).padStart(3,`0`)===COUNTRY_ISO);
+  if(cf) svg.append(`path`).datum(cf).attr(`class`,`geo-country`).attr(`d`,path);
+  svg.append(`path`).datum(d3.geoCircle().center([COUNTRY_LON,COUNTRY_LAT]).radius(angRad)()).attr(`class`,`geo-circle`).attr(`d`,path);
+  const niceSteps=[10,25,50,100,200,500];
+  let barKm=niceSteps.find(s=>s>=rKm*0.4)||500;
+  const [x0]=proj([COUNTRY_LON,COUNTRY_LAT]);
+  const [x1]=proj([COUNTRY_LON+barKm/111.32,COUNTRY_LAT]);
+  const barPx=Math.abs(x1-x0);
+  const g=svg.append(`g`);
+  g.append(`rect`).attr(`x`,8).attr(`y`,H-26).attr(`width`,barPx).attr(`height`,2.5).attr(`fill`,`#fff`);
+  g.append(`text`).attr(`x`,8).attr(`y`,H-12).attr(`fill`,`#fff`).attr(`font-size`,10).attr(`style`,`text-shadow:0 1px 2px rgba(0,0,0,.6)`).text(barKm.toLocaleString()+` km`);
+  const lbl=document.createElement(`div`); lbl.className=`geo-inset-label`; lbl.textContent=STRINGS[currentLang].zoomed;
+  cont.style.position=`relative`; cont.appendChild(lbl);
+}
+
+buildCards(); updateTotal(); setTimeout(drawMap,50); applyLang(`local`);
+window.addEventListener(`resize`,drawMap);
+</script>
+</body>
+</html>
