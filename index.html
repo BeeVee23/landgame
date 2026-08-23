@@ -169,7 +169,9 @@ html, body {
   border: 1px solid var(--paper3);
   border-radius: var(--radius);
   box-shadow: 0 4px 20px rgba(0,0,0,0.10);
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 690px; /* ~23 items at ~30px each, so the list scrolls past that */
   min-width: 200px;
   display: none;
   z-index: 30;
@@ -198,6 +200,10 @@ html, body {
 .map-dropdown-item:hover { background: var(--paper3); }
 .map-dropdown-item.active { background: var(--accent); color: #fff; }
 .map-dropdown-item .flag { font-size: 15px; flex-shrink: 0; }
+.map-dropdown-menu::-webkit-scrollbar { width: 8px; }
+.map-dropdown-menu::-webkit-scrollbar-track { background: transparent; }
+.map-dropdown-menu::-webkit-scrollbar-thumb { background: var(--paper3); border-radius: 4px; }
+.map-dropdown-menu::-webkit-scrollbar-thumb:hover { background: var(--muted); }
 
 /* ── MAP SECTION ── */
 .map-section {
@@ -372,7 +378,7 @@ html, body {
       <span class="site-title">How is land actually used?</span>
       <div class="site-right">
         <span class="site-tag">A guessing game</span>
-        <a href="changelog.html" class="site-version" style="text-decoration:none;">v5.8.0</a>
+        <a href="changelog.html" class="site-version" style="text-decoration:none;">v5.8.1</a>
       </div>
     </div>
   </div>
@@ -415,7 +421,7 @@ html, body {
   <nav class="game-nav">
     <button class="back-btn" id="back-btn">← Map</button>
     <span class="game-nav-title" id="game-nav-title"></span>
-    <a href="changelog.html" class="version-badge" style="text-decoration:none;">v5.8.0</a>
+    <a href="changelog.html" class="version-badge" style="text-decoration:none;">v5.8.1</a>
   </nav>
   <iframe id="game-iframe" src="" title="Land use game"></iframe>
 </div>

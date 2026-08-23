@@ -44,6 +44,17 @@ ul li strong { color: var(--ink); font-weight: 500; }
 
   <div class="entry">
     <div class="entry-header">
+      <span class="version">v5.8.1</span>
+      <span class="date">2026</span>
+      <span class="badge badge-patch">patch</span>
+    </div>
+    <ul>
+      <li><strong>Country dropdown now scrolls</strong> - with 34 countries in the list, the menu had grown too tall to fit comfortably on screen, and had no way to scroll since it was clipped with <code>overflow: hidden</code>. Capped the menu's height to show roughly 23 entries at a time, switched to a scrollable list beyond that, and styled the scrollbar to match the rest of the interface rather than leaving a raw browser default.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="entry-header">
       <span class="version">v5.8.0</span>
       <span class="date">2026</span>
       <span class="badge badge-minor">minor</span>
