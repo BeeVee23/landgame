@@ -175,28 +175,24 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 <script>
 
 // ── LANGUAGE SYSTEM ──
-const CATS_EN = [
-  {id:'crop', icon:`🌾`, name:`Net area sown`, desc:`Land actually under crops in any given year — the backbone of Indian agriculture`, answer:43, color:'#639922', max:60, step:0.5},
-  {id:'forest', icon:`🌲`, name:`Forest`, desc:`Recorded forest area including reserved forests, protected forests and unclassed forests`, answer:24, color:'#3B6D11', max:40, step:0.5},
-  {id:'fallow', icon:`🟤`, name:`Fallow & culturable waste`, desc:`Temporarily fallow cropland, old fallows, and land capable of being brought under crops`, answer:11, color:'#c9a85c', max:25, step:0.5},
-  {id:'barren', icon:`🏔️`, name:`Barren & uncultured land`, desc:`Barren rocky land, steep mountain slopes, desert, and unculturable land`, answer:6, color:'#888780', max:15, step:0.5},
-  {id:'urban', icon:`🏙️`, name:`Non-agricultural use`, desc:`Urban areas, roads, railways, industry, canals — all built and infrastructure land`, answer:5, color:'#73726c', max:15, step:0.5},
-  {id:'pasture', icon:`🐄`, name:`Permanent pastures`, desc:`Permanent pastures, other grazing land and groves`, answer:4, color:'#a8c46e', max:12, step:0.5},
-  {id:'water', icon:`💧`, name:`Misc. tree crops & water`, desc:`Miscellaneous tree crops, groves, and inland water bodies`, answer:3, color:'#378ADD', max:10, step:0.5},
-  {id:'solar', icon:`☀️🔋`, name:`Solar+battery (current)`, desc:`Utility-scale ground-mounted solar PV with battery storage, grid-connected (end 2024, ~79 GW utility-scale)`, answer:0.048, color:'#EF9F27', max:1, step:0.005, isSolar:true, answerHa:158000, solarNote:`Hint: utility-scale grid-connected only — India is huge`},
-  {id:'sol100', icon:`⚡🔋`, name:`Solar+battery for 100% electricity`, desc:`Land needed for utility-scale solar+battery to power India's entire national grid 24/7 (~1,900 TWh/yr) — roughly 2x panels-only due to storage overcapacity`, answer:0.37, color:'#BA7517', max:3, step:0.01, isSolar:true, answerHa:1200000, readOnly:true}
-];
-const CATS_LO = [
-  {id:'crop', icon:`🌾`, name:`बुवाई क्षेत्र`, desc:`किसी भी वर्ष वास्तव में फसल के अंतर्गत भूमि — भारतीय कृषि की रीढ़`, answer:43, color:'#639922', max:60, step:0.5},
-  {id:'forest', icon:`🌲`, name:`वन`, desc:`आरक्षित वन, संरक्षित वन और अवर्गीकृत वनों सहित दर्ज वन क्षेत्र`, answer:24, color:'#3B6D11', max:40, step:0.5},
-  {id:'fallow', icon:`🟤`, name:`परती और कृषि योग्य बंजर`, desc:`अस्थायी रूप से परती कृषि भूमि, पुरानी परती, और फसल के अंतर्गत लाई जा सकने वाली भूमि`, answer:11, color:'#c9a85c', max:25, step:0.5},
-  {id:'barren', icon:`🏔️`, name:`बंजर और अकृष्ट भूमि`, desc:`बंजर पथरीली भूमि, खड़ी पर्वत ढलानें, मरुस्थल और अकृष्य भूमि`, answer:6, color:'#888780', max:15, step:0.5},
-  {id:'urban', icon:`🏙️`, name:`गैर-कृषि उपयोग`, desc:`शहरी क्षेत्र, सड़कें, रेलवे, उद्योग, नहरें — सभी निर्मित और बुनियादी ढाँचे की भूमि`, answer:5, color:'#73726c', max:15, step:0.5},
-  {id:'pasture', icon:`🐄`, name:`स्थायी चरागाह`, desc:`स्थायी चरागाह, अन्य चराई भूमि और उपवन`, answer:4, color:'#a8c46e', max:12, step:0.5},
-  {id:'water', icon:`💧`, name:`वृक्ष फसलें व जल`, desc:`विविध वृक्ष फसलें, उपवन और अंतर्देशीय जल निकाय`, answer:3, color:'#378ADD', max:10, step:0.5},
-  {id:'solar', icon:`☀️🔋`, name:`सौर+बैटरी (वर्तमान)`, desc:`उपयोगिता-स्तर ग्राउंड-माउंटेड सौर PV बैटरी भंडारण के साथ, ग्रिड-कनेक्टेड (2024 अंत, ~79 GW)`, answer:0.048, color:'#EF9F27', max:1, step:0.005, isSolar:true, answerHa:158000, solarNote:`संकेत: केवल उपयोगिता-स्तर ग्रिड-कनेक्टेड — भारत विशाल है`},
-  {id:'sol100', icon:`⚡🔋`, name:`100% बिजली के लिए सौर+बैटरी`, desc:`भारत के पूरे राष्ट्रीय ग्रिड को 24/7 बिजली देने के लिए उपयोगिता-स्तर सौर+बैटरी के लिए आवश्यक भूमि (~1,900 TWh/वर्ष)`, answer:0.37, color:'#BA7517', max:3, step:0.01, isSolar:true, answerHa:1200000, readOnly:true}
-];
+const CATS_EN = [{id:'crop', icon:`🌾`, name:`Net area sown`, desc:`Land actually under crops in any given year — the backbone of Indian agriculture`, answer:44.77, color:'#639922', max:60, step:0.5, answerHa:147158990},
+  {id:'forest', icon:`🌲`, name:`Forest`, desc:`Recorded forest area including reserved forests, protected forests and unclassed forests`, answer:24.99, color:'#3B6D11', max:40, step:0.5, answerHa:82142130},
+  {id:'fallow', icon:`🟤`, name:`Fallow & culturable waste`, desc:`Temporarily fallow cropland, old fallows, and land capable of being brought under crops`, answer:11.45, color:'#c9a85c', max:25, step:0.5, answerHa:37636150},
+  {id:'barren', icon:`🏔️`, name:`Barren & uncultured land`, desc:`Barren rocky land, steep mountain slopes, desert, and unculturable land`, answer:6.25, color:'#888780', max:15, step:0.5, answerHa:20543750},
+  {id:'urban', icon:`🏙️`, name:`Non-agricultural use`, desc:`Urban areas, roads, railways, industry, canals — all built and infrastructure land`, answer:5.21, color:'#73726c', max:15, step:0.5, answerHa:17125270},
+  {id:'pasture', icon:`🐄`, name:`Permanent pastures`, desc:`Permanent pastures, other grazing land and groves`, answer:4.16, color:'#a8c46e', max:12, step:0.5, answerHa:13673920},
+  {id:'water', icon:`💧`, name:`Misc. tree crops & water`, desc:`Miscellaneous tree crops, groves, and inland water bodies`, answer:3.12, color:'#378ADD', max:10, step:0.5, answerHa:10255440},
+  {id:'solar', icon:`☀️🔋`, name:`Solar+battery (current)`, desc:`Utility-scale ground-mounted solar PV with battery storage, grid-connected (end 2024, ~79 GW utility-scale)`, answer:0.05, color:'#EF9F27', max:1, step:0.005, answerHa:164350, isSolar:true, solarNote:`Hint: utility-scale grid-connected only — India is huge`},
+  {id:'sol100', icon:`⚡🔋`, name:`Solar+battery for 100% electricity`, desc:`Land needed for utility-scale solar+battery to power India's entire national grid 24/7 (~1,900 TWh/yr) — roughly 2x panels-only due to storage overcapacity`, answer:0.37, color:'#BA7517', max:3, step:0.01, answerHa:1216190, isSolar:true, readOnly:true}];
+const CATS_LO = [{id:'crop', icon:`🌾`, name:`बुवाई क्षेत्र`, desc:`किसी भी वर्ष वास्तव में फसल के अंतर्गत भूमि — भारतीय कृषि की रीढ़`, answer:44.77, color:'#639922', max:60, step:0.5, answerHa:147158990},
+  {id:'forest', icon:`🌲`, name:`वन`, desc:`आरक्षित वन, संरक्षित वन और अवर्गीकृत वनों सहित दर्ज वन क्षेत्र`, answer:24.99, color:'#3B6D11', max:40, step:0.5, answerHa:82142130},
+  {id:'fallow', icon:`🟤`, name:`परती और कृषि योग्य बंजर`, desc:`अस्थायी रूप से परती कृषि भूमि, पुरानी परती, और फसल के अंतर्गत लाई जा सकने वाली भूमि`, answer:11.45, color:'#c9a85c', max:25, step:0.5, answerHa:37636150},
+  {id:'barren', icon:`🏔️`, name:`बंजर और अकृष्ट भूमि`, desc:`बंजर पथरीली भूमि, खड़ी पर्वत ढलानें, मरुस्थल और अकृष्य भूमि`, answer:6.25, color:'#888780', max:15, step:0.5, answerHa:20543750},
+  {id:'urban', icon:`🏙️`, name:`गैर-कृषि उपयोग`, desc:`शहरी क्षेत्र, सड़कें, रेलवे, उद्योग, नहरें — सभी निर्मित और बुनियादी ढाँचे की भूमि`, answer:5.21, color:'#73726c', max:15, step:0.5, answerHa:17125270},
+  {id:'pasture', icon:`🐄`, name:`स्थायी चरागाह`, desc:`स्थायी चरागाह, अन्य चराई भूमि और उपवन`, answer:4.16, color:'#a8c46e', max:12, step:0.5, answerHa:13673920},
+  {id:'water', icon:`💧`, name:`वृक्ष फसलें व जल`, desc:`विविध वृक्ष फसलें, उपवन और अंतर्देशीय जल निकाय`, answer:3.12, color:'#378ADD', max:10, step:0.5, answerHa:10255440},
+  {id:'solar', icon:`☀️🔋`, name:`सौर+बैटरी (वर्तमान)`, desc:`उपयोगिता-स्तर ग्राउंड-माउंटेड सौर PV बैटरी भंडारण के साथ, ग्रिड-कनेक्टेड (2024 अंत, ~79 GW)`, answer:0.05, color:'#EF9F27', max:1, step:0.005, answerHa:164350, isSolar:true, solarNote:`संकेत: केवल उपयोगिता-स्तर ग्रिड-कनेक्टेड — भारत विशाल है`},
+  {id:'sol100', icon:`⚡🔋`, name:`100% बिजली के लिए सौर+बैटरी`, desc:`भारत के पूरे राष्ट्रीय ग्रिड को 24/7 बिजली देने के लिए उपयोगिता-स्तर सौर+बैटरी के लिए आवश्यक भूमि (~1,900 TWh/वर्ष)`, answer:0.37, color:'#BA7517', max:3, step:0.01, answerHa:1216190, isSolar:true, readOnly:true}];
 
 const STRINGS = {
   en: {

@@ -170,17 +170,15 @@ const STRINGS = { en: { grades: [
 let submitted = false;
 let totalScore = 0;
 const currentLang = 'en';
-let CATS = [
-  {id:'farm', icon:`🌾`, name:`Farmland`, desc:`Fields, orchards, crops, pasture`, answer:56, color:'#639922', max:75, step:0.5},
-  {id:'nat', icon:`🏔️`, name:`Natural & semi-natural`, desc:`Moors, heath, bogs, rough grassland`, answer:34, color:'#888780', max:50, step:0.5},
-  {id:'wood', icon:`🌲`, name:`Woodland & forest`, desc:`Managed forests, plantations`, answer:13, color:'#3B6D11', max:30, step:0.5},
-  {id:'built', icon:`🏗️`, name:`Built on`, desc:`Roads, buildings, airports, quarries`, answer:6, color:'#73726c', max:20, step:0.5},
-  {id:'grn', icon:`🌳`, name:`Parks & gardens`, desc:`Public parks and private residential gardens`, answer:3.5, color:'#9FE1CB', max:12, step:0.5},
-  {id:'golf', icon:`⛳`, name:`Golf courses`, desc:`Golf courses across the UK (~2,500 courses)`, answer:1.8, color:'#5DCAA5', max:8, step:0.5},
-  {id:'h2o', icon:`💧`, name:`Inland water`, desc:`Rivers, lakes, reservoirs, canals`, answer:1.5, color:'#378ADD', max:8, step:0.5},
-  {id:'solar', icon:`☀️🔋`, name:`Solar+battery (current)`, desc:`Utility-scale ground-mounted solar PV with battery storage, grid-connected (Sep 2024)`, answer:0.086, color:'#EF9F27', max:2, step:0.01, isSolar:true, answerHa:21200, solarNote:`Hint: surprisingly tiny`},
-  {id:'sol100', icon:`⚡🔋`, name:`Solar+battery for 100% electricity`, desc:`Land needed for utility-scale solar+battery to power the entire UK national grid 24/7 (~330 TWh/yr) — the UK's overcast climate is comparable to Germany's, requiring similar land per TWh`, answer:1.22, color:'#BA7517', max:5, step:0.05, isSolar:true, answerHa:297000, readOnly:true}
-];
+let CATS = [{id:'farm', icon:`🌾`, name:`Farmland`, desc:`Fields, orchards, crops, pasture`, answer:48.32, color:'#639922', max:75, step:0.5, answerHa:11741760},
+  {id:'nat', icon:`🏔️`, name:`Natural & semi-natural`, desc:`Moors, heath, bogs, rough grassland`, answer:29.34, color:'#888780', max:50, step:0.5, answerHa:7129620},
+  {id:'wood', icon:`🌲`, name:`Woodland & forest`, desc:`Managed forests, plantations`, answer:11.22, color:'#3B6D11', max:30, step:0.5, answerHa:2726460},
+  {id:'built', icon:`🏗️`, name:`Built on`, desc:`Roads, buildings, airports, quarries`, answer:5.18, color:'#73726c', max:20, step:0.5, answerHa:1258740},
+  {id:'grn', icon:`🌳`, name:`Parks & gardens`, desc:`Public parks and private residential gardens`, answer:3.02, color:'#9FE1CB', max:12, step:0.5, answerHa:733860},
+  {id:'golf', icon:`⛳`, name:`Golf courses`, desc:`Golf courses across the UK (~2,500 courses)`, answer:1.55, color:'#5DCAA5', max:8, step:0.5, answerHa:376650},
+  {id:'h2o', icon:`💧`, name:`Inland water`, desc:`Rivers, lakes, reservoirs, canals`, answer:1.29, color:'#378ADD', max:8, step:0.5, answerHa:313470},
+  {id:'solar', icon:`☀️🔋`, name:`Solar+battery (current)`, desc:`Utility-scale ground-mounted solar PV with battery storage, grid-connected (Sep 2024)`, answer:0.07, color:'#EF9F27', max:2, step:0.01, answerHa:17010, isSolar:true, solarNote:`Hint: surprisingly tiny`},
+  {id:'sol100', icon:`⚡🔋`, name:`Solar+battery for 100% electricity`, desc:`Land needed for utility-scale solar+battery to power the entire UK national grid 24/7 (~330 TWh/yr) — the UK's overcast climate is comparable to Germany's, requiring similar land per TWh`, answer:1.22, color:'#BA7517', max:5, step:0.05, answerHa:296460, isSolar:true, readOnly:true}];
 let MAIN_CATS = CATS.filter(c => !c.readOnly);
 
 

@@ -175,26 +175,22 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 <script>
 
 // ── LANGUAGE SYSTEM ──
-const CATS_EN = [
-  {id:'past', icon:`🐄`, name:`Pastures & grazing`, desc:`Permanent meadows and rough grazing — dominant land use across the central highlands`, answer:48.8, color:'#a8c46e', max:65, step:0.5},
-  {id:'agri', icon:`🌾`, name:`Arable & permanent crops`, desc:`Rice paddies, cassava, vanilla, cloves and other crops in lowlands and coastal zones`, answer:16.2, color:'#639922', max:30, step:0.5},
-  {id:'forest', icon:`🌲`, name:`Forest`, desc:`Remaining natural forest — once covered the whole island, now only eastern and western strips survive`, answer:21.3, color:'#3B6D11', max:40, step:0.5},
-  {id:'scrub', icon:`🌿`, name:`Shrubland & degraded`, desc:`Savanna, degraded land, lavaka erosion gullies and areas recovering from slash-and-burn`, answer:10.2, color:'#888780', max:20, step:0.5},
-  {id:'urban', icon:`🏙️`, name:`Urban & infrastructure`, desc:`Antananarivo and other cities, roads, and built infrastructure`, answer:2.0, color:'#73726c', max:8, step:0.1},
-  {id:'water', icon:`💧`, name:`Inland water`, desc:`Lakes, rivers and reservoirs — Lake Alaotra is the largest rice-growing area`, answer:1.5, color:'#378ADD', max:6, step:0.1},
-  {id:'solar', icon:`☀️🔋`, name:`Solar+battery (current)`, desc:`Utility-scale grid-connected solar PV — nascent sector, mostly small off-grid installations (~100 MW total)`, answer:0.0003, color:'#EF9F27', max:0.1, step:0.0001, isSolar:true, answerHa:180, solarNote:`Hint: Madagascar's grid-scale solar is tiny — the grid barely exists`},
-  {id:'sol100', icon:`⚡🔋`, name:`Solar+battery for 100% electricity`, desc:`Land needed for utility-scale solar+battery to power a fully functioning national grid 24/7 — Madagascar's electricity demand is very low (~3 TWh/yr)`, answer:0.003, color:'#BA7517', max:0.1, step:0.001, isSolar:true, answerHa:1800, readOnly:true}
-];
-const CATS_LO = [
-  {id:'past', icon:`🐄`, name:`Ahitra sy toeram-pifehezana`, desc:`Ahitra maharitra sy fiandrasana biby — fampiasana tany lehibe indrindra any amin'ny Havoana Afovoany`, answer:48.8, color:'#a8c46e', max:65, step:0.5},
-  {id:'agri', icon:`🌾`, name:`Tanimboly sy voly maharitra`, desc:`Tanimbary, manioka, vanila, jirofo ary voly hafa any amin'ny faritra ambany sy morontsiraka`, answer:16.2, color:'#639922', max:30, step:0.5},
-  {id:'forest', icon:`🌲`, name:`Ala`, desc:`Ala voajanahary sisa — efa nanarona ny nosy manontolo, ankehitriny sisa mangina amin'ny andrefana sy atsinanana ihany`, answer:21.3, color:'#3B6D11', max:40, step:0.5},
-  {id:'scrub', icon:`🌿`, name:`Hazo madinika sy tany simba`, desc:`Savana, tany simba, lavaka ary faritra manavao taorian'ny tavy`, answer:10.2, color:'#888780', max:20, step:0.5},
-  {id:'urban', icon:`🏙️`, name:`Tanana sy fotodrafitrasa`, desc:`Antananarivo sy tanàna hafa, lalana, ary fotodrafitrasa`, answer:2.0, color:'#73726c', max:8, step:0.1},
-  {id:'water', icon:`💧`, name:`Rano anatiny`, desc:`Farihy, renirano ary tahiry — Lac Alaotra no toerana lehibe indrindra amin'ny fambolena vary`, answer:1.5, color:'#378ADD', max:6, step:0.1},
-  {id:'solar', icon:`☀️🔋`, name:`Solar+bateria (ankehitriny)`, desc:`Solar fotovoltaika lehibe mifandray amin'ny tambajotrana — setrasetra kely, ankamaroan'ny fametrahana kely tsy mifandray (~100 MW)`, answer:0.0003, color:'#EF9F27', max:0.1, step:0.0001, isSolar:true, answerHa:180, solarNote:`Torohevitra: ny solar lehibe eto Madagasikara dia kely dia kely — saika tsy misy tambajotrana`},
-  {id:'sol100', icon:`⚡🔋`, name:`Solar+bateria ho an'ny herinaratra 100%`, desc:`Tany ilaina ho an'ny solar+bateria lehibe hamelona tambajotran'ny firenen-kerana 24h/7 — ny filana herinaratra ao Madagasikara dia ambany be (~3 TWh/taona)`, answer:0.003, color:'#BA7517', max:0.1, step:0.001, isSolar:true, answerHa:1800, readOnly:true}
-];
+const CATS_EN = [{id:'past', icon:`🐄`, name:`Pastures & grazing`, desc:`Permanent meadows and rough grazing — dominant land use across the central highlands`, answer:48.8, color:'#a8c46e', max:65, step:0.5, answerHa:28645600},
+  {id:'agri', icon:`🌾`, name:`Arable & permanent crops`, desc:`Rice paddies, cassava, vanilla, cloves and other crops in lowlands and coastal zones`, answer:16.2, color:'#639922', max:30, step:0.5, answerHa:9509400},
+  {id:'forest', icon:`🌲`, name:`Forest`, desc:`Remaining natural forest — once covered the whole island, now only eastern and western strips survive`, answer:21.3, color:'#3B6D11', max:40, step:0.5, answerHa:12503100},
+  {id:'scrub', icon:`🌿`, name:`Shrubland & degraded`, desc:`Savanna, degraded land, lavaka erosion gullies and areas recovering from slash-and-burn`, answer:10.2, color:'#888780', max:20, step:0.5, answerHa:5987400},
+  {id:'urban', icon:`🏙️`, name:`Urban & infrastructure`, desc:`Antananarivo and other cities, roads, and built infrastructure`, answer:2.0, color:'#73726c', max:8, step:0.1, answerHa:1174000},
+  {id:'water', icon:`💧`, name:`Inland water`, desc:`Lakes, rivers and reservoirs — Lake Alaotra is the largest rice-growing area`, answer:1.5, color:'#378ADD', max:6, step:0.1, answerHa:880500},
+  {id:'solar', icon:`☀️🔋`, name:`Solar+battery (current)`, desc:`Utility-scale grid-connected solar PV — nascent sector, mostly small off-grid installations (~100 MW total)`, answer:0.0, color:'#EF9F27', max:0.1, step:0.0001, answerHa:0, isSolar:true, solarNote:`Hint: Madagascar's grid-scale solar is tiny — the grid barely exists`},
+  {id:'sol100', icon:`⚡🔋`, name:`Solar+battery for 100% electricity`, desc:`Land needed for utility-scale solar+battery to power a fully functioning national grid 24/7 — Madagascar's electricity demand is very low (~3 TWh/yr)`, answer:0.003, color:'#BA7517', max:0.1, step:0.001, answerHa:1761, isSolar:true, readOnly:true}];
+const CATS_LO = [{id:'past', icon:`🐄`, name:`Ahitra sy toeram-pifehezana`, desc:`Ahitra maharitra sy fiandrasana biby — fampiasana tany lehibe indrindra any amin'ny Havoana Afovoany`, answer:48.8, color:'#a8c46e', max:65, step:0.5, answerHa:28645600},
+  {id:'agri', icon:`🌾`, name:`Tanimboly sy voly maharitra`, desc:`Tanimbary, manioka, vanila, jirofo ary voly hafa any amin'ny faritra ambany sy morontsiraka`, answer:16.2, color:'#639922', max:30, step:0.5, answerHa:9509400},
+  {id:'forest', icon:`🌲`, name:`Ala`, desc:`Ala voajanahary sisa — efa nanarona ny nosy manontolo, ankehitriny sisa mangina amin'ny andrefana sy atsinanana ihany`, answer:21.3, color:'#3B6D11', max:40, step:0.5, answerHa:12503100},
+  {id:'scrub', icon:`🌿`, name:`Hazo madinika sy tany simba`, desc:`Savana, tany simba, lavaka ary faritra manavao taorian'ny tavy`, answer:10.2, color:'#888780', max:20, step:0.5, answerHa:5987400},
+  {id:'urban', icon:`🏙️`, name:`Tanana sy fotodrafitrasa`, desc:`Antananarivo sy tanàna hafa, lalana, ary fotodrafitrasa`, answer:2.0, color:'#73726c', max:8, step:0.1, answerHa:1174000},
+  {id:'water', icon:`💧`, name:`Rano anatiny`, desc:`Farihy, renirano ary tahiry — Lac Alaotra no toerana lehibe indrindra amin'ny fambolena vary`, answer:1.5, color:'#378ADD', max:6, step:0.1, answerHa:880500},
+  {id:'solar', icon:`☀️🔋`, name:`Solar+bateria (ankehitriny)`, desc:`Solar fotovoltaika lehibe mifandray amin'ny tambajotrana — setrasetra kely, ankamaroan'ny fametrahana kely tsy mifandray (~100 MW)`, answer:0.0, color:'#EF9F27', max:0.1, step:0.0001, answerHa:0, isSolar:true, solarNote:`Torohevitra: ny solar lehibe eto Madagasikara dia kely dia kely — saika tsy misy tambajotrana`},
+  {id:'sol100', icon:`⚡🔋`, name:`Solar+bateria ho an'ny herinaratra 100%`, desc:`Tany ilaina ho an'ny solar+bateria lehibe hamelona tambajotran'ny firenen-kerana 24h/7 — ny filana herinaratra ao Madagasikara dia ambany be (~3 TWh/taona)`, answer:0.003, color:'#BA7517', max:0.1, step:0.001, answerHa:1761, isSolar:true, readOnly:true}];
 
 const STRINGS = {
   en: {

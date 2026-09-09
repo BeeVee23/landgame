@@ -175,26 +175,22 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 <script>
 
 // ── LANGUAGE SYSTEM ──
-const CATS_EN = [
-  {id:'past', icon:`🐄`, name:`Permanent pasture`, desc:`Grazing land, meadows and rough pasture — dominates the Bekaa Valley and mountain slopes`, answer:40, color:'#a8c46e', max:60, step:0.5},
-  {id:'agri', icon:`🌾`, name:`Arable land & crops`, desc:`Cereal crops, vegetables, fruit orchards and temporarily fallow land`, answer:26, color:'#639922', max:45, step:0.5},
-  {id:'forest', icon:`🌲`, name:`Forest & woodland`, desc:`Natural forests, cedar reserves and reforested areas — recovering after decades of loss`, answer:14, color:'#3B6D11', max:30, step:0.5},
-  {id:'urban', icon:`🏙️`, name:`Urban & built-up`, desc:`Beirut, Tripoli, Sidon and surrounding urban sprawl — dense by regional standards`, answer:14, color:'#73726c', max:30, step:0.5},
-  {id:'nat', icon:`🏔️`, name:`Bare rock & natural areas`, desc:`High mountain terrain, rocky slopes and uncultivable land`, answer:4.1, color:'#888780', max:15, step:0.5},
-  {id:'water', icon:`💧`, name:`Inland water`, desc:`Rivers, lakes (including Lake Qaraoun) and reservoirs`, answer:1.8, color:'#378ADD', max:8, step:0.1},
-  {id:'solar', icon:`☀️🔋`, name:`Solar+battery (current)`, desc:`Rooftop and small-scale solar PV — citizen-led response to the grid crisis (~1 GW end 2024). Note: mostly off-grid rooftop, not utility-scale`, answer:1.9, color:'#EF9F27', max:8, step:0.1, isSolar:true, answerHa:19000, solarNote:`Note: this is rooftop/small-scale — not grid-connected utility solar`},
-  {id:'sol100', icon:`⚡🔋`, name:`Solar+battery for 100% electricity`, desc:`Land needed for utility-scale solar+battery to reliably cover all Lebanese electricity demand 24/7 — remarkably achievable given Lebanon's solar resource`, answer:1.0, color:'#BA7517', max:5, step:0.1, isSolar:true, answerHa:10000, readOnly:true}
-];
-const CATS_LO = [
-  {id:'past', icon:`🐄`, name:`مراعٍ دائمة`, desc:`أراضي رعوية ومروج وأعشاب جبلية — تهيمن على سهل البقاع والمنحدرات الجبلية`, answer:40, color:'#a8c46e', max:60, step:0.5},
-  {id:'agri', icon:`🌾`, name:`أراضٍ زراعية`, desc:`محاصيل الحبوب والخضروات وبساتين الفاكهة والأراضي المتروكة مؤقتاً`, answer:26, color:'#639922', max:45, step:0.5},
-  {id:'forest', icon:`🌲`, name:`غابات وأحراج`, desc:`غابات طبيعية وأرز لبنان ومناطق إعادة التشجير — تتعافى بعد عقود من الخسارة`, answer:14, color:'#3B6D11', max:30, step:0.5},
-  {id:'urban', icon:`🏙️`, name:`مناطق حضرية`, desc:`بيروت وطرابلس وصيدا والامتداد العمراني المحيط — كثيف بالمعايير الإقليمية`, answer:14, color:'#73726c', max:30, step:0.5},
-  {id:'nat', icon:`🏔️`, name:`صخور عارية ومناطق طبيعية`, desc:`تضاريس جبلية عالية ومنحدرات صخرية وأراضٍ غير صالحة للزراعة`, answer:4.1, color:'#888780', max:15, step:0.5},
-  {id:'water', icon:`💧`, name:`المياه الداخلية`, desc:`أنهار وبحيرات (بما فيها بحيرة القرعون) وخزانات`, answer:1.8, color:'#378ADD', max:8, step:0.1},
-  {id:'solar', icon:`☀️🔋`, name:`الطاقة الشمسية+البطاريات (الحالية)`, desc:`الطاقة الشمسية على الأسطح والمنشآت الصغيرة — استجابة مدنية لأزمة الكهرباء (~1 GW نهاية 2024). ملاحظة: معظمها على الأسطح وغير متصلة بالشبكة`, answer:1.9, color:'#EF9F27', max:8, step:0.1, isSolar:true, answerHa:19000, solarNote:`ملاحظة: هذا طاقة شمسية على الأسطح — وليس طاقة شمسية متصلة بالشبكة`},
-  {id:'sol100', icon:`⚡🔋`, name:`الطاقة الشمسية+البطاريات لـ100% كهرباء`, desc:`الأرض اللازمة لتوفير طاقة شمسية+بطاريات لتغطية كامل الطلب على الكهرباء اللبنانية 24/7 — قابل للتحقيق بشكل ملحوظ نظراً للموارد الشمسية اللبنانية`, answer:1.0, color:'#BA7517', max:5, step:0.1, isSolar:true, answerHa:10000, readOnly:true}
-];
+const CATS_EN = [{id:'past', icon:`🐄`, name:`Permanent pasture`, desc:`Grazing land, meadows and rough pasture — dominates the Bekaa Valley and mountain slopes`, answer:39.29, color:'#a8c46e', max:60, step:0.5, answerHa:408616},
+  {id:'agri', icon:`🌾`, name:`Arable land & crops`, desc:`Cereal crops, vegetables, fruit orchards and temporarily fallow land`, answer:25.54, color:'#639922', max:45, step:0.5, answerHa:265616},
+  {id:'forest', icon:`🌲`, name:`Forest & woodland`, desc:`Natural forests, cedar reserves and reforested areas — recovering after decades of loss`, answer:13.75, color:'#3B6D11', max:30, step:0.5, answerHa:143000},
+  {id:'urban', icon:`🏙️`, name:`Urban & built-up`, desc:`Beirut, Tripoli, Sidon and surrounding urban sprawl — dense by regional standards`, answer:13.75, color:'#73726c', max:30, step:0.5, answerHa:143000},
+  {id:'nat', icon:`🏔️`, name:`Bare rock & natural areas`, desc:`High mountain terrain, rocky slopes and uncultivable land`, answer:4.03, color:'#888780', max:15, step:0.5, answerHa:41912},
+  {id:'water', icon:`💧`, name:`Inland water`, desc:`Rivers, lakes (including Lake Qaraoun) and reservoirs`, answer:1.77, color:'#378ADD', max:8, step:0.1, answerHa:18408},
+  {id:'solar', icon:`☀️🔋`, name:`Solar+battery (current)`, desc:`Rooftop and small-scale solar PV — citizen-led response to the grid crisis (~1 GW end 2024). Note: mostly off-grid rooftop, not utility-scale`, answer:1.87, color:'#EF9F27', max:8, step:0.1, answerHa:19448, isSolar:true, solarNote:`Note: this is rooftop/small-scale — not grid-connected utility solar`},
+  {id:'sol100', icon:`⚡🔋`, name:`Solar+battery for 100% electricity`, desc:`Land needed for utility-scale solar+battery to reliably cover all Lebanese electricity demand 24/7 — remarkably achievable given Lebanon's solar resource`, answer:1, color:'#BA7517', max:5, step:0.1, answerHa:10400, isSolar:true, readOnly:true}];
+const CATS_LO = [{id:'past', icon:`🐄`, name:`مراعٍ دائمة`, desc:`أراضي رعوية ومروج وأعشاب جبلية — تهيمن على سهل البقاع والمنحدرات الجبلية`, answer:39.29, color:'#a8c46e', max:60, step:0.5, answerHa:408616},
+  {id:'agri', icon:`🌾`, name:`أراضٍ زراعية`, desc:`محاصيل الحبوب والخضروات وبساتين الفاكهة والأراضي المتروكة مؤقتاً`, answer:25.54, color:'#639922', max:45, step:0.5, answerHa:265616},
+  {id:'forest', icon:`🌲`, name:`غابات وأحراج`, desc:`غابات طبيعية وأرز لبنان ومناطق إعادة التشجير — تتعافى بعد عقود من الخسارة`, answer:13.75, color:'#3B6D11', max:30, step:0.5, answerHa:143000},
+  {id:'urban', icon:`🏙️`, name:`مناطق حضرية`, desc:`بيروت وطرابلس وصيدا والامتداد العمراني المحيط — كثيف بالمعايير الإقليمية`, answer:13.75, color:'#73726c', max:30, step:0.5, answerHa:143000},
+  {id:'nat', icon:`🏔️`, name:`صخور عارية ومناطق طبيعية`, desc:`تضاريس جبلية عالية ومنحدرات صخرية وأراضٍ غير صالحة للزراعة`, answer:4.03, color:'#888780', max:15, step:0.5, answerHa:41912},
+  {id:'water', icon:`💧`, name:`المياه الداخلية`, desc:`أنهار وبحيرات (بما فيها بحيرة القرعون) وخزانات`, answer:1.77, color:'#378ADD', max:8, step:0.1, answerHa:18408},
+  {id:'solar', icon:`☀️🔋`, name:`الطاقة الشمسية+البطاريات (الحالية)`, desc:`الطاقة الشمسية على الأسطح والمنشآت الصغيرة — استجابة مدنية لأزمة الكهرباء (~1 GW نهاية 2024). ملاحظة: معظمها على الأسطح وغير متصلة بالشبكة`, answer:1.87, color:'#EF9F27', max:8, step:0.1, answerHa:19448, isSolar:true, solarNote:`ملاحظة: هذا طاقة شمسية على الأسطح — وليس طاقة شمسية متصلة بالشبكة`},
+  {id:'sol100', icon:`⚡🔋`, name:`الطاقة الشمسية+البطاريات لـ100% كهرباء`, desc:`الأرض اللازمة لتوفير طاقة شمسية+بطاريات لتغطية كامل الطلب على الكهرباء اللبنانية 24/7 — قابل للتحقيق بشكل ملحوظ نظراً للموارد الشمسية اللبنانية`, answer:1, color:'#BA7517', max:5, step:0.1, answerHa:10400, isSolar:true, readOnly:true}];
 
 const STRINGS = {
   en: {

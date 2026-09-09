@@ -170,17 +170,15 @@ const STRINGS = { en: { grades: [
 let submitted = false;
 let totalScore = 0;
 const currentLang = 'en';
-let CATS = [
-  {id:'grass', icon:`🌿`, name:`Grassland & rangeland`, desc:`Pasture, range, and grazing land across the Great Plains and West`, answer:29, color:'#8db84a', max:50, step:0.5},
-  {id:'forest', icon:`🌲`, name:`Forest`, desc:`Forest-use land, timberland, and grazed forestland`, answer:28, color:'#3B6D11', max:50, step:0.5},
-  {id:'crop', icon:`🌾`, name:`Cropland`, desc:`Harvested crops, idle cropland, and cropland pasture`, answer:17, color:'#639922', max:35, step:0.5},
-  {id:'spec', icon:`🏞️`, name:`Parks & special uses`, desc:`National parks, wildlife refuges, wilderness areas, military land`, answer:14, color:'#5DCAA5', max:30, step:0.5},
-  {id:'misc', icon:`🌊`, name:`Miscellaneous`, desc:`Wetlands, tundra, bare rock, unproductive woodlands, desert`, answer:8.87, color:'#888780', max:20, step:0.5},
-  {id:'golf', icon:`⛳`, name:`Golf courses`, desc:`The US has ~16,150 golf courses — more than any other country, almost as many as the rest of the world combined`, answer:0.132, color:'#5DCAA5', max:1, step:0.01},
-  {id:'urban', icon:`🏙️`, name:`Urban areas`, desc:`Cities, suburbs, roads, airports, built infrastructure`, answer:3, color:'#73726c', max:15, step:0.5},
-  {id:'solar', icon:`☀️🔋`, name:`Solar+battery (current)`, desc:`Utility-scale ground-mounted solar PV with battery storage, grid-connected (end 2024, ~121 GW)`, answer:0.048, color:'#EF9F27', max:1, step:0.001, isSolar:true, answerHa:437000, solarNote:`Hint: utility-scale grid-connected only — the US is huge`},
-  {id:'sol100', icon:`⚡🔋`, name:`Solar+battery for 100% electricity`, desc:`Land needed for utility-scale solar+battery to power the entire US national grid 24/7 (~4,300 TWh/yr) — the US has excellent solar resources, especially across the Southwest`, answer:0.26, color:'#BA7517', max:2, step:0.01, isSolar:true, answerHa:2408000, readOnly:true}
-];
+let CATS = [{id:'grass', icon:`🌿`, name:`Grassland & rangeland`, desc:`Pasture, range, and grazing land across the Great Plains and West`, answer:28.99, color:'#8db84a', max:50, step:0.5, answerHa:265258500},
+  {id:'forest', icon:`🌲`, name:`Forest`, desc:`Forest-use land, timberland, and grazed forestland`, answer:27.99, color:'#3B6D11', max:50, step:0.5, answerHa:256108500},
+  {id:'crop', icon:`🌾`, name:`Cropland`, desc:`Harvested crops, idle cropland, and cropland pasture`, answer:16.99, color:'#639922', max:35, step:0.5, answerHa:155458500},
+  {id:'spec', icon:`🏞️`, name:`Parks & special uses`, desc:`National parks, wildlife refuges, wilderness areas, military land`, answer:13.99, color:'#5DCAA5', max:30, step:0.5, answerHa:128008500},
+  {id:'misc', icon:`🌊`, name:`Miscellaneous`, desc:`Wetlands, tundra, bare rock, unproductive woodlands, desert`, answer:8.87, color:'#888780', max:20, step:0.5, answerHa:81160500},
+  {id:'golf', icon:`⛳`, name:`Golf courses`, desc:`The US has ~16,150 golf courses — more than any other country, almost as many as the rest of the world combined`, answer:0.13, color:'#5DCAA5', max:1, step:0.01, answerHa:1189500},
+  {id:'urban', icon:`🏙️`, name:`Urban areas`, desc:`Cities, suburbs, roads, airports, built infrastructure`, answer:3.0, color:'#73726c', max:15, step:0.5, answerHa:27450000},
+  {id:'solar', icon:`☀️🔋`, name:`Solar+battery (current)`, desc:`Utility-scale ground-mounted solar PV with battery storage, grid-connected (end 2024, ~121 GW)`, answer:0.05, color:'#EF9F27', max:1, step:0.001, answerHa:457500, isSolar:true, solarNote:`Hint: utility-scale grid-connected only — the US is huge`},
+  {id:'sol100', icon:`⚡🔋`, name:`Solar+battery for 100% electricity`, desc:`Land needed for utility-scale solar+battery to power the entire US national grid 24/7 (~4,300 TWh/yr) — the US has excellent solar resources, especially across the Southwest`, answer:0.26, color:'#BA7517', max:2, step:0.01, answerHa:2379000, isSolar:true, readOnly:true}];
 let MAIN_CATS = CATS.filter(c => !c.readOnly);
 
 

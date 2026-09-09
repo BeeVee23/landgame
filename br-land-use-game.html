@@ -175,26 +175,22 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 <script>
 
 // ── LANGUAGE SYSTEM ──
-const CATS_EN = [
-  {id:'forest', icon:`🌲`, name:`Forest & natural vegetation`, desc:`Amazon, Atlantic Forest, Pantanal and Cerrado native vegetation — the world's largest tropical forest system`, answer:59.0, color:'#3B6D11', max:75, step:0.5},
-  {id:'past', icon:`🐄`, name:`Managed pasture`, desc:`Cattle ranching — Brazil is the world's largest beef exporter; pasture has expanded dramatically since 2000`, answer:19.5, color:'#a8c46e', max:35, step:0.5},
-  {id:'crop', icon:`🌾`, name:`Cropland`, desc:`Soy, maize, sugarcane, cotton and other crops — mostly in the Cerrado and southern states`, answer:11.5, color:'#639922', max:25, step:0.5},
-  {id:'prot', icon:`🏞️`, name:`Protected & indigenous land`, desc:`Conservation units, indigenous territories and quilombola lands — legally protected from development`, answer:6.5, color:'#5DCAA5', max:15, step:0.5},
-  {id:'water', icon:`💧`, name:`Inland water`, desc:`Amazon basin rivers, Pantanal wetlands, reservoirs — Brazil holds 12% of world fresh surface water`, answer:2.0, color:'#378ADD', max:6, step:0.1},
-  {id:'urban', icon:`🏙️`, name:`Urban & infrastructure`, desc:`Sao Paulo, Rio, Brasilia and other cities — dense by Latin American standards but small as % of total land`, answer:1.5, color:'#73726c', max:6, step:0.1},
-  {id:'solar', icon:`☀️🔋`, name:`Solar+battery (current)`, desc:`Utility-scale grid-connected solar PV with battery storage (~16.5 GW end 2024) — growing at record pace`, answer:0.004, color:'#EF9F27', max:0.2, step:0.0005, isSolar:true, answerHa:33000, solarNote:`Hint: Brazil has 16.5 GW utility-scale — but 851M ha is enormous`},
-  {id:'sol100', icon:`⚡🔋`, name:`Solar+battery for 100% electricity`, desc:`Land needed for utility-scale solar+battery to power Brazil's entire national grid 24/7 (~700 TWh/yr) — tiny thanks to exceptional solar irradiance`, answer:0.04, color:'#BA7517', max:0.5, step:0.005, isSolar:true, answerHa:350000, readOnly:true}
-];
-const CATS_LO = [
-  {id:'forest', icon:`🌲`, name:`Floresta e vegetação nativa`, desc:`Amazônia, Mata Atlântica, Pantanal e Cerrado — o maior sistema de floresta tropical do mundo`, answer:59.0, color:'#3B6D11', max:75, step:0.5},
-  {id:'past', icon:`🐄`, name:`Pastagem manejada`, desc:`Pecuária — o Brasil é o maior exportador de carne bovina do mundo; as pastagens se expandiram dramaticamente desde 2000`, answer:19.5, color:'#a8c46e', max:35, step:0.5},
-  {id:'crop', icon:`🌾`, name:`Lavouras`, desc:`Soja, milho, cana-de-açúcar, algodão e outras culturas — principalmente no Cerrado e estados do sul`, answer:11.5, color:'#639922', max:25, step:0.5},
-  {id:'prot', icon:`🏞️`, name:`Terras protegidas e indígenas`, desc:`Unidades de conservação, territórios indígenas e quilombolas — legalmente protegidos do desenvolvimento`, answer:6.5, color:'#5DCAA5', max:15, step:0.5},
-  {id:'water', icon:`💧`, name:`Águas interiores`, desc:`Rios da bacia amazônica, áreas úmidas do Pantanal, reservatórios — o Brasil detém 12% da água doce superficial do mundo`, answer:2.0, color:'#378ADD', max:6, step:0.1},
-  {id:'urban', icon:`🏙️`, name:`Áreas urbanas e infraestrutura`, desc:`São Paulo, Rio, Brasília e outras cidades — densas pelos padrões latino-americanos, mas pequenas como % do território total`, answer:1.5, color:'#73726c', max:6, step:0.1},
-  {id:'solar', icon:`☀️🔋`, name:`Solar+bateria (atual)`, desc:`Solar fotovoltaico de grande escala com armazenamento em bateria (~16,5 GW no final de 2024) — crescendo em ritmo recorde`, answer:0.004, color:'#EF9F27', max:0.2, step:0.0005, isSolar:true, answerHa:33000, solarNote:`Dica: o Brasil tem 16,5 GW em escala industrial — mas 851 M ha é enorme`},
-  {id:'sol100', icon:`⚡🔋`, name:`Solar+bateria para 100% da eletricidade`, desc:`Área necessária para solar+bateria de grande escala abastecer toda a rede elétrica nacional 24h/dia (~700 TWh/ano) — pequena graças à excelente irradiância solar`, answer:0.04, color:'#BA7517', max:0.5, step:0.005, isSolar:true, answerHa:350000, readOnly:true}
-];
+const CATS_EN = [{id:'forest', icon:`🌲`, name:`Forest & natural vegetation`, desc:`Amazon, Atlantic Forest, Pantanal and Cerrado native vegetation — the world's largest tropical forest system`, answer:59.0, color:'#3B6D11', max:75, step:0.5, answerHa:502090000},
+  {id:'past', icon:`🐄`, name:`Managed pasture`, desc:`Cattle ranching — Brazil is the world's largest beef exporter; pasture has expanded dramatically since 2000`, answer:19.5, color:'#a8c46e', max:35, step:0.5, answerHa:165945000},
+  {id:'crop', icon:`🌾`, name:`Cropland`, desc:`Soy, maize, sugarcane, cotton and other crops — mostly in the Cerrado and southern states`, answer:11.5, color:'#639922', max:25, step:0.5, answerHa:97865000},
+  {id:'prot', icon:`🏞️`, name:`Protected & indigenous land`, desc:`Conservation units, indigenous territories and quilombola lands — legally protected from development`, answer:6.5, color:'#5DCAA5', max:15, step:0.5, answerHa:55315000},
+  {id:'water', icon:`💧`, name:`Inland water`, desc:`Amazon basin rivers, Pantanal wetlands, reservoirs — Brazil holds 12% of world fresh surface water`, answer:2.0, color:'#378ADD', max:6, step:0.1, answerHa:17020000},
+  {id:'urban', icon:`🏙️`, name:`Urban & infrastructure`, desc:`Sao Paulo, Rio, Brasilia and other cities — dense by Latin American standards but small as % of total land`, answer:1.5, color:'#73726c', max:6, step:0.1, answerHa:12765000},
+  {id:'solar', icon:`☀️🔋`, name:`Solar+battery (current)`, desc:`Utility-scale grid-connected solar PV with battery storage (~16.5 GW end 2024) — growing at record pace`, answer:0.0, color:'#EF9F27', max:0.2, step:0.0005, answerHa:0, isSolar:true, solarNote:`Hint: Brazil has 16.5 GW utility-scale — but 851M ha is enormous`},
+  {id:'sol100', icon:`⚡🔋`, name:`Solar+battery for 100% electricity`, desc:`Land needed for utility-scale solar+battery to power Brazil's entire national grid 24/7 (~700 TWh/yr) — tiny thanks to exceptional solar irradiance`, answer:0.04, color:'#BA7517', max:0.5, step:0.005, answerHa:340400, isSolar:true, readOnly:true}];
+const CATS_LO = [{id:'forest', icon:`🌲`, name:`Floresta e vegetação nativa`, desc:`Amazônia, Mata Atlântica, Pantanal e Cerrado — o maior sistema de floresta tropical do mundo`, answer:59.0, color:'#3B6D11', max:75, step:0.5, answerHa:502090000},
+  {id:'past', icon:`🐄`, name:`Pastagem manejada`, desc:`Pecuária — o Brasil é o maior exportador de carne bovina do mundo; as pastagens se expandiram dramaticamente desde 2000`, answer:19.5, color:'#a8c46e', max:35, step:0.5, answerHa:165945000},
+  {id:'crop', icon:`🌾`, name:`Lavouras`, desc:`Soja, milho, cana-de-açúcar, algodão e outras culturas — principalmente no Cerrado e estados do sul`, answer:11.5, color:'#639922', max:25, step:0.5, answerHa:97865000},
+  {id:'prot', icon:`🏞️`, name:`Terras protegidas e indígenas`, desc:`Unidades de conservação, territórios indígenas e quilombolas — legalmente protegidos do desenvolvimento`, answer:6.5, color:'#5DCAA5', max:15, step:0.5, answerHa:55315000},
+  {id:'water', icon:`💧`, name:`Águas interiores`, desc:`Rios da bacia amazônica, áreas úmidas do Pantanal, reservatórios — o Brasil detém 12% da água doce superficial do mundo`, answer:2.0, color:'#378ADD', max:6, step:0.1, answerHa:17020000},
+  {id:'urban', icon:`🏙️`, name:`Áreas urbanas e infraestrutura`, desc:`São Paulo, Rio, Brasília e outras cidades — densas pelos padrões latino-americanos, mas pequenas como % do território total`, answer:1.5, color:'#73726c', max:6, step:0.1, answerHa:12765000},
+  {id:'solar', icon:`☀️🔋`, name:`Solar+bateria (atual)`, desc:`Solar fotovoltaico de grande escala com armazenamento em bateria (~16,5 GW no final de 2024) — crescendo em ritmo recorde`, answer:0.0, color:'#EF9F27', max:0.2, step:0.0005, answerHa:0, isSolar:true, solarNote:`Dica: o Brasil tem 16,5 GW em escala industrial — mas 851 M ha é enorme`},
+  {id:'sol100', icon:`⚡🔋`, name:`Solar+bateria para 100% da eletricidade`, desc:`Área necessária para solar+bateria de grande escala abastecer toda a rede elétrica nacional 24h/dia (~700 TWh/ano) — pequena graças à excelente irradiância solar`, answer:0.04, color:'#BA7517', max:0.5, step:0.005, answerHa:340400, isSolar:true, readOnly:true}];
 
 const STRINGS = {
   en: {
