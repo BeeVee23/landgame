@@ -121,7 +121,7 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
   <h1><img src="https://flagcdn.com/32x24/mg.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Madagascar's land actually used?</h1>
   <p class="subtitle">Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Malagasy land for each category — sliders are capped at 100% total. Madagascar is one of the world's most biodiverse islands, yet also one of the most heavily deforested.</p>
   
-  <div class="country-note"><strong>Country context:</strong> Madagascar's grid is extremely limited — fewer than 20% of the population has access to electricity. A realistic energy future will require a mix of hydro, solar, and wind, alongside major grid investment. Deforestation driven by slash-and-burn agriculture (tavy) is the country's most urgent land use crisis. Land use figures are approximate and sourced from World Bank and FAO data.</div>
+  <div class="country-note"></div>
   <div class="disclaimer"><strong>Note:</strong> The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems.</div>
 
   <div class="data-bar">
@@ -197,6 +197,7 @@ const STRINGS = {
     h1: `<img src="https://flagcdn.com/32x24/mg.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Madagascar's land actually used?`,
     subtitle: `Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Malagasy land for each category — sliders are capped at 100% total. Madagascar is one of the world's most biodiverse islands, yet also one of the most heavily deforested.`,
     disclaimer: `The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. Madagascar's grid is extremely limited — fewer than 20% of the population has access to electricity. A realistic energy future will require a mix of hydro, solar, and wind, alongside major grid investment. Deforestation driven by slash-and-burn agriculture (tavy) is the country's most urgent land use crisis. Land use figures are approximate and sourced from World Bank and FAO data.`,
+    countryNote: `Madagascar's grid is extremely limited — fewer than 20% of the population has access to electricity. A realistic energy future will require a mix of hydro, solar, and wind, alongside major grid investment. Deforestation driven by slash-and-burn agriculture (tavy) is the country's most urgent land use crisis. Land use figures are approximate and sourced from World Bank and FAO data.`,
     submit: `Submit all guesses`,
     play_again: `Play again`,
     score: `Score`,
@@ -221,6 +222,7 @@ const STRINGS = {
     h1: `<img src="https://flagcdn.com/32x24/mg.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> Ahoana no ampiasana ny tany eto Madagasikara?`,
     subtitle: `Nomen'ny <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">video fohy nataon'ny Dr. Simon Clark</a> (amin'ny teny anglisy). Andrandrao ny tahan'ny tany malagasy ho an'ny sokajy tsirairay — voafetra amin'ny 100% ny totalin'ny slider.`,
     disclaimer: `Ny isa solar+bateria dia fanatanjahan-tsaina nataon'ny AI, fa tsy torohevitry ny fanjakana. Ny isa rehetra dia mikasika rafitra solar-bateria lehibe mifandray amin'ny tambajotram-pamoahana herinaratra. Voafetra be ny tambajotran'i Madagasikara — latsaky ny 20% ny mponina no mahazo herinaratra.`,
+    countryNote: `Ny tambajotra elektrika eto Madagasikara dia voafetra be — latsaky ny 20% ny mponina no manana fidirana amin'ny herinaratra. Ny hoavin'ny angovo azo antoka dia mitaky fifangaroan'ny rano, masoandro ary rivotra, miaraka amin'ny fampiasam-bola lehibe amin'ny tambajotra. Ny fandripahana ala vokatry ny tavy no olana lehibe indrindra momba ny fampiasana ny tany eto amin'ny firenena. Ny angon-drakitra momba ny fampiasana ny tany dia tombana ary avy amin'ny Banky Iraisam-pirenena sy ny FAO.`,
     submit: `Alefa ny fanontaniana`,
     play_again: `Hilalao indray`,
     score: `Isa`,
@@ -257,6 +259,8 @@ function applyLang(lang) {
   document.querySelector('.subtitle').innerHTML = s.subtitle;
   const disc = document.querySelector('.disclaimer');
   if (disc && s.disclaimer) disc.innerHTML = '<strong>Note:</strong> ' + s.disclaimer;
+  const note = document.querySelector('.country-note');
+  if (note && s.countryNote) note.innerHTML = '<strong>Country context:</strong> ' + s.countryNote;
   if (!submitted) buildCards();
   const subBtn = document.getElementById('sub-btn');
   if (subBtn && !subBtn.disabled) subBtn.textContent = s.submit;

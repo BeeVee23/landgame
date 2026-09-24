@@ -121,7 +121,7 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
   <h1><img src="https://flagcdn.com/32x24/jp.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Japan's land actually used?</h1>
   <p class="subtitle">Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Japanese land for each category — sliders are capped at 100% total. Japan is one of the world's most forested nations, yet also one of its most densely populated.</p>
   
-  <div class="country-note"><strong>Country context:</strong> Japan's energy future will require diverse renewables — offshore wind is considered the key technology given Japan's limited flat land, and the country is also investing heavily in hydrogen, geothermal, and tidal energy. Japan's mountainous terrain makes large-scale ground-mounted solar challenging, which is reflected in the relatively large land area needed. Land use figures are approximate and sourced from official Japanese government statistics.</div>
+  <div class="country-note"></div>
   <div class="disclaimer"><strong>Note:</strong> The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems.</div>
 
   <div class="data-bar">
@@ -197,6 +197,7 @@ const STRINGS = {
     h1: `<img src="https://flagcdn.com/32x24/jp.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Japan's land actually used?`,
     subtitle: `Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Japanese land for each category — sliders are capped at 100% total. Japan is one of the world's most forested nations, yet also one of its most densely populated.`,
     disclaimer: `The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. Japan's energy future will require diverse renewables — offshore wind is considered the key technology given Japan's limited flat land, and the country is also investing heavily in hydrogen, geothermal, and tidal energy. Japan's mountainous terrain makes large-scale ground-mounted solar challenging, which is reflected in the relatively large land area needed. Land use figures are approximate and sourced from official Japanese government statistics.`,
+    countryNote: `Japan's energy future will require diverse renewables — offshore wind is considered the key technology given Japan's limited flat land, and the country is also investing heavily in hydrogen, geothermal, and tidal energy. Japan's mountainous terrain makes large-scale ground-mounted solar challenging, which is reflected in the relatively large land area needed. Land use figures are approximate and sourced from official Japanese government statistics.`,
     submit: `Submit all guesses`,
     play_again: `Play again`,
     score: `Score`,
@@ -221,6 +222,7 @@ const STRINGS = {
     h1: `<img src="https://flagcdn.com/32x24/jp.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> 日本の土地はどのように使われているか？`,
     subtitle: `<a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">サイモン・クラーク博士のYouTubeショート</a>（英語）に着想を得て。各カテゴリの日本の土地の割合を推測してください — スライダーは合計100%に制限されています。日本は世界で最も森林に覆われた国のひとつであり、同時に最も人口密度が高い国のひとつです。`,
     disclaimer: `太陽光+蓄電池の数値はAIの支援を受けて生成された思考実験であり、政策提言ではありません。すべての数値は電力系統に接続された産業規模のシステムを指しています。日本のエネルギーの未来には多様な再生可能エネルギーが必要です。土地利用データは日本政府の公式統計に基づいています。`,
+    countryNote: `日本の将来のエネルギー構成には多様な再生可能エネルギーが必要となる——平地が限られていることから、洋上風力が鍵となる技術と見なされており、水素、地熱、潮力エネルギーにも積極的に投資が行われている。日本の山がちな地形は大規模な地上設置型太陽光発電を難しくしており、これは必要な土地面積が比較的大きいことに反映されている。土地利用データは概算であり、日本政府の公式統計に基づく。`,
     submit: `回答を送信する`,
     play_again: `もう一度プレイ`,
     score: `スコア`,
@@ -257,6 +259,8 @@ function applyLang(lang) {
   document.querySelector('.subtitle').innerHTML = s.subtitle;
   const disc = document.querySelector('.disclaimer');
   if (disc && s.disclaimer) disc.innerHTML = '<strong>Note:</strong> ' + s.disclaimer;
+  const note = document.querySelector('.country-note');
+  if (note && s.countryNote) note.innerHTML = '<strong>Country context:</strong> ' + s.countryNote;
   if (!submitted) buildCards();
   const subBtn = document.getElementById('sub-btn');
   if (subBtn && !subBtn.disabled) subBtn.textContent = s.submit;

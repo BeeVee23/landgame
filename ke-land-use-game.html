@@ -121,7 +121,7 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
   <h1><img src="https://flagcdn.com/32x24/ke.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Kenya's land actually used?</h1>
   <p class="subtitle">Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Kenyan land for each category — sliders are capped at 100% total. Kenya is East Africa's most advanced energy market and a world leader in geothermal power.</p>
   
-  <div class="country-note"><strong>Country context:</strong> Kenya already generates 85% of its grid electricity from renewables, with geothermal as the backbone. Solar is underdeployed relative to its potential — but wind and geothermal are likely to remain the cornerstones of Kenya's clean energy future. Land use figures are approximate and sourced from World Bank and FAO data.</div>
+  <div class="country-note"></div>
   <div class="disclaimer"><strong>Note:</strong> The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems.</div>
 
   <div class="data-bar">
@@ -199,6 +199,7 @@ const STRINGS = {
     h1: `<img src="https://flagcdn.com/32x24/ke.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Kenya's land actually used?`,
     subtitle: `Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Kenyan land for each category — sliders are capped at 100% total. Kenya is East Africa's most advanced energy market and a world leader in geothermal power.`,
     disclaimer: `The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. Kenya already generates 85% of its grid electricity from renewables, with geothermal as the backbone. Solar is underdeployed relative to its potential — but wind and geothermal are likely to remain the cornerstones of Kenya's clean energy future. Land use figures are approximate and sourced from World Bank and FAO data.`,
+    countryNote: `Kenya already generates 85% of its grid electricity from renewables, with geothermal as the backbone. Solar is underdeployed relative to its potential — but wind and geothermal are likely to remain the cornerstones of Kenya's clean energy future. Land use figures are approximate and sourced from World Bank and FAO data.`,
     submit: `Submit all guesses`,
     play_again: `Play again`,
     score: `Score`,
@@ -223,6 +224,7 @@ const STRINGS = {
     h1: `<img src="https://flagcdn.com/32x24/ke.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> Ardhi ya Kenya inatumiwaje?`,
     subtitle: `Ilipata msukumo kutoka <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">video fupi ya Dkt. Simon Clark kwenye YouTube</a> (kwa Kiingereza). Kadiria asilimia ya ardhi ya Kenya kwa kila kategoria — vitetemeko vimewekewa kikomo cha 100% jumla.`,
     disclaimer: `Takwimu za solar+betri ni jaribio la mawazo lililoundwa kwa msaada wa AI, si mapendekezo ya sera. Takwimu zote zinahusu mifumo ya kiwango cha viwanda iliyounganishwa na gridi. Kenya tayari inazalisha 85% ya umeme wake kutoka kwa nishati mbadala.`,
+    countryNote: `Kenya tayari inazalisha 85% ya umeme wake wa gridi kutoka vyanzo mbadala, huku jotoardhi ikiwa msingi mkuu. Nishati ya jua bado haijatumika ipasavyo kulingana na uwezo wake — lakini upepo na jotoardhi zinatarajiwa kuendelea kuwa nguzo kuu za mustakabali wa nishati safi nchini Kenya. Takwimu za matumizi ya ardhi ni makadirio na zimetokana na data za Benki ya Dunia na FAO.`,
     submit: `Wasilisha makadirio yako`,
     play_again: `Cheza tena`,
     score: `Alama`,
@@ -259,6 +261,8 @@ function applyLang(lang) {
   document.querySelector('.subtitle').innerHTML = s.subtitle;
   const disc = document.querySelector('.disclaimer');
   if (disc && s.disclaimer) disc.innerHTML = '<strong>Note:</strong> ' + s.disclaimer;
+  const note = document.querySelector('.country-note');
+  if (note && s.countryNote) note.innerHTML = '<strong>Country context:</strong> ' + s.countryNote;
   if (!submitted) buildCards();
   const subBtn = document.getElementById('sub-btn');
   if (subBtn && !subBtn.disabled) subBtn.textContent = s.submit;

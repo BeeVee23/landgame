@@ -121,7 +121,7 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
   <h1><img src="https://flagcdn.com/32x24/mx.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Mexico's land actually used?</h1>
   <p class="subtitle">Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Mexican land for each category — sliders are capped at 100% total. Mexico spans deserts, tropical rainforest, and some of the world's best solar resource.</p>
   
-  <div class="country-note"><strong>Country context:</strong> Mexico has exceptional solar irradiance across much of the country (up to 6.3 kWh/m²/day in the north) and strong wind resources in Oaxaca and Tamaulipas. Mexico's 2024 Energy Transition targets call for 35% clean electricity, with solar and wind expected to lead new capacity additions through 2035. Land use figures are approximate and sourced from official statistics.</div>
+  <div class="country-note"></div>
   <div class="disclaimer"><strong>Note:</strong> The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems.</div>
 
   <div class="data-bar">
@@ -197,6 +197,7 @@ const STRINGS = {
     h1: `<img src="https://flagcdn.com/32x24/mx.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Mexico's land actually used?`,
     subtitle: `Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Mexican land for each category — sliders are capped at 100% total. Mexico spans deserts, tropical rainforest, and some of the world's best solar resource.`,
     disclaimer: `The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. Mexico has exceptional solar irradiance across much of the country (up to 6.3 kWh/m²/day in the north) and strong wind resources in Oaxaca and Tamaulipas. Mexico's 2024 Energy Transition targets call for 35% clean electricity, with solar and wind expected to lead new capacity additions through 2035. Land use figures are approximate and sourced from official statistics.`,
+    countryNote: `Mexico has exceptional solar irradiance across much of the country (up to 6.3 kWh/m²/day in the north) and strong wind resources in Oaxaca and Tamaulipas. Mexico's 2024 Energy Transition targets call for 35% clean electricity, with solar and wind expected to lead new capacity additions through 2035. Land use figures are approximate and sourced from official statistics.`,
     submit: `Submit all guesses`,
     play_again: `Play again`,
     score: `Score`,
@@ -221,6 +222,7 @@ const STRINGS = {
     h1: `<img src="https://flagcdn.com/32x24/mx.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> ¿Cómo se usa el suelo en México?`,
     subtitle: `Inspirado en <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">el vídeo corto del Dr. Simon Clark en YouTube</a> (en inglés). Adivina el porcentaje del territorio mexicano para cada categoría — los controles están limitados al 100% en total. México abarca desiertos, selva tropical y uno de los mejores recursos solares del mundo.`,
     disclaimer: `Las cifras de solar+batería son un experimento mental generado con la ayuda de una IA, no una recomendación política. Todas las cifras se refieren a sistemas de gran escala conectados a la red. México tiene una irradiancia solar excepcional en gran parte del país (hasta 6,3 kWh/m²/día en el norte) y fuertes recursos eólicos en Oaxaca y Tamaulipas. Las metas de Transición Energética 2024 de México buscan un 35% de electricidad limpia. Los datos de uso del suelo son aproximados.`,
+    countryNote: `México cuenta con una irradiación solar excepcional en gran parte de su territorio (hasta 6.3 kWh/m²/día en el norte) y con importantes recursos eólicos en Oaxaca y Tamaulipas. Las metas de la Transición Energética 2024 de México buscan alcanzar 35% de electricidad limpia, con la energía solar y eólica liderando las nuevas incorporaciones de capacidad hasta 2035. Los datos de uso del suelo son aproximados y proceden de estadísticas oficiales.`,
     submit: `Enviar mis estimaciones`,
     play_again: `Jugar de nuevo`,
     score: `Puntuación`,
@@ -257,6 +259,8 @@ function applyLang(lang) {
   document.querySelector('.subtitle').innerHTML = s.subtitle;
   const disc = document.querySelector('.disclaimer');
   if (disc && s.disclaimer) disc.innerHTML = '<strong>Note:</strong> ' + s.disclaimer;
+  const note = document.querySelector('.country-note');
+  if (note && s.countryNote) note.innerHTML = '<strong>Country context:</strong> ' + s.countryNote;
   if (!submitted) buildCards();
   const subBtn = document.getElementById('sub-btn');
   if (subBtn && !subBtn.disabled) subBtn.textContent = s.submit;

@@ -44,6 +44,17 @@ ul li strong { color: var(--ink); font-weight: 500; }
 
   <div class="entry">
     <div class="entry-header">
+      <span class="version">v5.9.6</span>
+      <span class="date">2026</span>
+      <span class="badge badge-patch">patch</span>
+    </div>
+    <ul>
+      <li><strong>Fixed "Country context" box not translating in 12 countries</strong> - Brazil, China, Germany, Denmark, Spain, France, India, Japan, Kenya, Lebanon, Madagascar and Mexico all had a hardcoded, English-only country-context box left over from an earlier mass edit that didn't account for bilingual pages - it never updated when the language toggle was used. Each country's context text is now genuinely translated (Portuguese, Chinese, German, Danish, Spanish, French, Hindi, Japanese, Swahili, Arabic, Malagasy, Spanish) and properly wired into the language toggle alongside the rest of the page.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="entry-header">
       <span class="version">v5.9.5</span>
       <span class="date">2026</span>
       <span class="badge badge-patch">patch</span>

@@ -121,7 +121,7 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
   <h1><img src="https://flagcdn.com/32x24/in.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is India's land actually used?</h1>
   <p class="subtitle">Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Indian land for each category — sliders are capped at 100% total. India is the world's most populous country and one of its largest agricultural producers.</p>
   
-  <div class="country-note"><strong>Country context:</strong> India's energy future will require diverse renewables — it has exceptional wind resources (particularly along the coasts and in Rajasthan), significant hydropower, and is rapidly expanding both solar and wind. Land use figures are approximate and sourced from Government of India official statistics.</div>
+  <div class="country-note"></div>
   <div class="disclaimer"><strong>Note:</strong> The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems.</div>
 
   <div class="data-bar">
@@ -199,6 +199,7 @@ const STRINGS = {
     h1: `<img src="https://flagcdn.com/32x24/in.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is India's land actually used?`,
     subtitle: `Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Indian land for each category — sliders are capped at 100% total. India is the world's most populous country and one of its largest agricultural producers.`,
     disclaimer: `The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. India's energy future will require diverse renewables — it has exceptional wind resources (particularly along the coasts and in Rajasthan), significant hydropower, and is rapidly expanding both solar and wind. Land use figures are approximate and sourced from Government of India official statistics.`,
+    countryNote: `India's energy future will require diverse renewables — it has exceptional wind resources (particularly along the coasts and in Rajasthan), significant hydropower, and is rapidly expanding both solar and wind. Land use figures are approximate and sourced from Government of India official statistics.`,
     submit: `Submit all guesses`,
     play_again: `Play again`,
     score: `Score`,
@@ -223,6 +224,7 @@ const STRINGS = {
     h1: `<img src="https://flagcdn.com/32x24/in.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> भारत की भूमि का उपयोग कैसे होता है?`,
     subtitle: `<a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">डॉ. साइमन क्लार्क के YouTube शॉर्ट</a> (अंग्रेज़ी में) से प्रेरित। प्रत्येक श्रेणी के लिए भारतीय भूमि का प्रतिशत अनुमान लगाएं — स्लाइडर 100% तक सीमित हैं। भारत दुनिया का सबसे अधिक आबादी वाला देश और सबसे बड़े कृषि उत्पादकों में से एक है।`,
     disclaimer: `सौर+बैटरी के आँकड़े AI की सहायता से उत्पन्न एक विचार प्रयोग हैं, नीति अनुशंसा नहीं। सभी आँकड़े उपयोगिता-स्तर, ग्रिड-कनेक्टेड प्रणालियों से संबंधित हैं। भूमि उपयोग के आँकड़े भारत सरकार के आधिकारिक आँकड़ों पर आधारित हैं।`,
+    countryNote: `भारत के ऊर्जा भविष्य के लिए विविध नवीकरणीय स्रोतों की आवश्यकता होगी — इसके पास असाधारण पवन संसाधन हैं (विशेष रूप से तटों और राजस्थान में), महत्वपूर्ण जलविद्युत क्षमता है, और यह सौर व पवन ऊर्जा दोनों का तेज़ी से विस्तार कर रहा है। भूमि उपयोग के आंकड़े अनुमानित हैं और भारत सरकार के आधिकारिक आंकड़ों से लिए गए हैं।`,
     submit: `अनुमान जमा करें`,
     play_again: `फिर खेलें`,
     score: `स्कोर`,
@@ -259,6 +261,8 @@ function applyLang(lang) {
   document.querySelector('.subtitle').innerHTML = s.subtitle;
   const disc = document.querySelector('.disclaimer');
   if (disc && s.disclaimer) disc.innerHTML = '<strong>Note:</strong> ' + s.disclaimer;
+  const note = document.querySelector('.country-note');
+  if (note && s.countryNote) note.innerHTML = '<strong>Country context:</strong> ' + s.countryNote;
   if (!submitted) buildCards();
   const subBtn = document.getElementById('sub-btn');
   if (subBtn && !subBtn.disabled) subBtn.textContent = s.submit;

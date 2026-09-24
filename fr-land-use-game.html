@@ -121,7 +121,7 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
   <h1><img src="https://flagcdn.com/32x24/fr.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is France's land actually used?</h1>
   <p class="subtitle">Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of French land for each category — sliders are capped at 100% total.</p>
   
-  <div class="country-note"><strong>Country context:</strong> France's energy future will require diverse renewables — wind (onshore and offshore) and hydropower will likely do more heavy lifting than solar. Land use figures are approximate and sourced from Agreste and World Bank data.</div>
+  <div class="country-note"></div>
   <div class="disclaimer"><strong>Note:</strong> The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems.</div>
 
   <div class="data-bar">
@@ -199,6 +199,7 @@ const STRINGS = {
     h1: `<img src="https://flagcdn.com/32x24/fr.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is France's land actually used?`,
     subtitle: `Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of French land for each category — sliders are capped at 100% total.`,
     disclaimer: `The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. France's energy future will require diverse renewables — wind (onshore and offshore) and hydropower will likely do more heavy lifting than solar. Land use figures are approximate and sourced from Agreste and World Bank data.`,
+    countryNote: `France's energy future will require diverse renewables — wind (onshore and offshore) and hydropower will likely do more heavy lifting than solar. Land use figures are approximate and sourced from Agreste and World Bank data.`,
     submit: `Submit all guesses`,
     play_again: `Play again`,
     score: `Score`,
@@ -223,6 +224,7 @@ const STRINGS = {
     h1: `<img src="https://flagcdn.com/32x24/fr.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> Comment la France utilise-t-elle ses terres ?`,
     subtitle: `Inspiré par <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">le court-métrage YouTube du Dr Simon Clark</a> (en anglais). Devinez le pourcentage du territoire français pour chaque catégorie — les curseurs sont bloqués à 100% au total.`,
     disclaimer: `Les chiffres solaire+batterie sont une expérience de pensée générée avec l'aide d'une IA, et non une recommandation politique. Toutes les données se réfèrent à des systèmes de grande échelle raccordés au réseau. Les données d'utilisation des terres sont approximatives et issues de statistiques officielles.`,
+    countryNote: `L'avenir énergétique de la France nécessitera des énergies renouvelables diversifiées — l'éolien (terrestre et en mer) et l'hydroélectricité contribueront probablement davantage que le solaire seul. Les données d'utilisation des terres sont approximatives et proviennent d'Agreste et de la Banque mondiale.`,
     submit: `Valider mes estimations`,
     play_again: `Rejouer`,
     score: `Score`,
@@ -259,6 +261,8 @@ function applyLang(lang) {
   document.querySelector('.subtitle').innerHTML = s.subtitle;
   const disc = document.querySelector('.disclaimer');
   if (disc && s.disclaimer) disc.innerHTML = '<strong>Note:</strong> ' + s.disclaimer;
+  const note = document.querySelector('.country-note');
+  if (note && s.countryNote) note.innerHTML = '<strong>Country context:</strong> ' + s.countryNote;
   if (!submitted) buildCards();
   const subBtn = document.getElementById('sub-btn');
   if (subBtn && !subBtn.disabled) subBtn.textContent = s.submit;
