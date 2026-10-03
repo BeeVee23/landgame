@@ -122,7 +122,7 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
   <p class="subtitle">Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Lebanese land for each category — sliders are capped at 100% total. Lebanon is tiny (~1M ha, smaller than Yorkshire) so percentages feel very different here.</p>
   
   <div class="country-note"></div>
-  <div class="disclaimer"><strong>Note:</strong> The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems.</div>
+  <div class="disclaimer"></div>
 
   <div class="data-bar">
     <span class="data-info">Data: <strong>2023–2024</strong> · World Bank · FAO · LCEC · IRENA</span>
@@ -197,6 +197,7 @@ const STRINGS = {
     h1: `<img src="https://flagcdn.com/32x24/lb.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Lebanon's land actually used?`,
     subtitle: `Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Lebanese land for each category — sliders are capped at 100% total. Lebanon is tiny (~1M ha, smaller than Yorkshire) so percentages feel very different here.`,
     disclaimer: `The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. Lebanon's existing solar is almost entirely off-grid rooftop — impressive for resilience, but not a substitute for a functioning national grid. A realistic energy future for Lebanon will require grid reconstruction, diverse renewables including wind, and significant international investment.`,
+      noteLabel: 'Note', contextLabel: 'Country context',
     countryNote: `Lebanon's existing solar is almost entirely off-grid rooftop — impressive for resilience, but not a substitute for a functioning national grid. A realistic energy future for Lebanon will require grid reconstruction, diverse renewables including wind, and significant international investment.`,
     submit: `Submit all guesses`,
     play_again: `Play again`,
@@ -222,6 +223,7 @@ const STRINGS = {
     h1: `<img src="https://flagcdn.com/32x24/lb.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> كيف تُستخدم أراضي لبنان؟`,
     subtitle: `مستوحى من <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">فيديو الدكتور سايمون كلارك على يوتيوب</a> (بالإنجليزية). خمّن نسبة الأراضي اللبنانية لكل فئة — الشرائح محدودة بـ 100% إجمالاً. لبنان صغير جداً (~1 مليون هكتار، أصغر من يوركشاير) لذا تبدو النسب مختلفة هنا.`,
     disclaimer: `أرقام الطاقة الشمسية+البطاريات هي تجربة فكرية بمساعدة الذكاء الاصطناعي، وليست توصية سياسية. جميع الأرقام تشير إلى أنظمة متصلة بالشبكة على نطاق واسع. الطاقة الشمسية اللبنانية الحالية هي بصورة شبه كاملة على الأسطح وغير متصلة بالشبكة.`,
+      noteLabel: 'ملاحظة', contextLabel: 'سياق الدولة',
     countryNote: `الطاقة الشمسية الحالية في لبنان هي في معظمها أسطح منازل غير متصلة بالشبكة — وهي مثيرة للإعجاب من حيث الصمود، لكنها ليست بديلاً عن شبكة وطنية فعّالة. يتطلب مستقبل طاقة واقعي للبنان إعادة بناء الشبكة، وتنويع مصادر الطاقة المتجددة بما في ذلك الرياح، واستثمارات دولية كبيرة.`,
     submit: `إرسال تخميناتي`,
     play_again: `العب مجدداً`,
@@ -258,9 +260,9 @@ function applyLang(lang) {
   document.querySelector('h1').innerHTML = s.h1;
   document.querySelector('.subtitle').innerHTML = s.subtitle;
   const disc = document.querySelector('.disclaimer');
-  if (disc && s.disclaimer) disc.innerHTML = '<strong>Note:</strong> ' + s.disclaimer;
+  if (disc && s.disclaimer) disc.innerHTML = '<strong>' + s.noteLabel + ':</strong> ' + s.disclaimer;
   const note = document.querySelector('.country-note');
-  if (note && s.countryNote) note.innerHTML = '<strong>Country context:</strong> ' + s.countryNote;
+  if (note && s.countryNote) note.innerHTML = '<strong>' + s.contextLabel + ':</strong> ' + s.countryNote;
   if (!submitted) buildCards();
   const subBtn = document.getElementById('sub-btn');
   if (subBtn && !subBtn.disabled) subBtn.textContent = s.submit;
@@ -459,6 +461,11 @@ document.getElementById('sub-btn').addEventListener('click', function() {
   });
   const maxScore = MAIN_CATS.length * 100;
   const scorePct = Math.round((totalScore / maxScore) * 100);
+  try {
+    var __prog = JSON.parse(localStorage.getItem('landgame_progress') || '{}');
+    __prog['lb'] = Math.max(__prog['lb'] || 0, scorePct);
+    localStorage.setItem('landgame_progress', JSON.stringify(__prog));
+  } catch (e) {}
   document.getElementById('score-v').textContent = scorePct + '%';
   document.getElementById('map-title').textContent = STRINGS[currentLang].map_answer;
   document.getElementById('final').style.display = 'block';

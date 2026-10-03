@@ -111,7 +111,7 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
   <p class="subtitle">Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Danish land for each category — sliders are capped at 100% total. Denmark is one of the world's most intensively farmed nations — yet it is also a global pioneer in wind energy, generating more than half its electricity from turbines.</p>
 
   <div class="country-note"></div>
-  <div class="disclaimer"><strong>Note:</strong> The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems.</div>
+  <div class="disclaimer"></div>
 
   <div class="data-bar">
     <span class="data-info">Data: <strong>2022–2024</strong> · Eurostat LUCAS · Danmarks Statistik · Energistyrelsen · DEA</span>
@@ -184,6 +184,7 @@ const STRINGS = {
     h1: `<img src="https://flagcdn.com/32x24/dk.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Denmark's land actually used?`,
     subtitle: `Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Danish land for each category — sliders are capped at 100% total. Denmark is one of the world's most intensively farmed nations — yet it is also a global pioneer in wind energy, generating more than half its electricity from turbines.`,
     disclaimer: `The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. Denmark reached 4 GW of total solar capacity at the end of 2024 — most is rooftop; utility-scale ground-mounted is roughly 2.4 GW. Denmark's high latitude (~56°N) and frequent cloud cover mean more land is needed per TWh than in southern Europe; in practice, wind power already supplies ~55% of Danish electricity and offshore wind is expected to do most of the heavy lifting. Land use figures sourced from Eurostat LUCAS survey 2022 and Danmarks Statistik.`,
+      noteLabel: 'Note', contextLabel: 'Country context',
     countryNote: `Denmark reached 4 GW of total solar capacity at the end of 2024 — most is rooftop; utility-scale ground-mounted is roughly 2.4 GW. Denmark's high latitude (~56°N) and frequent cloud cover mean more land is needed per TWh than in southern Europe; in practice, wind power already supplies ~55% of Danish electricity and offshore wind is expected to do most of the heavy lifting. Land use figures sourced from Eurostat LUCAS survey 2022 and Danmarks Statistik.`,
     submit: `Submit all guesses`,
     play_again: `Play again`,
@@ -206,6 +207,7 @@ const STRINGS = {
     h1: `<img src="https://flagcdn.com/32x24/dk.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> Hvordan bruges Danmarks jord egentlig?`,
     subtitle: `Inspireret af <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clarks YouTube-kort</a> (på engelsk). Gæt den procentdel af det danske areal for hver kategori — reglementer er begrænset til 100 % i alt. Danmark er en af verdens mest intensivt dyrkede nationer — og alligevel en global pioner inden for vindenergi, der producerer mere end halvdelen af sin elektricitet fra vindmøller.`,
     disclaimer: `Solar+batteri-tallene er et tankeeksperiment udarbejdet med hjælp fra en AI og er ikke en politisk anbefaling. Alle solar+batteri-tal henviser til storskalasol, nettilsluttede anlæg. Danmark nåede 4 GW samlet solkapacitet i slutningen af 2024 — det meste er taganlæg; storskalasol på terræn udgør ca. 2,4 GW. Danmarks høje breddegrad (~56°N) og hyppige skydække betyder, at der kræves mere jord pr. TWh end i Sydeuropa; i praksis leverer vindkraft allerede ~55 % af dansk el, og havvind forventes at gøre det tunge løft. Arealanvendelsesdata fra Eurostat LUCAS 2022 og Danmarks Statistik.`,
+      noteLabel: 'Bemærk', contextLabel: 'Landekontekst',
     countryNote: `Danmark nåede en samlet solcellekapacitet på 4 GW ved udgangen af 2024 — størstedelen er tagmonteret; den store, jordbaserede solenergi udgør cirka 2,4 GW. Danmarks høje breddegrad (~56°N) og hyppige skydække betyder, at der kræves mere areal pr. TWh end i Sydeuropa; i praksis leverer vindkraft allerede omkring 55% af dansk elektricitet, og havvind forventes at yde det største bidrag fremover. Arealanvendelsesdata er hentet fra Eurostats LUCAS-undersøgelse 2022 og Danmarks Statistik.`,
     submit: `Indsend alle svar`,
     play_again: `Spil igen`,
@@ -241,9 +243,9 @@ function applyLang(lang) {
   document.querySelector('h1').innerHTML = s.h1;
   document.querySelector('.subtitle').innerHTML = s.subtitle;
   const disc = document.querySelector('.disclaimer');
-  if (disc && s.disclaimer) disc.innerHTML = '<strong>Note:</strong> ' + s.disclaimer;
+  if (disc && s.disclaimer) disc.innerHTML = '<strong>' + s.noteLabel + ':</strong> ' + s.disclaimer;
   const note = document.querySelector('.country-note');
-  if (note && s.countryNote) note.innerHTML = '<strong>Country context:</strong> ' + s.countryNote;
+  if (note && s.countryNote) note.innerHTML = '<strong>' + s.contextLabel + ':</strong> ' + s.countryNote;
   if (!submitted) buildCards();
   const subBtn = document.getElementById('sub-btn');
   if (subBtn && !subBtn.disabled) subBtn.textContent = s.submit;
@@ -416,6 +418,11 @@ document.getElementById('sub-btn').addEventListener('click', function() {
   });
   const maxScore = MAIN_CATS.length * 100;
   const scorePct = Math.round((totalScore / maxScore) * 100);
+  try {
+    var __prog = JSON.parse(localStorage.getItem('landgame_progress') || '{}');
+    __prog['dk'] = Math.max(__prog['dk'] || 0, scorePct);
+    localStorage.setItem('landgame_progress', JSON.stringify(__prog));
+  } catch (e) {}
   document.getElementById('score-v').textContent = scorePct + '%';
   document.getElementById('map-title').textContent = STRINGS[currentLang].map_answer;
   document.getElementById('final').style.display = 'block';

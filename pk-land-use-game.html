@@ -172,6 +172,7 @@ const STRINGS = {
     h1:`<img src="https://flagcdn.com/32x24/pk.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> پاکستان کی زمین واقعی کیسے استعمال ہوتی ہے؟`,
     subtitle:`ڈاکٹر سائمن کلارک کے <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">یوٹیوب شارٹ ویڈیو</a> (بالانگریزی) سے متاثر ہو کر۔ ہر زمرے کے لیے پاکستانی زمین کا فیصد اندازہ لگائیں — سلائیڈرز کا مجموعہ 100% تک محدود ہے۔ پاکستان دنیا کی تیزی سے ترقی کرنے والی سولر منڈیوں میں سے ایک بن چکا ہے، 2024 میں کسی بھی دوسرے ملک سے زیادہ سولر پینل درآمد کیے — تقریباً مکمل طور پر موجودہ چھتوں پر۔`,
     disclaimer:`سولر+بیٹری کے اعداد و شمار مصنوعی ذہانت کی مدد سے تیار کردہ ایک فکری تجربہ ہیں، پالیسی کی سفارش نہیں۔ تمام سولر فارم اور sol100 اعداد و شمار بڑے پیمانے کے، گرڈ سے منسلک نظاموں کا حوالہ دیتے ہیں جنہیں نئی زمین درکار ہوتی ہے۔`,
+      noteLabel: 'نوٹ', contextLabel: 'ملک کا پس منظر',
     countryNote:`پاکستان کی اصل سولر کہانی مختلف ہے: بلند بجلی کے نرخوں اور غیر یقینی گرڈ کی وجہ سے، گھرانوں اور کاروباروں نے صرف 2024 میں 17 گیگاواٹ سے زیادہ پینل درآمد کیے — برطانیہ یا کینیڈا کی پانچ سالہ مجموعی تنصیب سے بھی زیادہ — تقریباً مکمل طور پر پہلے سے موجود چھتوں پر، نئی زمین تقریباً صفر استعمال کرتے ہوئے۔ زمین کے استعمال کے اعداد و شمار ورلڈ بینک/FAO 2023 اور پاکستان بیورو آف سٹیٹسٹکس سے۔`,
     submit:`تمام جوابات جمع کروائیں`,
     play_again:`دوبارہ کھیلیں`,
@@ -190,6 +191,7 @@ const STRINGS = {
     h1:`<img src="https://flagcdn.com/32x24/pk.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Pakistan's land actually used?`,
     subtitle:`Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Pakistani land for each category — sliders are capped at 100% total. Pakistan has become one of the fastest-growing solar markets on Earth, importing more solar panels in 2024 than almost any other country — almost entirely onto existing rooftops.`,
     disclaimer:`The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery 'farm' and 'sol100' figures refer to utility-scale, grid-connected systems that require new land.`,
+      noteLabel: 'Note', contextLabel: 'Country context',
     countryNote:`Pakistan's real solar story is different: driven by high tariffs and an unreliable grid, households and businesses imported over 17 GW of panels in 2024 alone — more than the UK or Canada have installed in five years combined — overwhelmingly onto rooftops that already existed, adding essentially zero new land use. Land use figures from World Bank/FAO 2023 and the Pakistan Bureau of Statistics.`,
     submit:`Submit all guesses`,
     play_again:`Play again`,
@@ -230,8 +232,8 @@ function applyLang(lang) {
   document.documentElement.lang = lang === `local` ? `ur` : `en`;
   document.getElementById(`h1-el`).innerHTML = s.h1;
   document.getElementById(`subtitle-el`).innerHTML = s.subtitle;
-  document.getElementById(`disclaimer-el`).innerHTML = `<strong>Note:</strong> ` + s.disclaimer;
-  document.getElementById(`country-note-el`).innerHTML = `<strong>Country context:</strong> ` + s.countryNote;
+  document.getElementById(`disclaimer-el`).innerHTML = `<strong>` + s.noteLabel + `:</strong> ` + s.disclaimer;
+  document.getElementById(`country-note-el`).innerHTML = `<strong>` + s.contextLabel + `:</strong> ` + s.countryNote;
   document.getElementById(`lbl-score`).textContent = s.score;
   document.getElementById(`lbl-land`).textContent = s.land_used;
   document.getElementById(`lbl-remain`).textContent = s.remaining;
@@ -387,6 +389,11 @@ document.getElementById(`sub-btn`).addEventListener(`click`,function(){
   });
   const maxScore=MAIN_CATS.length*100;
   const scorePct=Math.round((totalScore/maxScore)*100);
+  try {
+    var __prog = JSON.parse(localStorage.getItem('landgame_progress') || '{}');
+    __prog['pk'] = Math.max(__prog['pk'] || 0, scorePct);
+    localStorage.setItem('landgame_progress', JSON.stringify(__prog));
+  } catch (e) {}
   document.getElementById(`score-v`).textContent=scorePct+`%`;
   document.getElementById(`map-title`).textContent=STRINGS[currentLang].map_answer;
   document.getElementById(`final`).style.display=`block`;

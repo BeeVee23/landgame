@@ -170,6 +170,7 @@ const CATS_EN = [
 const STRINGS = {
   local: {
     h1:`<img src="https://flagcdn.com/32x24/th.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> ที่ดินของไทยถูกใช้อย่างไรกันแน่?`, subtitle:`ได้แรงบันดาลใจจาก<a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">คลิปสั้นบน YouTube ของ ดร. Simon Clark</a> (ภาษาอังกฤษ) ลองเดาสัดส่วนพื้นที่ของไทยในแต่ละหมวดหมู่ — แถบเลื่อนรวมกันได้ไม่เกิน 100% ประเทศไทยเป็นเศรษฐกิจใหญ่อันดับสองของเอเชียตะวันออกเฉียงใต้ และเป็นหนึ่งในผู้ส่งออกข้าวชั้นนำของโลก มีพื้นที่ป่ามากกว่าที่หลายคนคาดคิด และมีโครงการพลังงานแสงอาทิตย์ที่ก้าวหน้าที่สุดแห่งหนึ่งในภูมิภาค`, disclaimer:`ตัวเลขพลังงานแสงอาทิตย์และแบตเตอรี่เป็นการทดลองทางความคิดที่สร้างขึ้นด้วยความช่วยเหลือของ AI ไม่ใช่ข้อเสนอแนะเชิงนโยบาย ตัวเลขพลังงานแสงอาทิตย์ทั้งหมดหมายถึงระบบขนาดใหญ่ที่เชื่อมต่อกับโครงข่ายไฟฟ้า`,
+      noteLabel: 'หมายเหตุ', contextLabel: 'บริบทของประเทศ',
     countryNote:`โครงสร้างพลังงานไฟฟ้าของไทยยังคงพึ่งพาก๊าซธรรมชาติเป็นหลัก (ประมาณ 64%) และถ่านหิน (ประมาณ 15%) โดยพลังงานหมุนเวียน — ส่วนใหญ่เป็นชีวมวล บวกกับพลังงานแสงอาทิตย์ที่กำลังเติบโตและพลังน้ำบางส่วน — คิดเป็นประมาณหนึ่งในห้าของการผลิตไฟฟ้า ไทยยังนำเข้าไฟฟ้าจากพลังน้ำของลาวประมาณ 15% แผนพัฒนากำลังผลิตไฟฟ้าฉบับร่างของรัฐบาลตั้งเป้าให้พลังงานหมุนเวียน มีสัดส่วน 51% ภายในปี 2580 ข้อมูลการใช้ที่ดินจาก FAO FAOSTAT และ CIA World Factbook ประมาณการปี 2561–2566 ข้อมูลไฟฟ้าจากรายงานประเทศไทยของ IRENA ปี 2566`,
     submit:`ส่งคำตอบทั้งหมด`, play_again:`เล่นอีกครั้ง`,
     score:`คะแนน`, land_used:`พื้นที่ที่ใช้ไป`, remaining:`ที่เหลืออยู่`,
@@ -184,6 +185,7 @@ const STRINGS = {
   },
   en: {
     h1:`<img src="https://flagcdn.com/32x24/th.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Thailand's land actually used?`, subtitle:`Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Thai land for each category — sliders are capped at 100% total. Thailand is Southeast Asia's second-largest economy and one of the world's top rice exporters, with more forest cover than many people expect and one of the region's most advanced solar programmes.`, disclaimer:`The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar figures refer to utility-scale, grid-connected systems.`,
+      noteLabel: 'Note', contextLabel: 'Country context',
     countryNote:`Thailand's electricity mix remains dominated by natural gas (~64%) and coal (~15%), with renewables — mostly biomass, plus growing solar and some hydro — making up roughly a fifth of generation. Thailand also imports around 15% of its electricity from Laotian hydropower. The government's draft power development plan targets 51% renewable electricity by 2037. Land use figures from FAO FAOSTAT and CIA World Factbook 2018–2023 estimates; electricity figures from IRENA Thailand Country Profile 2023.`,
     submit:`Submit all guesses`, play_again:`Play again`,
     score:`Score`, land_used:`Land used`, remaining:`Remaining`,
@@ -220,8 +222,8 @@ function applyLang(lang){
   document.documentElement.lang=lang===`local`?`th`:`en`;
   document.getElementById(`h1-el`).innerHTML=s.h1;
   document.getElementById(`subtitle-el`).innerHTML=s.subtitle;
-  document.getElementById(`disclaimer-el`).innerHTML=`<strong>Note:</strong> `+s.disclaimer;
-  document.getElementById(`country-note-el`).innerHTML=`<strong>Country context:</strong> `+s.countryNote;
+  document.getElementById(`disclaimer-el`).innerHTML=`<strong>`+s.noteLabel+`:</strong> `+s.disclaimer;
+  document.getElementById(`country-note-el`).innerHTML=`<strong>`+s.contextLabel+`:</strong> `+s.countryNote;
   document.getElementById(`lbl-score`).textContent=s.score;
   document.getElementById(`lbl-land`).textContent=s.land_used;
   document.getElementById(`lbl-remain`).textContent=s.remaining;
@@ -373,6 +375,11 @@ document.getElementById(`sub-btn`).addEventListener(`click`,function(){
   });
   const maxScore=MAIN_CATS.length*100;
   const scorePct=Math.round((totalScore/maxScore)*100);
+  try {
+    var __prog = JSON.parse(localStorage.getItem('landgame_progress') || '{}');
+    __prog['th'] = Math.max(__prog['th'] || 0, scorePct);
+    localStorage.setItem('landgame_progress', JSON.stringify(__prog));
+  } catch (e) {}
   document.getElementById(`score-v`).textContent=scorePct+`%`;
   document.getElementById(`map-title`).textContent=STRINGS[currentLang].map_answer;
   document.getElementById(`final`).style.display=`block`;

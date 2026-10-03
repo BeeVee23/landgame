@@ -200,6 +200,33 @@ html, body {
 .map-dropdown-item:hover { background: var(--paper3); }
 .map-dropdown-item.active { background: var(--accent); color: #fff; }
 .map-dropdown-item .flag { font-size: 15px; flex-shrink: 0; }
+.map-dropdown-item .done-check { margin-left: auto; color: var(--accent); font-size: 13px; flex-shrink: 0; }
+.map-dropdown-item.active .done-check { color: #fff; }
+.badge-shelf {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin: 0.6rem 0 1rem;
+  font-size: 13px;
+  color: var(--muted);
+}
+.badge-shelf .progress-count { font-weight: 600; color: var(--ink); }
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: var(--paper2);
+  border: 1px solid var(--paper3);
+  font-size: 12px;
+  opacity: 0.35;
+  filter: grayscale(1);
+  transition: opacity 0.15s, filter 0.15s;
+}
+.badge-pill.earned { opacity: 1; filter: none; background: var(--paper3); border-color: var(--accent); }
+.badge-pill .badge-emoji { font-size: 14px; }
 .map-dropdown-menu::-webkit-scrollbar { width: 8px; }
 .map-dropdown-menu::-webkit-scrollbar-track { background: transparent; }
 .map-dropdown-menu::-webkit-scrollbar-thumb { background: var(--paper3); border-radius: 4px; }
@@ -378,7 +405,7 @@ html, body {
       <span class="site-title">How is land actually used?</span>
       <div class="site-right">
         <span class="site-tag">A guessing game</span>
-        <a href="changelog.html" class="site-version" style="text-decoration:none;">v5.9.6</a>
+        <a href="changelog.html" class="site-version" style="text-decoration:none;">v5.10.0</a>
       </div>
     </div>
   </div>
@@ -392,6 +419,7 @@ html, body {
           How well do you know how your country's land is actually used?
           More countries coming soon.
         </p>
+        <div class="badge-shelf" id="badge-shelf"></div>
       </div>
 
       <div class="map-dropdown-wrap">
@@ -421,7 +449,7 @@ html, body {
   <nav class="game-nav">
     <button class="back-btn" id="back-btn">← Map</button>
     <span class="game-nav-title" id="game-nav-title"></span>
-    <a href="changelog.html" class="version-badge" style="text-decoration:none;">v5.9.6</a>
+    <a href="changelog.html" class="version-badge" style="text-decoration:none;">v5.10.0</a>
   </nav>
   <iframe id="game-iframe" src="" title="Land use game"></iframe>
 </div>
@@ -528,7 +556,9 @@ fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json')
       const [, ...nameParts] = game.title.split(' ');
       const alpha2 = ISO_TO_ALPHA2[iso];
       const flagImg = alpha2 ? `<img src="https://flagcdn.com/20x15/${alpha2}.png" alt="" style="height:15px;vertical-align:middle;border-radius:1px">` : '';
-      btn.innerHTML = `<span class="flag">${flagImg}</span>${nameParts.join(' ')}`;
+      const code = game.file.split('-')[0];
+      const checkMark = isCountryDone(code) ? '<span class="done-check">✓</span>' : '';
+      btn.innerHTML = `<span class="flag">${flagImg}</span>${nameParts.join(' ')}${checkMark}`;
       btn.addEventListener('click', () => { closeDropdown(); loadGame(iso, game); });
       btn.addEventListener('mouseenter', () => {
         svg.selectAll('.c-path').classed('highlighted', false);
@@ -791,7 +821,55 @@ window.addEventListener('hashchange', () => {
 // Back button in nav - go directly to map, don't use history.back()
 document.getElementById('back-btn').addEventListener('click', () => {
   showMap();
+  renderBadgeShelf();
 });
+
+// ---- Player completion badges ----
+// Completion is tracked per-country in localStorage by each country page itself
+// (same-origin, so it's shared across the iframe) as { "<code>": bestScorePct, ... }.
+const BADGE_TIERS = [
+  { count: 1,  emoji: '🔎', label: 'First Explorer' },
+  { count: 5,  emoji: '🥉', label: 'Getting Around' },
+  { count: 15, emoji: '🥈', label: 'Well Traveled' },
+  { count: 25, emoji: '🥇', label: 'Globe Trotter' },
+  { count: 33, emoji: '🌍', label: 'World Completionist' },
+];
+function getProgress() {
+  try { return JSON.parse(localStorage.getItem('landgame_progress') || '{}'); }
+  catch (e) { return {}; }
+}
+function isCountryDone(code) {
+  return !!getProgress()[code];
+}
+function renderBadgeShelf() {
+  const shelf = document.getElementById('badge-shelf');
+  if (!shelf) return;
+  const prog = getProgress();
+  const total = Object.keys(GAMES_BY_ISO).length;
+  const done = Object.keys(prog).length;
+  const pills = BADGE_TIERS.map(t => {
+    const earned = done >= t.count;
+    return `<span class="badge-pill${earned ? ' earned' : ''}" title="${t.label}${t.count === total ? '' : ' — ' + t.count + ' countries'}">
+      <span class="badge-emoji">${t.emoji}</span>${t.label}
+    </span>`;
+  }).join('');
+  shelf.innerHTML = `<span class="progress-count">${done} / ${total} countries completed</span>${pills}`;
+  // Keep the dropdown's checkmarks in sync too, in case it's already built
+  document.querySelectorAll('.map-dropdown-item').forEach(el => {
+    // nothing stored on the element for the code, so rebuild from id ("list-item-<iso>")
+    const iso = el.id.replace('list-item-', '');
+    const game = GAMES_BY_ISO[iso];
+    if (!game) return;
+    const code = game.file.split('-')[0];
+    const existing = el.querySelector('.done-check');
+    if (isCountryDone(code) && !existing) {
+      el.insertAdjacentHTML('beforeend', '<span class="done-check">✓</span>');
+    } else if (!isCountryDone(code) && existing) {
+      existing.remove();
+    }
+  });
+}
+renderBadgeShelf();
 
 // Dropdown toggle
 const dropBtn = document.getElementById('dropdown-btn');

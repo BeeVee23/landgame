@@ -44,6 +44,28 @@ ul li strong { color: var(--ink); font-weight: 500; }
 
   <div class="entry">
     <div class="entry-header">
+      <span class="version">v5.10.0</span>
+      <span class="date">2026</span>
+      <span class="badge badge-minor">minor</span>
+    </div>
+    <ul>
+      <li><strong>Added player completion badges</strong> - finishing a country's guesses now saves your best score for it in your browser, and the map page shows a progress count ("X / 33 countries completed") plus a row of badges you unlock as you go: First Explorer, Getting Around, Well Traveled, Globe Trotter, and World Completionist for finishing all of them. Countries you've already completed also get a small checkmark in the country dropdown. Progress is stored locally in your own browser, so it isn't shared between devices.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="entry-header">
+      <span class="version">v5.9.7</span>
+      <span class="date">2026</span>
+      <span class="badge badge-patch">patch</span>
+    </div>
+    <ul>
+      <li><strong>Fixed "Note" and "Country context" labels staying in English across all 25 bilingual countries</strong> - the body text of these boxes was already being translated correctly, but the bold label prefixes themselves ("Note:", "Country context:") were hardcoded in English directly in the page's JavaScript, so they never changed when the language toggle was used, no matter which language was selected. Every bilingual country now has these labels properly translated and wired into the toggle alongside everything else, and any leftover static English markup that briefly appeared before the page's script ran has been cleared out too.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="entry-header">
       <span class="version">v5.9.6</span>
       <span class="date">2026</span>
       <span class="badge badge-patch">patch</span>

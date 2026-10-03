@@ -170,6 +170,7 @@ const CATS_EN = [
 const STRINGS = {
   local: {
     h1:`<img src="https://flagcdn.com/32x24/ma.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> كيف تُستخدم أراضي المغرب فعلاً؟`, subtitle:`مستوحى من <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">فيديو قصير على يوتيوب لدكتور سايمون كلارك</a> (بالإنجليزية). خمّن نسبة أراضي المغرب لكل فئة — مجموع المحددات لا يتجاوز 100%. راهن المغرب على مستقبله كـ"دولة كهربائية" نظيفة، تصدّر الطاقة الشمسية وطاقة الرياح إلى الخارج — رغم إلغاء مشروعه الرائد لتصدير الكهرباء إلى بريطانيا في عام 2026. ملاحظة: تعتمد الأرقام على مساحة المغرب المعترف بها دوليًا، ولا تشمل إقليم الصحراء الغربية المتنازع عليه.`, disclaimer:`أرقام الطاقة الشمسية والبطاريات هي تجربة فكرية أُعدّت بمساعدة الذكاء الاصطناعي، وليست توصية سياسية. تشير جميع أرقام الطاقة الشمسية إلى أنظمة كبرى متصلة بالشبكة.`,
+      noteLabel: 'ملاحظة', contextLabel: 'سياق الدولة',
     countryNote:`يستهدف المغرب أن تبلغ حصة الطاقة المتجددة من القدرة الكهربائية المركبة 52% بحلول 2030، وقد أنشأ مشاريع كبرى منها مجمع نور ورزازات للطاقة الشمسية المركزة. وفي أوائل عام 2026، ألغت الحكومة البريطانية مشروع Xlinks المغربي البريطاني البالغة تكلفته 24 مليار جنيه إسترليني، والذي كان سيصدّر 3.6 غيغاواط من الطاقة الشمسية وطاقة الرياح المغربية عبر أطول كابل بحري في العالم — وهي نكسة كبيرة لطموحات المغرب كمصدّر للطاقة المتجددة، رغم استمرار التوسع المحلي في الطاقات المتجددة. بيانات استخدام الأراضي من FAO FAOSTAT والبنك الدولي 2023؛ يُلاحظ أن رقم "الأراضي الزراعية" في المغرب يشمل مساحات شاسعة من المراعي شبه القاحلة، وليس الأراضي المزروعة فقط. بيانات الكهرباء من الملف القطري لوكالة إيرينا للمغرب 2023 وإنيرداتا. ملاحظة إقليمية: تعتمد الأرقام على مساحة المغرب المعترف بها دوليًا (446,300 كم²) ولا تشمل الصحراء الغربية، وهي إقليم غير متمتع بالحكم الذاتي بحسب تصنيف الأمم المتحدة، تديره المغرب لكنه غير معترف به عالميًا كأرض مغربية ذات سيادة.`,
     submit:`إرسال جميع الإجابات`, play_again:`العب مرة أخرى`,
     score:`النتيجة`, land_used:`الأرض المستخدمة`, remaining:`المتبقي`,
@@ -184,6 +185,7 @@ const STRINGS = {
   },
   en: {
     h1:`<img src="https://flagcdn.com/32x24/ma.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Morocco's land actually used?`, subtitle:`Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Moroccan land for each category — sliders are capped at 100% total. Morocco has staked its future on becoming a clean-energy 'electrostate', exporting solar and wind power abroad — though its flagship UK export project was abandoned in 2026. Note: figures use Morocco's internationally recognized area, excluding the disputed territory of Western Sahara.`, disclaimer:`The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar figures refer to utility-scale, grid-connected systems.`,
+      noteLabel: 'Note', contextLabel: 'Country context',
     countryNote:`Morocco targets 52% renewable electricity capacity by 2030 and has built major projects including the Noor Ouarzazate CSP complex. In early 2026, the UK government abandoned the £24bn Xlinks Morocco-UK power project, which would have exported 3.6 GW of Moroccan solar and wind power via the world's longest subsea cable — a significant setback to Morocco's ambitions as a renewable energy exporter, though domestic renewable expansion continues. Land use figures from FAO FAOSTAT and World Bank 2023; note that Morocco's 'agricultural land' figure includes vast semi-arid pasture, not just cropland. Electricity figures from IRENA Morocco Country Profile 2023 and Enerdata. Territorial note: figures use Morocco's internationally recognized area (446,300 km²) and exclude Western Sahara, a UN-designated non-self-governing territory administered by Morocco but not universally recognized as Moroccan sovereign territory.`,
     submit:`Submit all guesses`, play_again:`Play again`,
     score:`Score`, land_used:`Land used`, remaining:`Remaining`,
@@ -220,8 +222,8 @@ function applyLang(lang){
   document.documentElement.lang=lang===`local`?`ar`:`en`;
   document.getElementById(`h1-el`).innerHTML=s.h1;
   document.getElementById(`subtitle-el`).innerHTML=s.subtitle;
-  document.getElementById(`disclaimer-el`).innerHTML=`<strong>Note:</strong> `+s.disclaimer;
-  document.getElementById(`country-note-el`).innerHTML=`<strong>Country context:</strong> `+s.countryNote;
+  document.getElementById(`disclaimer-el`).innerHTML=`<strong>`+s.noteLabel+`:</strong> `+s.disclaimer;
+  document.getElementById(`country-note-el`).innerHTML=`<strong>`+s.contextLabel+`:</strong> `+s.countryNote;
   document.getElementById(`lbl-score`).textContent=s.score;
   document.getElementById(`lbl-land`).textContent=s.land_used;
   document.getElementById(`lbl-remain`).textContent=s.remaining;
@@ -373,6 +375,11 @@ document.getElementById(`sub-btn`).addEventListener(`click`,function(){
   });
   const maxScore=MAIN_CATS.length*100;
   const scorePct=Math.round((totalScore/maxScore)*100);
+  try {
+    var __prog = JSON.parse(localStorage.getItem('landgame_progress') || '{}');
+    __prog['ma'] = Math.max(__prog['ma'] || 0, scorePct);
+    localStorage.setItem('landgame_progress', JSON.stringify(__prog));
+  } catch (e) {}
   document.getElementById(`score-v`).textContent=scorePct+`%`;
   document.getElementById(`map-title`).textContent=STRINGS[currentLang].map_answer;
   document.getElementById(`final`).style.display=`block`;

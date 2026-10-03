@@ -170,6 +170,7 @@ const CATS_EN = [
 const STRINGS = {
   local: {
     h1:`<img src="https://flagcdn.com/32x24/ve.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> ¿Cómo se usa realmente el territorio de Venezuela?`, subtitle:`Inspirado en el <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">video corto de YouTube del Dr. Simon Clark</a> (en inglés). Adivina el porcentaje del territorio venezolano en cada categoría — la suma de los controles no puede superar el 100%. Venezuela posee las mayores reservas de petróleo probadas del mundo, y sin embargo su red eléctrica ya funciona principalmente con hidroelectricidad limpia procedente de una sola represa.`, disclaimer:`Las cifras de energía solar y baterías son un experimento mental generado con ayuda de IA, no una recomendación política. Todas las cifras solares se refieren a sistemas de gran escala conectados a la red. Datos de uso del suelo de FAO/Wikipedia y estudios académicos de potencial solar; datos eléctricos de IRENA y estadísticas energéticas de aenert.com, 2023.`,
+      noteLabel: 'Nota', contextLabel: 'Contexto del país',
     countryNote:`El 3 de enero de 2026, fuerzas estadounidenses capturaron al presidente venezolano Nicolás Maduro en una operación militar en Caracas; el presidente Trump anunció que Estados Unidos "dirigiría el país" durante una transición, y su administración ha impulsado desde entonces una rápida expansión de la extracción petrolera venezolana, prometiendo acceso a empresas estadounidenses y una meta de inversión de 100.000 millones de dólares. Pero cerca del 90% de las reservas venezolanas son crudo extrapesado y agrio de la Faja del Orinoco — un petróleo similar al alquitrán que debe diluirse y ser sometido a mejoramiento químico o mezclado con crudos más ligeros antes de poder refinarse en productos como gasolina, diésel, combustible de aviación o materia prima para amoníaco. Los costes de equilibrio superan los 80 dólares por barril, muy por encima del crudo pesado comparable de Canadá (~55 dólares), y restaurar la producción plena tomaría años y más de 100.000 millones de dólares. Compara esto con el potencial solar de Venezuela más abajo: a diferencia del petróleo, la luz solar no necesita dilución, mejoramiento ni décadas de inversión de capital para convertirse en electricidad útil.`,
     submit:`Enviar todas las respuestas`, play_again:`Jugar de nuevo`,
     score:`Puntuación`, land_used:`Terreno usado`, remaining:`Restante`,
@@ -184,6 +185,7 @@ const STRINGS = {
   },
   en: {
     h1:`<img src="https://flagcdn.com/32x24/ve.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Venezuela's land actually used?`, subtitle:`Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Venezuelan land for each category — sliders are capped at 100% total. Venezuela holds the world's largest proven oil reserves, yet its electricity grid already runs mostly on clean hydropower from a single dam.`, disclaimer:`The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar figures refer to utility-scale, grid-connected systems. Land use figures from FAO/Wikipedia land area data and academic solar-potential studies; electricity figures from IRENA and aenert.com energy statistics, 2023.`,
+      noteLabel: 'Note', contextLabel: 'Country context',
     countryNote:`On January 3, 2026, US forces captured Venezuelan President Nicolás Maduro in a military raid on Caracas; President Trump announced the US would "run the country" during a transition, and his administration has since pushed to rapidly expand Venezuelan oil drilling, with US firms promised access and a $100 billion investment target. But roughly 90% of Venezuela's reserves are extra-heavy, sour crude from the Orinoco Belt — a tarlike oil that must be diluted and either chemically upgraded or blended with lighter crudes before it can be refined into products like petrol, diesel, jet fuel or ammonia feedstock. Breakeven costs exceed $80/barrel, well above Canada's comparable heavy oil (~$55), and restoring full production would take years and over $100 billion. Compare that to Venezuela's solar potential below: unlike the oil, sunlight needs no dilution, upgrading, or decades-long capital investment to become useful electricity.`,
     submit:`Submit all guesses`, play_again:`Play again`,
     score:`Score`, land_used:`Land used`, remaining:`Remaining`,
@@ -220,8 +222,8 @@ function applyLang(lang){
   document.documentElement.lang=lang===`local`?`es`:`en`;
   document.getElementById(`h1-el`).innerHTML=s.h1;
   document.getElementById(`subtitle-el`).innerHTML=s.subtitle;
-  document.getElementById(`country-note-el`).innerHTML=`<strong>Country context:</strong> `+s.countryNote;
-  document.getElementById(`disclaimer-el`).innerHTML=`<strong>Note:</strong> `+s.disclaimer;
+  document.getElementById(`country-note-el`).innerHTML=`<strong>`+s.contextLabel+`:</strong> `+s.countryNote;
+  document.getElementById(`disclaimer-el`).innerHTML=`<strong>`+s.noteLabel+`:</strong> `+s.disclaimer;
   document.getElementById(`lbl-score`).textContent=s.score;
   document.getElementById(`lbl-land`).textContent=s.land_used;
   document.getElementById(`lbl-remain`).textContent=s.remaining;
@@ -373,6 +375,11 @@ document.getElementById(`sub-btn`).addEventListener(`click`,function(){
   });
   const maxScore=MAIN_CATS.length*100;
   const scorePct=Math.round((totalScore/maxScore)*100);
+  try {
+    var __prog = JSON.parse(localStorage.getItem('landgame_progress') || '{}');
+    __prog['ve'] = Math.max(__prog['ve'] || 0, scorePct);
+    localStorage.setItem('landgame_progress', JSON.stringify(__prog));
+  } catch (e) {}
   document.getElementById(`score-v`).textContent=scorePct+`%`;
   document.getElementById(`map-title`).textContent=STRINGS[currentLang].map_answer;
   document.getElementById(`final`).style.display=`block`;

@@ -303,6 +303,11 @@ document.getElementById(`sub-btn`).addEventListener(`click`,function(){
   });
   const maxScore=MAIN_CATS.length*100;
   const scorePct=Math.round((totalScore/maxScore)*100);
+  try {
+    var __prog = JSON.parse(localStorage.getItem('landgame_progress') || '{}');
+    __prog['zm'] = Math.max(__prog['zm'] || 0, scorePct);
+    localStorage.setItem('landgame_progress', JSON.stringify(__prog));
+  } catch (e) {}
   document.getElementById(`score-v`).textContent=scorePct+`%`;
   document.getElementById(`map-title`).textContent=`Actual Zambian land use — proportional area map`;
   document.getElementById(`final`).style.display=`block`;

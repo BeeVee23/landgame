@@ -122,7 +122,7 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
   <p class="subtitle">Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Brazilian land for each category — sliders are capped at 100% total. Brazil contains the world's largest tropical rainforest and is one of the planet's most important agricultural producers.</p>
   
   <div class="country-note"></div>
-  <div class="disclaimer"><strong>Note:</strong> The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems.</div>
+  <div class="disclaimer"></div>
 
   <div class="data-bar">
     <span class="data-info">Data: <strong>2022–2024</strong> · IBGE · MapBiomas · ABSOLAR · World Bank</span>
@@ -197,6 +197,7 @@ const STRINGS = {
     h1: `<img src="https://flagcdn.com/32x24/br.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Brazil's land actually used?`,
     subtitle: `Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Brazilian land for each category — sliders are capped at 100% total. Brazil contains the world's largest tropical rainforest and is one of the planet's most important agricultural producers.`,
     disclaimer: `The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. Brazil already has one of the world's cleanest electricity grids — hydropower covers ~60% of generation, and wind and solar are expanding rapidly. Brazil's exceptional solar irradiance means the land needed for 100% solar electricity is remarkably small. Deforestation in the Amazon is the country's defining land use challenge. Land use figures are approximate and sourced from IBGE and World Bank data.`,
+      noteLabel: 'Note', contextLabel: 'Country context',
     countryNote: `Brazil already has one of the world's cleanest electricity grids — hydropower covers ~60% of generation, and wind and solar are expanding rapidly. Brazil's exceptional solar irradiance means the land needed for 100% solar electricity is remarkably small. Deforestation in the Amazon is the country's defining land use challenge. Land use figures are approximate and sourced from IBGE and World Bank data.`,
     submit: `Submit all guesses`,
     play_again: `Play again`,
@@ -222,6 +223,7 @@ const STRINGS = {
     h1: `<img src="https://flagcdn.com/32x24/br.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> Como o Brasil usa suas terras?`,
     subtitle: `Inspirado no <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">vídeo curto do Dr. Simon Clark no YouTube</a> (em inglês). Adivinhe a porcentagem do território brasileiro para cada categoria — os controles são limitados a 100% no total. O Brasil contém a maior floresta tropical do mundo e é um dos mais importantes produtores agrícolas do planeta.`,
     disclaimer: `Os valores de solar+bateria são um experimento mental gerado com o auxílio de uma IA, não uma recomendação de política. Todos os valores referem-se a sistemas de grande escala conectados à rede. O Brasil já possui uma das grades elétricas mais limpas do mundo — a hidrelétrica cobre ~60% da geração. Os dados de uso do solo são aproximados.`,
+      noteLabel: 'Nota', contextLabel: 'Contexto do país',
     countryNote: `O Brasil já possui uma das redes elétricas mais limpas do mundo — a hidrelétrica cobre cerca de 60% da geração, e a energia eólica e solar estão se expandindo rapidamente. A irradiação solar excepcional do Brasil significa que a terra necessária para 100% de eletricidade solar é notavelmente pequena. O desmaltamento na Amazônia é o principal desafio de uso da terra do país. Os dados de uso da terra são aproximados e provêm do IBGE e do Banco Mundial.`,
     submit: `Enviar respostas`,
     play_again: `Jogar novamente`,
@@ -258,9 +260,9 @@ function applyLang(lang) {
   document.querySelector('h1').innerHTML = s.h1;
   document.querySelector('.subtitle').innerHTML = s.subtitle;
   const disc = document.querySelector('.disclaimer');
-  if (disc && s.disclaimer) disc.innerHTML = '<strong>Note:</strong> ' + s.disclaimer;
+  if (disc && s.disclaimer) disc.innerHTML = '<strong>' + s.noteLabel + ':</strong> ' + s.disclaimer;
   const note = document.querySelector('.country-note');
-  if (note && s.countryNote) note.innerHTML = '<strong>Country context:</strong> ' + s.countryNote;
+  if (note && s.countryNote) note.innerHTML = '<strong>' + s.contextLabel + ':</strong> ' + s.countryNote;
   if (!submitted) buildCards();
   const subBtn = document.getElementById('sub-btn');
   if (subBtn && !subBtn.disabled) subBtn.textContent = s.submit;
@@ -459,6 +461,11 @@ document.getElementById('sub-btn').addEventListener('click', function() {
   });
   const maxScore = MAIN_CATS.length * 100;
   const scorePct = Math.round((totalScore / maxScore) * 100);
+  try {
+    var __prog = JSON.parse(localStorage.getItem('landgame_progress') || '{}');
+    __prog['br'] = Math.max(__prog['br'] || 0, scorePct);
+    localStorage.setItem('landgame_progress', JSON.stringify(__prog));
+  } catch (e) {}
   document.getElementById('score-v').textContent = scorePct + '%';
   document.getElementById('map-title').textContent = STRINGS[currentLang].map_answer;
   document.getElementById('final').style.display = 'block';

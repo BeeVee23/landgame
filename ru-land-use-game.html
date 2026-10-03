@@ -170,6 +170,7 @@ const CATS_EN = [
 const STRINGS = {
   local: {
     h1:`<img src="https://flagcdn.com/32x24/ru.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> Как на самом деле используются земли России?`, subtitle:`Вдохновлено <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">коротким видео доктора Саймона Кларка на YouTube</a> (на английском). Угадайте процент российских земель для каждой категории — сумма ползунков ограничена 100%. Россия содержит около 20% мировых лесов и крупнейшие запасы пресной воды в мире — однако получает лишь 0,28% электроэнергии от солнечных установок.`, disclaimer:`Цифры по солнечной энергии и накопителям — это мысленный эксперимент, подготовленный с помощью ИИ, а не политическая рекомендация. Все данные по солнечной энергии относятся к сетевым установкам промышленного масштаба.`,
+      noteLabel: 'Примечание', contextLabel: 'Контекст страны',
     countryNote:`Электроэнергетика России доминируется ископаемым топливом (природный газ ~47%, уголь ~14%), атомной (~20%) и гидроэнергетикой (~18%); доля ВИЭ (ветер+солнце) ниже 1% (IRENA 2023). Данные о землепользовании: FAO FAOSTAT 2023 и Всемирный банк. Солнечные мощности: IRENA 2023. Производство электроэнергии: Энергетический профиль России IRENA 2023.`,
     submit:`Отправить все ответы`, play_again:`Играть снова`,
     score:`Счёт`, land_used:`Использовано земли`, remaining:`Остаток`,
@@ -184,6 +185,7 @@ const STRINGS = {
   },
   en: {
     h1:`<img src="https://flagcdn.com/32x24/ru.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Russia's land actually used?`, subtitle:`Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Russian land for each category — sliders are capped at 100% total. Russia contains about 20% of the world's forests and the world's greatest freshwater reserves — yet generates just 0.28% of its electricity from solar.`, disclaimer:`The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar figures refer to utility-scale, grid-connected systems.`,
+      noteLabel: 'Note', contextLabel: 'Country context',
     countryNote:`Russia's electricity mix is dominated by fossil fuels (natural gas ~47%, coal ~14%), nuclear (~20%) and hydropower (~18%), with renewables (wind+solar) below 1% (IRENA 2023). Russia plans to raise renewables to 12.5% of capacity by 2042. Land use data from FAO FAOSTAT 2023 and World Bank. Solar capacity from IRENA 2023. Electricity generation from IRENA Energy Profile Russia 2023.`,
     submit:`Submit all guesses`, play_again:`Play again`,
     score:`Score`, land_used:`Land used`, remaining:`Remaining`,
@@ -220,8 +222,8 @@ function applyLang(lang){
   document.documentElement.lang=lang===`local`?`ru`:`en`;
   document.getElementById(`h1-el`).innerHTML=s.h1;
   document.getElementById(`subtitle-el`).innerHTML=s.subtitle;
-  document.getElementById(`disclaimer-el`).innerHTML=`<strong>Note:</strong> `+s.disclaimer;
-  document.getElementById(`country-note-el`).innerHTML=`<strong>Country context:</strong> `+s.countryNote;
+  document.getElementById(`disclaimer-el`).innerHTML=`<strong>`+s.noteLabel+`:</strong> `+s.disclaimer;
+  document.getElementById(`country-note-el`).innerHTML=`<strong>`+s.contextLabel+`:</strong> `+s.countryNote;
   document.getElementById(`lbl-score`).textContent=s.score;
   document.getElementById(`lbl-land`).textContent=s.land_used;
   document.getElementById(`lbl-remain`).textContent=s.remaining;
@@ -369,6 +371,11 @@ document.getElementById(`sub-btn`).addEventListener(`click`,function(){
   });
   const maxScore=MAIN_CATS.length*100;
   const scorePct=Math.round((totalScore/maxScore)*100);
+  try {
+    var __prog = JSON.parse(localStorage.getItem('landgame_progress') || '{}');
+    __prog['ru'] = Math.max(__prog['ru'] || 0, scorePct);
+    localStorage.setItem('landgame_progress', JSON.stringify(__prog));
+  } catch (e) {}
   document.getElementById(`score-v`).textContent=scorePct+`%`;
   document.getElementById(`map-title`).textContent=STRINGS[currentLang].map_answer;
   document.getElementById(`final`).style.display=`block`;

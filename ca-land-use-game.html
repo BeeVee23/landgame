@@ -170,6 +170,7 @@ const CATS_FR = [
 const STRINGS = {
   local: {
     h1:`<img src="https://flagcdn.com/32x24/ca.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Canada's land actually used?`, subtitle:`Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Canadian land for each category — sliders are capped at 100% total. Canada is a top-5 global oil exporter, yet its own electricity grid is already about 85% non-emitting thanks to hydropower and nuclear.`, disclaimer:`The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar figures refer to utility-scale, grid-connected systems. Land use figures from Natural Resources Canada, the Canadian Council of Forest Ministers and the World Bank/FAO; electricity figures from the Canada Energy Regulator and IEA, 2023-2025.`,
+      noteLabel: 'Remarque', contextLabel: 'Contexte du pays',
     countryNote:`Canada is a genuinely unusual case: it's one of the world's top-5 oil exporters (mostly via Alberta's oil sands), yet its own domestic electricity grid is already about 85% non-emitting - roughly 60% hydropower and 15% nuclear, concentrated in Ontario, with wind and solar making up most of the rest. That's not a contradiction so much as two separate systems: oil sands production is overwhelmingly exported rather than burned for Canadian power, while the electricity grid was built out around hydropower and nuclear decades ago, largely independent of the oil industry. The result is one of the cleanest electricity grids in the G7, alongside one of the world's largest oil export industries, operating side by side rather than in tension.`,
     submit:`Submit all guesses`, play_again:`Play again`,
     score:`Score`, land_used:`Land used`, remaining:`Remaining`,
@@ -184,6 +185,7 @@ const STRINGS = {
   },
   en: {
     h1:`<img src="https://flagcdn.com/32x24/ca.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> Comment le territoire du Canada est-il vraiment utilisé?`, subtitle:`Inspiré par le <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">court extrait YouTube du Dr Simon Clark</a> (en anglais). Devinez le pourcentage du territoire canadien pour chaque catégorie — la somme des curseurs ne peut dépasser 100%. Le Canada figure parmi les cinq premiers exportateurs mondiaux de pétrole, et pourtant son propre réseau électrique est déjà non émetteur à environ 85% grâce à l'hydroélectricité et au nucléaire.`, disclaimer:`Les chiffres de solaire et de batteries constituent une expérience de pensée générée avec l'aide de l'IA, et non une recommandation politique. Tous les chiffres solaires concernent des installations de grande échelle connectées au réseau. Données d'occupation des sols de Ressources naturelles Canada, du Conseil canadien des ministres des forêts et de la Banque mondiale/FAO; données électriques de la Régie de l'énergie du Canada et de l'AIE, 2023-2025.`,
+      noteLabel: 'Note', contextLabel: 'Country context',
     countryNote:`Le Canada représente un cas véritablement singulier : il figure parmi les cinq premiers exportateurs mondiaux de pétrole (principalement via les sables bitumineux de l'Alberta), et pourtant son propre réseau électrique domestique est déjà non émetteur à environ 85% - environ 60% d'hydroélectricité et 15% de nucléaire, concentré en Ontario, l'éolien et le solaire complétant l'essentiel du reste. Il ne s'agit pas tant d'une contradiction que de deux systèmes distincts : la production des sables bitumineux est massivement exportée plutôt que brûlée pour produire de l'électricité canadienne, tandis que le réseau électrique a été bâti autour de l'hydroélectricité et du nucléaire il y a des décennies, largement indépendant de l'industrie pétrolière. Le résultat est l'un des réseaux électriques les plus propres du G7, coexistant avec l'une des plus importantes industries d'exportation pétrolière au monde, sans que les deux ne s'opposent.`,
     submit:`Envoyer toutes les réponses`, play_again:`Rejouer`,
     score:`Pointage`, land_used:`Terrain utilisé`, remaining:`Restant`,
@@ -220,8 +222,8 @@ function applyLang(lang){
   document.documentElement.lang=lang===`local`?`en`:`fr`;
   document.getElementById(`h1-el`).innerHTML=s.h1;
   document.getElementById(`subtitle-el`).innerHTML=s.subtitle;
-  document.getElementById(`country-note-el`).innerHTML=`<strong>Country context:</strong> `+s.countryNote;
-  document.getElementById(`disclaimer-el`).innerHTML=`<strong>Note:</strong> `+s.disclaimer;
+  document.getElementById(`country-note-el`).innerHTML=`<strong>`+s.contextLabel+`:</strong> `+s.countryNote;
+  document.getElementById(`disclaimer-el`).innerHTML=`<strong>`+s.noteLabel+`:</strong> `+s.disclaimer;
   document.getElementById(`lbl-score`).textContent=s.score;
   document.getElementById(`lbl-land`).textContent=s.land_used;
   document.getElementById(`lbl-remain`).textContent=s.remaining;
@@ -373,6 +375,11 @@ document.getElementById(`sub-btn`).addEventListener(`click`,function(){
   });
   const maxScore=MAIN_CATS.length*100;
   const scorePct=Math.round((totalScore/maxScore)*100);
+  try {
+    var __prog = JSON.parse(localStorage.getItem('landgame_progress') || '{}');
+    __prog['ca'] = Math.max(__prog['ca'] || 0, scorePct);
+    localStorage.setItem('landgame_progress', JSON.stringify(__prog));
+  } catch (e) {}
   document.getElementById(`score-v`).textContent=scorePct+`%`;
   document.getElementById(`map-title`).textContent=STRINGS[currentLang].map_answer;
   document.getElementById(`final`).style.display=`block`;

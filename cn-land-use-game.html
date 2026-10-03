@@ -123,7 +123,7 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
   <p class="subtitle">Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Chinese land for each category — sliders are capped at 100% total. China is the world's most populous nation and its most dramatic renewable energy story.</p>
   <div class="solar-banner">☀️ <strong>China's solar revolution:</strong> In 2024 alone, China installed 277 GW of utility-scale solar — more than twice the entire US solar fleet, built over decades. By May 2025 China crossed 1 terawatt of total solar capacity, installing more in a single month than any other country manages in a year. China's 2030 target of 1,200 GW of solar+wind was met in 2024, nearly six years early.</div>
   <div class="country-note"></div>
-  <div class="disclaimer"><strong>Note:</strong> The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems.</div>
+  <div class="disclaimer"></div>
 
   <div class="data-bar">
     <span class="data-info">Data: <strong>2023–2024</strong> · NBS China · World Bank · EIA · NEA</span>
@@ -202,6 +202,7 @@ const STRINGS = {
     h1: `<img src="https://flagcdn.com/32x24/cn.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is China's land actually used?`,
     subtitle: `Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Chinese land for each category — sliders are capped at 100% total. China is the world's most populous nation and its most dramatic renewable energy story.`,
     disclaimer: `The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. China's energy transition is the fastest in history — but coal still supplies over 60% of electricity. Wind, hydro, and nuclear are all expanding alongside solar. China's vast deserts are already being covered with solar farms. Land use figures are approximate and sourced from World Bank and National Bureau of Statistics data.`,
+      noteLabel: 'Note', contextLabel: 'Country context',
     countryNote: `China's energy transition is the fastest in history — but coal still supplies over 60% of electricity. Wind, hydro, and nuclear are all expanding alongside solar. China's vast deserts are already being covered with solar farms. Land use figures are approximate and sourced from World Bank and National Bureau of Statistics data.`,
     submit: `Submit all guesses`,
     play_again: `Play again`,
@@ -228,6 +229,7 @@ const STRINGS = {
     h1: `<img src="https://flagcdn.com/32x24/cn.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> 中国的土地是如何使用的？`,
     subtitle: `受<a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">西蒙·克拉克博士YouTube短片</a>（英文）启发。猜测中国各类土地的百分比——滑块总计上限为100%。中国是世界上人口最多的国家，也是可再生能源发展最迅速的国家。`,
     disclaimer: `太阳能+储能数据是借助AI生成的思维实验，并非政策建议。所有数据均指与电网相连的公用事业规模系统。中国的能源转型是历史上最快的，但煤炭仍供应超过60%的电力。数据来源于国家统计局和世界银行。`,
+      noteLabel: '注', contextLabel: '国家背景',
     countryNote: `中国的能源转型是历史上速度最快的——但煤炭目前仍占电力供应的60%以上。风能、水电和核能都在与太阳能一同扩张。中国广袤的沙漠已经开始被太阳能电站覆盖。土地利用数据为近似值，来源于世界银行和国家统计局。`,
     submit: `提交答案`,
     play_again: `再玩一次`,
@@ -267,9 +269,9 @@ function applyLang(lang) {
   const banner = document.querySelector('.solar-banner');
   if (banner && s.solar_banner) { const idx = s.solar_banner.indexOf(':'); banner.innerHTML = '\u2600\ufe0f <strong>' + s.solar_banner.slice(0, idx+1) + '</strong>' + s.solar_banner.slice(idx+1); }
   const disc = document.querySelector('.disclaimer');
-  if (disc && s.disclaimer) disc.innerHTML = '<strong>Note:</strong> ' + s.disclaimer;
+  if (disc && s.disclaimer) disc.innerHTML = '<strong>' + s.noteLabel + ':</strong> ' + s.disclaimer;
   const note = document.querySelector('.country-note');
-  if (note && s.countryNote) note.innerHTML = '<strong>Country context:</strong> ' + s.countryNote;
+  if (note && s.countryNote) note.innerHTML = '<strong>' + s.contextLabel + ':</strong> ' + s.countryNote;
   if (!submitted) buildCards();
   const subBtn = document.getElementById('sub-btn');
   if (subBtn && !subBtn.disabled) subBtn.textContent = s.submit;
@@ -468,6 +470,11 @@ document.getElementById('sub-btn').addEventListener('click', function() {
   });
   const maxScore = MAIN_CATS.length * 100;
   const scorePct = Math.round((totalScore / maxScore) * 100);
+  try {
+    var __prog = JSON.parse(localStorage.getItem('landgame_progress') || '{}');
+    __prog['cn'] = Math.max(__prog['cn'] || 0, scorePct);
+    localStorage.setItem('landgame_progress', JSON.stringify(__prog));
+  } catch (e) {}
   document.getElementById('score-v').textContent = scorePct + '%';
   document.getElementById('map-title').textContent = STRINGS[currentLang].map_answer;
   document.getElementById('final').style.display = 'block';

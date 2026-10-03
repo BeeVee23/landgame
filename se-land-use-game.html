@@ -172,6 +172,7 @@ const CATS_EN = [
 const STRINGS = {
   local: {
     h1:`<img src="https://flagcdn.com/32x24/se.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> Hur används egentligen Sveriges mark?`, subtitle:`Inspirerat av <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clarks korta YouTube-klipp</a> (på engelska). Gissa hur stor andel av Sveriges yta som tillhör varje kategori — reglagen får sammanlagt uppgå till högst 100 procent. Sveriges elproduktion är redan över 90 procent fossilfri tack vare vattenkraft, kärnkraft och vindkraft — solkraft spelar knappt någon roll alls.`, disclaimer:`Siffrorna för sol och batterier är ett tankeexperiment framtaget med hjälp av AI, inte en politisk rekommendation. Alla solsiffror avser storskaliga, nätanslutna system; Sveriges elbehov är ett ungefärligt, långsiktigt typvärde. Markanvändningsdata från Skogsindustrierna, Riksskogstaxeringen (SLU) och Världsbanken/FAO; elsiffror från Energimyndigheten och IEA, 2023-2025.`,
+      noteLabel: 'Obs', contextLabel: 'Landskontext',
     countryNote:`Sverige var hem för Northvolt, som länge sågs som Europas bästa chans till en egen batterijätte för elbilar, med stöd från EU-finansiering och ett stort partnerskap med Volvo. Bolaget gick i konkurs i mars 2025 efter att ha slut på både pengar och tid, vilket kostade omkring 5 000 jobb vid gigafabriken i Skellefteå. Historien slutade dock inte där: i februari 2026 slutförde det Kalifornien-baserade bolaget Lyten ett förvärv värt omkring 5 miljarder dollar av Northvolts anläggningar i Skellefteå och Västerås, med produktionsstart och kommersiella leveranser väntade under andra halvan av 2026, samt ett återanställningsprogram med målet över 600 nya tjänster under det första året. Värt att notera: Northvolts celler använde nickel-mangan-kobolt-kemi (NMC), vilket innebar att de fortfarande var beroende av kobolt (ofta med ursprung i Kongo-Kinshasa) snarare än de koboltfria LFP-batterier som alltmer dominerar den globala elbilsmarknaden. Sveriges egen energiproduktion ser för övrigt inte alls ut som ett land som jagar solkraft: vattenkraft, kärnkraft och vindkraft levererar redan ett elnät som är över 90 procent fossilfritt.`,
     submit:`Skicka in alla svar`, play_again:`Spela igen`,
     score:`Poäng`, land_used:`Använd yta`, remaining:`Återstår`,
@@ -186,6 +187,7 @@ const STRINGS = {
   },
   en: {
     h1:`<img src="https://flagcdn.com/32x24/se.png" alt="" style="height:0.75em;vertical-align:0.1em;margin-right:0.2em"> How is Sweden's land actually used?`, subtitle:`Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank" style="color:var(--text-secondary)">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Swedish land for each category — sliders are capped at 100% total. Sweden's electricity is already over 90% fossil-free thanks to hydropower, nuclear and wind — solar barely features at all.`, disclaimer:`The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar figures refer to utility-scale, grid-connected systems; Sweden's electricity demand figure is an approximate, long-run typical value. Land use figures from the Swedish Forest Industries Federation, the Swedish National Forest Inventory (SLU) and the World Bank/FAO; electricity figures from the Swedish Energy Agency and IEA, 2023-2025.`,
+      noteLabel: 'Note', contextLabel: 'Country context',
     countryNote:`Sweden was home to Northvolt, once seen as Europe's best hope for a homegrown EV battery champion, backed by EU funding and a major Volvo partnership. It filed for bankruptcy in March 2025 after running out of money and time, costing around 5,000 jobs at its Skellefteå gigafactory. The story didn't end there: in February 2026, California-based Lyten completed a roughly $5bn acquisition of Northvolt's Skellefteå and Västerås sites, restarting production with commercial shipments expected in the second half of 2026 and a rehiring programme targeting over 600 new positions in the first year. Worth noting: Northvolt's cells used nickel-manganese-cobalt (NMC) chemistry, meaning they still relied on cobalt (often DRC-sourced) rather than the cobalt-free LFP batteries increasingly dominating the wider EV market. Separately, Sweden's own domestic energy story looks nothing like a country chasing solar: hydropower, nuclear and wind already deliver a grid that's over 90% fossil-free.`,
     submit:`Submit all guesses`, play_again:`Play again`,
     score:`Score`, land_used:`Land used`, remaining:`Remaining`,
@@ -222,8 +224,8 @@ function applyLang(lang){
   document.documentElement.lang=lang===`local`?`sv`:`en`;
   document.getElementById(`h1-el`).innerHTML=s.h1;
   document.getElementById(`subtitle-el`).innerHTML=s.subtitle;
-  document.getElementById(`country-note-el`).innerHTML=`<strong>Country context:</strong> `+s.countryNote;
-  document.getElementById(`disclaimer-el`).innerHTML=`<strong>Note:</strong> `+s.disclaimer;
+  document.getElementById(`country-note-el`).innerHTML=`<strong>`+s.contextLabel+`:</strong> `+s.countryNote;
+  document.getElementById(`disclaimer-el`).innerHTML=`<strong>`+s.noteLabel+`:</strong> `+s.disclaimer;
   document.getElementById(`lbl-score`).textContent=s.score;
   document.getElementById(`lbl-land`).textContent=s.land_used;
   document.getElementById(`lbl-remain`).textContent=s.remaining;
@@ -375,6 +377,11 @@ document.getElementById(`sub-btn`).addEventListener(`click`,function(){
   });
   const maxScore=MAIN_CATS.length*100;
   const scorePct=Math.round((totalScore/maxScore)*100);
+  try {
+    var __prog = JSON.parse(localStorage.getItem('landgame_progress') || '{}');
+    __prog['se'] = Math.max(__prog['se'] || 0, scorePct);
+    localStorage.setItem('landgame_progress', JSON.stringify(__prog));
+  } catch (e) {}
   document.getElementById(`score-v`).textContent=scorePct+`%`;
   document.getElementById(`map-title`).textContent=STRINGS[currentLang].map_answer;
   document.getElementById(`final`).style.display=`block`;
