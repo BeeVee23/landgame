@@ -14,7 +14,7 @@ LANDGAME.au = {
   "en"
  ],
  "dataInfo": "Data: <strong>2020–21</strong> · ABARES · Clean Energy Council · IEA",
- "sources": "Sources: <a href=\"https://www.agriculture.gov.au/abares/aclump/land-use/land-use-of-australia-2010-11-to-2020-21\" target=\"_blank\">ABARES Land Use of Australia 2020–21 (2024)</a> · <a href=\"https://cleanenergycouncil.org.au/news-resources/clean-energy-australia-report-2025\" target=\"_blank\">Clean Energy Council 2024</a> · Australian total land area ~769.6M ha.",
+ "sources": "Sources: <a href=\"https://www.agriculture.gov.au/abares/aclump/land-use/land-use-of-australia-2010-11-to-2020-21\" target=\"_blank\">ABARES Land Use of Australia 2020–21 (2024)</a> · <a href=\"https://cleanenergycouncil.org.au/news-resources/clean-energy-australia-report-2025\" target=\"_blank\">Clean Energy Council 2024</a> · <a href=\"https://www.iea.org/\" target=\"_blank\">IEA</a> · Australian total land area ~769.6M ha.",
  "cats": {
   "en": [
    {

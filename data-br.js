@@ -15,7 +15,7 @@ LANDGAME.br = {
   "en"
  ],
  "dataInfo": "Data: <strong>2022–2024</strong> · IBGE · MapBiomas · ABSOLAR · World Bank",
- "sources": "Sources: <a href=\"https://www.ibge.gov.br/en/statistics/economic/agriculture-forestry-and-fishing.html\" target=\"_blank\">IBGE Agriculture &amp; Forestry Statistics</a> · <a href=\"https://brasil.mapbiomas.org/en/\" target=\"_blank\">MapBiomas Land Use &amp; Cover 2023</a> · <a href=\"https://data.worldbank.org/country/BR\" target=\"_blank\">World Bank Development Indicators 2023</a> · Brazil total land area ~851M ha.",
+ "sources": "Sources: <a href=\"https://www.ibge.gov.br/en/statistics/economic/agriculture-forestry-and-fishing.html\" target=\"_blank\">IBGE Agriculture &amp; Forestry Statistics</a> · <a href=\"https://brasil.mapbiomas.org/en/\" target=\"_blank\">MapBiomas Land Use &amp; Cover 2023</a> · <a href=\"https://data.worldbank.org/country/BR\" target=\"_blank\">World Bank Development Indicators 2023</a> · <a href=\"https://mapbiomas.org/en\" target=\"_blank\">MapBiomas</a> · <a href=\"https://www.absolar.org.br/\" target=\"_blank\">ABSOLAR</a> · Brazil total land area ~851M ha.",
  "cats": {
   "pt": [
    {

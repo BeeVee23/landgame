@@ -14,7 +14,7 @@ LANDGAME.gl = {
   "en"
  ],
  "dataInfo": "Data: <strong>2023–2024</strong> · Statistics Greenland (Grønlands Statistik) · NSIDC · Nukissiorfiit · FAO",
- "sources": "Sources: <a href=\"https://stat.gl/publ/en/GF/LAN/201301GF01EN.pdf\" target=\"_blank\">Statistics Greenland Land Use 2023</a> · <a href=\"https://nsidc.org/data/nsidc-0714/versions/1\" target=\"_blank\">NSIDC Ice Sheet Extent</a> · <a href=\"https://www.nukissiorfiit.gl/en/\" target=\"_blank\">Nukissiorfiit Annual Report 2024</a> · <a href=\"https://www.irena.org/Countries/Greenland\" target=\"_blank\">IRENA Greenland</a> · Greenland total land area ~216.6M ha (2,166,086 km²).",
+ "sources": "Sources: <a href=\"https://stat.gl/publ/en/GF/LAN/201301GF01EN.pdf\" target=\"_blank\">Statistics Greenland Land Use 2023</a> · <a href=\"https://nsidc.org/data/nsidc-0714/versions/1\" target=\"_blank\">NSIDC Ice Sheet Extent</a> · <a href=\"https://www.nukissiorfiit.gl/en/\" target=\"_blank\">Nukissiorfiit Annual Report 2024</a> · <a href=\"https://www.irena.org/Countries/Greenland\" target=\"_blank\">IRENA Greenland</a> · <a href=\"https://www.fao.org/faostat/\" target=\"_blank\">FAO</a> · Greenland total land area ~216.6M ha (2,166,086 km²).",
  "cats": {
   "en": [
    {

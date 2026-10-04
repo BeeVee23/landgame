@@ -15,7 +15,7 @@ LANDGAME.es = {
   "en"
  ],
  "dataInfo": "Data: <strong>2023–2024</strong> · MAPA · Red Eléctrica · UNEF · World Bank",
- "sources": "Sources: <a href=\"https://www.mapa.gob.es/en/agricultura/temas/sistema-de-informacion-geografica-de-datos-agrarios/mca\" target=\"_blank\">MAPA Mapa de Cultivos y Aprovechamientos de España</a> · <a href=\"https://www.sistemaelectrico-ree.es/sites/default/files/2025-03/ISE_2024.pdf\" target=\"_blank\">Red Eléctrica Informe del sistema eléctrico 2024</a> · Spain total land area ~50.5M ha.",
+ "sources": "Sources: <a href=\"https://www.mapa.gob.es/en/agricultura/temas/sistema-de-informacion-geografica-de-datos-agrarios/mca\" target=\"_blank\">MAPA Mapa de Cultivos y Aprovechamientos de España</a> · <a href=\"https://www.sistemaelectrico-ree.es/sites/default/files/2025-03/ISE_2024.pdf\" target=\"_blank\">Red Eléctrica Informe del sistema eléctrico 2024</a> · <a href=\"https://www.ree.es/en\" target=\"_blank\">Red Eléctrica</a> · <a href=\"https://unef.es/\" target=\"_blank\">UNEF</a> · <a href=\"https://data.worldbank.org/\" target=\"_blank\">World Bank</a> · Spain total land area ~50.5M ha.",
  "cats": {
   "es": [
    {

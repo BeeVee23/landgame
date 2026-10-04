@@ -15,7 +15,7 @@ LANDGAME.cd = {
   "en"
  ],
  "dataInfo": "Data: <strong>2023–2026</strong> · Africa Energy Portal · FAO · IEA · Enerdata",
- "sources": "Sources: <a href=\"https://africa-energy-portal.org/aep/country/congo-democratic-republic\" target=\"_blank\">Africa Energy Portal: DRC</a> · <a href=\"https://www.iea.org/articles/democratic-republic-of-the-congo-energy-outlook\" target=\"_blank\">IEA DRC Energy Outlook</a> · <a href=\"https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries\" target=\"_blank\">IEA Global EV Outlook 2026</a> · <a href=\"https://www.wilsoncenter.org/blog-post/drc-mining-industry-child-labor-and-formalization-small-scale-mining\" target=\"_blank\">Wilson Center: DRC Mining &amp; Child Labor</a> · DRC total land area ~234.5M ha (2,344,858 km²).",
+ "sources": "Sources: <a href=\"https://africa-energy-portal.org/aep/country/congo-democratic-republic\" target=\"_blank\">Africa Energy Portal: DRC</a> · <a href=\"https://www.iea.org/articles/democratic-republic-of-the-congo-energy-outlook\" target=\"_blank\">IEA DRC Energy Outlook</a> · <a href=\"https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries\" target=\"_blank\">IEA Global EV Outlook 2026</a> · <a href=\"https://www.wilsoncenter.org/blog-post/drc-mining-industry-child-labor-and-formalization-small-scale-mining\" target=\"_blank\">Wilson Center: DRC Mining &amp; Child Labor</a> · <a href=\"https://www.fao.org/faostat/\" target=\"_blank\">FAO</a> · <a href=\"https://www.enerdata.net/\" target=\"_blank\">Enerdata</a> · DRC total land area ~234.5M ha (2,344,858 km²).",
  "cats": {
   "fr": [
    {

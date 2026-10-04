@@ -15,7 +15,7 @@ LANDGAME.lb = {
   "en"
  ],
  "dataInfo": "Data: <strong>2023–2024</strong> · World Bank · FAO · LCEC · IRENA",
- "sources": "Sources: <a href=\"https://data.worldbank.org/country/LB\" target=\"_blank\">World Bank Development Indicators 2023</a> · <a href=\"https://www.fao.org/countryprofiles/index/en/?iso3=LBN\" target=\"_blank\">FAO Lebanon Country Profile</a> · Lebanon total land area ~1.04M ha.",
+ "sources": "Sources: <a href=\"https://data.worldbank.org/country/LB\" target=\"_blank\">World Bank Development Indicators 2023</a> · <a href=\"https://www.fao.org/countryprofiles/index/en/?iso3=LBN\" target=\"_blank\">FAO Lebanon Country Profile</a> · <a href=\"https://lcec.org.lb/\" target=\"_blank\">LCEC</a> · <a href=\"https://www.irena.org/\" target=\"_blank\">IRENA</a> · Lebanon total land area ~1.04M ha.",
  "cats": {
   "ar": [
    {

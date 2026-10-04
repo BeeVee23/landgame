@@ -15,7 +15,7 @@ LANDGAME.ca = {
   "fr"
  ],
  "dataInfo": "Data: <strong>2022–2026</strong> · Natural Resources Canada · CCFM · World Bank/FAO · Canada Energy Regulator · IEA",
- "sources": "Sources: <a href=\"https://natural-resources.canada.ca/forests-forestry/state-canada-forests/much-forest-does-canada-have\" target=\"_blank\">Natural Resources Canada: Forests</a> · <a href=\"https://www.ccfm.org/healthy-forests/vast-and-abundant-forests/\" target=\"_blank\">Canadian Council of Forest Ministers</a> · <a href=\"https://data.worldbank.org/indicator/AG.LND.AGRI.ZS?locations=CA\" target=\"_blank\">World Bank/FAO: Canada Land Use</a> · <a href=\"https://www.cer-rec.gc.ca/en/data-analysis/energy-markets/provincial-territorial-energy-profiles/provincial-territorial-energy-profiles-canada.html\" target=\"_blank\">Canada Energy Regulator</a> · Canada total land area ~998M ha (9,984,670 km²).",
+ "sources": "Sources: <a href=\"https://natural-resources.canada.ca/forests-forestry/state-canada-forests/much-forest-does-canada-have\" target=\"_blank\">Natural Resources Canada: Forests</a> · <a href=\"https://www.ccfm.org/healthy-forests/vast-and-abundant-forests/\" target=\"_blank\">Canadian Council of Forest Ministers</a> · <a href=\"https://data.worldbank.org/indicator/AG.LND.AGRI.ZS?locations=CA\" target=\"_blank\">World Bank/FAO: Canada Land Use</a> · <a href=\"https://www.cer-rec.gc.ca/en/data-analysis/energy-markets/provincial-territorial-energy-profiles/provincial-territorial-energy-profiles-canada.html\" target=\"_blank\">Canada Energy Regulator</a> · <a href=\"https://www.fao.org/faostat/\" target=\"_blank\">FAO</a> · <a href=\"https://www.iea.org/\" target=\"_blank\">IEA</a> · Canada total land area ~998M ha (9,984,670 km²).",
  "cats": {
   "en": [
    {

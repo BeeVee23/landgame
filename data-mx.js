@@ -15,7 +15,7 @@ LANDGAME.mx = {
   "en"
  ],
  "dataInfo": "Data: <strong>2018–2024</strong> · CIA World Factbook · CFE · GlobalData · World Bank",
- "sources": "Sources: <a href=\"https://www.indexmundi.com/mexico/land_use.html\" target=\"_blank\">Mexico Land Use Statistics (CIA World Factbook basis)</a> · <a href=\"https://en.wikipedia.org/wiki/Solar_power_in_Mexico\" target=\"_blank\">Solar Power in Mexico 2024</a> · <a href=\"https://en.wikipedia.org/wiki/Electricity_sector_in_Mexico\" target=\"_blank\">Electricity Sector in Mexico 2024</a> · Mexico total land area ~196M ha.",
+ "sources": "Sources: <a href=\"https://www.indexmundi.com/mexico/land_use.html\" target=\"_blank\">Mexico Land Use Statistics (CIA World Factbook basis)</a> · <a href=\"https://en.wikipedia.org/wiki/Solar_power_in_Mexico\" target=\"_blank\">Solar Power in Mexico 2024</a> · <a href=\"https://en.wikipedia.org/wiki/Electricity_sector_in_Mexico\" target=\"_blank\">Electricity Sector in Mexico 2024</a> · <a href=\"https://www.cia.gov/the-world-factbook/\" target=\"_blank\">CIA World Factbook</a> · <a href=\"https://www.cfe.mx/\" target=\"_blank\">CFE</a> · <a href=\"https://www.globaldata.com/\" target=\"_blank\">GlobalData</a> · <a href=\"https://data.worldbank.org/\" target=\"_blank\">World Bank</a> · Mexico total land area ~196M ha.",
  "cats": {
   "es": [
    {

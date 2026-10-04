@@ -15,7 +15,7 @@ LANDGAME.ae = {
   "en"
  ],
  "dataInfo": "Data: <strong>2021–2026</strong> · CIA World Factbook · EIA · Enerdata · Masdar",
- "sources": "Sources: <a href=\"https://en.wikipedia.org/wiki/Geography_of_the_United_Arab_Emirates\" target=\"_blank\">Geography of the UAE</a> · <a href=\"https://www.eia.gov/international/content/analysis/countries_long/United_Arab_Emirates\" target=\"_blank\">EIA: UAE Energy Overview</a> · <a href=\"https://www.enerdata.net/estore/energy-market/united-arab-emirates/\" target=\"_blank\">Enerdata: UAE Energy Information</a> · <a href=\"https://masdar.ae/en/news\" target=\"_blank\">Masdar</a> · <a href=\"https://www.barakah.ae/en/\" target=\"_blank\">Barakah Nuclear Energy Plant</a> · UAE total land area ~8.36M ha (83,600 km²).",
+ "sources": "Sources: <a href=\"https://en.wikipedia.org/wiki/Geography_of_the_United_Arab_Emirates\" target=\"_blank\">Geography of the UAE</a> · <a href=\"https://www.eia.gov/international/content/analysis/countries_long/United_Arab_Emirates\" target=\"_blank\">EIA: UAE Energy Overview</a> · <a href=\"https://www.enerdata.net/estore/energy-market/united-arab-emirates/\" target=\"_blank\">Enerdata: UAE Energy Information</a> · <a href=\"https://masdar.ae/en/news\" target=\"_blank\">Masdar</a> · <a href=\"https://www.barakah.ae/en/\" target=\"_blank\">Barakah Nuclear Energy Plant</a> · <a href=\"https://www.cia.gov/the-world-factbook/\" target=\"_blank\">CIA World Factbook</a> · UAE total land area ~8.36M ha (83,600 km²).",
  "cats": {
   "ar": [
    {

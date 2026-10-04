@@ -15,7 +15,7 @@ LANDGAME.fr = {
   "en"
  ],
  "dataInfo": "Data: <strong>2023–2025</strong> · Agreste-Teruti · RTE · UNEF",
- "sources": "Sources: <a href=\"https://agreste.agriculture.gouv.fr/agreste-web/download/publication/publie/Chd2415/cd2024-15_teruti_2022.pdf\" target=\"_blank\">Agreste Teruti 2021–2023</a> · <a href=\"https://analysesetdonnees.rte-france.com/bilan-electrique-2024/synthese\" target=\"_blank\">RTE Bilan électrique 2024</a> · France métropolitaine total land area ~55M ha.",
+ "sources": "Sources: <a href=\"https://agreste.agriculture.gouv.fr/agreste-web/download/publication/publie/Chd2415/cd2024-15_teruti_2022.pdf\" target=\"_blank\">Agreste Teruti 2021–2023</a> · <a href=\"https://analysesetdonnees.rte-france.com/bilan-electrique-2024/synthese\" target=\"_blank\">RTE Bilan électrique 2024</a> · <a href=\"https://www.rte-france.com/en\" target=\"_blank\">RTE</a> · <a href=\"https://unef.es/\" target=\"_blank\">UNEF</a> · France métropolitaine total land area ~55M ha.",
  "cats": {
   "fr": [
    {

@@ -14,7 +14,7 @@ LANDGAME.is = {
   "en"
  ],
  "dataInfo": "Data: <strong>2018–2026</strong> · CIA World Factbook · Icelandic Government · Landsvirkjun · Statistics Iceland",
- "sources": "Sources: <a href=\"https://www.indexmundi.com/iceland/land_use.html\" target=\"_blank\">CIA World Factbook: Iceland Land Use</a> · <a href=\"https://government.is/topics/business-and-industry/energy/\" target=\"_blank\">Government of Iceland: Energy</a> · <a href=\"https://en.wikipedia.org/wiki/Energy_in_Iceland\" target=\"_blank\">Energy in Iceland</a> · <a href=\"https://guidetoiceland.is/best-of-iceland/the-ultimate-guide-to-golf-in-iceland\" target=\"_blank\">Golf in Iceland</a> · Iceland total land area ~10.3M ha (103,000 km²).",
+ "sources": "Sources: <a href=\"https://www.indexmundi.com/iceland/land_use.html\" target=\"_blank\">CIA World Factbook: Iceland Land Use</a> · <a href=\"https://government.is/topics/business-and-industry/energy/\" target=\"_blank\">Government of Iceland: Energy</a> · <a href=\"https://en.wikipedia.org/wiki/Energy_in_Iceland\" target=\"_blank\">Energy in Iceland</a> · <a href=\"https://guidetoiceland.is/best-of-iceland/the-ultimate-guide-to-golf-in-iceland\" target=\"_blank\">Golf in Iceland</a> · <a href=\"https://www.cia.gov/the-world-factbook/\" target=\"_blank\">CIA World Factbook</a> · <a href=\"https://www.landsvirkjun.com/\" target=\"_blank\">Landsvirkjun</a> · <a href=\"https://statice.is/\" target=\"_blank\">Statistics Iceland</a> · Iceland total land area ~10.3M ha (103,000 km²).",
  "cats": {
   "en": [
    {

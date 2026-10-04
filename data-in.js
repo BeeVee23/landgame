@@ -15,7 +15,7 @@ LANDGAME.in = {
   "en"
  ],
  "dataInfo": "Data: <strong>2022–23</strong> · DA&amp;FW · MNRE · Mercom India",
- "sources": "Sources: <a href=\"https://desagri.gov.in/document-report-category/land-use-statistics-at-a-glance/\" target=\"_blank\">DA&amp;FW Land Use Statistics at a Glance 2022–23</a> · <a href=\"https://mnre.gov.in/en/annual-report/\" target=\"_blank\">Ministry of New and Renewable Energy (MNRE) 2024</a> · India total land area ~328.7M ha.",
+ "sources": "Sources: <a href=\"https://desagri.gov.in/document-report-category/land-use-statistics-at-a-glance/\" target=\"_blank\">DA&amp;FW Land Use Statistics at a Glance 2022–23</a> · <a href=\"https://mnre.gov.in/en/annual-report/\" target=\"_blank\">Ministry of New and Renewable Energy (MNRE) 2024</a> · <a href=\"https://agriwelfare.gov.in/\" target=\"_blank\">DA&amp;FW</a> · <a href=\"https://www.mercomindia.com/\" target=\"_blank\">Mercom India</a> · India total land area ~328.7M ha.",
  "cats": {
   "hi": [
    {

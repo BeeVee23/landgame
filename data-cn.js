@@ -15,7 +15,7 @@ LANDGAME.cn = {
   "en"
  ],
  "dataInfo": "Data: <strong>2023–2024</strong> · NBS China · World Bank · EIA · NEA",
- "sources": "Sources: <a href=\"https://www.stats.gov.cn/english/\" target=\"_blank\">National Bureau of Statistics of China 2024</a> · <a href=\"https://data.worldbank.org/country/CN\" target=\"_blank\">World Bank Development Indicators 2023</a> · <a href=\"https://www.eia.gov/todayinenergy/detail.php?id=65064\" target=\"_blank\">EIA: China's solar capacity grew rapidly in 2024</a> · China total land area ~960M ha.",
+ "sources": "Sources: <a href=\"https://www.stats.gov.cn/english/\" target=\"_blank\">National Bureau of Statistics of China 2024</a> · <a href=\"https://data.worldbank.org/country/CN\" target=\"_blank\">World Bank Development Indicators 2023</a> · <a href=\"https://www.eia.gov/todayinenergy/detail.php?id=65064\" target=\"_blank\">EIA: China's solar capacity grew rapidly in 2024</a> · <a href=\"https://www.nea.gov.cn/\" target=\"_blank\">NEA</a> · China total land area ~960M ha.",
  "cats": {
   "zh": [
    {

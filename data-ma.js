@@ -15,7 +15,7 @@ LANDGAME.ma = {
   "en"
  ],
  "dataInfo": "Data: <strong>2023–2026</strong> · FAO FAOSTAT · World Bank · IRENA Morocco Country Profile · Enerdata",
- "sources": "Sources: <a href=\"https://www.fao.org/faostat/en/#data/RL\" target=\"_blank\">FAO FAOSTAT Land Use 2023</a> · <a href=\"https://data.worldbank.org/country/morocco\" target=\"_blank\">World Bank Morocco</a> · <a href=\"https://www.irena.org/-/media/Files/IRENA/Agency/Statistics/Statistical_Profiles/Africa/Morocco_Africa_RE_SP.pdf\" target=\"_blank\">IRENA Morocco Country Profile 2023</a> · <a href=\"https://en.wikipedia.org/wiki/Xlinks_Morocco%E2%80%93UK_Power_Project\" target=\"_blank\">Xlinks Morocco-UK Power Project</a> · Morocco total land area ~44.6M ha (446,300 km², excl. Western Sahara).",
+ "sources": "Sources: <a href=\"https://www.fao.org/faostat/en/#data/RL\" target=\"_blank\">FAO FAOSTAT Land Use 2023</a> · <a href=\"https://data.worldbank.org/country/morocco\" target=\"_blank\">World Bank Morocco</a> · <a href=\"https://www.irena.org/-/media/Files/IRENA/Agency/Statistics/Statistical_Profiles/Africa/Morocco_Africa_RE_SP.pdf\" target=\"_blank\">IRENA Morocco Country Profile 2023</a> · <a href=\"https://en.wikipedia.org/wiki/Xlinks_Morocco%E2%80%93UK_Power_Project\" target=\"_blank\">Xlinks Morocco-UK Power Project</a> · <a href=\"https://www.enerdata.net/\" target=\"_blank\">Enerdata</a> · Morocco total land area ~44.6M ha (446,300 km², excl. Western Sahara).",
  "cats": {
   "ar": [
    {

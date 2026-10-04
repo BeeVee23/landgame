@@ -14,7 +14,7 @@ LANDGAME.tv = {
   "en"
  ],
  "dataInfo": "Data: <strong>2022–2024</strong> · Tuvalu Bureau of Statistics · UNDP Tuvalu Coastal Adaptation Project · IRENA · IPCC AR6",
- "sources": "Sources: <a href=\"https://www.undp.org/pacific/projects/tuvalu-coastal-adaptation-project\" target=\"_blank\">UNDP Tuvalu Coastal Adaptation Project</a> · <a href=\"https://www.irena.org/-/media/Files/IRENA/Agency/Statistics/Statistical_Profiles/Oceania/Tuvalu_Oceania_RE_SP.pdf\" target=\"_blank\">IRENA Tuvalu Renewable Energy Profile</a> · <a href=\"https://en.wikipedia.org/wiki/Climate_change_in_Tuvalu\" target=\"_blank\">Climate Change in Tuvalu — overview</a> · <a href=\"https://www.ipcc.ch/report/ar6/wg2/\" target=\"_blank\">IPCC AR6 WG2</a> · Tuvalu total land area ~2,600 ha (26 km²), one of the four smallest countries on Earth.",
+ "sources": "Sources: <a href=\"https://www.undp.org/pacific/projects/tuvalu-coastal-adaptation-project\" target=\"_blank\">UNDP Tuvalu Coastal Adaptation Project</a> · <a href=\"https://www.irena.org/-/media/Files/IRENA/Agency/Statistics/Statistical_Profiles/Oceania/Tuvalu_Oceania_RE_SP.pdf\" target=\"_blank\">IRENA Tuvalu Renewable Energy Profile</a> · <a href=\"https://en.wikipedia.org/wiki/Climate_change_in_Tuvalu\" target=\"_blank\">Climate Change in Tuvalu — overview</a> · <a href=\"https://www.ipcc.ch/report/ar6/wg2/\" target=\"_blank\">IPCC AR6 WG2</a> · <a href=\"https://stats.gov.tv/\" target=\"_blank\">Tuvalu Bureau of Statistics</a> · Tuvalu total land area ~2,600 ha (26 km²), one of the four smallest countries on Earth.",
  "cats": {
   "en": [
    {

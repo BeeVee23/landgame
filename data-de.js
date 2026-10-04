@@ -15,7 +15,7 @@ LANDGAME.de = {
   "en"
  ],
  "dataInfo": "Data: <strong>2024</strong> · Destatis · Fraunhofer ISE · BSW Solar · Bundesnetzagentur",
- "sources": "Sources: <a href=\"https://www.destatis.de/EN/Themes/Economic-Sectors-Enterprises/Agriculture-Forestry-Fisheries/Land-Use/settlement-transportation-purposes.html\" target=\"_blank\">Destatis Land Use Statistics 2024</a> · <a href=\"https://www.ise.fraunhofer.de/en/press-media/press-releases/2026/german-public-electricity-generation-in-2025-wind-and-solar-power-take-the-lead.html\" target=\"_blank\">Fraunhofer ISE Electricity Generation 2025</a> · <a href=\"https://www.enerdata.net/publications/daily-energy-news/germany-reached-100-gw-solar-capacity-end-2024.html\" target=\"_blank\">Enerdata: Germany reaches 100 GW solar 2024</a> · Germany total land area ~35.8M ha.",
+ "sources": "Sources: <a href=\"https://www.destatis.de/EN/Themes/Economic-Sectors-Enterprises/Agriculture-Forestry-Fisheries/Land-Use/settlement-transportation-purposes.html\" target=\"_blank\">Destatis Land Use Statistics 2024</a> · <a href=\"https://www.ise.fraunhofer.de/en/press-media/press-releases/2026/german-public-electricity-generation-in-2025-wind-and-solar-power-take-the-lead.html\" target=\"_blank\">Fraunhofer ISE Electricity Generation 2025</a> · <a href=\"https://www.enerdata.net/publications/daily-energy-news/germany-reached-100-gw-solar-capacity-end-2024.html\" target=\"_blank\">Enerdata: Germany reaches 100 GW solar 2024</a> · <a href=\"https://www.solarwirtschaft.de/\" target=\"_blank\">BSW Solar</a> · <a href=\"https://www.bundesnetzagentur.de/\" target=\"_blank\">Bundesnetzagentur</a> · Germany total land area ~35.8M ha.",
  "cats": {
   "de": [
    {

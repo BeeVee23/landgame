@@ -14,7 +14,7 @@ LANDGAME.us = {
   "en"
  ],
  "dataInfo": "Data: <strong>2017–2024</strong> · USDA ERS · EIA · NREL",
- "sources": "Sources: <a href=\"https://www.ers.usda.gov/publications/109970\" target=\"_blank\">USDA ERS Major Uses of Land in the US, 2017 (EIB-275)</a> · <a href=\"https://www.eia.gov/energyexplained/solar/\" target=\"_blank\">EIA Solar Energy Data 2024</a> · US total land area ~915M ha.",
+ "sources": "Sources: <a href=\"https://www.ers.usda.gov/publications/109970\" target=\"_blank\">USDA ERS Major Uses of Land in the US, 2017 (EIB-275)</a> · <a href=\"https://www.eia.gov/energyexplained/solar/\" target=\"_blank\">EIA Solar Energy Data 2024</a> · <a href=\"https://www.nrel.gov/\" target=\"_blank\">NREL</a> · US total land area ~915M ha.",
  "cats": {
   "en": [
    {

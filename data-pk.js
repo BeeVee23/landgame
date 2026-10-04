@@ -15,7 +15,7 @@ LANDGAME.pk = {
   "en"
  ],
  "dataInfo": "Data: <strong>2023–2026</strong> · World Bank/FAO · Pakistan Bureau of Statistics · Ember · WRI",
- "sources": "Sources: <a href=\"https://data.worldbank.org/country/pakistan\" target=\"_blank\">World Bank/FAO 2023</a> · <a href=\"https://www.pbs.gov.pk/\" target=\"_blank\">Pakistan Bureau of Statistics</a> · <a href=\"https://www.wri.org/insights/pakistan-solar-energy-boom\" target=\"_blank\">WRI: Pakistan's Solar Boom</a> · <a href=\"https://ember-energy.org/latest-insights/global-electricity-review-2025/\" target=\"_blank\">Ember Global Electricity Review 2025</a> · Pakistan total land area ~77.1M ha.",
+ "sources": "Sources: <a href=\"https://data.worldbank.org/country/pakistan\" target=\"_blank\">World Bank/FAO 2023</a> · <a href=\"https://www.pbs.gov.pk/\" target=\"_blank\">Pakistan Bureau of Statistics</a> · <a href=\"https://www.wri.org/insights/pakistan-solar-energy-boom\" target=\"_blank\">WRI: Pakistan's Solar Boom</a> · <a href=\"https://ember-energy.org/latest-insights/global-electricity-review-2025/\" target=\"_blank\">Ember Global Electricity Review 2025</a> · <a href=\"https://www.fao.org/faostat/\" target=\"_blank\">FAO</a> · Pakistan total land area ~77.1M ha.",
  "cats": {
   "ur": [
    {

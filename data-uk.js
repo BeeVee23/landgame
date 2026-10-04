@@ -14,7 +14,7 @@ LANDGAME.uk = {
   "en"
  ],
  "dataInfo": "Data: <strong>2022–2024</strong> · DLUHC · DESNZ · Lancaster Univ.",
- "sources": "Sources: <a href=\"https://www.gov.uk/government/collections/land-use-change-statistics\" target=\"_blank\">MHCLG Land Use Change Statistics</a> · <a href=\"https://www.gov.uk/government/statistics/solar-photovoltaics-deployment\" target=\"_blank\">DESNZ Solar PV Deployment 2024</a> · <a href=\"https://commonslibrary.parliament.uk/research-briefings/cbp-7434/\" target=\"_blank\">House of Commons Library: Planning for solar farms</a> · UK total land area ~24.3M ha.",
+ "sources": "Sources: <a href=\"https://www.gov.uk/government/collections/land-use-change-statistics\" target=\"_blank\">MHCLG Land Use Change Statistics</a> · <a href=\"https://www.gov.uk/government/statistics/solar-photovoltaics-deployment\" target=\"_blank\">DESNZ Solar PV Deployment 2024</a> · <a href=\"https://commonslibrary.parliament.uk/research-briefings/cbp-7434/\" target=\"_blank\">House of Commons Library: Planning for solar farms</a> · <a href=\"https://www.gov.uk/government/organisations/ministry-of-housing-communities-local-government\" target=\"_blank\">DLUHC / MHCLG</a> · <a href=\"https://www.gov.uk/government/organisations/department-for-energy-security-and-net-zero\" target=\"_blank\">DESNZ</a> · <a href=\"https://www.lancaster.ac.uk/\" target=\"_blank\">Lancaster University</a> · UK total land area ~24.3M ha.",
  "cats": {
   "en": [
    {

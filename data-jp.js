@@ -15,7 +15,7 @@ LANDGAME.jp = {
   "en"
  ],
  "dataInfo": "Data: <strong>2020–2024</strong> · MLIT · MAFF · METI / Agency for Natural Resources and Energy",
- "sources": "Sources: <a href=\"https://www.mlit.go.jp/totikensangyo/content/001908011.pdf\" target=\"_blank\">MLIT Fiscal Year 2024 Trends Concerning Land</a> · <a href=\"https://www.maff.go.jp/e/data/stat/index.html\" target=\"_blank\">MAFF Agriculture and Forestry Statistics 2023</a> · <a href=\"https://www.meti.go.jp/english/policy/energy_environment/renewable/index.html\" target=\"_blank\">METI Renewable Energy Policy 2024</a> · Japan total land area ~37.8M ha.",
+ "sources": "Sources: <a href=\"https://www.mlit.go.jp/totikensangyo/content/001908011.pdf\" target=\"_blank\">MLIT Fiscal Year 2024 Trends Concerning Land</a> · <a href=\"https://www.maff.go.jp/e/data/stat/index.html\" target=\"_blank\">MAFF Agriculture and Forestry Statistics 2023</a> · <a href=\"https://www.meti.go.jp/english/policy/energy_environment/renewable/index.html\" target=\"_blank\">METI Renewable Energy Policy 2024</a> · <a href=\"https://www.enecho.meti.go.jp/en/\" target=\"_blank\">METI / Agency for Natural Resources and Energy</a> · Japan total land area ~37.8M ha.",
  "cats": {
   "ja": [
    {

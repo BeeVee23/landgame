@@ -15,7 +15,7 @@ LANDGAME.om = {
   "en"
  ],
  "dataInfo": "Data: <strong>2022–2026</strong> · FAO/AQUASTAT · World Bank · IEA · Enerdata · Carnegie Endowment",
- "sources": "Sources: <a href=\"https://www.fao.org/aquastat/en/countries-and-basins/country-profiles/country/OMN\" target=\"_blank\">FAO AQUASTAT Oman</a> · <a href=\"https://data.worldbank.org/country/oman\" target=\"_blank\">World Bank Oman</a> · <a href=\"https://www.iea.org/countries/oman\" target=\"_blank\">IEA Oman</a> · <a href=\"https://carnegieendowment.org/research/2024/05/morocco-oman-energy-transition-oil-exporting-renewable\" target=\"_blank\">Carnegie Endowment: Oman &amp; Morocco Energy Transition</a> · Oman total land area ~30.95M ha (309,500 km²).",
+ "sources": "Sources: <a href=\"https://www.fao.org/aquastat/en/countries-and-basins/country-profiles/country/OMN\" target=\"_blank\">FAO AQUASTAT Oman</a> · <a href=\"https://data.worldbank.org/country/oman\" target=\"_blank\">World Bank Oman</a> · <a href=\"https://www.iea.org/countries/oman\" target=\"_blank\">IEA Oman</a> · <a href=\"https://carnegieendowment.org/research/2024/05/morocco-oman-energy-transition-oil-exporting-renewable\" target=\"_blank\">Carnegie Endowment: Oman &amp; Morocco Energy Transition</a> · <a href=\"https://www.enerdata.net/\" target=\"_blank\">Enerdata</a> · Oman total land area ~30.95M ha (309,500 km²).",
  "cats": {
   "ar": [
    {
