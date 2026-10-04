@@ -1,4 +1,4 @@
-<!-- v6.1.0 -->
+<!-- v6.1.1 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -208,7 +208,7 @@ function applyLang(lang){
   $('lbl-land').textContent=s.land_used;
   $('lbl-remain').textContent=s.remaining;
   if(!submitted) buildCards();
-  const sb=$('sub-btn'); if(sb&&!sb.disabled) sb.textContent=s.submit;
+  const sb=$('sub-btn'); if(sb) sb.textContent=s.submit;
   const rb=$('rst-btn'); if(rb) rb.innerHTML='<i class="ti ti-refresh"></i> '+s.play_again;
   const mt=$('map-title'); if(mt) mt.textContent=submitted?s.map_answer:s.map_guess;
   const tl=$('tot-label'); if(tl){ const p=tl.textContent.split('/')[0].trim(); tl.textContent=p+' '+s.allocated; }
