@@ -44,6 +44,49 @@ ul li strong { color: var(--ink); font-weight: 500; }
 
   <div class="entry">
     <div class="entry-header">
+      <span class="version">v6.0.0</span>
+      <span class="date">2026</span>
+      <span class="badge badge-major">major</span>
+    </div>
+    <ul>
+      <li><strong>New architecture: one shared game engine plus one data file per country</strong> - all 33 games now run on a single engine (<code>engine.html</code>) and read their country-specific content (categories, answers, text in each language, map position, solar figures) from a small <code>data-xx.js</code> file. Before, every country page carried its own full copy of the game code, in three slightly different generations. The old <code>xx-land-use-game.html</code> addresses still work: they forward to the new engine, so existing links and bookmarks are unaffected.</li>
+      <li><strong>Fixed "Play again" on the US, UK and Australia pages</strong> - the button stopped with a script error on these three older pages, so a second round needed a page reload. It now works on every country.</li>
+      <li><strong>Fixed "undefined" in the allocation label on the US, UK and Australia pages</strong> - the line under the progress bar read "0.0 undefined" until you moved a slider; it now reads "0.0 / 100% allocated".</li>
+      <li><strong>Fixed missing "million" for Greenland and Nigeria</strong> - the "what if this country powered the world" text said "about 37.2 hectares" and "16.5 hectares" instead of "37.2 million hectares" and "16.5 million hectares".</li>
+      <li><strong>The grade message now follows the language toggle</strong> - after submitting, switching language previously left the grade comment ("Expert! You know…") in the old language. It now switches with everything else.</li>
+      <li><strong>The page language is now set correctly when you toggle</strong> - on the twelve older bilingual pages (Brazil, China, Germany, Denmark, Spain, France, India, Japan, Kenya, Lebanon, Madagascar, Mexico) the browser was told the page was in the local language even when English was showing. Screen readers and translation prompts now see the right language.</li>
+      <li><strong>Canada's language order is no longer a special case</strong> - it is now just two fields in Canada's data file (English first, French second), the same as every other country.</li>
+      <li><strong>"Spot on" now always matches the score</strong> - on the twelve older bilingual pages an answer could show "+0.5% off" next to a 100-point score, or "spot on!" next to 89 points. The label now follows the same rule as the score everywhere.</li>
+      <li><strong>Land-area readouts and percentages</strong> - small areas now show exact hectares (for example "~1,172 ha") instead of being rounded to the nearest thousand or shown without separators; answers that have two decimals in the data (for example 66.74%) show both; and very small values (under 0.01%) always show four decimals. UAE and Qatar's "times the country's size" figure now shows one decimal (1.4) instead of rounding to a whole number (1).</li>
+      <li><strong>After submitting, the US, UK and Australia area maps now also include the solar+battery block</strong> - as the other thirty countries already did.</li>
+      <li><strong>Progress-bar colour</strong> - the bar blends toward each country's own accent colour in all games (a few older pages used a slightly different green or blue).</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="entry-header">
+      <span class="version">v5.10.2</span>
+      <span class="date">2026</span>
+      <span class="badge badge-patch">patch</span>
+    </div>
+    <ul>
+      <li><strong>Removed the player completion badges introduced in v5.10.0</strong> - the "X / 33 countries completed" counter, the badge pills (First Explorer to World Completionist) and the per-country ✓ checkmarks in the dropdown are gone from the home page, and the 33 country pages no longer store progress in the browser. Badges will return in v6 together with the shareable result image.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="entry-header">
+      <span class="version">v5.10.1</span>
+      <span class="date">2026</span>
+      <span class="badge badge-patch">patch</span>
+    </div>
+    <ul>
+      <li><strong>Fixed Canada's "Note" and "Country context" labels being swapped between languages</strong> - Canada is the one country where English is the default ("local") language and French sits under the toggle, and the earlier label-translation fix didn't account for that, so the French labels ended up on the English page and vice versa. Both languages now show the correct labels.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="entry-header">
       <span class="version">v5.10.0</span>
       <span class="date">2026</span>
       <span class="badge badge-minor">minor</span>
