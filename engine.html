@@ -1,4 +1,4 @@
-<!-- v6.1.1 -->
+<!-- v6.1.2 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -187,8 +187,6 @@ let CATS=[...CATS_BY[currentLang]], MAIN_CATS=CATS.filter(c=>!c.readOnly);
 document.title=D.title;
 if(D.accent) document.documentElement.style.setProperty('--accent',D.accent);
 if(D.fontExtra) document.documentElement.style.setProperty('--font-extra',D.fontExtra);
-$('data-info-el').innerHTML=D.dataInfo;
-$('source-el').innerHTML=D.sources;
 const ACC=(D.accent||'#c4a96b').replace('#','');
 const ACC_RGB=[0,2,4].map(i=>parseInt(ACC.substr(i,2),16));
 $('tot-fill').style.background=D.accent||'#c4a96b';
@@ -201,13 +199,15 @@ function applyLang(lang){
   MAIN_CATS=CATS.filter(c=>!c.readOnly);
   document.documentElement.lang=lang;
   $('h1-el').innerHTML=s.h1;
+  { const tmp=document.createElement('div'); tmp.innerHTML=s.h1; document.title=(flagEmoji(D.alpha2)+' '+tmp.textContent.trim()).trim(); }
   $('subtitle-el').innerHTML=s.subtitle;
   const dis=$('disclaimer-el'); dis.innerHTML=s.disclaimer?'<strong>'+s.noteLabel+':</strong> '+s.disclaimer:''; dis.style.display=s.disclaimer?'':'none';
   const cn=$('country-note-el'); cn.innerHTML=s.countryNote?'<strong>'+s.contextLabel+':</strong> '+s.countryNote:''; cn.style.display=s.countryNote?'':'none';
+  paintLabels();
   $('lbl-score').textContent=s.score;
   $('lbl-land').textContent=s.land_used;
   $('lbl-remain').textContent=s.remaining;
-  if(!submitted) buildCards();
+  if(!submitted) buildCards(); else relocalizeSubmitted();
   const sb=$('sub-btn'); if(sb) sb.textContent=s.submit;
   const rb=$('rst-btn'); if(rb) rb.innerHTML='<i class="ti ti-refresh"></i> '+s.play_again;
   const mt=$('map-title'); if(mt) mt.textContent=submitted?s.map_answer:s.map_guess;
@@ -283,7 +283,7 @@ function buildCards(){
   const container=$('cards'); container.innerHTML='';
   CATS.forEach(cat=>{
     const div=document.createElement('div');
-    div.className='card'+(cat.isSolar?' solar-card':'');
+    div.className='card'+(cat.isSolar?' solar-card':''); div.dataset.cat=cat.id;
     if(cat.readOnly){
       div.innerHTML='<div class="card-head"><span class="card-icon">'+cat.icon+'</span><span class="card-name">'+cat.name+'</span></div>'+
         '<div class="card-desc">'+cat.desc+'</div>'+
@@ -328,6 +328,56 @@ function gradeLabel(s){
   for(const [t,l] of labels){ if(s>=t) return l; }
   return labels[labels.length-1][1];
 }
+
+// Page "furniture" that is not part of a country's own text (result lines, Data/Sources labels), per language
+const FURN={
+  en:{answer:'Answer',spot:'spot on!',off:'off',pts:'pts',data:'Data',sources:'Sources'},
+  ar:{answer:'الإجابة',spot:'مضبوط تمامًا!',off:'فرق',pts:'نقطة',data:'البيانات',sources:'المصادر'},
+  pt:{answer:'Resposta',spot:'na mosca!',off:'de diferença',pts:'pts',data:'Dados',sources:'Fontes'},
+  fr:{answer:'Réponse',spot:'pile dans le mille !',off:'d’écart',pts:'pts',data:'Données',sources:'Sources'},
+  zh:{answer:'答案',spot:'完全正确！',off:'偏差',pts:'分',data:'数据',sources:'来源'},
+  de:{answer:'Antwort',spot:'Volltreffer!',off:'Abweichung',pts:'Pkt.',data:'Daten',sources:'Quellen'},
+  da:{answer:'Svar',spot:'helt rigtigt!',off:'afvigelse',pts:'point',data:'Data',sources:'Kilder'},
+  es:{answer:'Respuesta',spot:'¡exacto!',off:'de diferencia',pts:'pts',data:'Datos',sources:'Fuentes'},
+  hu:{answer:'Válasz',spot:'pontos!',off:'eltérés',pts:'pont',data:'Adatok',sources:'Források'},
+  hi:{answer:'उत्तर',spot:'बिल्कुल सही!',off:'अंतर',pts:'अंक',data:'डेटा',sources:'स्रोत'},
+  ja:{answer:'正解',spot:'ぴったり！',off:'差',pts:'点',data:'データ',sources:'出典'},
+  sw:{answer:'Jibu',spot:'sahihi kabisa!',off:'tofauti',pts:'pointi',data:'Data',sources:'Vyanzo'},
+  mg:{answer:'Valiny',spot:'marina tokoa!',off:'tsy fitoviana',pts:'isa',data:'Data',sources:'Loharano'},
+  ur:{answer:'جواب',spot:'بالکل درست!',off:'فرق',pts:'پوائنٹس',data:'ڈیٹا',sources:'ذرائع'},
+  ru:{answer:'Ответ',spot:'в точку!',off:'отклонение',pts:'баллов',data:'Данные',sources:'Источники'},
+  sv:{answer:'Svar',spot:'helt rätt!',off:'avvikelse',pts:'poäng',data:'Data',sources:'Källor'},
+  th:{answer:'คำตอบ',spot:'ตรงเป๊ะ!',off:'ผลต่าง',pts:'คะแนน',data:'ข้อมูล',sources:'แหล่งที่มา'}
+};
+function F(){ return FURN[currentLang]||FURN.en; }
+const guesses={};
+function resultHtml(cat){
+  const f=F(), dp=dpFor(cat,cat.answer);
+  if(cat.readOnly){
+    return '<span style="color:var(--text-secondary)">'+f.answer+': <strong style="color:#BA7517">'+fmtAns(cat,dp)+'%</strong>'+haLabel(cat)+' — '+STRINGS[currentLang].sol100_reveal+'</span>';
+  }
+  const guess=guesses[cat.id]||0, pts=scoreGuess(guess,cat.answer,cat.step,cat.max);
+  const diff=guess-cat.answer, sign=diff>=0?'+':'';
+  const diffStr=Math.abs(diff)<cat.step*1.5?f.spot:sign+diff.toFixed(dp)+'% '+f.off;
+  const col=pts>=80?'#3b6d11':pts>=40?'#ba7517':'#a32d2d';
+  return '<span style="color:var(--text-secondary)">'+f.answer+': <strong style="color:var(--text-primary)">'+fmtAns(cat,dp)+'%</strong>'+haLabel(cat)+'</span> <span style="color:'+col+';font-weight:500">'+diffStr+' → '+pts+' '+f.pts+'</span>';
+}
+// After submitting: refresh everything that was generated from the old language (card text, result lines)
+function relocalizeSubmitted(){
+  CATS.forEach(cat=>{
+    const card=document.querySelector('#cards .card[data-cat="'+cat.id+'"]'); if(!card) return;
+    const nm=card.querySelector('.card-name'); if(nm) nm.textContent=cat.name;
+    const ds=card.querySelector('.card-desc'); if(ds) ds.textContent=cat.desc;
+    const sl=card.querySelector('input[type=range]'); if(sl) sl.setAttribute('aria-label',cat.name);
+    const sn=card.querySelector('.solar-note'); if(sn&&cat.solarNote) sn.innerHTML=cat.solarNote;
+    const rl=$('rl-'+cat.id); if(rl) rl.innerHTML=resultHtml(cat);
+  });
+}
+function paintLabels(){
+  const f=F();
+  $('data-info-el').innerHTML=D.dataInfo.replace(/^(\s*)Data:/,'$1'+f.data+':');
+  $('source-el').innerHTML=D.sources.replace(/^(\s*)Sources:/,'$1'+f.sources+':');
+}
 function fmtAns(cat,dp){
   const r=Math.round(cat.answer*100)/100;
   const dec=((String(r).split('.')[1])||'').length;
@@ -345,18 +395,14 @@ $('sub-btn').addEventListener('click',function(){
   CATS.forEach(cat=>{
     const rl=$('rl-'+cat.id); if(!rl) return;
     rl.style.display='block';
-    const dp=dpFor(cat,cat.answer);
     if(cat.readOnly){
       const hint=$('rl-hint-sol100'); if(hint) hint.style.display='none';
-      rl.innerHTML='<span style="color:var(--text-secondary)">Answer: <strong style="color:#BA7517">'+fmtAns(cat,dp)+'%</strong>'+haLabel(cat)+' — '+STRINGS[currentLang].sol100_reveal+'</span>';
+      rl.innerHTML=resultHtml(cat);
       return;
     }
-    const guess=getVal(cat); const pts=scoreGuess(guess,cat.answer,cat.step,cat.max);
-    totalScore+=pts;
-    const diff=guess-cat.answer; const sign=diff>=0?'+':'';
-    const diffStr=Math.abs(diff)<cat.step*1.5?'spot on!':sign+diff.toFixed(dp)+'% off';
-    const col=pts>=80?'#3b6d11':pts>=40?'#ba7517':'#a32d2d';
-    rl.innerHTML='<span style="color:var(--text-secondary)">Answer: <strong style="color:var(--text-primary)">'+fmtAns(cat,dp)+'%</strong>'+haLabel(cat)+'</span> <span style="color:'+col+';font-weight:500">'+diffStr+' → '+pts+'pts</span>';
+    const guess=getVal(cat); guesses[cat.id]=guess;
+    totalScore+=scoreGuess(guess,cat.answer,cat.step,cat.max);
+    rl.innerHTML=resultHtml(cat);
     const sl=$('sl-'+cat.id); if(sl) sl.disabled=true;
   });
   const maxScore=MAIN_CATS.length*100;
@@ -598,7 +644,7 @@ async function renderShareImage(){
   ctx.fillText(t.country,nameX,100);
   // permalink (top-right)
   ctx.direction='ltr'; ctx.textAlign='right'; ctx.fillStyle='rgba(255,255,255,0.6)'; ctx.font='500 24px '+FONT;
-  ctx.fillText('landgame.benvost.fr/#'+(a2||CC),W-60,92);
+  ctx.fillText('benvost.fr/land-use-map/',W-60,92);
   // caption (bottom-right)
   const capW=540, capX=W-60;
   ctx.direction=rtl?'rtl':'ltr'; ctx.textAlign=rtl?'right':'left';
@@ -633,7 +679,7 @@ if(navigator.share){
     this.disabled=true;
     try{
       const file=await makeShareFile(), t=shareText(currentLang);
-      const data={title:t.country,text:t.congrats+' '+t.body,url:'https://landgame.benvost.fr/#'+(D.alpha2||CC)};
+      const data={title:t.country,text:t.congrats+' '+t.body,url:'https://benvost.fr/land-use-map/'};
       if(navigator.canShare&&navigator.canShare({files:[file]})) data.files=[file];
       await navigator.share(data);
     }catch(e){ /* cancelled or unsupported */ }
