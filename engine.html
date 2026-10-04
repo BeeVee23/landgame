@@ -1,4 +1,4 @@
-<!-- v6.0.0 -->
+<!-- v6.1.0 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,6 +94,10 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 .world-foot { font-size: 11px; color: var(--text-secondary); line-height: 1.5; font-style: italic; }
 .source { font-size: 11px; color: var(--text-secondary); margin-top: 1.5rem; line-height: 1.8; }
 .source a { color: var(--text-secondary); text-decoration: underline; }
+.share-row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: .9rem; }
+.share-row button { padding: 8px 14px; font-size: 13px; font-family: inherit; background: var(--bg-primary); border: 0.5px solid var(--border-md); border-radius: var(--radius-md); color: var(--text-primary); cursor: pointer; }
+.share-row button:hover:not(:disabled) { background: var(--bg-tertiary); }
+.share-row button:disabled { opacity: .5; cursor: default; }
 :lang(th) .subtitle { line-height: 1.6; }
 :lang(th) .disclaimer, :lang(th) .country-note { line-height: 1.8; }
 :lang(th) .card-desc, :lang(th) .res-line { line-height: 1.5; }
@@ -136,6 +140,7 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
     <div class="final-num" id="final-n">0%</div>
     <div class="final-sub" id="final-sub">accuracy score</div>
     <div class="final-grade" id="final-g"></div>
+    <div class="share-row"><button id="share-btn" type="button"></button><button id="dl-btn" type="button"></button></div>
   </div>
   <div class="world-card" id="world-card" style="display:none">
     <div class="world-head" id="world-head"></div>
@@ -209,7 +214,7 @@ function applyLang(lang){
   const tl=$('tot-label'); if(tl){ const p=tl.textContent.split('/')[0].trim(); tl.textContent=p+' '+s.allocated; }
   const h=$('rl-hint-sol100'); if(h&&h.style.display!=='none') h.textContent=s.reveal;
   $('final-sub').textContent=s.out_of;
-  if(submitted) $('final-g').textContent=gradeLabel(parseInt($('final-n').textContent,10));
+  if(submitted){ $('final-g').textContent=gradeLabel(parseInt($('final-n').textContent,10)); applyShareLabels(); }
   if(LANGS.length>1) $('lang-btn').textContent=s.btn_label;
   if($('world-card').style.display==='block') renderWorldCard();
   drawMap();
@@ -362,6 +367,7 @@ $('sub-btn').addEventListener('click',function(){
   $('final-n').textContent=scorePct+'%';
   $('final-g').textContent=gradeLabel(scorePct);
   $('rst-btn').style.display='inline-flex';
+  saveProgress(scorePct); applyShareLabels();
   this.disabled=true; drawMap(); renderWorldCard();
 });
 $('rst-btn').addEventListener('click',function(){
@@ -466,6 +472,174 @@ async function drawGeoInset(haNeeded){
   const lbl=document.createElement('div'); lbl.className='geo-inset-label'; lbl.textContent=STRINGS[currentLang].zoomed;
   cont.style.position='relative'; cont.appendChild(lbl);
 }
+
+
+// ---- Progress (read by the home page badges) + shareable result image (v6.1) ----
+function saveProgress(scorePct){
+  try{
+    const k='landgame_progress';
+    const p=JSON.parse(localStorage.getItem(k)||'{}');
+    p[CC]=Math.max(p[CC]||0,scorePct);
+    localStorage.setItem(k,JSON.stringify(p));
+  }catch(e){}
+}
+
+const SHARE_I18N={
+  en:{congrats:'Congratulations!',body:'Your estimation for powering {c} with just solar and batteries was {p} correct!',share:'Share result',download:'Download image'},
+  ar:{congrats:'تهانينا!',body:'كانت تقديراتك لتشغيل {c} بالطاقة الشمسية والبطاريات فقط صحيحة بنسبة {p}!',share:'شارك النتيجة',download:'تنزيل الصورة'},
+  pt:{congrats:'Parabéns!',body:'Sua estimativa para abastecer {c} apenas com energia solar e baterias estava {p} correta!',share:'Compartilhar resultado',download:'Baixar imagem'},
+  fr:{congrats:'Félicitations !',body:'Votre estimation pour alimenter {c} uniquement avec du solaire et des batteries était juste à {p} !',share:'Partager le résultat',download:'Télécharger l’image',pct:' %'},
+  zh:{congrats:'恭喜！',body:'您对仅用太阳能和电池为{c}供电的估算，准确度为{p}！',share:'分享结果',download:'下载图片'},
+  de:{congrats:'Glückwunsch!',body:'Deine Schätzung, {c} nur mit Solarstrom und Batterien zu versorgen, lag zu {p} richtig!',share:'Ergebnis teilen',download:'Bild herunterladen'},
+  da:{congrats:'Tillykke!',body:'Dit bud på at forsyne {c} udelukkende med sol og batterier var {p} korrekt!',share:'Del resultat',download:'Download billede'},
+  es:{congrats:'¡Felicidades!',body:'¡Tu estimación para abastecer a {c} solo con energía solar y baterías acertó en un {p}!',share:'Compartir resultado',download:'Descargar imagen'},
+  hu:{congrats:'Gratulálunk!',body:'{c} kizárólag napenergiával és akkumulátorokkal történő ellátására adott becslésed {p}-ban volt helyes!',share:'Eredmény megosztása',download:'Kép letöltése'},
+  hi:{congrats:'बधाई हो!',body:'केवल सौर ऊर्जा और बैटरियों से {c} को बिजली देने का आपका अनुमान {p} सही था!',share:'परिणाम साझा करें',download:'छवि डाउनलोड करें'},
+  ja:{congrats:'おめでとうございます！',body:'{c}を太陽光と蓄電池だけでまかなうというあなたの予想は、{p}正確でした！',share:'結果を共有',download:'画像をダウンロード'},
+  sw:{congrats:'Hongera!',body:'Makadirio yako ya kuwasha {c} kwa nishati ya jua na betri pekee yalikuwa sahihi kwa {p}!',share:'Shiriki matokeo',download:'Pakua picha'},
+  mg:{congrats:'Arahaba!',body:'Marina {p} ny tombanao ny amin’ny famatsiana herinaratra an’i {c} amin’ny masoandro sy ny bateria ihany!',share:'Zarao ny valiny',download:'Alaivo ny sary'},
+  ur:{congrats:'مبارک ہو!',body:'صرف شمسی توانائی اور بیٹریوں سے {c} کو بجلی فراہم کرنے کا آپ کا اندازہ {p} درست تھا!',share:'نتیجہ شیئر کریں',download:'تصویر ڈاؤن لوڈ کریں'},
+  ru:{congrats:'Поздравляем!',body:'Ваша оценка электроснабжения страны «{c}» только за счёт солнца и аккумуляторов оказалась верной на {p}!',share:'Поделиться результатом',download:'Скачать изображение'},
+  sv:{congrats:'Grattis!',body:'Din uppskattning av att försörja {c} enbart med sol och batterier stämde till {p}!',share:'Dela resultat',download:'Ladda ner bild'},
+  th:{congrats:'ขอแสดงความยินดี!',body:'การประเมินของคุณเกี่ยวกับการจ่ายไฟให้{c}ด้วยพลังงานแสงอาทิตย์และแบตเตอรี่เพียงอย่างเดียวแม่นยำ {p}!',share:'แชร์ผลลัพธ์',download:'ดาวน์โหลดรูปภาพ'}
+};
+const RTL_LANGS=['ar','ur'];
+const NO_SPACE_LANGS=['zh','ja','th'];
+function shareText(lang){
+  const T=SHARE_I18N[lang]||SHARE_I18N.en;
+  const pct=$('final-n').textContent.replace('%','').trim();
+  const p=pct+(T.pct||'%');
+  const c=STRINGS[lang].country_label;
+  return {congrats:T.congrats, body:T.body.replace('{c}',c).replace('{p}',p), pct:pct+'%', country:c, share:T.share, download:T.download};
+}
+function applyShareLabels(){
+  const t=shareText(currentLang);
+  $('share-btn').textContent=t.share;
+  $('dl-btn').textContent=t.download;
+}
+function flagEmoji(a2){ return a2&&a2.length===2?String.fromCodePoint(...[...a2.toUpperCase()].map(ch=>127397+ch.charCodeAt(0))):''; }
+function tokens(text,lang){
+  try{ if(window.Intl&&Intl.Segmenter) return [...new Intl.Segmenter(lang,{granularity:'word'}).segment(text)].map(x=>x.segment); }catch(e){}
+  return text.match(/[\d.,]+%?|[\s\S]/gu)||[];
+}
+function wrapLines(ctx,text,maxW,noSpace,lang){
+  const units=noSpace?tokens(text,lang):text.split(' ');
+  const lines=[]; let cur='';
+  units.forEach(u=>{
+    const test=cur?(noSpace?cur+u:cur+' '+u):u;
+    if(ctx.measureText(test).width>maxW&&cur){ lines.push(cur); cur=u; } else cur=test;
+  });
+  if(cur) lines.push(cur);
+  return lines;
+}
+function loadFlagImage(a2){
+  return new Promise(res=>{
+    if(!a2) return res(null);
+    const im=new Image(); im.crossOrigin='anonymous';
+    const t=setTimeout(()=>res(null),2500);
+    im.onload=()=>{clearTimeout(t);res(im)}; im.onerror=()=>{clearTimeout(t);res(null)};
+    im.src='https://flagcdn.com/w80/'+a2+'.png';
+  });
+}
+async function renderShareImage(){
+  const lang=currentLang, t=shareText(lang), rtl=RTL_LANGS.includes(lang);
+  const W=1200,H=630;
+  const cv=document.createElement('canvas'); cv.width=W; cv.height=H;
+  const ctx=cv.getContext('2d');
+  const FONT='-apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", "Noto Sans Thai", "Noto Sans Arabic", "Noto Sans JP", "Noto Sans SC", "Noto Sans Devanagari", Roboto, Arial, sans-serif';
+  // background
+  const g=ctx.createLinearGradient(0,0,W,H); g.addColorStop(0,'#0d1b2a'); g.addColorStop(1,'#16283c');
+  ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+  // huge faint percentage watermark
+  ctx.textBaseline='alphabetic'; ctx.textAlign='left'; ctx.direction='ltr';
+  ctx.fillStyle='rgba(255,255,255,0.07)';
+  let fs=430; ctx.font='800 '+fs+'px '+FONT;
+  while(ctx.measureText(t.pct).width>W-60&&fs>120){ fs-=20; ctx.font='800 '+fs+'px '+FONT; }
+  ctx.fillText(t.pct,30,H-60);
+  // country silhouette (needs the world outlines used by the "powered the world" map)
+  try{
+    const topo=await getWorldTopo();
+    const feat=topojson.feature(topo,topo.objects.countries).features.find(f=>String(f.id).padStart(3,'0')===COUNTRY_ISO);
+    if(feat){
+      const box=[[620,110],[1140,320]];
+      const proj=d3.geoAzimuthalEqualArea().rotate([-COUNTRY_LON,-COUNTRY_LAT]).fitExtent(box,feat);
+      const path=d3.geoPath(proj,ctx);
+      ctx.beginPath(); path(feat);
+      ctx.fillStyle='rgba(138,152,170,0.38)'; ctx.fill();
+      ctx.lineWidth=1.5; ctx.strokeStyle='rgba(200,210,224,0.55)'; ctx.stroke();
+      // scale bar
+      const c0=proj([COUNTRY_LON,COUNTRY_LAT]);
+      const kmPerDeg=111.32*Math.max(0.2,Math.cos(COUNTRY_LAT*Math.PI/180));
+      let barKm=null,barPx=0;
+      for(const k of [10,25,50,100,200,250,500,1000,2000,5000]){
+        const c1=proj([COUNTRY_LON+k/kmPerDeg,COUNTRY_LAT]);
+        if(!c0||!c1) break;
+        const px=Math.hypot(c1[0]-c0[0],c1[1]-c0[1]);
+        if(px>=70&&px<=220){ barKm=k; barPx=px; break; }
+      }
+      if(barKm){
+        const bx=1140-barPx, by=342;
+        ctx.fillStyle='rgba(255,255,255,0.8)'; ctx.fillRect(bx,by,barPx,3);
+        ctx.fillRect(bx,by-5,2,13); ctx.fillRect(bx+barPx-2,by-5,2,13);
+        ctx.font='500 20px '+FONT; ctx.textAlign='right'; ctx.direction='ltr'; ctx.fillText(barKm.toLocaleString(lang)+' km',bx-12,by+7);
+      }
+    }
+  }catch(e){}
+  // flag + country name (top-left)
+  const a2=D.alpha2;
+  const flag=await loadFlagImage(a2);
+  ctx.textAlign=rtl?'right':'left';
+  ctx.direction=rtl?'rtl':'ltr';
+  ctx.fillStyle='#ffffff'; ctx.font='700 56px '+FONT; ctx.textBaseline='alphabetic';
+  let x=60, nameX=60;
+  if(flag){ const fh=48, fw=Math.round(fh*flag.width/flag.height); ctx.save(); ctx.direction='ltr'; ctx.drawImage(flag,60,52,fw,fh); ctx.restore(); nameX=60+fw+20; }
+  else { const em=flagEmoji(a2); if(em){ ctx.save(); ctx.direction='ltr'; ctx.textAlign='left'; ctx.fillText(em,60,100); const w=ctx.measureText(em).width; ctx.restore(); nameX=60+w+16; } }
+  ctx.textAlign='left'; ctx.direction=rtl?'rtl':'ltr';
+  ctx.fillText(t.country,nameX,100);
+  // permalink (top-right)
+  ctx.direction='ltr'; ctx.textAlign='right'; ctx.fillStyle='rgba(255,255,255,0.6)'; ctx.font='500 24px '+FONT;
+  ctx.fillText('landgame.benvost.fr/#'+(a2||CC),W-60,92);
+  // caption (bottom-right)
+  const capW=540, capX=W-60;
+  ctx.direction=rtl?'rtl':'ltr'; ctx.textAlign=rtl?'right':'left';
+  const ax=rtl?capX:capX-capW;
+  ctx.font='400 30px '+FONT;
+  const lines=wrapLines(ctx,t.body,capW,NO_SPACE_LANGS.includes(lang),lang);
+  const lh=40, headH=50;
+  let y=H-56-(lines.length-1)*lh;
+  ctx.fillStyle='rgba(255,255,255,0.92)';
+  lines.forEach((ln,i)=>ctx.fillText(ln,ax,y+i*lh));
+  ctx.font='700 38px '+FONT; ctx.fillStyle='#EF9F27';
+  ctx.fillText(t.congrats,ax,y-headH+8);
+  return new Promise(res=>cv.toBlob(b=>res(b),'image/png'));
+}
+async function makeShareFile(){
+  const blob=await renderShareImage();
+  if(!blob) throw new Error('no image');
+  return new File([blob],'landgame-'+CC+'-'+currentLang+'.png',{type:'image/png'});
+}
+function downloadFile(file){
+  const url=URL.createObjectURL(file);
+  const a=document.createElement('a'); a.href=url; a.download=file.name; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),4000);
+}
+$('dl-btn').addEventListener('click',async function(){
+  this.disabled=true;
+  try{ downloadFile(await makeShareFile()); }catch(e){}
+  this.disabled=false;
+});
+if(navigator.share){
+  $('share-btn').addEventListener('click',async function(){
+    this.disabled=true;
+    try{
+      const file=await makeShareFile(), t=shareText(currentLang);
+      const data={title:t.country,text:t.congrats+' '+t.body,url:'https://landgame.benvost.fr/#'+(D.alpha2||CC)};
+      if(navigator.canShare&&navigator.canShare({files:[file]})) data.files=[file];
+      await navigator.share(data);
+    }catch(e){ /* cancelled or unsupported */ }
+    this.disabled=false;
+  });
+} else { $('share-btn').style.display='none'; }
 
 buildCards(); updateTotal(); setTimeout(drawMap,50); applyLang(currentLang);
 window.addEventListener('resize',drawMap);

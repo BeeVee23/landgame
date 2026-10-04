@@ -200,6 +200,33 @@ html, body {
 .map-dropdown-item:hover { background: var(--paper3); }
 .map-dropdown-item.active { background: var(--accent); color: #fff; }
 .map-dropdown-item .flag { font-size: 15px; flex-shrink: 0; }
+.map-dropdown-item .done-check { margin-left: auto; color: var(--accent); font-size: 13px; flex-shrink: 0; }
+.map-dropdown-item.active .done-check { color: #fff; }
+.badge-shelf {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin: 0.6rem 0 1rem;
+  font-size: 13px;
+  color: var(--muted);
+}
+.badge-shelf .progress-count { font-weight: 600; color: var(--ink); }
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: var(--paper2);
+  border: 1px solid var(--paper3);
+  font-size: 12px;
+  opacity: 0.35;
+  filter: grayscale(1);
+  transition: opacity 0.15s, filter 0.15s;
+}
+.badge-pill.earned { opacity: 1; filter: none; background: var(--paper3); border-color: var(--accent); }
+.badge-pill .badge-emoji { font-size: 14px; }
 .map-dropdown-menu::-webkit-scrollbar { width: 8px; }
 .map-dropdown-menu::-webkit-scrollbar-track { background: transparent; }
 .map-dropdown-menu::-webkit-scrollbar-thumb { background: var(--paper3); border-radius: 4px; }
@@ -277,6 +304,22 @@ html, body {
   flex-shrink: 0;
 }
 .footer-note a { color: var(--muted); }
+
+
+/* ── DATA SOURCES PANEL ── */
+.sources-toggle { background: none; border: 0; color: var(--muted); font: inherit; text-decoration: underline; cursor: pointer; padding: 0; }
+.sources-toggle:hover { color: var(--ink); }
+#sources-panel { display: none; position: fixed; left: 0; right: 0; bottom: 0; max-height: 62vh; overflow: auto; background: var(--paper); border-top: 1px solid var(--paper3); box-shadow: 0 -10px 30px rgba(0,0,0,0.14); padding: 0.9rem 1.5rem 1.5rem; z-index: 200; }
+#sources-panel.open { display: block; }
+.src-head { display: flex; align-items: center; justify-content: space-between; }
+.src-head h3 { font-size: 14px; font-weight: 600; }
+#sources-close { background: none; border: 0; color: var(--muted); font-size: 16px; cursor: pointer; padding: 2px 6px; }
+.src-intro { font-size: 11px; color: var(--muted); margin: 0.3rem 0 0.8rem; line-height: 1.6; }
+.src-grid { columns: 3 280px; column-gap: 1.75rem; font-size: 11px; line-height: 1.65; color: var(--muted); }
+.src-country { break-inside: avoid; margin-bottom: 0.75rem; }
+.src-country b { display: block; color: var(--ink); font-weight: 600; }
+.src-country a { color: var(--muted); }
+.src-country a:hover { color: var(--ink); }
 
 /* ── GAME VIEW ── */
 #game-view {
@@ -378,7 +421,7 @@ html, body {
       <span class="site-title">How is land actually used?</span>
       <div class="site-right">
         <span class="site-tag">A guessing game</span>
-        <a href="changelog.html" class="site-version" style="text-decoration:none;">v6.0.1</a>
+        <a href="changelog.html" class="site-version" style="text-decoration:none;">v6.1.0</a>
       </div>
     </div>
   </div>
@@ -392,6 +435,7 @@ html, body {
           How well do you know how your country's land is actually used?
           More countries coming soon.
         </p>
+        <div class="badge-shelf" id="badge-shelf"></div>
       </div>
 
       <div class="map-dropdown-wrap">
@@ -411,17 +455,56 @@ html, body {
 
   <div class="footer-note">
     Inspired by <a href="https://www.youtube.com/shorts/CgeTvQPwNCg" target="_blank">Dr. Simon Clark</a> ·
-    Data from USDA ERS, DLUHC, Agreste-Teruti, DESNZ, EIA, ABARES, Red Eléctrica ·
+    <button type="button" class="sources-toggle" id="sources-toggle">Data sources</button> ·
     More countries coming soon
   </div>
 </div>
 
+  <div id="sources-panel" role="dialog" aria-label="Data sources">
+    <div class="src-head"><h3>Data sources</h3><button type="button" id="sources-close" aria-label="Close">✕</button></div>
+    <p class="src-intro">Every organisation named in a country's "Data:" line is linked here, together with the specific reports and pages behind the numbers. The same list appears under each game.</p>
+    <div class="src-grid">
+<div class="src-country"><b>🇦🇺 Australia</b><a href="https://www.agriculture.gov.au/abares/aclump/land-use/land-use-of-australia-2010-11-to-2020-21" target="_blank">ABARES Land Use of Australia 2020–21 (2024)</a> · <a href="https://cleanenergycouncil.org.au/news-resources/clean-energy-australia-report-2025" target="_blank">Clean Energy Council 2024</a> · <a href="https://www.iea.org/" target="_blank">IEA</a></div>
+<div class="src-country"><b>🇧🇷 Brazil</b><a href="https://www.ibge.gov.br/en/statistics/economic/agriculture-forestry-and-fishing.html" target="_blank">IBGE Agriculture &amp; Forestry Statistics</a> · <a href="https://brasil.mapbiomas.org/en/" target="_blank">MapBiomas Land Use &amp; Cover 2023</a> · <a href="https://data.worldbank.org/country/BR" target="_blank">World Bank Development Indicators 2023</a> · <a href="https://mapbiomas.org/en" target="_blank">MapBiomas</a> · <a href="https://www.absolar.org.br/" target="_blank">ABSOLAR</a></div>
+<div class="src-country"><b>🇨🇦 Canada</b><a href="https://natural-resources.canada.ca/forests-forestry/state-canada-forests/much-forest-does-canada-have" target="_blank">Natural Resources Canada: Forests</a> · <a href="https://www.ccfm.org/healthy-forests/vast-and-abundant-forests/" target="_blank">Canadian Council of Forest Ministers</a> · <a href="https://data.worldbank.org/indicator/AG.LND.AGRI.ZS?locations=CA" target="_blank">World Bank/FAO: Canada Land Use</a> · <a href="https://www.cer-rec.gc.ca/en/data-analysis/energy-markets/provincial-territorial-energy-profiles/provincial-territorial-energy-profiles-canada.html" target="_blank">Canada Energy Regulator</a> · <a href="https://www.fao.org/faostat/" target="_blank">FAO</a> · <a href="https://www.iea.org/" target="_blank">IEA</a></div>
+<div class="src-country"><b>🇨🇳 China</b><a href="https://www.stats.gov.cn/english/" target="_blank">National Bureau of Statistics of China 2024</a> · <a href="https://data.worldbank.org/country/CN" target="_blank">World Bank Development Indicators 2023</a> · <a href="https://www.eia.gov/todayinenergy/detail.php?id=65064" target="_blank">EIA: China's solar capacity grew rapidly in 2024</a> · <a href="https://www.nea.gov.cn/" target="_blank">NEA</a></div>
+<div class="src-country"><b>🇩🇰 Denmark</b><a href="https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Land_use_statistics" target="_blank">Eurostat LUCAS Land Use Survey 2022</a> · <a href="https://www.dst.dk/en" target="_blank">Danmarks Statistik</a> · <a href="https://ens.dk/en" target="_blank">Danish Energy Agency (Energistyrelsen) 2024</a> · <a href="https://www.iea.org/countries/denmark" target="_blank">IEA Denmark 2024</a></div>
+<div class="src-country"><b>🇨🇩 DR Congo</b><a href="https://africa-energy-portal.org/aep/country/congo-democratic-republic" target="_blank">Africa Energy Portal: DRC</a> · <a href="https://www.iea.org/articles/democratic-republic-of-the-congo-energy-outlook" target="_blank">IEA DRC Energy Outlook</a> · <a href="https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries" target="_blank">IEA Global EV Outlook 2026</a> · <a href="https://www.wilsoncenter.org/blog-post/drc-mining-industry-child-labor-and-formalization-small-scale-mining" target="_blank">Wilson Center: DRC Mining &amp; Child Labor</a> · <a href="https://www.fao.org/faostat/" target="_blank">FAO</a> · <a href="https://www.enerdata.net/" target="_blank">Enerdata</a></div>
+<div class="src-country"><b>🇪🇬 Egypt</b><a href="https://www.fao.org/faostat/en/" target="_blank">FAO FAOSTAT 2022</a> · <a href="https://www.capmas.gov.eg/" target="_blank">CAPMAS Egypt</a> · <a href="https://www.irena.org/countries/Egypt" target="_blank">IRENA Egypt 2024</a> · <a href="https://www.iea.org/countries/egypt" target="_blank">IEA Egypt 2024</a></div>
+<div class="src-country"><b>🇫🇷 France</b><a href="https://agreste.agriculture.gouv.fr/agreste-web/download/publication/publie/Chd2415/cd2024-15_teruti_2022.pdf" target="_blank">Agreste Teruti 2021–2023</a> · <a href="https://analysesetdonnees.rte-france.com/bilan-electrique-2024/synthese" target="_blank">RTE Bilan électrique 2024</a> · <a href="https://www.rte-france.com/en" target="_blank">RTE</a> · <a href="https://unef.es/" target="_blank">UNEF</a></div>
+<div class="src-country"><b>🇩🇪 Germany</b><a href="https://www.destatis.de/EN/Themes/Economic-Sectors-Enterprises/Agriculture-Forestry-Fisheries/Land-Use/settlement-transportation-purposes.html" target="_blank">Destatis Land Use Statistics 2024</a> · <a href="https://www.ise.fraunhofer.de/en/press-media/press-releases/2026/german-public-electricity-generation-in-2025-wind-and-solar-power-take-the-lead.html" target="_blank">Fraunhofer ISE Electricity Generation 2025</a> · <a href="https://www.enerdata.net/publications/daily-energy-news/germany-reached-100-gw-solar-capacity-end-2024.html" target="_blank">Enerdata: Germany reaches 100 GW solar 2024</a> · <a href="https://www.solarwirtschaft.de/" target="_blank">BSW Solar</a> · <a href="https://www.bundesnetzagentur.de/" target="_blank">Bundesnetzagentur</a></div>
+<div class="src-country"><b>🇬🇱 Greenland</b><a href="https://stat.gl/publ/en/GF/LAN/201301GF01EN.pdf" target="_blank">Statistics Greenland Land Use 2023</a> · <a href="https://nsidc.org/data/nsidc-0714/versions/1" target="_blank">NSIDC Ice Sheet Extent</a> · <a href="https://www.nukissiorfiit.gl/en/" target="_blank">Nukissiorfiit Annual Report 2024</a> · <a href="https://www.irena.org/Countries/Greenland" target="_blank">IRENA Greenland</a> · <a href="https://www.fao.org/faostat/" target="_blank">FAO</a></div>
+<div class="src-country"><b>🇭🇺 Hungary</b><a href="https://www.fao.org/faostat/en/#data/RL" target="_blank">FAO FAOSTAT Land Use</a> · <a href="https://www.ksh.hu/energy" target="_blank">KSH Hungary Energy Statistics</a> · <a href="https://www.cleanenergywire.org/factsheets/clew-guide-hungary-energy-transition" target="_blank">Clean Energy Wire: Hungary Energy Transition</a> · <a href="https://www.iea.org/countries/hungary" target="_blank">IEA Hungary</a></div>
+<div class="src-country"><b>🇮🇸 Iceland</b><a href="https://www.indexmundi.com/iceland/land_use.html" target="_blank">CIA World Factbook: Iceland Land Use</a> · <a href="https://government.is/topics/business-and-industry/energy/" target="_blank">Government of Iceland: Energy</a> · <a href="https://en.wikipedia.org/wiki/Energy_in_Iceland" target="_blank">Energy in Iceland</a> · <a href="https://guidetoiceland.is/best-of-iceland/the-ultimate-guide-to-golf-in-iceland" target="_blank">Golf in Iceland</a> · <a href="https://www.cia.gov/the-world-factbook/" target="_blank">CIA World Factbook</a> · <a href="https://www.landsvirkjun.com/" target="_blank">Landsvirkjun</a> · <a href="https://statice.is/" target="_blank">Statistics Iceland</a></div>
+<div class="src-country"><b>🇮🇳 India</b><a href="https://desagri.gov.in/document-report-category/land-use-statistics-at-a-glance/" target="_blank">DA&amp;FW Land Use Statistics at a Glance 2022–23</a> · <a href="https://mnre.gov.in/en/annual-report/" target="_blank">Ministry of New and Renewable Energy (MNRE) 2024</a> · <a href="https://agriwelfare.gov.in/" target="_blank">DA&amp;FW</a> · <a href="https://www.mercomindia.com/" target="_blank">Mercom India</a></div>
+<div class="src-country"><b>🇯🇵 Japan</b><a href="https://www.mlit.go.jp/totikensangyo/content/001908011.pdf" target="_blank">MLIT Fiscal Year 2024 Trends Concerning Land</a> · <a href="https://www.maff.go.jp/e/data/stat/index.html" target="_blank">MAFF Agriculture and Forestry Statistics 2023</a> · <a href="https://www.meti.go.jp/english/policy/energy_environment/renewable/index.html" target="_blank">METI Renewable Energy Policy 2024</a> · <a href="https://www.enecho.meti.go.jp/en/" target="_blank">METI / Agency for Natural Resources and Energy</a></div>
+<div class="src-country"><b>🇰🇪 Kenya</b><a href="https://data.worldbank.org/country/KE" target="_blank">World Bank Development Indicators 2023</a> · <a href="https://www.fao.org/countryprofiles/index/en/?iso3=KEN" target="_blank">FAO Kenya Country Profile</a> · <a href="https://www.epra.go.ke/electricity/" target="_blank">EPRA Kenya Electricity Report 2024</a></div>
+<div class="src-country"><b>🇱🇧 Lebanon</b><a href="https://data.worldbank.org/country/LB" target="_blank">World Bank Development Indicators 2023</a> · <a href="https://www.fao.org/countryprofiles/index/en/?iso3=LBN" target="_blank">FAO Lebanon Country Profile</a> · <a href="https://lcec.org.lb/" target="_blank">LCEC</a> · <a href="https://www.irena.org/" target="_blank">IRENA</a></div>
+<div class="src-country"><b>🇲🇬 Madagascar</b><a href="https://data.worldbank.org/country/MG" target="_blank">World Bank Development Indicators 2023</a> · <a href="https://www.fao.org/countryprofiles/index/en/?iso3=MDG" target="_blank">FAO Country Profile Madagascar</a> · <a href="https://www.irena.org/Energy-Transition/Country-Profiles/Madagascar" target="_blank">IRENA Madagascar country profile</a></div>
+<div class="src-country"><b>🇲🇽 Mexico</b><a href="https://www.indexmundi.com/mexico/land_use.html" target="_blank">Mexico Land Use Statistics (CIA World Factbook basis)</a> · <a href="https://en.wikipedia.org/wiki/Solar_power_in_Mexico" target="_blank">Solar Power in Mexico 2024</a> · <a href="https://en.wikipedia.org/wiki/Electricity_sector_in_Mexico" target="_blank">Electricity Sector in Mexico 2024</a> · <a href="https://www.cia.gov/the-world-factbook/" target="_blank">CIA World Factbook</a> · <a href="https://www.cfe.mx/" target="_blank">CFE</a> · <a href="https://www.globaldata.com/" target="_blank">GlobalData</a> · <a href="https://data.worldbank.org/" target="_blank">World Bank</a></div>
+<div class="src-country"><b>🇲🇦 Morocco</b><a href="https://www.fao.org/faostat/en/#data/RL" target="_blank">FAO FAOSTAT Land Use 2023</a> · <a href="https://data.worldbank.org/country/morocco" target="_blank">World Bank Morocco</a> · <a href="https://www.irena.org/-/media/Files/IRENA/Agency/Statistics/Statistical_Profiles/Africa/Morocco_Africa_RE_SP.pdf" target="_blank">IRENA Morocco Country Profile 2023</a> · <a href="https://en.wikipedia.org/wiki/Xlinks_Morocco%E2%80%93UK_Power_Project" target="_blank">Xlinks Morocco-UK Power Project</a> · <a href="https://www.enerdata.net/" target="_blank">Enerdata</a></div>
+<div class="src-country"><b>🇳🇬 Nigeria</b><a href="https://www.fao.org/faostat/en/#data/RL" target="_blank">FAO FAOSTAT Land Use 2022</a> · <a href="https://data.worldbank.org/country/nigeria" target="_blank">World Bank Nigeria</a> · <a href="https://www.irena.org/Countries/Nigeria" target="_blank">IRENA Nigeria 2024</a> · <a href="https://www.energytransition.gov.ng/" target="_blank">Nigeria Energy Transition Plan 2022</a></div>
+<div class="src-country"><b>🇴🇲 Oman</b><a href="https://www.fao.org/aquastat/en/countries-and-basins/country-profiles/country/OMN" target="_blank">FAO AQUASTAT Oman</a> · <a href="https://data.worldbank.org/country/oman" target="_blank">World Bank Oman</a> · <a href="https://www.iea.org/countries/oman" target="_blank">IEA Oman</a> · <a href="https://carnegieendowment.org/research/2024/05/morocco-oman-energy-transition-oil-exporting-renewable" target="_blank">Carnegie Endowment: Oman &amp; Morocco Energy Transition</a> · <a href="https://www.enerdata.net/" target="_blank">Enerdata</a></div>
+<div class="src-country"><b>🇵🇰 Pakistan</b><a href="https://data.worldbank.org/country/pakistan" target="_blank">World Bank/FAO 2023</a> · <a href="https://www.pbs.gov.pk/" target="_blank">Pakistan Bureau of Statistics</a> · <a href="https://www.wri.org/insights/pakistan-solar-energy-boom" target="_blank">WRI: Pakistan's Solar Boom</a> · <a href="https://ember-energy.org/latest-insights/global-electricity-review-2025/" target="_blank">Ember Global Electricity Review 2025</a> · <a href="https://www.fao.org/faostat/" target="_blank">FAO</a></div>
+<div class="src-country"><b>🇶🇦 Qatar</b><a href="https://www.frontiersin.org/journals/energy-research/articles/10.3389/fenrg.2024.1272993/full" target="_blank">GIS-Based Renewable Energy Land Suitability, Qatar</a> · <a href="https://www.enerdata.net/estore/energy-market/qatar/" target="_blank">Enerdata Qatar Energy Information</a> · <a href="https://totalenergies.com/company/projects/solar/al-kharsaah-solar-power-plant-qatar" target="_blank">Al Kharsaah Solar Power Plant</a> · <a href="https://www.bakerinstitute.org/sites/default/files/2026-02/20260226-Gulf%20Energy%20Transition.pdf" target="_blank">Baker Institute: Gulf Energy Transition</a> · <a href="https://www.gulf-times.com/article/720940/qatar/qatar-nears-food-self-sufficiency-after-growth-decade" target="_blank">Qatar Food Self-Sufficiency, Gulf Times</a> · <a href="https://www.theglobaleconomy.com/" target="_blank">TheGlobalEconomy.com</a></div>
+<div class="src-country"><b>🇷🇺 Russia</b><a href="https://www.fao.org/faostat/en/#data/RL" target="_blank">FAO FAOSTAT Land Use 2023</a> · <a href="https://data.worldbank.org/indicator/AG.LND.FRST.ZS?locations=RU" target="_blank">World Bank Forest Area 2023</a> · <a href="https://www.irena.org/-/media/Files/IRENA/Agency/Statistics/Statistical_Profiles/Eurasia/Russian-Federation_Eurasia_RE_SP.pdf" target="_blank">IRENA Energy Profile Russia 2023</a></div>
+<div class="src-country"><b>🇪🇸 Spain</b><a href="https://www.mapa.gob.es/en/agricultura/temas/sistema-de-informacion-geografica-de-datos-agrarios/mca" target="_blank">MAPA Mapa de Cultivos y Aprovechamientos de España</a> · <a href="https://www.sistemaelectrico-ree.es/sites/default/files/2025-03/ISE_2024.pdf" target="_blank">Red Eléctrica Informe del sistema eléctrico 2024</a> · <a href="https://www.ree.es/en" target="_blank">Red Eléctrica</a> · <a href="https://unef.es/" target="_blank">UNEF</a> · <a href="https://data.worldbank.org/" target="_blank">World Bank</a></div>
+<div class="src-country"><b>🇸🇪 Sweden</b><a href="https://www.forestindustries.se/forest-industry/forest-management/forest-definitions/forest/" target="_blank">Swedish Forest Industries Federation</a> · <a href="https://www.slu.se/en/about-slu/organisation/departments/forest-resource-management/miljoanalys/nfi/our-data/the-latest-statistics/all-land/" target="_blank">SLU National Forest Inventory</a> · <a href="https://data.worldbank.org/indicator/AG.LND.FRST.ZS?locations=SE" target="_blank">World Bank/FAO: Sweden Land Use</a> · <a href="https://www.energimyndigheten.se/en/" target="_blank">Swedish Energy Agency</a> · <a href="https://finance.yahoo.com/news/lyten-acquires-northvolt-swedish-battery-173427103.html" target="_blank">Lyten Acquires Northvolt (2026)</a> · <a href="https://www.fao.org/faostat/" target="_blank">FAO</a> · <a href="https://www.iea.org/" target="_blank">IEA</a></div>
+<div class="src-country"><b>🇹🇭 Thailand</b><a href="https://www.fao.org/faostat/en/#data/RL" target="_blank">FAO FAOSTAT Land Use</a> · <a href="https://www.cia.gov/the-world-factbook/countries/thailand/" target="_blank">CIA World Factbook: Thailand</a> · <a href="https://www.irena.org/-/media/Files/IRENA/Agency/Statistics/Statistical_Profiles/Asia/Thailand_Asia_RE_SP.pdf" target="_blank">IRENA Thailand Country Profile 2023</a></div>
+<div class="src-country"><b>🇹🇻 Tuvalu</b><a href="https://www.undp.org/pacific/projects/tuvalu-coastal-adaptation-project" target="_blank">UNDP Tuvalu Coastal Adaptation Project</a> · <a href="https://www.irena.org/-/media/Files/IRENA/Agency/Statistics/Statistical_Profiles/Oceania/Tuvalu_Oceania_RE_SP.pdf" target="_blank">IRENA Tuvalu Renewable Energy Profile</a> · <a href="https://en.wikipedia.org/wiki/Climate_change_in_Tuvalu" target="_blank">Climate Change in Tuvalu — overview</a> · <a href="https://www.ipcc.ch/report/ar6/wg2/" target="_blank">IPCC AR6 WG2</a> · <a href="https://stats.gov.tv/" target="_blank">Tuvalu Bureau of Statistics</a></div>
+<div class="src-country"><b>🇦🇪 UAE</b><a href="https://en.wikipedia.org/wiki/Geography_of_the_United_Arab_Emirates" target="_blank">Geography of the UAE</a> · <a href="https://www.eia.gov/international/content/analysis/countries_long/United_Arab_Emirates" target="_blank">EIA: UAE Energy Overview</a> · <a href="https://www.enerdata.net/estore/energy-market/united-arab-emirates/" target="_blank">Enerdata: UAE Energy Information</a> · <a href="https://masdar.ae/en/news" target="_blank">Masdar</a> · <a href="https://www.barakah.ae/en/" target="_blank">Barakah Nuclear Energy Plant</a> · <a href="https://www.cia.gov/the-world-factbook/" target="_blank">CIA World Factbook</a></div>
+<div class="src-country"><b>🇬🇧 United Kingdom</b><a href="https://www.gov.uk/government/collections/land-use-change-statistics" target="_blank">MHCLG Land Use Change Statistics</a> · <a href="https://www.gov.uk/government/statistics/solar-photovoltaics-deployment" target="_blank">DESNZ Solar PV Deployment 2024</a> · <a href="https://commonslibrary.parliament.uk/research-briefings/cbp-7434/" target="_blank">House of Commons Library: Planning for solar farms</a> · <a href="https://www.gov.uk/government/organisations/ministry-of-housing-communities-local-government" target="_blank">DLUHC / MHCLG</a> · <a href="https://www.gov.uk/government/organisations/department-for-energy-security-and-net-zero" target="_blank">DESNZ</a> · <a href="https://www.lancaster.ac.uk/" target="_blank">Lancaster University</a></div>
+<div class="src-country"><b>🇺🇸 United States</b><a href="https://www.ers.usda.gov/publications/109970" target="_blank">USDA ERS Major Uses of Land in the US, 2017 (EIB-275)</a> · <a href="https://www.eia.gov/energyexplained/solar/" target="_blank">EIA Solar Energy Data 2024</a> · <a href="https://www.nrel.gov/" target="_blank">NREL</a></div>
+<div class="src-country"><b>🇻🇪 Venezuela</b><a href="https://en.wikipedia.org/wiki/Geography_of_Venezuela" target="_blank">Geography of Venezuela</a> · <a href="https://aenert.com/countries/america/energy-industry-in-venezuela/" target="_blank">Energy Industry in Venezuela, aenert.com</a> · <a href="https://www.irena.org/-/media/Files/IRENA/Agency/Statistics/Statistical_Profiles/South-America/Venezuela-Bolivarian-Republic-of_South-America_RE_SP.pdf" target="_blank">IRENA Venezuela Country Profile</a> · <a href="https://lasvegassun.com/news/2026/jan/11/benefiting-from-venezuelas-impure-oil-is-no-simple/" target="_blank">Venezuela's Extra-Heavy Crude, coverage 2026</a> · <a href="https://commonslibrary.parliament.uk/research-briefings/cbp-10452/" target="_blank">UK Parliament: US Capture of Maduro</a> · <a href="https://www.fao.org/faostat/" target="_blank">FAO</a></div>
+<div class="src-country"><b>🇿🇲 Zambia</b><a href="https://openknowledge.fao.org/server/api/core/bitstreams/fa434a41-5b66-4cb9-9081-95af9bc22b10/content" target="_blank">FAO Zambia Country Profile</a> · <a href="https://www.moe.gov.zm/?page_id=2198" target="_blank">Zambia Ministry of Energy</a> · <a href="https://africa-energy-portal.org/aep/country/zambia" target="_blank">Africa Energy Portal: Zambia</a> · <a href="https://en.wikipedia.org/wiki/Itimpi_Solar_Power_Station" target="_blank">Itimpi Solar Power Station</a> · <a href="https://africacenter.org/spotlight/en-elections-2026/zambia/" target="_blank">Africa Center: Zambia Elections 2026</a> · <a href="https://www.fao.org/faostat/" target="_blank">FAO</a> · <a href="https://www.eia.gov/" target="_blank">EIA</a> · <a href="https://www.statbase.org/" target="_blank">statbase.org</a></div>
+    </div>
+  </div>
 <!-- GAME VIEW -->
 <div id="game-view">
   <nav class="game-nav">
     <button class="back-btn" id="back-btn">← Map</button>
     <span class="game-nav-title" id="game-nav-title"></span>
-    <a href="changelog.html" class="version-badge" style="text-decoration:none;">v6.0.1</a>
+    <a href="changelog.html" class="version-badge" style="text-decoration:none;">v6.1.0</a>
   </nav>
   <iframe id="game-iframe" src="" title="Land use game"></iframe>
 </div>
@@ -528,7 +611,9 @@ fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json')
       const [, ...nameParts] = game.title.split(' ');
       const alpha2 = ISO_TO_ALPHA2[iso];
       const flagImg = alpha2 ? `<img src="https://flagcdn.com/20x15/${alpha2}.png" alt="" style="height:15px;vertical-align:middle;border-radius:1px">` : '';
-      btn.innerHTML = `<span class="flag">${flagImg}</span>${nameParts.join(" ")}`;
+      const code = game.file.split('c=')[1];
+      const checkMark = isCountryDone(code) ? '<span class="done-check">✓</span>' : '';
+      btn.innerHTML = `<span class="flag">${flagImg}</span>${nameParts.join(' ')}${checkMark}`;
       btn.addEventListener('click', () => { closeDropdown(); loadGame(iso, game); });
       btn.addEventListener('mouseenter', () => {
         svg.selectAll('.c-path').classed('highlighted', false);
@@ -791,7 +876,55 @@ window.addEventListener('hashchange', () => {
 // Back button in nav - go directly to map, don't use history.back()
 document.getElementById('back-btn').addEventListener('click', () => {
   showMap();
+  renderBadgeShelf();
 });
+
+// ---- Player completion badges ----
+// Completion is tracked per-country in localStorage by each country page itself
+// (same-origin, so it's shared across the iframe) as { "<code>": bestScorePct, ... }.
+const BADGE_TIERS = [
+  { count: 1,  emoji: '🔎', label: 'First Explorer' },
+  { count: 5,  emoji: '🥉', label: 'Getting Around' },
+  { count: 15, emoji: '🥈', label: 'Well Traveled' },
+  { count: 25, emoji: '🥇', label: 'Globe Trotter' },
+  { count: 33, emoji: '🌍', label: 'World Completionist' },
+];
+function getProgress() {
+  try { return JSON.parse(localStorage.getItem('landgame_progress') || '{}'); }
+  catch (e) { return {}; }
+}
+function isCountryDone(code) {
+  return !!getProgress()[code];
+}
+function renderBadgeShelf() {
+  const shelf = document.getElementById('badge-shelf');
+  if (!shelf) return;
+  const prog = getProgress();
+  const total = Object.keys(GAMES_BY_ISO).length;
+  const done = Object.keys(prog).length;
+  const pills = BADGE_TIERS.map(t => {
+    const earned = done >= t.count;
+    return `<span class="badge-pill${earned ? ' earned' : ''}" title="${t.label}${t.count === total ? '' : ' — ' + t.count + ' countries'}">
+      <span class="badge-emoji">${t.emoji}</span>${t.label}
+    </span>`;
+  }).join('');
+  shelf.innerHTML = `<span class="progress-count">${done} / ${total} countries completed</span>${pills}`;
+  // Keep the dropdown's checkmarks in sync too, in case it's already built
+  document.querySelectorAll('.map-dropdown-item').forEach(el => {
+    // nothing stored on the element for the code, so rebuild from id ("list-item-<iso>")
+    const iso = el.id.replace('list-item-', '');
+    const game = GAMES_BY_ISO[iso];
+    if (!game) return;
+    const code = game.file.split('c=')[1];
+    const existing = el.querySelector('.done-check');
+    if (isCountryDone(code) && !existing) {
+      el.insertAdjacentHTML('beforeend', '<span class="done-check">✓</span>');
+    } else if (!isCountryDone(code) && existing) {
+      existing.remove();
+    }
+  });
+}
+renderBadgeShelf();
 
 // Dropdown toggle
 const dropBtn = document.getElementById('dropdown-btn');
@@ -813,6 +946,16 @@ dropBtn.addEventListener('click', (e) => {
 
 document.addEventListener('click', closeDropdown);
 dropMenu.addEventListener('click', e => e.stopPropagation());
+
+// Data sources panel
+(function(){
+  const panel=document.getElementById('sources-panel'), tg=document.getElementById('sources-toggle');
+  if(!panel||!tg) return;
+  const set=o=>panel.classList.toggle('open',o);
+  tg.addEventListener('click',()=>set(!panel.classList.contains('open')));
+  document.getElementById('sources-close').addEventListener('click',()=>set(false));
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') set(false); });
+})();
 </script>
 </body>
 </html>
