@@ -421,7 +421,7 @@ html, body {
       <span class="site-title">How is land actually used?</span>
       <div class="site-right">
         <span class="site-tag">A guessing game</span>
-        <a href="changelog.html" class="site-version" style="text-decoration:none;">v6.2.0</a>
+        <a href="changelog.html" class="site-version" style="text-decoration:none;">v6.3.0</a>
       </div>
     </div>
   </div>
@@ -464,6 +464,7 @@ html, body {
     <div class="src-head"><h3>Data sources</h3><button type="button" id="sources-close" aria-label="Close">✕</button></div>
     <p class="src-intro">Every organisation named in a country's "Data:" line is linked here, together with the specific reports and pages behind the numbers. The same list appears under each game.</p>
     <div class="src-grid">
+<div class="src-country"><b>🇩🇿 Algeria</b><a href="https://www.fao.org/faostat/en/#data/RL" target="_blank">FAO FAOSTAT Land Use</a> · <a href="https://www.theglobaleconomy.com/Algeria/agricultural_land/" target="_blank">World Bank agricultural land data for Algeria (via TheGlobalEconomy)</a> · <a href="https://statisticsoftheworld.com/country/algeria/forest-area" target="_blank">World Bank forest area for Algeria (via Statistics of the World)</a> · <a href="https://en.wikipedia.org/wiki/Geography_of_Algeria" target="_blank">Wikipedia: Geography of Algeria</a> · <a href="https://en.wikipedia.org/wiki/Energy_in_Algeria" target="_blank">Wikipedia: Energy in Algeria</a> · <a href="https://www.pv-magazine.com/2024/11/07/a-turning-point-for-algerian-solar/" target="_blank">pv magazine: A turning point for Algerian solar</a> · <a href="https://www.enerdata.net/estore/energy-market/algeria/" target="_blank">Enerdata: Algeria</a> · <a href="https://www.capmad.com/post/energy-revenues-rise-in-algeria-in-2025" target="_blank">Capmad: Energy revenues rise in Algeria in 2025</a></div>
 <div class="src-country"><b>🇦🇺 Australia</b><a href="https://www.agriculture.gov.au/abares/aclump/land-use/land-use-of-australia-2010-11-to-2020-21" target="_blank">ABARES Land Use of Australia 2020–21 (2024)</a> · <a href="https://cleanenergycouncil.org.au/news-resources/clean-energy-australia-report-2025" target="_blank">Clean Energy Council 2024</a> · <a href="https://www.iea.org/" target="_blank">IEA</a></div>
 <div class="src-country"><b>🇧🇷 Brazil</b><a href="https://www.ibge.gov.br/en/statistics/economic/agriculture-forestry-and-fishing.html" target="_blank">IBGE Agriculture &amp; Forestry Statistics</a> · <a href="https://brasil.mapbiomas.org/en/" target="_blank">MapBiomas Land Use &amp; Cover 2023</a> · <a href="https://data.worldbank.org/country/BR" target="_blank">World Bank Development Indicators 2023</a> · <a href="https://mapbiomas.org/en" target="_blank">MapBiomas</a> · <a href="https://www.absolar.org.br/" target="_blank">ABSOLAR</a></div>
 <div class="src-country"><b>🇨🇦 Canada</b><a href="https://natural-resources.canada.ca/forests-forestry/state-canada-forests/much-forest-does-canada-have" target="_blank">Natural Resources Canada: Forests</a> · <a href="https://www.ccfm.org/healthy-forests/vast-and-abundant-forests/" target="_blank">Canadian Council of Forest Ministers</a> · <a href="https://data.worldbank.org/indicator/AG.LND.AGRI.ZS?locations=CA" target="_blank">World Bank/FAO: Canada Land Use</a> · <a href="https://www.cer-rec.gc.ca/en/data-analysis/energy-markets/provincial-territorial-energy-profiles/provincial-territorial-energy-profiles-canada.html" target="_blank">Canada Energy Regulator</a> · <a href="https://www.fao.org/faostat/" target="_blank">FAO</a> · <a href="https://www.iea.org/" target="_blank">IEA</a></div>
@@ -504,7 +505,7 @@ html, body {
   <nav class="game-nav">
     <button class="back-btn" id="back-btn">← Map</button>
     <span class="game-nav-title" id="game-nav-title"></span>
-    <a href="changelog.html" class="version-badge" style="text-decoration:none;">v6.2.0</a>
+    <a href="changelog.html" class="version-badge" style="text-decoration:none;">v6.3.0</a>
   </nav>
   <iframe id="game-iframe" src="" title="Land use game"></iframe>
 </div>
@@ -518,7 +519,7 @@ html, body {
 const ISO_TO_ALPHA2 = {
   '036':'au','076':'br','156':'cn','208':'dk','250':'fr','304':'gl',
   '276':'de','348':'hu','356':'in','392':'jp','404':'ke','422':'lb',
-  '450':'mg','484':'mx','504':'ma','512':'om','566':'ng','586':'pk','634':'qa','643':'ru','724':'es','764':'th','862':'ve','798':'tv','818':'eg','826':'gb','840':'us','894':'zm','180':'cd','352':'is','752':'se','784':'ae','124':'ca',
+  '450':'mg','484':'mx','504':'ma','012':'dz','512':'om','566':'ng','586':'pk','634':'qa','643':'ru','724':'es','764':'th','862':'ve','798':'tv','818':'eg','826':'gb','840':'us','894':'zm','180':'cd','352':'is','752':'se','784':'ae','124':'ca',
 };
 // Reverse lookup so URL hashes can use human-readable codes (#fr, #tv) instead
 // of raw ISO numeric IDs (#250, #798). Note the UK/US use their common two-letter
@@ -549,6 +550,7 @@ const GAMES_BY_ISO = {
   '304': { file: 'engine.html?c=gl',           title: '🇬🇱 Greenland' },
   '484': { file: 'engine.html?c=mx',           title: '🇲🇽 Mexico' },
   '504': { file: 'engine.html?c=ma',           title: '🇲🇦 Morocco' },
+  '012': { file: 'engine.html?c=dz',           title: '🇩🇿 Algeria' },
   '512': { file: 'engine.html?c=om',           title: '🇴🇲 Oman' },
   '156': { file: 'engine.html?c=cn',           title: '🇨🇳 China' },
   '404': { file: 'engine.html?c=ke',           title: '🇰🇪 Kenya' },
@@ -887,7 +889,7 @@ const BADGE_TIERS = [
   { count: 5,  emoji: '🥉', label: 'Getting Around' },
   { count: 15, emoji: '🥈', label: 'Well Traveled' },
   { count: 25, emoji: '🥇', label: 'Globe Trotter' },
-  { count: 33, emoji: '🌍', label: 'World Completionist' },
+  { count: 34, emoji: '🌍', label: 'World Completionist' },
 ];
 function getProgress() {
   try { return JSON.parse(localStorage.getItem('landgame_progress') || '{}'); }
