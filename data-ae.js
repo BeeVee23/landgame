@@ -113,7 +113,7 @@ LANDGAME.ae = {
     "dp": 3,
     "isSolar": true,
     "readOnly": true,
-    "solarNote": "تتمتع صحراء الإمارات بإشعاع شمسي مباشر استثنائي يقارب 2000 كيلوواط ساعة لكل كيلوواط ذروة سنويًا. عند معدل 380 هكتارًا لكل تيراواط ساعة، يحتاج تزويد الشبكة بأكملها إلى 0.61% فقط من مساحة الإمارات. لكن الإمارات لا تراهن على الطاقة الشمسية وحدها: محطة براكة النووية — أول محطة نووية في العالم العربي — توفر بالفعل نحو ربع كهرباء الإمارات، وقد بُنيت خصيصًا لتحرير كميات أكبر من الغاز الطبيعي للتصدير بدلاً من حرقه محليًا"
+    "solarNote": "تتمتع صحراء الإمارات بإشعاع شمسي مباشر استثنائي يقارب 2000 كيلوواط ساعة لكل كيلوواط ذروة سنويًا. عند معدل 380 هكتارًا لكل تيراواط ساعة، يحتاج تزويد الشبكة بأكملها إلى 0.61% فقط من مساحة الإمارات. لكن الإمارات لا تراهن على الطاقة الشمسية وحدها: محطة براكة النووية — أول محطة نووية في العالم العربي — توفر بالفعل نحو ربع كهرباء الإمارات، وقد بُنيت خصيصًا لتحرير كميات أكبر من الغاز الأحفوري للتصدير بدلاً من حرقه محليًا"
    }
   ],
   "en": [
@@ -212,7 +212,7 @@ LANDGAME.ae = {
     "dp": 3,
     "isSolar": true,
     "readOnly": true,
-    "solarNote": "The UAE's desert receives exceptional direct solar irradiance of roughly 2,000 kWh/kWp/yr. At 380 ha/TWh, powering the whole grid needs just 0.61% of the UAE's land. But the UAE isn't betting on solar alone: the Barakah nuclear plant - the Arab world's first - already supplies roughly a quarter of UAE electricity, built specifically to free up more natural gas for export rather than burning it domestically"
+    "solarNote": "The UAE's desert receives exceptional direct solar irradiance of roughly 2,000 kWh/kWp/yr. At 380 ha/TWh, powering the whole grid needs just 0.61% of the UAE's land. But the UAE isn't betting on solar alone: the Barakah nuclear plant - the Arab world's first - already supplies roughly a quarter of UAE electricity, built specifically to free up more fossil gas for export rather than burning it domestically"
    }
   ]
  },
@@ -223,7 +223,7 @@ LANDGAME.ae = {
    "disclaimer": "أرقام الطاقة الشمسية والبطاريات هي تجربة فكرية أُعدّت بمساعدة الذكاء الاصطناعي، وليست توصية سياسية. تشير جميع أرقام الطاقة الشمسية إلى أنظمة كبرى متصلة بالشبكة. تستهدف الإمارات أن تبلغ حصة الطاقة النظيفة (المتجددة والنووية) 32% من مزيج الكهرباء بحلول 2030، و44% من إجمالي استهلاك الطاقة من مصادر متجددة بحلول 2050. بيانات استخدام الأراضي هي تقديرات تقريبية مبنية على طبيعة تضاريس الإمارات (وكالة المخابرات المركزية، مصادر جغرافية وطنية)؛ بيانات الكهرباء من وكالة معلومات الطاقة الأمريكية وإنيرداتا، 2021-2025.",
    "noteLabel": "ملاحظة",
    "contextLabel": "سياق الدولة",
-   "countryNote": "انقلب اقتصاد الإمارات بهدوء: كان النفط يشكل نحو 90% من الناتج المحلي الإجمالي عام 1980، لكن القطاعات غير النفطية تمثل اليوم أكثر من 70%. هذا التحول تموّله ثروة النفط، لا يلغيها. توفر محطة براكة النووية — أول محطة نووية في العالم العربي وتضم أربعة مفاعلات — بالفعل نحو ربع كهرباء الإمارات، وقد بُنيت خصيصًا لتحرير كميات أكبر من الغاز الطبيعي للتصدير بدلاً من حرقه محليًا. أما مصدر، الذراع الاستثماري للطاقة النظيفة المدعوم من الدولة، فتمتلك اليوم قدرة متجددة في أكثر من 40 دولة، نمت من 20 غيغاواط في 2022 إلى 65 غيغاواط بحلول يناير 2026، وتستهدف 100 غيغاواط بحلول 2030 — ما يجعل الإمارات فعليًا قوة طاقة لدول أخرى عبر الاستثمار، لا عبر تصدير النفط فقط. الهيدروجين الأخضر هو الفصل التالي: تستهدف الإمارات تجاوز غيغاواط واحد من القدرة الإنتاجية بحلول 2026، موجّهة جزئيًا للتصدير، لتمدد بذلك دورها كمصدّر للطاقة إلى عصر الطاقة النظيفة. لكن هذا لا يعني التخلي عن النفط: لا تزال أدنوك توسّع طاقتها الإنتاجية نحو نحو 5 ملايين برميل يوميًا بحلول أواخر العقد. الاستراتيجية ليست نفطًا مقابل طاقة نظيفة، بل ثروة نفطية تموّل عملية تصدير طاقة موازية وثانية.",
+   "countryNote": "انقلب اقتصاد الإمارات بهدوء: كان النفط يشكل نحو 90% من الناتج المحلي الإجمالي عام 1980، لكن القطاعات غير النفطية تمثل اليوم أكثر من 70%. هذا التحول تموّله ثروة النفط، لا يلغيها. توفر محطة براكة النووية — أول محطة نووية في العالم العربي وتضم أربعة مفاعلات — بالفعل نحو ربع كهرباء الإمارات، وقد بُنيت خصيصًا لتحرير كميات أكبر من الغاز الأحفوري للتصدير بدلاً من حرقه محليًا. أما مصدر، الذراع الاستثماري للطاقة النظيفة المدعوم من الدولة، فتمتلك اليوم قدرة متجددة في أكثر من 40 دولة، نمت من 20 غيغاواط في 2022 إلى 65 غيغاواط بحلول يناير 2026، وتستهدف 100 غيغاواط بحلول 2030 — ما يجعل الإمارات فعليًا قوة طاقة لدول أخرى عبر الاستثمار، لا عبر تصدير النفط فقط. الهيدروجين الأخضر هو الفصل التالي: تستهدف الإمارات تجاوز غيغاواط واحد من القدرة الإنتاجية بحلول 2026، موجّهة جزئيًا للتصدير، لتمدد بذلك دورها كمصدّر للطاقة إلى عصر الطاقة النظيفة. لكن هذا لا يعني التخلي عن النفط: لا تزال أدنوك توسّع طاقتها الإنتاجية نحو نحو 5 ملايين برميل يوميًا بحلول أواخر العقد. الاستراتيجية ليست نفطًا مقابل طاقة نظيفة، بل ثروة نفطية تموّل عملية تصدير طاقة موازية وثانية.",
    "submit": "إرسال جميع الإجابات",
    "play_again": "العب مرة أخرى",
    "score": "النتيجة",
@@ -234,7 +234,7 @@ LANDGAME.ae = {
    "allocated": "/ 100% مخصص",
    "reveal": "يُكشف بعد الإرسال.",
    "out_of": "نتيجة الدقة",
-   "sol100_reveal": "تتمتع صحراء الإمارات بإشعاع شمسي مباشر استثنائي يقارب 2000 كيلوواط ساعة لكل كيلوواط ذروة سنويًا. عند معدل 380 هكتارًا لكل تيراواط ساعة، يحتاج تزويد الشبكة بأكملها إلى 0.61% فقط من مساحة الإمارات. لكن الإمارات لا تراهن على الطاقة الشمسية وحدها: محطة براكة النووية — أول محطة نووية في العالم العربي — توفر بالفعل نحو ربع كهرباء الإمارات، وقد بُنيت خصيصًا لتحرير كميات أكبر من الغاز الطبيعي للتصدير بدلاً من حرقه محليًا",
+   "sol100_reveal": "تتمتع صحراء الإمارات بإشعاع شمسي مباشر استثنائي يقارب 2000 كيلوواط ساعة لكل كيلوواط ذروة سنويًا. عند معدل 380 هكتارًا لكل تيراواط ساعة، يحتاج تزويد الشبكة بأكملها إلى 0.61% فقط من مساحة الإمارات. لكن الإمارات لا تراهن على الطاقة الشمسية وحدها: محطة براكة النووية — أول محطة نووية في العالم العربي — توفر بالفعل نحو ربع كهرباء الإمارات، وقد بُنيت خصيصًا لتحرير كميات أكبر من الغاز الأحفوري للتصدير بدلاً من حرقه محليًا",
    "grades": [
     [
      86,
@@ -268,7 +268,7 @@ LANDGAME.ae = {
    "disclaimer": "The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar figures refer to utility-scale, grid-connected systems. The UAE targets 32% clean electricity (renewables plus nuclear) by 2030 and 44% of total energy consumption from renewables by 2050. Land use figures are approximate estimates based on the UAE's terrain profile (CIA World Factbook, national geographic sources); electricity figures from the EIA and Enerdata, 2021-2025.",
    "noteLabel": "Note",
    "contextLabel": "Country context",
-   "countryNote": "The UAE's economy has quietly flipped: oil made up roughly 90% of GDP in 1980, but non-oil sectors now account for over 70%. That shift is being funded, not abandoned, by oil wealth. The Barakah nuclear plant - the Arab world's first, with four reactors - already supplies about a quarter of the UAE's electricity, built explicitly to free up more natural gas for export rather than burning it domestically. Masdar, the UAE's state-backed clean energy investor, now has renewable capacity across 40+ countries that grew from 20 GW in 2022 to 65 GW by January 2026, targeting 100 GW by 2030 - effectively making the UAE an energy power for other nations through investment, not just oil exports. Green hydrogen is the next act: the UAE is targeting over 1 GW of production capacity by 2026, aimed partly at export, extending its role as an energy exporter into the clean-energy era. None of this means abandoning oil, though - ADNOC is still expanding production capacity toward roughly 5 million barrels a day by the late 2020s. The strategy isn't oil versus clean energy; it's oil wealth funding a second, parallel energy export business.",
+   "countryNote": "The UAE's economy has quietly flipped: oil made up roughly 90% of GDP in 1980, but non-oil sectors now account for over 70%. That shift is being funded, not abandoned, by oil wealth. The Barakah nuclear plant - the Arab world's first, with four reactors - already supplies about a quarter of the UAE's electricity, built explicitly to free up more fossil gas for export rather than burning it domestically. Masdar, the UAE's state-backed clean energy investor, now has renewable capacity across 40+ countries that grew from 20 GW in 2022 to 65 GW by January 2026, targeting 100 GW by 2030 - effectively making the UAE an energy power for other nations through investment, not just oil exports. Green hydrogen is the next act: the UAE is targeting over 1 GW of production capacity by 2026, aimed partly at export, extending its role as an energy exporter into the clean-energy era. None of this means abandoning oil, though - ADNOC is still expanding production capacity toward roughly 5 million barrels a day by the late 2020s. The strategy isn't oil versus clean energy; it's oil wealth funding a second, parallel energy export business.",
    "submit": "Submit all guesses",
    "play_again": "Play again",
    "score": "Score",
@@ -279,7 +279,7 @@ LANDGAME.ae = {
    "allocated": "/ 100% allocated",
    "reveal": "Revealed after you submit.",
    "out_of": "accuracy score",
-   "sol100_reveal": "The UAE's desert receives exceptional direct solar irradiance of roughly 2,000 kWh/kWp/yr. At 380 ha/TWh, powering the whole grid needs just 0.61% of the UAE's land. But the UAE isn't betting on solar alone: the Barakah nuclear plant - the Arab world's first - already supplies roughly a quarter of UAE electricity, built specifically to free up more natural gas for export rather than burning it domestically",
+   "sol100_reveal": "The UAE's desert receives exceptional direct solar irradiance of roughly 2,000 kWh/kWp/yr. At 380 ha/TWh, powering the whole grid needs just 0.61% of the UAE's land. But the UAE isn't betting on solar alone: the Barakah nuclear plant - the Arab world's first - already supplies roughly a quarter of UAE electricity, built specifically to free up more fossil gas for export rather than burning it domestically",
    "grades": [
     [
      86,
@@ -299,7 +299,7 @@ LANDGAME.ae = {
     ],
     [
      0,
-     "🤔 Surprising? The Barakah nuclear plant already supplies about a quarter of the UAE's electricity - built to free up gas for export, not to replace oil wealth."
+     "🤔 Surprising? The Barakah nuclear plant already supplies about a quarter of the UAE's electricity - built to free up fossil gas for export, not to replace oil wealth."
     ]
    ],
    "btn_label": "عربي",

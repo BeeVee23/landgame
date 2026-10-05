@@ -97,7 +97,7 @@ LANDGAME.om = {
     "answerHa": 2250,
     "dp": 3,
     "isSolar": true,
-    "solarNote": "تلميح: رغم التصريحات الطموحة، لم تتجاوز الطاقة الشمسية نسبة 4% من إجمالي توليد الكهرباء في عُمان بحلول 2023 — إذ لا يزال الغاز الطبيعي يشكل نحو 92% من مزيج الطاقة"
+    "solarNote": "تلميح: رغم التصريحات الطموحة، لم تتجاوز الطاقة الشمسية نسبة 4% من إجمالي توليد الكهرباء في عُمان بحلول 2023 — إذ لا يزال الغاز الأحفوري يشكل نحو 92% من مزيج الطاقة"
    },
    {
     "id": "sol100",
@@ -195,7 +195,7 @@ LANDGAME.om = {
     "answerHa": 2250,
     "dp": 3,
     "isSolar": true,
-    "solarNote": "Hint: despite ambitious announcements, solar still supplied only about 4% of Oman's total electricity generation by 2023 — natural gas still accounts for roughly 92% of the mix"
+    "solarNote": "Hint: despite ambitious announcements, solar still supplied only about 4% of Oman's total electricity generation by 2023 — fossil gas still accounts for roughly 92% of the mix"
    },
    {
     "id": "sol100",

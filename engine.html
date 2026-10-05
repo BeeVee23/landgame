@@ -1,4 +1,4 @@
-<!-- v6.3.0 -->
+<!-- v6.3.4 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,6 +94,7 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 .world-foot { font-size: 11px; color: var(--text-secondary); line-height: 1.5; font-style: italic; }
 .source { font-size: 11px; color: var(--text-secondary); margin-top: 1.5rem; line-height: 1.8; }
 .source a { color: var(--text-secondary); text-decoration: underline; }
+.source-top{margin:0 0 1.25rem}
 .cost-box{margin:1rem 0;padding:.9rem 1rem;border:0.5px solid var(--border-md);border-radius:var(--radius-md);background:var(--bg-secondary)}
 .cost-head{font-weight:600;margin-bottom:.6rem}
 .cost-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.6rem}
@@ -126,9 +127,7 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
   <p class="subtitle" id="subtitle-el"></p>
   <div class="country-note" id="country-note-el"></div>
   <div class="disclaimer" id="disclaimer-el"></div>
-  <div class="data-bar">
-    <span class="data-info" id="data-info-el"></span>
-  </div>
+  <p class="source source-top" id="source-el"></p>
   <div class="score-bar">
     <div class="metric"><div class="lbl" id="lbl-score">Score</div><div class="val" id="score-v">0%</div></div>
     <div class="metric"><div class="lbl" id="lbl-land">Land used</div><div class="val" id="total-v">0%</div></div>
@@ -166,7 +165,7 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
     <p class="world-foot" id="world-foot"></p>
     <div class="cost-box" id="cost-box"></div>
   </div>
-  <p class="source" id="source-el"></p>
+  
 </div>
 <script>
 /* Landgame engine v6 — one shared game engine; per-country content lives in data-<cc>.js */
@@ -388,8 +387,8 @@ function relocalizeSubmitted(){
 }
 function paintLabels(){
   const f=F();
-  $('data-info-el').innerHTML=D.dataInfo.replace(/^(\s*)Data:/,'$1'+f.data+':');
-  $('source-el').innerHTML=D.sources.replace(/^(\s*)Sources:/,'$1'+f.sources+':');
+  const ym=(D.dataInfo||'').match(/<strong>([^<]*)<\/strong>/);
+  $('source-el').innerHTML=D.sources.replace(/^(\s*)Sources:/,'$1'+f.sources+(ym?' ('+ym[1]+')':'')+':');
 }
 function fmtAns(cat,dp){
   const r=Math.round(cat.answer*100)/100;

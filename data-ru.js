@@ -208,7 +208,7 @@ LANDGAME.ru = {
     "answerHa": 938000,
     "isSolar": true,
     "readOnly": true,
-    "solarNote": "Russia's southern steppes get ~1,100 kWh/kWp/yr (similar to Germany). At 818 ha/TWh the whole grid needs just 0.055% of Russia's land. Storage overcapacity roughly doubles land vs panels alone. In practice Russia generates ~81% of electricity from fossil fuels and gas; solar remains negligible at 0.28% in 2023 (IRENA)"
+    "solarNote": "Russia's southern steppes get ~1,100 kWh/kWp/yr (similar to Germany). At 818 ha/TWh the whole grid needs just 0.055% of Russia's land. Storage overcapacity roughly doubles land vs panels alone. In practice Russia generates ~81% of electricity from fossil fuels and fossil gas; solar remains negligible at 0.28% in 2023 (IRENA)"
    }
   ]
  },
@@ -219,7 +219,7 @@ LANDGAME.ru = {
    "disclaimer": "Цифры по солнечной энергии и накопителям — это мысленный эксперимент, подготовленный с помощью ИИ, а не политическая рекомендация. Все данные по солнечной энергии относятся к сетевым установкам промышленного масштаба.",
    "noteLabel": "Примечание",
    "contextLabel": "Контекст страны",
-   "countryNote": "Электроэнергетика России доминируется ископаемым топливом (природный газ ~47%, уголь ~14%), атомной (~20%) и гидроэнергетикой (~18%); доля ВИЭ (ветер+солнце) ниже 1% (IRENA 2023). Данные о землепользовании: FAO FAOSTAT 2023 и Всемирный банк. Солнечные мощности: IRENA 2023. Производство электроэнергии: Энергетический профиль России IRENA 2023.",
+   "countryNote": "Электроэнергетика России доминируется ископаемым газом (~47 %) и углём (~14 %), атомной (~20%) и гидроэнергетикой (~18%); доля ВИЭ (ветер+солнце) ниже 1% (IRENA 2023). Данные о землепользовании: FAO FAOSTAT 2023 и Всемирный банк. Солнечные мощности: IRENA 2023. Производство электроэнергии: Энергетический профиль России IRENA 2023.",
    "submit": "Отправить все ответы",
    "play_again": "Играть снова",
    "score": "Счёт",
@@ -264,7 +264,7 @@ LANDGAME.ru = {
    "disclaimer": "The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar figures refer to utility-scale, grid-connected systems.",
    "noteLabel": "Note",
    "contextLabel": "Country context",
-   "countryNote": "Russia's electricity mix is dominated by fossil fuels (natural gas ~47%, coal ~14%), nuclear (~20%) and hydropower (~18%), with renewables (wind+solar) below 1% (IRENA 2023). Russia plans to raise renewables to 12.5% of capacity by 2042. Land use data from FAO FAOSTAT 2023 and World Bank. Solar capacity from IRENA 2023. Electricity generation from IRENA Energy Profile Russia 2023.",
+   "countryNote": "Russia's electricity mix is dominated by fossil gas (~47 %) and coal (~14 %), nuclear (~20%) and hydropower (~18%), with renewables (wind+solar) below 1% (IRENA 2023). Russia plans to raise renewables to 12.5% of capacity by 2042. Land use data from FAO FAOSTAT 2023 and World Bank. Solar capacity from IRENA 2023. Electricity generation from IRENA Energy Profile Russia 2023.",
    "submit": "Submit all guesses",
    "play_again": "Play again",
    "score": "Score",
@@ -275,7 +275,7 @@ LANDGAME.ru = {
    "allocated": "/ 100% allocated",
    "reveal": "Revealed after you submit.",
    "out_of": "accuracy score",
-   "sol100_reveal": "Russia's southern steppes get ~1,100 kWh/kWp/yr (similar to Germany). At 818 ha/TWh the whole grid needs just 0.055% of Russia's land. Storage overcapacity roughly doubles land vs panels alone. In practice Russia generates ~81% of electricity from fossil fuels and gas; solar remains negligible at 0.28% in 2023 (IRENA)",
+   "sol100_reveal": "Russia's southern steppes get ~1,100 kWh/kWp/yr (similar to Germany). At 818 ha/TWh the whole grid needs just 0.055% of Russia's land. Storage overcapacity roughly doubles land vs panels alone. In practice Russia generates ~81% of electricity from fossil fuels and fossil gas; solar remains negligible at 0.28% in 2023 (IRENA)",
    "grades": [
     [
      86,

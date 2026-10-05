@@ -113,7 +113,7 @@ LANDGAME.th = {
     "dp": 3,
     "isSolar": true,
     "readOnly": true,
-    "solarNote": "ละติจูดเขตร้อนของไทยให้ผลผลิตพลังงานประมาณ 545 เฮกตาร์ต่อเทระวัตต์ชั่วโมง ใกล้เคียงกับไนจีเรียหรืออียิปต์ ที่อัตรานี้ การผลิตไฟฟ้าทั้งประเทศต้องใช้พื้นที่เพียง 0.22% ของประเทศ หรือประมาณ 112,000 เฮกตาร์ ปัจจุบันก๊าซธรรมชาติยังคงเป็นแหล่งพลังงานหลักราว 64% ของไฟฟ้าไทย ส่วนพลังงานหมุนเวียน (ส่วนใหญ่เป็นชีวมวล) มีสัดส่วนราวหนึ่งในห้า ไทยยังมีศักยภาพด้านพลังงานแสงอาทิตย์ที่ยังไม่ได้ใช้อีกมาก โดยเฉพาะโครงการโซลาร์ลอยน้ำของ กฟผ. ที่หลีกเลี่ยงข้อจำกัดด้านที่ดินได้อย่างสิ้นเชิงด้วยการใช้ผิวอ่างเก็บน้ำที่มีเขื่อนพลังน้ำอยู่แล้ว"
+    "solarNote": "ละติจูดเขตร้อนของไทยให้ผลผลิตพลังงานประมาณ 545 เฮกตาร์ต่อเทระวัตต์ชั่วโมง ใกล้เคียงกับไนจีเรียหรืออียิปต์ ที่อัตรานี้ การผลิตไฟฟ้าทั้งประเทศต้องใช้พื้นที่เพียง 0.22% ของประเทศ หรือประมาณ 112,000 เฮกตาร์ ปัจจุบันก๊าซฟอสซิลยังคงเป็นแหล่งพลังงานหลักราว 64% ของไฟฟ้าไทย ส่วนพลังงานหมุนเวียน (ส่วนใหญ่เป็นชีวมวล) มีสัดส่วนราวหนึ่งในห้า ไทยยังมีศักยภาพด้านพลังงานแสงอาทิตย์ที่ยังไม่ได้ใช้อีกมาก โดยเฉพาะโครงการโซลาร์ลอยน้ำของ กฟผ. ที่หลีกเลี่ยงข้อจำกัดด้านที่ดินได้อย่างสิ้นเชิงด้วยการใช้ผิวอ่างเก็บน้ำที่มีเขื่อนพลังน้ำอยู่แล้ว"
    }
   ],
   "en": [
@@ -211,7 +211,7 @@ LANDGAME.th = {
     "dp": 3,
     "isSolar": true,
     "readOnly": true,
-    "solarNote": "Thailand's tropical latitude yields roughly 545 ha/TWh — similar to Nigeria or Egypt. At that rate, powering the whole country needs just 0.22% of its land, about 112,000 hectares. Today, natural gas still supplies ~64% of Thailand's electricity and renewables (mostly biomass) about a fifth — Thailand has significant untapped solar potential, particularly given its EGAT floating solar programme, which sidesteps land constraints entirely by using reservoir surfaces already dammed for hydropower"
+    "solarNote": "Thailand's tropical latitude yields roughly 545 ha/TWh — similar to Nigeria or Egypt. At that rate, powering the whole country needs just 0.22% of its land, about 112,000 hectares. Today, fossil gas still supplies ~64% of Thailand's electricity and renewables (mostly biomass) about a fifth — Thailand has significant untapped solar potential, particularly given its EGAT floating solar programme, which sidesteps land constraints entirely by using reservoir surfaces already dammed for hydropower"
    }
   ]
  },
@@ -222,7 +222,7 @@ LANDGAME.th = {
    "disclaimer": "ตัวเลขพลังงานแสงอาทิตย์และแบตเตอรี่เป็นการทดลองทางความคิดที่สร้างขึ้นด้วยความช่วยเหลือของ AI ไม่ใช่ข้อเสนอแนะเชิงนโยบาย ตัวเลขพลังงานแสงอาทิตย์ทั้งหมดหมายถึงระบบขนาดใหญ่ที่เชื่อมต่อกับโครงข่ายไฟฟ้า",
    "noteLabel": "หมายเหตุ",
    "contextLabel": "บริบทของประเทศ",
-   "countryNote": "โครงสร้างพลังงานไฟฟ้าของไทยยังคงพึ่งพาก๊าซธรรมชาติเป็นหลัก (ประมาณ 64%) และถ่านหิน (ประมาณ 15%) โดยพลังงานหมุนเวียน — ส่วนใหญ่เป็นชีวมวล บวกกับพลังงานแสงอาทิตย์ที่กำลังเติบโตและพลังน้ำบางส่วน — คิดเป็นประมาณหนึ่งในห้าของการผลิตไฟฟ้า ไทยยังนำเข้าไฟฟ้าจากพลังน้ำของลาวประมาณ 15% แผนพัฒนากำลังผลิตไฟฟ้าฉบับร่างของรัฐบาลตั้งเป้าให้พลังงานหมุนเวียน มีสัดส่วน 51% ภายในปี 2580 ข้อมูลการใช้ที่ดินจาก FAO FAOSTAT และ CIA World Factbook ประมาณการปี 2561–2566 ข้อมูลไฟฟ้าจากรายงานประเทศไทยของ IRENA ปี 2566",
+   "countryNote": "โครงสร้างพลังงานไฟฟ้าของไทยยังคงพึ่งพาก๊าซฟอสซิลเป็นหลัก (ประมาณ 64%) และถ่านหิน (ประมาณ 15%) โดยพลังงานหมุนเวียน — ส่วนใหญ่เป็นชีวมวล บวกกับพลังงานแสงอาทิตย์ที่กำลังเติบโตและพลังน้ำบางส่วน — คิดเป็นประมาณหนึ่งในห้าของการผลิตไฟฟ้า ไทยยังนำเข้าไฟฟ้าจากพลังน้ำของลาวประมาณ 15% แผนพัฒนากำลังผลิตไฟฟ้าฉบับร่างของรัฐบาลตั้งเป้าให้พลังงานหมุนเวียน มีสัดส่วน 51% ภายในปี 2580 ข้อมูลการใช้ที่ดินจาก FAO FAOSTAT และ CIA World Factbook ประมาณการปี 2561–2566 ข้อมูลไฟฟ้าจากรายงานประเทศไทยของ IRENA ปี 2566",
    "submit": "ส่งคำตอบทั้งหมด",
    "play_again": "เล่นอีกครั้ง",
    "score": "คะแนน",
@@ -233,7 +233,7 @@ LANDGAME.th = {
    "allocated": "/ จัดสรรแล้ว 100%",
    "reveal": "จะเปิดเผยหลังจากส่งคำตอบ",
    "out_of": "คะแนนความแม่นยำ",
-   "sol100_reveal": "ละติจูดเขตร้อนของไทยให้ผลผลิตพลังงานประมาณ 545 เฮกตาร์ต่อเทระวัตต์ชั่วโมง ใกล้เคียงกับไนจีเรียหรืออียิปต์ ที่อัตรานี้ การผลิตไฟฟ้าทั้งประเทศต้องใช้พื้นที่เพียง 0.22% ของประเทศ หรือประมาณ 112,000 เฮกตาร์ ปัจจุบันก๊าซธรรมชาติยังคงเป็นแหล่งพลังงานหลักราว 64% ของไฟฟ้าไทย ส่วนพลังงานหมุนเวียน (ส่วนใหญ่เป็นชีวมวล) มีสัดส่วนราวหนึ่งในห้า ไทยยังมีศักยภาพด้านพลังงานแสงอาทิตย์ที่ยังไม่ได้ใช้อีกมาก โดยเฉพาะโครงการโซลาร์ลอยน้ำของ กฟผ. ที่หลีกเลี่ยงข้อจำกัดด้านที่ดินได้อย่างสิ้นเชิงด้วยการใช้ผิวอ่างเก็บน้ำที่มีเขื่อนพลังน้ำอยู่แล้ว",
+   "sol100_reveal": "ละติจูดเขตร้อนของไทยให้ผลผลิตพลังงานประมาณ 545 เฮกตาร์ต่อเทระวัตต์ชั่วโมง ใกล้เคียงกับไนจีเรียหรืออียิปต์ ที่อัตรานี้ การผลิตไฟฟ้าทั้งประเทศต้องใช้พื้นที่เพียง 0.22% ของประเทศ หรือประมาณ 112,000 เฮกตาร์ ปัจจุบันก๊าซฟอสซิลยังคงเป็นแหล่งพลังงานหลักราว 64% ของไฟฟ้าไทย ส่วนพลังงานหมุนเวียน (ส่วนใหญ่เป็นชีวมวล) มีสัดส่วนราวหนึ่งในห้า ไทยยังมีศักยภาพด้านพลังงานแสงอาทิตย์ที่ยังไม่ได้ใช้อีกมาก โดยเฉพาะโครงการโซลาร์ลอยน้ำของ กฟผ. ที่หลีกเลี่ยงข้อจำกัดด้านที่ดินได้อย่างสิ้นเชิงด้วยการใช้ผิวอ่างเก็บน้ำที่มีเขื่อนพลังน้ำอยู่แล้ว",
    "grades": [
     [
      86,
@@ -267,7 +267,7 @@ LANDGAME.th = {
    "disclaimer": "The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar figures refer to utility-scale, grid-connected systems.",
    "noteLabel": "Note",
    "contextLabel": "Country context",
-   "countryNote": "Thailand's electricity mix remains dominated by natural gas (~64%) and coal (~15%), with renewables — mostly biomass, plus growing solar and some hydro — making up roughly a fifth of generation. Thailand also imports around 15% of its electricity from Laotian hydropower. The government's draft power development plan targets 51% renewable electricity by 2037. Land use figures from FAO FAOSTAT and CIA World Factbook 2018–2023 estimates; electricity figures from IRENA Thailand Country Profile 2023.",
+   "countryNote": "Thailand's electricity mix remains dominated by fossil gas (~64%) and coal (~15%), with renewables — mostly biomass, plus growing solar and some hydro — making up roughly a fifth of generation. Thailand also imports around 15% of its electricity from Laotian hydropower. The government's draft power development plan targets 51% renewable electricity by 2037. Land use figures from FAO FAOSTAT and CIA World Factbook 2018–2023 estimates; electricity figures from IRENA Thailand Country Profile 2023.",
    "submit": "Submit all guesses",
    "play_again": "Play again",
    "score": "Score",
@@ -278,7 +278,7 @@ LANDGAME.th = {
    "allocated": "/ 100% allocated",
    "reveal": "Revealed after you submit.",
    "out_of": "accuracy score",
-   "sol100_reveal": "Thailand's tropical latitude yields roughly 545 ha/TWh — similar to Nigeria or Egypt. At that rate, powering the whole country needs just 0.22% of its land, about 112,000 hectares. Today, natural gas still supplies ~64% of Thailand's electricity and renewables (mostly biomass) about a fifth — Thailand has significant untapped solar potential, particularly given its EGAT floating solar programme, which sidesteps land constraints entirely by using reservoir surfaces already dammed for hydropower",
+   "sol100_reveal": "Thailand's tropical latitude yields roughly 545 ha/TWh — similar to Nigeria or Egypt. At that rate, powering the whole country needs just 0.22% of its land, about 112,000 hectares. Today, fossil gas still supplies ~64% of Thailand's electricity and renewables (mostly biomass) about a fifth — Thailand has significant untapped solar potential, particularly given its EGAT floating solar programme, which sidesteps land constraints entirely by using reservoir surfaces already dammed for hydropower",
    "grades": [
     [
      86,
