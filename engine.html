@@ -1,4 +1,4 @@
-<!-- v6.1.2 -->
+<!-- v6.2.0 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,6 +94,18 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 .world-foot { font-size: 11px; color: var(--text-secondary); line-height: 1.5; font-style: italic; }
 .source { font-size: 11px; color: var(--text-secondary); margin-top: 1.5rem; line-height: 1.8; }
 .source a { color: var(--text-secondary); text-decoration: underline; }
+.cost-box{margin:1rem 0;padding:.9rem 1rem;border:0.5px solid var(--border-md);border-radius:var(--radius-md);background:var(--bg-secondary)}
+.cost-head{font-weight:600;margin-bottom:.6rem}
+.cost-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.6rem}
+.cost-k{font-size:12px;color:var(--text-secondary)}
+.cost-v{font-size:18px;font-weight:600}
+.cost-tog{margin-top:.7rem;padding:6px 10px;font:inherit;font-size:13px;background:transparent;border:0.5px solid var(--border-md);border-radius:var(--radius-md);color:var(--text-primary);cursor:pointer}
+.cost-edit{margin-top:.6rem}
+.cost-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.6rem}
+.cost-f{display:flex;flex-direction:column;font-size:12px;color:var(--text-secondary);gap:3px}
+.cost-f input{font:inherit;font-size:14px;padding:6px;border:0.5px solid var(--border-md);border-radius:var(--radius-md);background:var(--bg-primary);color:var(--text-primary)}
+.cost-src,.cost-cav{font-size:11px;color:var(--text-secondary);line-height:1.5;margin:.6rem 0 0}
+.cost-cav{font-style:italic}
 .share-row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: .9rem; }
 .share-row button { padding: 8px 14px; font-size: 13px; font-family: inherit; background: var(--bg-primary); border: 0.5px solid var(--border-md); border-radius: var(--radius-md); color: var(--text-primary); cursor: pointer; }
 .share-row button:hover:not(:disabled) { background: var(--bg-tertiary); }
@@ -151,6 +163,7 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
       <div id="world-geo-map"></div>
       <div id="world-geo-inset"></div>
     </div>
+    <div class="cost-box" id="cost-box"></div>
     <p class="world-foot" id="world-foot"></p>
   </div>
   <p class="source" id="source-el"></p>
@@ -433,6 +446,63 @@ $('rst-btn').addEventListener('click',function(){
   buildCards(); updateTotal(); setTimeout(drawMap,50);
 });
 
+/* ---- v6.2.0 cost assumptions ---- */
+const COST_DEFAULTS={solar:700,batt:130,hours:4,dens:1};
+const COST_I18N={
+en:{head:'💰 Rough cost estimate',solar:'Solar ($/kW)',batt:'Battery ($/kWh)',dens:'Footprint (MW per hectare)',hrs:'4-hour battery',upd:'Update',rst:'Reset to defaults',own:'Own grid',world:'Whole world',comb:'Combined',caveat:'A real grid would never be solar-only: wind, hydro and other renewables would share the load. These are rough thought-experiment figures, not a forecast. Edits take effect only when you press Update.',adj:'⚙️ Adjust cost assumptions',src:'Default sources'},
+fr:{head:'💰 Estimation approximative du coût',solar:'Solaire ($/kW)',batt:'Batterie ($/kWh)',dens:'Emprise (MW par hectare)',hrs:'batterie de 4 heures',upd:'Mettre à jour',rst:'Valeurs par défaut',own:'Réseau national',world:'Monde entier',comb:'Combiné',caveat:'Un vrai réseau ne serait jamais uniquement solaire : l’éolien, l’hydraulique et d’autres renouvelables se partageraient la charge. Ce sont des ordres de grandeur issus d’une expérience de pensée, pas une prévision. Les modifications ne s’appliquent qu’après avoir cliqué sur Mettre à jour.',adj:'⚙️ Ajuster les hypothèses de coût',src:'Sources par défaut'},
+ar:{head:'💰 تقدير تقريبي للتكلفة',solar:'الطاقة الشمسية ($/كيلوواط)',batt:'البطارية ($/كيلوواط ساعة)',dens:'المساحة (ميغاواط لكل هكتار)',hrs:'بطارية 4 ساعات',upd:'تحديث',rst:'استعادة الافتراضي',own:'الشبكة الوطنية',world:'العالم كله',comb:'المجموع',caveat:'لن تعتمد أي شبكة حقيقية على الطاقة الشمسية وحدها؛ ستتقاسم الرياح والطاقة المائية ومصادر متجددة أخرى الحمل. هذه أرقام تقريبية لتجربة فكرية وليست توقعاً. لا تُطبَّق التعديلات إلا بعد الضغط على تحديث.',adj:'⚙️ تعديل افتراضات التكلفة',src:'المصادر الافتراضية'},
+pt:{head:'💰 Estimativa aproximada de custo',solar:'Solar ($/kW)',batt:'Bateria ($/kWh)',dens:'Área ocupada (MW por hectare)',hrs:'bateria de 4 horas',upd:'Atualizar',rst:'Restaurar padrões',own:'Rede nacional',world:'Mundo inteiro',comb:'Combinado',caveat:'Uma rede real nunca seria só solar: eólica, hidrelétrica e outras renováveis dividiriam a carga. São números aproximados de um experimento mental, não uma previsão. As alterações só valem depois de clicar em Atualizar.',adj:'⚙️ Ajustar premissas de custo',src:'Fontes padrão'},
+zh:{head:'💰 成本粗略估算',solar:'太阳能（美元/千瓦）',batt:'电池（美元/千瓦时）',dens:'占地（兆瓦/公顷）',hrs:'4小时电池',upd:'更新',rst:'恢复默认',own:'本国电网',world:'全世界',comb:'合计',caveat:'真实的电网不会只用太阳能：风能、水电和其他可再生能源也会分担负荷。这些只是思想实验中的粗略数字，并非预测。修改后需点击“更新”才会生效。',adj:'⚙️ 调整成本假设',src:'默认来源'},
+de:{head:'💰 Grobe Kostenschätzung',solar:'Solar ($/kW)',batt:'Batterie ($/kWh)',dens:'Flächenbedarf (MW pro Hektar)',hrs:'4-Stunden-Batterie',upd:'Aktualisieren',rst:'Standardwerte',own:'Eigenes Netz',world:'Ganze Welt',comb:'Kombiniert',caveat:'Ein reales Netz wäre nie rein solar: Wind, Wasserkraft und andere Erneuerbare würden die Last teilen. Dies sind grobe Zahlen eines Gedankenexperiments, keine Prognose. Änderungen gelten erst nach Klick auf Aktualisieren.',adj:'⚙️ Kostenannahmen anpassen',src:'Standardquellen'},
+da:{head:'💰 Grov omkostningsvurdering',solar:'Sol ($/kW)',batt:'Batteri ($/kWh)',dens:'Arealbehov (MW pr. hektar)',hrs:'4-timers batteri',upd:'Opdater',rst:'Nulstil til standard',own:'Eget net',world:'Hele verden',comb:'Samlet',caveat:'Et rigtigt elnet ville aldrig være kun sol: vind, vandkraft og andre vedvarende kilder ville dele belastningen. Det er grove tal fra et tankeeksperiment, ikke en prognose. Ændringer gælder først, når du trykker Opdater.',adj:'⚙️ Juster omkostningsantagelser',src:'Standardkilder'},
+es:{head:'💰 Estimación aproximada del coste',solar:'Solar ($/kW)',batt:'Batería ($/kWh)',dens:'Superficie (MW por hectárea)',hrs:'batería de 4 horas',upd:'Actualizar',rst:'Restablecer valores',own:'Red propia',world:'Todo el mundo',comb:'Combinado',caveat:'Una red real nunca sería solo solar: la eólica, la hidráulica y otras renovables compartirían la carga. Son cifras aproximadas de un experimento mental, no una previsión. Los cambios solo se aplican al pulsar Actualizar.',adj:'⚙️ Ajustar supuestos de coste',src:'Fuentes por defecto'},
+hu:{head:'💰 Hozzávetőleges költségbecslés',solar:'Nap ($/kW)',batt:'Akkumulátor ($/kWh)',dens:'Területigény (MW hektáronként)',hrs:'4 órás akkumulátor',upd:'Frissítés',rst:'Alapértékek',own:'Saját hálózat',world:'Az egész világ',comb:'Együtt',caveat:'Egy valódi hálózat sosem lenne kizárólag napenergiás: a szél, a vízenergia és más megújulók is részt vennének a terhelésben. Ezek durva, gondolatkísérleti számok, nem előrejelzés. A módosítások csak a Frissítés gomb megnyomása után lépnek életbe.',adj:'⚙️ Költségfeltevések módosítása',src:'Alapértelmezett források'},
+hi:{head:'💰 मोटा लागत अनुमान',solar:'सौर ($/kW)',batt:'बैटरी ($/kWh)',dens:'भूमि (MW प्रति हेक्टेयर)',hrs:'4 घंटे की बैटरी',upd:'अपडेट करें',rst:'डिफ़ॉल्ट पर लौटें',own:'अपना ग्रिड',world:'पूरी दुनिया',comb:'संयुक्त',caveat:'असली ग्रिड कभी केवल सौर नहीं होगा: पवन, जल-विद्युत और अन्य नवीकरणीय स्रोत भी भार साझा करेंगे। ये एक विचार-प्रयोग के मोटे आँकड़े हैं, भविष्यवाणी नहीं। बदलाव तभी लागू होंगे जब आप अपडेट दबाएँगे।',adj:'⚙️ लागत मान्यताएँ बदलें',src:'डिफ़ॉल्ट स्रोत'},
+ja:{head:'💰 おおよそのコスト試算',solar:'太陽光（$/kW）',batt:'蓄電池（$/kWh）',dens:'用地（MW/ヘクタール）',hrs:'4時間蓄電池',upd:'更新',rst:'初期値に戻す',own:'自国の電力網',world:'世界全体',comb:'合計',caveat:'現実の電力網が太陽光だけになることはありません。風力、水力、その他の再生可能エネルギーも負荷を分担します。これは思考実験の概算であり、予測ではありません。変更は「更新」を押すまで反映されません。',adj:'⚙️ コストの前提を調整',src:'既定の出典'},
+sw:{head:'💰 Makadirio ya takriban ya gharama',solar:'Jua ($/kW)',batt:'Betri ($/kWh)',dens:'Eneo (MW kwa hekta)',hrs:'betri ya saa 4',upd:'Sasisha',rst:'Rudisha chaguo-msingi',own:'Gridi ya nchi',world:'Dunia nzima',comb:'Jumla',caveat:'Gridi halisi haiwezi kutegemea jua pekee: upepo, umeme wa maji na vyanzo vingine mbadala vingeshiriki mzigo. Hizi ni takwimu za takriban za jaribio la kifikra, si utabiri. Mabadiliko hutekelezwa tu ukibonyeza Sasisha.',adj:'⚙️ Rekebisha dhana za gharama',src:'Vyanzo chaguo-msingi'},
+mg:{head:'💰 Tombantombana ny vidiny',solar:'Masoandro ($/kW)',batt:'Batterie ($/kWh)',dens:'Velarana (MW isaky ny hektara)',hrs:'batterie 4 ora',upd:'Havaozy',rst:'Averina ny mahazatra',own:'Tambazotra nasionaly',world:'Izao tontolo izao',comb:'Fitambarany',caveat:'Tsy ho masoandro ihany ny tambazotra marina: hiara-mizara ny entana ny rivotra, ny herin-drano ary ny angovo azo havaozina hafa. Tarehimarika tombantombana avy amin’ny fanandramana An-tsaina ireo, fa tsy faminavinana. Tsy misy fiantraikany ny fanovana raha tsy mikitika ny Havaozy ianao.',adj:'⚙️ Ovay ny petra-kevitra momba ny vidiny',src:'Loharano mahazatra'},
+ur:{head:'💰 لاگت کا موٹا اندازہ',solar:'شمسی ($/kW)',batt:'بیٹری ($/kWh)',dens:'رقبہ (MW فی ہیکٹر)',hrs:'4 گھنٹے کی بیٹری',upd:'اپ ڈیٹ',rst:'ڈیفالٹ بحال کریں',own:'اپنا گرڈ',world:'پوری دنیا',comb:'مجموعی',caveat:'حقیقی گرڈ کبھی صرف شمسی نہیں ہوگا: ہوا، پن بجلی اور دیگر قابلِ تجدید ذرائع بھی بوجھ بانٹیں گے۔ یہ ایک فکری تجربے کے موٹے اعداد ہیں، پیش گوئی نہیں۔ تبدیلیاں صرف اپ ڈیٹ دبانے پر لاگو ہوتی ہیں۔',adj:'⚙️ لاگت کے مفروضے تبدیل کریں',src:'ڈیفالٹ ذرائع'},
+ru:{head:'💰 Приблизительная оценка стоимости',solar:'Солнце ($/кВт)',batt:'Батарея ($/кВт·ч)',dens:'Площадь (МВт на гектар)',hrs:'4-часовая батарея',upd:'Обновить',rst:'Сбросить',own:'Своя сеть',world:'Весь мир',comb:'Итого',caveat:'Реальная сеть никогда не будет только солнечной: нагрузку разделят ветер, гидроэнергетика и другие ВИЭ. Это грубые цифры мысленного эксперимента, а не прогноз. Изменения вступают в силу только после нажатия «Обновить».',adj:'⚙️ Изменить допущения по стоимости',src:'Источники по умолчанию'},
+sv:{head:'💰 Grov kostnadsuppskattning',solar:'Sol ($/kW)',batt:'Batteri ($/kWh)',dens:'Ytbehov (MW per hektar)',hrs:'4-timmars batteri',upd:'Uppdatera',rst:'Återställ standard',own:'Eget nät',world:'Hela världen',comb:'Totalt',caveat:'Ett verkligt elnät skulle aldrig bara vara sol: vind, vattenkraft och andra förnybara källor skulle dela på lasten. Det här är grova siffror från ett tankeexperiment, inte en prognos. Ändringar gäller först när du trycker på Uppdatera.',adj:'⚙️ Justera kostnadsantaganden',src:'Standardkällor'},
+th:{head:'💰 ประมาณการต้นทุนคร่าว ๆ',solar:'โซลาร์ ($/kW)',batt:'แบตเตอรี่ ($/kWh)',dens:'พื้นที่ (MW ต่อเฮกตาร์)',hrs:'แบตเตอรี่ 4 ชั่วโมง',upd:'อัปเดต',rst:'คืนค่าเริ่มต้น',own:'โครงข่ายของประเทศ',world:'ทั้งโลก',comb:'รวม',caveat:'โครงข่ายไฟฟ้าจริงจะไม่ใช้โซลาร์อย่างเดียว ลม พลังน้ำ และพลังงานหมุนเวียนอื่นจะช่วยแบ่งภาระ ตัวเลขเหล่านี้เป็นการประมาณคร่าว ๆ จากการทดลองทางความคิด ไม่ใช่การพยากรณ์ การแก้ไขจะมีผลเมื่อกดอัปเดตเท่านั้น',adj:'⚙️ ปรับสมมติฐานต้นทุน',src:'แหล่งข้อมูลเริ่มต้น'}
+};
+function CI(){ return COST_I18N[currentLang]||COST_I18N.en; }
+let costApplied=Object.assign({},COST_DEFAULTS), costDraft=Object.assign({},COST_DEFAULTS), costOpen=false;
+function fmtUsd(v){
+  try{ return new Intl.NumberFormat(currentLang,{style:'currency',currency:'USD',notation:'compact',maximumFractionDigits:1}).format(v); }
+  catch(e){ return '$'+(v/1e9).toFixed(0)+'B'; }
+}
+function costNum(v){ try{ return new Intl.NumberFormat(currentLang).format(v); }catch(e){ return String(v); } }
+function renderCost(haNeeded){
+  const box=$('cost-box'); if(!box) return;
+  const t=CI(), c=costApplied;
+  const perKw=c.solar+c.batt*c.hours;
+  const own=SOL100_HA*c.dens*1000*perKw, wld=haNeeded*c.dens*1000*perKw;
+  const inp=(id,val,step)=>'<label class="cost-f"><span>'+t[id==='cs'?'solar':id==='cb'?'batt':'dens']+'</span><input type="number" min="0" step="'+step+'" id="'+id+'" value="'+val+'" inputmode="decimal"></label>';
+  box.innerHTML=
+    '<div class="cost-head">'+t.head+'</div>'+
+    '<div class="cost-grid">'+
+      '<div><div class="cost-k">'+t.own+'</div><div class="cost-v">'+fmtUsd(own)+'</div></div>'+
+      '<div><div class="cost-k">'+t.world+'</div><div class="cost-v">'+fmtUsd(wld)+'</div></div>'+
+      '<div><div class="cost-k">'+t.comb+' · '+t.hrs+'</div><div class="cost-v">$'+costNum(perKw)+'/kW</div></div>'+
+    '</div>'+
+    '<button type="button" class="cost-tog" id="cost-tog" aria-expanded="'+costOpen+'">'+t.adj+'</button>'+
+    '<div class="cost-edit" id="cost-edit" style="display:'+(costOpen?'block':'none')+'">'+
+      '<div class="cost-fields">'+inp('cs',costDraft.solar,10)+inp('cb',costDraft.batt,5)+inp('cd',costDraft.dens,0.1)+'</div>'+
+      '<div class="share-row"><button type="button" id="cost-upd">'+t.upd+'</button><button type="button" id="cost-rst">'+t.rst+'</button></div>'+
+      '<p class="cost-src">'+t.src+': <a href="https://www.lazard.com/research-insights/levelized-cost-of-energyplus/" target="_blank" rel="noopener">Lazard LCOE+</a> · <a href="https://www.irena.org/Publications" target="_blank" rel="noopener">IRENA</a> · <a href="https://about.bnef.com/energy-storage-systems-cost-survey/" target="_blank" rel="noopener">BNEF</a></p>'+
+    '</div>'+
+    '<p class="cost-cav">'+t.caveat+'</p>';
+  $('cost-tog').onclick=()=>{ costOpen=!costOpen; $('cost-edit').style.display=costOpen?'block':'none'; $('cost-tog').setAttribute('aria-expanded',costOpen); };
+  const rd=()=>{ const n=(id,d)=>{ const v=parseFloat($(id).value); return isFinite(v)&&v>=0?v:d; };
+    costDraft={solar:n('cs',c.solar),batt:n('cb',c.batt),hours:COST_DEFAULTS.hours,dens:n('cd',c.dens)||COST_DEFAULTS.dens}; };
+  ['cs','cb','cd'].forEach(id=>$(id).addEventListener('input',rd));
+  $('cost-upd').onclick=()=>{ rd(); costApplied=Object.assign({},costDraft); renderCost(haNeeded); };
+  $('cost-rst').onclick=()=>{ costApplied=Object.assign({},COST_DEFAULTS); costDraft=Object.assign({},COST_DEFAULTS); renderCost(haNeeded); };
+  box.dir=RTL_LANGS.indexOf(currentLang)>=0?'rtl':'ltr';
+}
+
 function fmtHaM(haNeeded,W,lang){
   if(W.haStyle==='word'){
     const mw=(W.millionWord&&W.millionWord[lang])||'million';
@@ -459,6 +529,7 @@ function renderWorldCard(){
     '<span><span class="geo-dot" style="background:#8a7860;opacity:0.65"></span>'+S.country_label+'</span>'+
     '<span><span class="geo-dot" style="background:#EF9F27"></span>'+S.circle_label+'</span>';
   $('world-foot').textContent=T.foot;
+  renderCost(haNeeded);
   setTimeout(()=>{drawGeoMap(haNeeded);drawGeoInset(haNeeded);},800);
 }
 

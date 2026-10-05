@@ -44,6 +44,19 @@ ul li strong { color: var(--ink); font-weight: 500; }
 
   <div class="entry">
     <div class="entry-header">
+      <span class="version">v6.2.0</span>
+      <span class="date">2026</span>
+      <span class="badge badge-minor">minor</span>
+    </div>
+    <ul>
+      <li><strong>Rough cost estimates on every country page</strong> - the "powered the whole world" panel now shows the approximate cost of the solar+battery build-out for the country's own grid and for the whole world, plus the combined cost per kW. Defaults: $700/kW solar + $130/kWh x 4 hours of battery = $1,220/kW, at a footprint of 1 MW per hectare. Costs are formatted for the chosen language, and the panel follows the language toggle.</li>
+      <li><strong>"Adjust cost assumptions" with a manual Update button</strong> - edit the solar $/kW, battery $/kWh and footprint, then press Update. Nothing changes until you press it, and the defaults are used until then. "Reset to defaults" restores the original values.</li>
+      <li><strong>Caveat and sources</strong> - the panel states that a real grid would never be solar-only, that the figures are a thought experiment and not a forecast, and links Lazard LCOE+, IRENA and BNEF as the default sources.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="entry-header">
       <span class="version">v6.1.2</span>
       <span class="date">2026</span>
       <span class="badge badge-patch">patch</span>
