@@ -43,7 +43,7 @@ LANDGAME.is = {
     "id": "glaciers",
     "icon": "🧊",
     "name": "Glaciers",
-    "desc": "Vatnajökull, Europe's largest glacier by volume, plus Langjökull, Hofsjökull and dozens of smaller ice caps - glacier cover has already shrunk from 11% to 10% of the country since 2008 as the climate warms",
+    "desc": "Vatnajökull, Europe's largest glacier by volume, plus Langjökull, Hofsjökull and dozens of smaller ice caps - glacier cover has already shrunk noticeably since 2008 as the climate warms",
     "answer": 10.3,
     "color": "#b0cce8",
     "max": 20,
