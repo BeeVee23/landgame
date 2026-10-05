@@ -1,6 +1,6 @@
 window.LANDGAME=window.LANDGAME||{};
 LANDGAME.uk = {
- "title": "🇬🇧 How is UK land actually used? — Guessing Game",
+ "title": "🇬🇧 How is UK land actually used? - Guessing Game",
  "code": "uk",
  "iso": "826",
  "alpha2": "gb",
@@ -111,7 +111,7 @@ LANDGAME.uk = {
     "id": "sol100",
     "icon": "⚡🔋",
     "name": "Solar+battery for 100% electricity",
-    "desc": "Land needed for utility-scale solar+battery to power the entire UK national grid 24/7 (~330 TWh/yr) — the UK's overcast climate is comparable to Germany's, requiring similar land per TWh",
+    "desc": "Land needed for utility-scale solar+battery to power the entire UK national grid 24/7 (~330 TWh/yr) - the UK's overcast climate is comparable to Germany's, requiring similar land per TWh",
     "answer": 1.22,
     "color": "#BA7517",
     "max": 5,
@@ -125,8 +125,8 @@ LANDGAME.uk = {
  "strings": {
   "en": {
    "h1": "<img src=\"https://flagcdn.com/32x24/gb.png\" alt=\"\" style=\"height:0.75em;vertical-align:0.1em;margin-right:0.2em\"> How is UK land actually used?",
-   "subtitle": "Inspired by <a href=\"https://www.youtube.com/shorts/CgeTvQPwNCg\" target=\"_blank\" style=\"color:var(--text-secondary)\">Dr. Simon Clark's YouTube short</a>. Guess the percentage of UK land for each category — sliders are capped at 100% total. Submit to see how you did and reveal the proportional area map.",
-   "disclaimer": "The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. Real-world energy planning requires diverse renewable sources — the UK's wind resource (onshore and offshore) is among the best in Europe and will likely do far more heavy lifting than solar in any credible net-zero scenario.",
+   "subtitle": "Inspired by <a href=\"https://www.youtube.com/shorts/CgeTvQPwNCg\" target=\"_blank\" style=\"color:var(--text-secondary)\">Dr. Simon Clark's YouTube short</a>. Guess the percentage of UK land for each category - sliders are capped at 100% total. Submit to see how you did and reveal the proportional area map.",
+   "disclaimer": "The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. Real-world energy planning requires diverse renewable sources - the UK's wind resource (onshore and offshore) is among the best in Europe and will likely do far more heavy lifting than solar in any credible net-zero scenario.",
    "noteLabel": "Note",
    "contextLabel": "Country context",
    "countryNote": "Land use figures are approximate and sourced from official statistics; always consult primary sources before drawing conclusions.",
@@ -135,19 +135,19 @@ LANDGAME.uk = {
    "score": "Score",
    "land_used": "Land used",
    "remaining": "Remaining",
-   "map_guess": "Your guesses — proportional area map (updates as you slide)",
+   "map_guess": "Your guesses - proportional area map (updates as you slide)",
    "allocated": "/ 100% allocated",
    "reveal": "undefined",
    "out_of": "accuracy score",
-   "map_answer": "Actual UK land use — proportional area map",
+   "map_answer": "Actual UK land use - proportional area map",
    "grades": [
     [
      85,
-     "🏆 Land use expert — you know your countryside!"
+     "🏆 Land use expert - you know your countryside!"
     ],
     [
      65,
-     "🌿 Very strong — sharp sense of the UK landscape."
+     "🌿 Very strong - sharp sense of the UK landscape."
     ],
     [
      44,
@@ -155,14 +155,14 @@ LANDGAME.uk = {
     ],
     [
      22,
-     "🌫️ The UK is greener than it feels — 94% is NOT built on."
+     "🌫️ The UK is greener than it feels - 94% is NOT built on."
     ],
     [
      0,
      "🤔 Surprising, right? The UK is overwhelmingly rural from the air."
     ]
    ],
-   "sol100_reveal": "The UK averages ~1,000 kWh/kWp/yr — similar to Germany given comparable cloud cover and latitude. At 900 ha/TWh, 1.22% of UK land is needed. Storage overcapacity roughly doubles the land vs panels alone.",
+   "sol100_reveal": "The UK averages ~1,000 kWh/kWp/yr - similar to Germany given comparable cloud cover and latitude. At 900 ha/TWh, 1.22% of UK land is needed. Storage overcapacity roughly doubles the land vs panels alone.",
    "country_label": "UK",
    "circle_label": "Land area needed",
    "zoomed": "Zoomed view"
@@ -171,9 +171,9 @@ LANDGAME.uk = {
  "world": {
   "en": {
    "head": "🌍 What if UK alone powered the whole world?",
-   "foot": "The dashed circle is illustrative — sized to the correct land area, but not an actual proposed siting. It overlaps existing borders for scale only.",
-   "fit": "Powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) using UK's own solar conditions would need about <strong>{haM} hectares</strong> — <strong>{pct}%</strong> of UK's land area, shown below as a circle of equivalent area.",
-   "overflow": "Powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) using UK's own solar conditions would need about <strong>{haM} hectares</strong> — <strong>{mult}× the entire country</strong>. The circle below shows that area centred on UK — it spills well beyond the country's own borders, illustrating that solar geography and climate matter as much as land availability."
+   "foot": "The dashed circle is illustrative - sized to the correct land area, but not an actual proposed siting. It overlaps existing borders for scale only.",
+   "fit": "Powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) using UK's own solar conditions would need about <strong>{haM} hectares</strong> - <strong>{pct}%</strong> of UK's land area, shown below as a circle of equivalent area.",
+   "overflow": "Powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) using UK's own solar conditions would need about <strong>{haM} hectares</strong> - <strong>{mult}× the entire country</strong>. The circle below shows that area centred on UK - it spills well beyond the country's own borders, illustrating that solar geography and climate matter as much as land availability."
   },
   "haStyle": "word",
   "millionWord": {

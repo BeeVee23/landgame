@@ -1,6 +1,6 @@
 window.LANDGAME=window.LANDGAME||{};
 LANDGAME.se = {
- "title": "🇸🇪 How is Sweden's land actually used? — Guessing Game",
+ "title": "🇸🇪 How is Sweden's land actually used? - Guessing Game",
  "code": "se",
  "iso": "752",
  "alpha2": "se",
@@ -22,7 +22,7 @@ LANDGAME.se = {
     "id": "forest",
     "icon": "🌲",
     "name": "Skog",
-    "desc": "Barrskog av gran och tall dominerar från söder till norr — Sveriges skogsvolym har mer än fördubblats sedan 1920-talet tack vare aktivt skogsbruk, och skogsindustrin (papper, massa, timmer) är en av landets viktigaste exportnäringar",
+    "desc": "Barrskog av gran och tall dominerar från söder till norr - Sveriges skogsvolym har mer än fördubblats sedan 1920-talet tack vare aktivt skogsbruk, och skogsindustrin (papper, massa, timmer) är en av landets viktigaste exportnäringar",
     "answer": 68.9,
     "color": "#3B6D11",
     "max": 85,
@@ -33,7 +33,7 @@ LANDGAME.se = {
     "id": "agri",
     "icon": "🌾",
     "name": "Jordbruksmark",
-    "desc": "Spannmål, raps och betesmark, koncentrerad till de bördiga slätterna i Skåne och Mälardalen — jordbruksmarken har minskat stadigt i decennier i takt med att skog och tätorter breder ut sig",
+    "desc": "Spannmål, raps och betesmark, koncentrerad till de bördiga slätterna i Skåne och Mälardalen - jordbruksmarken har minskat stadigt i decennier i takt med att skog och tätorter breder ut sig",
     "answer": 6.8,
     "color": "#639922",
     "max": 25,
@@ -44,7 +44,7 @@ LANDGAME.se = {
     "id": "mountain",
     "icon": "🏔️",
     "name": "Fjäll och övrig mark",
-    "desc": "Fjällkedjan längs norska gränsen samt övrig obebyggd mark som inte klassas som skog, jordbruk eller våtmark — hem för Sveriges enda vildrensstammar och stora delar av samernas renskötselområden",
+    "desc": "Fjällkedjan längs norska gränsen samt övrig obebyggd mark som inte klassas som skog, jordbruk eller våtmark - hem för Sveriges enda vildrensstammar och stora delar av samernas renskötselområden",
     "answer": 6.52,
     "color": "#8a7860",
     "max": 25,
@@ -55,7 +55,7 @@ LANDGAME.se = {
     "id": "wetland",
     "icon": "🌿",
     "name": "Våtmarker och myrar",
-    "desc": "Vidsträckta myrar och torvmarker, särskilt i Norrland — bland Europas mest omfattande våtmarksområden, viktiga för både biologisk mångfald och kollagring",
+    "desc": "Vidsträckta myrar och torvmarker, särskilt i Norrland - bland Europas mest omfattande våtmarksområden, viktiga för både biologisk mångfald och kollagring",
     "answer": 6,
     "color": "#8ba888",
     "max": 15,
@@ -66,7 +66,7 @@ LANDGAME.se = {
     "id": "water",
     "icon": "💧",
     "name": "Sjöar och vattendrag",
-    "desc": "Omkring 100 000 sjöar, inklusive Vänern och Vättern, två av Europas största — sjöar täcker en påfallande stor del av landets yta och har historiskt varit avgörande för både transport och vattenkraft",
+    "desc": "Omkring 100 000 sjöar, inklusive Vänern och Vättern, två av Europas största - sjöar täcker en påfallande stor del av landets yta och har historiskt varit avgörande för både transport och vattenkraft",
     "answer": 8.7,
     "color": "#378ADD",
     "max": 15,
@@ -77,7 +77,7 @@ LANDGAME.se = {
     "id": "settle",
     "icon": "🏙️",
     "name": "Bebyggelse och vägar",
-    "desc": "Stockholm, Göteborg och Malmö, samt landets väg- och järnvägsnät — endast omkring tre procent av Sveriges yta är bebyggd, trots att över 85 procent av befolkningen bor i städer",
+    "desc": "Stockholm, Göteborg och Malmö, samt landets väg- och järnvägsnät - endast omkring tre procent av Sveriges yta är bebyggd, trots att över 85 procent av befolkningen bor i städer",
     "answer": 3,
     "color": "#73726c",
     "max": 8,
@@ -88,7 +88,7 @@ LANDGAME.se = {
     "id": "golf",
     "icon": "⛳",
     "name": "Golfbanor",
-    "desc": "Omkring 450–500 banor — Sverige har fler golfbanor per invånare än nästan något annat land i Europa, ett arv från golfboomen på 1980- och 90-talen",
+    "desc": "Omkring 450–500 banor - Sverige har fler golfbanor per invånare än nästan något annat land i Europa, ett arv från golfboomen på 1980- och 90-talen",
     "answer": 0.06,
     "color": "#5DCAA5",
     "max": 0.3,
@@ -100,7 +100,7 @@ LANDGAME.se = {
     "id": "solar",
     "icon": "☀️🔋",
     "name": "Solkraft (nuvarande)",
-    "desc": "Storskalig, nätansluten solkraft utgör en liten men växande del av elmixen — solel stod för endast omkring 1–2 procent av Sveriges elproduktion, långt efter vattenkraft, kärnkraft och vindkraft",
+    "desc": "Storskalig, nätansluten solkraft utgör en liten men växande del av elmixen - solel stod för endast omkring 1–2 procent av Sveriges elproduktion, långt efter vattenkraft, kärnkraft och vindkraft",
     "answer": 0.02,
     "color": "#EF9F27",
     "max": 0.3,
@@ -108,7 +108,7 @@ LANDGAME.se = {
     "answerHa": 9006,
     "dp": 3,
     "isSolar": true,
-    "solarNote": "Tips: Sveriges elproduktion är redan till största delen fossilfri utan solkraft — vattenkraft (cirka 40 procent), kärnkraft (cirka 27–29 procent) och vindkraft (cirka 19–23 procent) står tillsammans för mer än 90 procent av elmixen"
+    "solarNote": "Tips: Sveriges elproduktion är redan till största delen fossilfri utan solkraft - vattenkraft (cirka 40 procent), kärnkraft (cirka 27–29 procent) och vindkraft (cirka 19–23 procent) står tillsammans för mer än 90 procent av elmixen"
    },
    {
     "id": "sol100",
@@ -123,7 +123,7 @@ LANDGAME.se = {
     "dp": 3,
     "isSolar": true,
     "readOnly": true,
-    "solarNote": "Sveriges solinstrålning är måttlig och varierar kraftigt mellan årstiderna på grund av landets nordliga läge — ungefär 1000 ha/TWh enligt en försiktig uppskattning, sämre än länder som Tyskland men bättre än Island. Vid den nivån skulle hela elnätet endast kräva omkring 0,3 procent av Sveriges yta. Men Sverige behöver knappast solkraft för att vara fossilfritt: vattenkraft, kärnkraft och vindkraft täcker redan över 90 procent av elproduktionen utan någon sol alls"
+    "solarNote": "Sveriges solinstrålning är måttlig och varierar kraftigt mellan årstiderna på grund av landets nordliga läge - ungefär 1000 ha/TWh enligt en försiktig uppskattning, sämre än länder som Tyskland men bättre än Island. Vid den nivån skulle hela elnätet endast kräva omkring 0,3 procent av Sveriges yta. Men Sverige behöver knappast solkraft för att vara fossilfritt: vattenkraft, kärnkraft och vindkraft täcker redan över 90 procent av elproduktionen utan någon sol alls"
    }
   ],
   "en": [
@@ -131,7 +131,7 @@ LANDGAME.se = {
     "id": "forest",
     "icon": "🌲",
     "name": "Forest",
-    "desc": "Spruce and pine forest dominates from south to north — Sweden's standing timber volume has more than doubled since the 1920s thanks to active forestry, and the forest industry (paper, pulp, timber) is one of the country's most important export sectors",
+    "desc": "Spruce and pine forest dominates from south to north - Sweden's standing timber volume has more than doubled since the 1920s thanks to active forestry, and the forest industry (paper, pulp, timber) is one of the country's most important export sectors",
     "answer": 68.9,
     "color": "#3B6D11",
     "max": 85,
@@ -142,7 +142,7 @@ LANDGAME.se = {
     "id": "agri",
     "icon": "🌾",
     "name": "Agricultural land",
-    "desc": "Grain, oilseed rape and pasture, concentrated on the fertile plains of Skåne and around Lake Mälaren — farmland has been shrinking steadily for decades as forest and urban areas expand",
+    "desc": "Grain, oilseed rape and pasture, concentrated on the fertile plains of Skåne and around Lake Mälaren - farmland has been shrinking steadily for decades as forest and urban areas expand",
     "answer": 6.8,
     "color": "#639922",
     "max": 25,
@@ -153,7 +153,7 @@ LANDGAME.se = {
     "id": "mountain",
     "icon": "🏔️",
     "name": "Mountains & other land",
-    "desc": "The mountain range along the Norwegian border, plus other unbuilt land not classed as forest, farmland or wetland — home to Sweden's only wild reindeer herds and much of the Sámi reindeer-herding territory",
+    "desc": "The mountain range along the Norwegian border, plus other unbuilt land not classed as forest, farmland or wetland - home to Sweden's only wild reindeer herds and much of the Sámi reindeer-herding territory",
     "answer": 6.52,
     "color": "#8a7860",
     "max": 25,
@@ -164,7 +164,7 @@ LANDGAME.se = {
     "id": "wetland",
     "icon": "🌿",
     "name": "Wetlands & mires",
-    "desc": "Extensive peat bogs and mires, especially across Norrland in the north — among the most extensive wetland areas in Europe, important both for biodiversity and carbon storage",
+    "desc": "Extensive peat bogs and mires, especially across Norrland in the north - among the most extensive wetland areas in Europe, important both for biodiversity and carbon storage",
     "answer": 6,
     "color": "#8ba888",
     "max": 15,
@@ -175,7 +175,7 @@ LANDGAME.se = {
     "id": "water",
     "icon": "💧",
     "name": "Lakes & rivers",
-    "desc": "Around 100,000 lakes, including Vänern and Vättern, two of Europe's largest — lakes cover a strikingly large share of the country and have historically been vital for both transport and hydropower",
+    "desc": "Around 100,000 lakes, including Vänern and Vättern, two of Europe's largest - lakes cover a strikingly large share of the country and have historically been vital for both transport and hydropower",
     "answer": 8.7,
     "color": "#378ADD",
     "max": 15,
@@ -186,7 +186,7 @@ LANDGAME.se = {
     "id": "settle",
     "icon": "🏙️",
     "name": "Settlement & roads",
-    "desc": "Stockholm, Gothenburg and Malmö, plus the national road and rail network — only around 3% of Sweden's land is built up, despite over 85% of the population living in cities",
+    "desc": "Stockholm, Gothenburg and Malmö, plus the national road and rail network - only around 3% of Sweden's land is built up, despite over 85% of the population living in cities",
     "answer": 3,
     "color": "#73726c",
     "max": 8,
@@ -197,7 +197,7 @@ LANDGAME.se = {
     "id": "golf",
     "icon": "⛳",
     "name": "Golf courses",
-    "desc": "Around 450-500 courses — Sweden has more golf courses per capita than almost any other country in Europe, a legacy of the golf boom of the 1980s and 90s",
+    "desc": "Around 450-500 courses - Sweden has more golf courses per capita than almost any other country in Europe, a legacy of the golf boom of the 1980s and 90s",
     "answer": 0.06,
     "color": "#5DCAA5",
     "max": 0.3,
@@ -239,7 +239,7 @@ LANDGAME.se = {
  "strings": {
   "sv": {
    "h1": "<img src=\"https://flagcdn.com/32x24/se.png\" alt=\"\" style=\"height:0.75em;vertical-align:0.1em;margin-right:0.2em\"> Hur används egentligen Sveriges mark?",
-   "subtitle": "Inspirerat av <a href=\"https://www.youtube.com/shorts/CgeTvQPwNCg\" target=\"_blank\" style=\"color:var(--text-secondary)\">Dr. Simon Clarks korta YouTube-klipp</a> (på engelska). Gissa hur stor andel av Sveriges yta som tillhör varje kategori — reglagen får sammanlagt uppgå till högst 100 procent. Sveriges elproduktion är redan över 90 procent fossilfri tack vare vattenkraft, kärnkraft och vindkraft — solkraft spelar knappt någon roll alls.",
+   "subtitle": "Inspirerat av <a href=\"https://www.youtube.com/shorts/CgeTvQPwNCg\" target=\"_blank\" style=\"color:var(--text-secondary)\">Dr. Simon Clarks korta YouTube-klipp</a> (på engelska). Gissa hur stor andel av Sveriges yta som tillhör varje kategori - reglagen får sammanlagt uppgå till högst 100 procent. Sveriges elproduktion är redan över 90 procent fossilfri tack vare vattenkraft, kärnkraft och vindkraft - solkraft spelar knappt någon roll alls.",
    "disclaimer": "Siffrorna för sol och batterier är ett tankeexperiment framtaget med hjälp av AI, inte en politisk rekommendation. Alla solsiffror avser storskaliga, nätanslutna system; Sveriges elbehov är ett ungefärligt, långsiktigt typvärde. Markanvändningsdata från Skogsindustrierna, Riksskogstaxeringen (SLU) och Världsbanken/FAO; elsiffror från Energimyndigheten och IEA, 2023-2025.",
    "noteLabel": "Obs",
    "contextLabel": "Landskontext",
@@ -249,12 +249,12 @@ LANDGAME.se = {
    "score": "Poäng",
    "land_used": "Använd yta",
    "remaining": "Återstår",
-   "map_guess": "Dina svar — proportionell areakarta (uppdateras när du drar)",
-   "map_answer": "Faktisk svensk markanvändning — proportionell areakarta",
+   "map_guess": "Dina svar - proportionell areakarta (uppdateras när du drar)",
+   "map_answer": "Faktisk svensk markanvändning - proportionell areakarta",
    "allocated": "/ 100% fördelat",
    "reveal": "Visas efter att du skickat in.",
    "out_of": "träffsäkerhet",
-   "sol100_reveal": "Sveriges solinstrålning är måttlig och varierar kraftigt mellan årstiderna på grund av landets nordliga läge — ungefär 1000 ha/TWh enligt en försiktig uppskattning, sämre än länder som Tyskland men bättre än Island. Vid den nivån skulle hela elnätet endast kräva omkring 0,3 procent av Sveriges yta. Men Sverige behöver knappast solkraft för att vara fossilfritt: vattenkraft, kärnkraft och vindkraft täcker redan över 90 procent av elproduktionen utan någon sol alls",
+   "sol100_reveal": "Sveriges solinstrålning är måttlig och varierar kraftigt mellan årstiderna på grund av landets nordliga läge - ungefär 1000 ha/TWh enligt en försiktig uppskattning, sämre än länder som Tyskland men bättre än Island. Vid den nivån skulle hela elnätet endast kräva omkring 0,3 procent av Sveriges yta. Men Sverige behöver knappast solkraft för att vara fossilfritt: vattenkraft, kärnkraft och vindkraft täcker redan över 90 procent av elproduktionen utan någon sol alls",
    "grades": [
     [
      86,
@@ -262,7 +262,7 @@ LANDGAME.se = {
     ],
     [
      64,
-     "🌲 Mycket bra — god känsla för hur skogsdominerat landet faktiskt är."
+     "🌲 Mycket bra - god känsla för hur skogsdominerat landet faktiskt är."
     ],
     [
      43,
@@ -284,7 +284,7 @@ LANDGAME.se = {
   },
   "en": {
    "h1": "<img src=\"https://flagcdn.com/32x24/se.png\" alt=\"\" style=\"height:0.75em;vertical-align:0.1em;margin-right:0.2em\"> How is Sweden's land actually used?",
-   "subtitle": "Inspired by <a href=\"https://www.youtube.com/shorts/CgeTvQPwNCg\" target=\"_blank\" style=\"color:var(--text-secondary)\">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Swedish land for each category — sliders are capped at 100% total. Sweden's electricity is already over 90% fossil-free thanks to hydropower, nuclear and wind — solar barely features at all.",
+   "subtitle": "Inspired by <a href=\"https://www.youtube.com/shorts/CgeTvQPwNCg\" target=\"_blank\" style=\"color:var(--text-secondary)\">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Swedish land for each category - sliders are capped at 100% total. Sweden's electricity is already over 90% fossil-free thanks to hydropower, nuclear and wind - solar barely features at all.",
    "disclaimer": "The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar figures refer to utility-scale, grid-connected systems; Sweden's electricity demand figure is an approximate, long-run typical value. Land use figures from the Swedish Forest Industries Federation, the Swedish National Forest Inventory (SLU) and the World Bank/FAO; electricity figures from the Swedish Energy Agency and IEA, 2023-2025.",
    "noteLabel": "Note",
    "contextLabel": "Country context",
@@ -294,8 +294,8 @@ LANDGAME.se = {
    "score": "Score",
    "land_used": "Land used",
    "remaining": "Remaining",
-   "map_guess": "Your guesses — proportional area map (updates as you slide)",
-   "map_answer": "Actual Swedish land use — proportional area map",
+   "map_guess": "Your guesses - proportional area map (updates as you slide)",
+   "map_answer": "Actual Swedish land use - proportional area map",
    "allocated": "/ 100% allocated",
    "reveal": "Revealed after you submit.",
    "out_of": "accuracy score",
@@ -307,7 +307,7 @@ LANDGAME.se = {
     ],
     [
      64,
-     "🌲 Very strong — sharp grasp of just how forested this country really is."
+     "🌲 Very strong - sharp grasp of just how forested this country really is."
     ],
     [
      43,
@@ -331,15 +331,15 @@ LANDGAME.se = {
  "world": {
   "sv": {
    "head": "🌍 Tänk om Sverige ensamt skulle förse hela världen med el?",
-   "fit": "Med en försiktig uppskattning av Sveriges måttliga, nordliga solinstrålning (cirka 1000 ha/TWh) skulle det krävas ungefär <strong>{haM} miljoner hektar</strong> för att täcka hela den <strong>globala elförbrukningen</strong> (cirka 31 000 TWh/år) — <strong>{pct}% av Sveriges landyta</strong>, visat nedan som en cirkel med motsvarande area. Det är merparten av landet, men det ryms ändå knappt inom Sveriges betydande storlek.",
+   "fit": "Med en försiktig uppskattning av Sveriges måttliga, nordliga solinstrålning (cirka 1000 ha/TWh) skulle det krävas ungefär <strong>{haM} miljoner hektar</strong> för att täcka hela den <strong>globala elförbrukningen</strong> (cirka 31 000 TWh/år) - <strong>{pct}% av Sveriges landyta</strong>, visat nedan som en cirkel med motsvarande area. Det är merparten av landet, men det ryms ändå knappt inom Sveriges betydande storlek.",
    "stat2": "Sveriges berättelse skiljer sig från Danmarks eller Islands: solförhållandena är på liknande sätt blygsamma, men landets betydande yta (bland de största i Europa) gör att siffrorna ändå knappt går ihop, till skillnad från de mindre nordiska grannländerna där cirkeln skulle sträcka sig långt utanför landets gränser. Oavsett är det en rent akademisk fråga inom landet - Sveriges eget elnät är redan till övervägande del rent, helt utan behov av solkraft i någon större skala.",
-   "foot": "Den streckade cirkeln är enbart illustrativ — dess storlek motsvarar rätt yta, men den utgör inte en faktiskt föreslagen plats."
+   "foot": "Den streckade cirkeln är enbart illustrativ - dess storlek motsvarar rätt yta, men den utgör inte en faktiskt föreslagen plats."
   },
   "en": {
    "head": "🌍 What if Sweden alone powered the whole world?",
-   "fit": "Using a hedged estimate of Sweden's moderate, high-latitude solar yield (~1,000 ha/TWh), powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) would need about <strong>{haM} million hectares</strong> — <strong>{pct}% of Sweden's land area</strong>, shown below as a circle of equivalent area. That's the majority of the country, but it still just about fits within Sweden's own substantial size.",
+   "fit": "Using a hedged estimate of Sweden's moderate, high-latitude solar yield (~1,000 ha/TWh), powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) would need about <strong>{haM} million hectares</strong> - <strong>{pct}% of Sweden's land area</strong>, shown below as a circle of equivalent area. That's the majority of the country, but it still just about fits within Sweden's own substantial size.",
    "stat2": "Sweden's story is different from Denmark or Iceland: its solar conditions are similarly modest, but its sheer land area (among the largest in Europe) means the numbers still just about work out, unlike its smaller Nordic neighbours where the circle would spill far outside the country's borders. Either way, it's a moot point domestically - Sweden's own grid is already overwhelmingly clean without needing solar power at any scale.",
-   "foot": "The dashed circle is illustrative — sized to the correct land area, not an actual proposed siting."
+   "foot": "The dashed circle is illustrative - sized to the correct land area, not an actual proposed siting."
   }
  }
 };

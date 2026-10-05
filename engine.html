@@ -1,10 +1,10 @@
-<!-- v6.3.4 -->
+<!-- v6.3.5 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>How is land actually used? — Guessing Game</title>
+<title>How is land actually used? - Guessing Game</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -134,7 +134,7 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
     <div class="metric"><div class="lbl" id="lbl-remain">Remaining</div><div class="val" id="remain-v">100%</div></div>
   </div>
   <div class="map-section">
-    <div class="map-title" id="map-title">Your guesses — proportional area map (updates as you slide)</div>
+    <div class="map-title" id="map-title">Your guesses - proportional area map (updates as you slide)</div>
     <div id="treemap"></div>
     <div class="legend" id="legend"></div>
   </div>
@@ -168,7 +168,7 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
   
 </div>
 <script>
-/* Landgame engine v6 — one shared game engine; per-country content lives in data-<cc>.js */
+/* Landgame engine v6 - one shared game engine; per-country content lives in data-<cc>.js */
 (function(){
 'use strict';
 const qs=new URLSearchParams(location.search);
@@ -366,7 +366,7 @@ const guesses={};
 function resultHtml(cat){
   const f=F(), dp=dpFor(cat,cat.answer);
   if(cat.readOnly){
-    return '<span style="color:var(--text-secondary)">'+f.answer+': <strong style="color:#BA7517">'+fmtAns(cat,dp)+'%</strong>'+haLabel(cat)+' — '+STRINGS[currentLang].sol100_reveal+'</span>';
+    return '<span style="color:var(--text-secondary)">'+f.answer+': <strong style="color:#BA7517">'+fmtAns(cat,dp)+'%</strong>'+haLabel(cat)+' - '+STRINGS[currentLang].sol100_reveal+'</span>';
   }
   const guess=guesses[cat.id]||0, pts=scoreGuess(guess,cat.answer,cat.step,cat.max);
   const diff=guess-cat.answer, sign=diff>=0?'+':'';

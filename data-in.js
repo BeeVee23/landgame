@@ -1,6 +1,6 @@
 window.LANDGAME=window.LANDGAME||{};
 LANDGAME.in = {
- "title": "🇮🇳 How is India's land actually used? — Guessing Game",
+ "title": "🇮🇳 How is India's land actually used? - Guessing Game",
  "code": "in",
  "iso": "356",
  "alpha2": "in",
@@ -22,7 +22,7 @@ LANDGAME.in = {
     "id": "crop",
     "icon": "🌾",
     "name": "बुवाई क्षेत्र",
-    "desc": "किसी भी वर्ष वास्तव में फसल के अंतर्गत भूमि — भारतीय कृषि की रीढ़",
+    "desc": "किसी भी वर्ष वास्तव में फसल के अंतर्गत भूमि - भारतीय कृषि की रीढ़",
     "answer": 44.77,
     "color": "#639922",
     "max": 60,
@@ -66,7 +66,7 @@ LANDGAME.in = {
     "id": "urban",
     "icon": "🏙️",
     "name": "गैर-कृषि उपयोग",
-    "desc": "शहरी क्षेत्र, सड़कें, रेलवे, उद्योग, नहरें — सभी निर्मित और बुनियादी ढाँचे की भूमि",
+    "desc": "शहरी क्षेत्र, सड़कें, रेलवे, उद्योग, नहरें - सभी निर्मित और बुनियादी ढाँचे की भूमि",
     "answer": 5.21,
     "color": "#73726c",
     "max": 15,
@@ -106,7 +106,7 @@ LANDGAME.in = {
     "step": 0.005,
     "answerHa": 164350,
     "isSolar": true,
-    "solarNote": "संकेत: केवल उपयोगिता-स्तर ग्रिड-कनेक्टेड — भारत विशाल है"
+    "solarNote": "संकेत: केवल उपयोगिता-स्तर ग्रिड-कनेक्टेड - भारत विशाल है"
    },
    {
     "id": "sol100",
@@ -127,7 +127,7 @@ LANDGAME.in = {
     "id": "crop",
     "icon": "🌾",
     "name": "Net area sown",
-    "desc": "Land actually under crops in any given year — the backbone of Indian agriculture",
+    "desc": "Land actually under crops in any given year - the backbone of Indian agriculture",
     "answer": 44.77,
     "color": "#639922",
     "max": 60,
@@ -171,7 +171,7 @@ LANDGAME.in = {
     "id": "urban",
     "icon": "🏙️",
     "name": "Non-agricultural use",
-    "desc": "Urban areas, roads, railways, industry, canals — all built and infrastructure land",
+    "desc": "Urban areas, roads, railways, industry, canals - all built and infrastructure land",
     "answer": 5.21,
     "color": "#73726c",
     "max": 15,
@@ -211,13 +211,13 @@ LANDGAME.in = {
     "step": 0.005,
     "answerHa": 164350,
     "isSolar": true,
-    "solarNote": "Hint: utility-scale grid-connected only — India is huge"
+    "solarNote": "Hint: utility-scale grid-connected only - India is huge"
    },
    {
     "id": "sol100",
     "icon": "⚡🔋",
     "name": "Solar+battery for 100% electricity",
-    "desc": "Land needed for utility-scale solar+battery to power India's entire national grid 24/7 (~1,900 TWh/yr) — roughly 2x panels-only due to storage overcapacity",
+    "desc": "Land needed for utility-scale solar+battery to power India's entire national grid 24/7 (~1,900 TWh/yr) - roughly 2x panels-only due to storage overcapacity",
     "answer": 0.37,
     "color": "#BA7517",
     "max": 3,
@@ -231,18 +231,18 @@ LANDGAME.in = {
  "strings": {
   "hi": {
    "h1": "<img src=\"https://flagcdn.com/32x24/in.png\" alt=\"\" style=\"height:0.75em;vertical-align:0.1em;margin-right:0.2em\"> भारत की भूमि का उपयोग कैसे होता है?",
-   "subtitle": "<a href=\"https://www.youtube.com/shorts/CgeTvQPwNCg\" target=\"_blank\" style=\"color:var(--text-secondary)\">डॉ. साइमन क्लार्क के YouTube शॉर्ट</a> (अंग्रेज़ी में) से प्रेरित। प्रत्येक श्रेणी के लिए भारतीय भूमि का प्रतिशत अनुमान लगाएं — स्लाइडर 100% तक सीमित हैं। भारत दुनिया का सबसे अधिक आबादी वाला देश और सबसे बड़े कृषि उत्पादकों में से एक है।",
+   "subtitle": "<a href=\"https://www.youtube.com/shorts/CgeTvQPwNCg\" target=\"_blank\" style=\"color:var(--text-secondary)\">डॉ. साइमन क्लार्क के YouTube शॉर्ट</a> (अंग्रेज़ी में) से प्रेरित। प्रत्येक श्रेणी के लिए भारतीय भूमि का प्रतिशत अनुमान लगाएं - स्लाइडर 100% तक सीमित हैं। भारत दुनिया का सबसे अधिक आबादी वाला देश और सबसे बड़े कृषि उत्पादकों में से एक है।",
    "disclaimer": "सौर+बैटरी के आँकड़े AI की सहायता से उत्पन्न एक विचार प्रयोग हैं, नीति अनुशंसा नहीं। सभी आँकड़े उपयोगिता-स्तर, ग्रिड-कनेक्टेड प्रणालियों से संबंधित हैं। भूमि उपयोग के आँकड़े भारत सरकार के आधिकारिक आँकड़ों पर आधारित हैं।",
    "noteLabel": "नोट",
    "contextLabel": "देश का संदर्भ",
-   "countryNote": "भारत के ऊर्जा भविष्य के लिए विविध नवीकरणीय स्रोतों की आवश्यकता होगी — इसके पास असाधारण पवन संसाधन हैं (विशेष रूप से तटों और राजस्थान में), महत्वपूर्ण जलविद्युत क्षमता है, और यह सौर व पवन ऊर्जा दोनों का तेज़ी से विस्तार कर रहा है। भूमि उपयोग के आंकड़े अनुमानित हैं और भारत सरकार के आधिकारिक आंकड़ों से लिए गए हैं।",
+   "countryNote": "भारत के ऊर्जा भविष्य के लिए विविध नवीकरणीय स्रोतों की आवश्यकता होगी - इसके पास असाधारण पवन संसाधन हैं (विशेष रूप से तटों और राजस्थान में), महत्वपूर्ण जलविद्युत क्षमता है, और यह सौर व पवन ऊर्जा दोनों का तेज़ी से विस्तार कर रहा है। भूमि उपयोग के आंकड़े अनुमानित हैं और भारत सरकार के आधिकारिक आंकड़ों से लिए गए हैं।",
    "submit": "अनुमान जमा करें",
    "play_again": "फिर खेलें",
    "score": "स्कोर",
    "land_used": "भूमि उपयोग",
    "remaining": "शेष",
-   "map_guess": "आपके अनुमान — आनुपातिक क्षेत्र मानचित्र (स्लाइड करते समय अपडेट होता है)",
-   "map_answer": "भारत का वास्तविक भूमि उपयोग — आनुपातिक क्षेत्र मानचित्र",
+   "map_guess": "आपके अनुमान - आनुपातिक क्षेत्र मानचित्र (स्लाइड करते समय अपडेट होता है)",
+   "map_answer": "भारत का वास्तविक भूमि उपयोग - आनुपातिक क्षेत्र मानचित्र",
    "allocated": "/ 100% आवंटित",
    "reveal": "जमा करने के बाद प्रकट होगा।",
    "out_of": "सटीकता स्कोर",
@@ -250,11 +250,11 @@ LANDGAME.in = {
    "grades": [
     [
      81,
-     "🏆 भारत विशेषज्ञ — आप दुनिया की सबसे जटिल भूमि उपयोग कहानियों में से एक को विस्तार से जानते हैं!"
+     "🏆 भारत विशेषज्ञ - आप दुनिया की सबसे जटिल भूमि उपयोग कहानियों में से एक को विस्तार से जानते हैं!"
     ],
     [
      61,
-     "🌾 बहुत अच्छा — भारतीय उपमहाद्वीप की तीक्ष्ण समझ।"
+     "🌾 बहुत अच्छा - भारतीय उपमहाद्वीप की तीक्ष्ण समझ।"
     ],
     [
      40,
@@ -266,7 +266,7 @@ LANDGAME.in = {
     ],
     [
      0,
-     "🤔 आश्चर्यजनक? भारत का लगभग आधा हिस्सा 1.4 अरब लोगों को खिलाता है — एक असाधारण उपलब्धि।"
+     "🤔 आश्चर्यजनक? भारत का लगभग आधा हिस्सा 1.4 अरब लोगों को खिलाता है - एक असाधारण उपलब्धि।"
     ]
    ],
    "btn_label": "English",
@@ -276,18 +276,18 @@ LANDGAME.in = {
   },
   "en": {
    "h1": "<img src=\"https://flagcdn.com/32x24/in.png\" alt=\"\" style=\"height:0.75em;vertical-align:0.1em;margin-right:0.2em\"> How is India's land actually used?",
-   "subtitle": "Inspired by <a href=\"https://www.youtube.com/shorts/CgeTvQPwNCg\" target=\"_blank\" style=\"color:var(--text-secondary)\">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Indian land for each category — sliders are capped at 100% total. India is the world's most populous country and one of its largest agricultural producers.",
-   "disclaimer": "The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. India's energy future will require diverse renewables — it has exceptional wind resources (particularly along the coasts and in Rajasthan), significant hydropower, and is rapidly expanding both solar and wind. Land use figures are approximate and sourced from Government of India official statistics.",
+   "subtitle": "Inspired by <a href=\"https://www.youtube.com/shorts/CgeTvQPwNCg\" target=\"_blank\" style=\"color:var(--text-secondary)\">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Indian land for each category - sliders are capped at 100% total. India is the world's most populous country and one of its largest agricultural producers.",
+   "disclaimer": "The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. India's energy future will require diverse renewables - it has exceptional wind resources (particularly along the coasts and in Rajasthan), significant hydropower, and is rapidly expanding both solar and wind. Land use figures are approximate and sourced from Government of India official statistics.",
    "noteLabel": "Note",
    "contextLabel": "Country context",
-   "countryNote": "India's energy future will require diverse renewables — it has exceptional wind resources (particularly along the coasts and in Rajasthan), significant hydropower, and is rapidly expanding both solar and wind. Land use figures are approximate and sourced from Government of India official statistics.",
+   "countryNote": "India's energy future will require diverse renewables - it has exceptional wind resources (particularly along the coasts and in Rajasthan), significant hydropower, and is rapidly expanding both solar and wind. Land use figures are approximate and sourced from Government of India official statistics.",
    "submit": "Submit all guesses",
    "play_again": "Play again",
    "score": "Score",
    "land_used": "Land used",
    "remaining": "Remaining",
-   "map_guess": "Your guesses — proportional area map (updates as you slide)",
-   "map_answer": "Actual Indian land use — proportional area map",
+   "map_guess": "Your guesses - proportional area map (updates as you slide)",
+   "map_answer": "Actual Indian land use - proportional area map",
    "allocated": "/ 100% allocated",
    "reveal": "Revealed after you submit.",
    "out_of": "accuracy score",
@@ -295,11 +295,11 @@ LANDGAME.in = {
    "grades": [
     [
      81,
-     "🏆 India expert — you know one of the world's most complex land use stories!"
+     "🏆 India expert - you know one of the world's most complex land use stories!"
     ],
     [
      61,
-     "🌾 Very strong — sharp sense of the Indian subcontinent."
+     "🌾 Very strong - sharp sense of the Indian subcontinent."
     ],
     [
      40,
@@ -311,7 +311,7 @@ LANDGAME.in = {
     ],
     [
      0,
-     "🤔 Surprising? Nearly half of India feeds 1.4 billion people — an extraordinary achievement."
+     "🤔 Surprising? Nearly half of India feeds 1.4 billion people - an extraordinary achievement."
     ]
    ],
    "btn_label": "हिन्दी",
@@ -323,15 +323,15 @@ LANDGAME.in = {
  "world": {
   "hi": {
    "head": "🌍 अगर भारत अकेले पूरी दुनिया को बिजली दे, तो क्या होगा?",
-   "fit": "<strong>वैश्विक बिजली मांग</strong> (~31,000 TWh/वर्ष) को भारत की अपनी सौर परिस्थितियों का उपयोग करके पूरा करने के लिए लगभग <strong>{haM} हेक्टेयर</strong> की आवश्यकता होगी — भारत के भूमि क्षेत्र का <strong>{pct}%</strong>, नीचे समतुल्य क्षेत्रफल के एक वृत्त के रूप में दिखाया गया है।",
-   "overflow": "<strong>वैश्विक बिजली मांग</strong> (~31,000 TWh/वर्ष) को भारत की अपनी सौर परिस्थितियों का उपयोग करके पूरा करने के लिए लगभग <strong>{haM} हेक्टेयर</strong> की आवश्यकता होगी — यानी <strong>पूरे देश का {mult}× गुना</strong>। नीचे का वृत्त, भारत पर केंद्रित, देश की अपनी सीमाओं से काफी आगे फैलता है, जो दर्शाता है कि सौर भूगोल और जलवायु भूमि उपलब्धता जितनी ही महत्वपूर्ण हैं।",
-   "foot": "बिंदीदार वृत्त केवल उदाहरणात्मक है — सही भूमि क्षेत्र के अनुसार आकार दिया गया है, लेकिन यह कोई वास्तविक प्रस्तावित स्थान नहीं है। यह केवल पैमाने के लिए मौजूदा सीमाओं को ओवरलैप करता है।"
+   "fit": "<strong>वैश्विक बिजली मांग</strong> (~31,000 TWh/वर्ष) को भारत की अपनी सौर परिस्थितियों का उपयोग करके पूरा करने के लिए लगभग <strong>{haM} हेक्टेयर</strong> की आवश्यकता होगी - भारत के भूमि क्षेत्र का <strong>{pct}%</strong>, नीचे समतुल्य क्षेत्रफल के एक वृत्त के रूप में दिखाया गया है।",
+   "overflow": "<strong>वैश्विक बिजली मांग</strong> (~31,000 TWh/वर्ष) को भारत की अपनी सौर परिस्थितियों का उपयोग करके पूरा करने के लिए लगभग <strong>{haM} हेक्टेयर</strong> की आवश्यकता होगी - यानी <strong>पूरे देश का {mult}× गुना</strong>। नीचे का वृत्त, भारत पर केंद्रित, देश की अपनी सीमाओं से काफी आगे फैलता है, जो दर्शाता है कि सौर भूगोल और जलवायु भूमि उपलब्धता जितनी ही महत्वपूर्ण हैं।",
+   "foot": "बिंदीदार वृत्त केवल उदाहरणात्मक है - सही भूमि क्षेत्र के अनुसार आकार दिया गया है, लेकिन यह कोई वास्तविक प्रस्तावित स्थान नहीं है। यह केवल पैमाने के लिए मौजूदा सीमाओं को ओवरलैप करता है।"
   },
   "en": {
    "head": "🌍 What if India alone powered the whole world?",
-   "fit": "Powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) using India's own solar conditions would need about <strong>{haM} hectares</strong> — <strong>{pct}%</strong> of India's land area, shown below as a circle of equivalent area.",
-   "overflow": "Powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) using India's own solar conditions would need about <strong>{haM} hectares</strong> — <strong>{mult}× the entire country</strong>. The circle below shows that area centred on India — it spills well beyond the country's own borders, illustrating that solar geography and climate matter as much as land availability.",
-   "foot": "The dashed circle is illustrative — sized to the correct land area, but not an actual proposed siting. It overlaps existing borders for scale only."
+   "fit": "Powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) using India's own solar conditions would need about <strong>{haM} hectares</strong> - <strong>{pct}%</strong> of India's land area, shown below as a circle of equivalent area.",
+   "overflow": "Powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) using India's own solar conditions would need about <strong>{haM} hectares</strong> - <strong>{mult}× the entire country</strong>. The circle below shows that area centred on India - it spills well beyond the country's own borders, illustrating that solar geography and climate matter as much as land availability.",
+   "foot": "The dashed circle is illustrative - sized to the correct land area, but not an actual proposed siting. It overlaps existing borders for scale only."
   },
   "haStyle": "word",
   "millionWord": {

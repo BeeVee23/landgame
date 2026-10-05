@@ -1,6 +1,6 @@
 window.LANDGAME=window.LANDGAME||{};
 LANDGAME.au = {
- "title": "🇦🇺 How is Australian land actually used? — Guessing Game",
+ "title": "🇦🇺 How is Australian land actually used? - Guessing Game",
  "code": "au",
  "iso": "036",
  "alpha2": "au",
@@ -20,8 +20,8 @@ LANDGAME.au = {
    {
     "id": "graze",
     "icon": "🐄",
-    "name": "Grazing — native vegetation",
-    "desc": "Livestock grazing on unmodified native pasture — the dominant land use",
+    "name": "Grazing - native vegetation",
+    "desc": "Livestock grazing on unmodified native pasture - the dominant land use",
     "answer": 48,
     "color": "#c9a85c",
     "max": 65,
@@ -42,7 +42,7 @@ LANDGAME.au = {
    {
     "id": "modgrz",
     "icon": "🐑",
-    "name": "Grazing — modified pastures",
+    "name": "Grazing - modified pastures",
     "desc": "Livestock grazing on sown or improved pasture",
     "answer": 6.86,
     "color": "#a8c46e",
@@ -87,7 +87,7 @@ LANDGAME.au = {
     "id": "golf",
     "icon": "⛳",
     "name": "Golf courses",
-    "desc": "Australia has ~1,500 golf courses — one of the highest counts per capita in the world",
+    "desc": "Australia has ~1,500 golf courses - one of the highest counts per capita in the world",
     "answer": 0.02,
     "color": "#5DCAA5",
     "max": 0.5,
@@ -116,13 +116,13 @@ LANDGAME.au = {
     "step": 0.0005,
     "answerHa": 0,
     "isSolar": true,
-    "solarNote": "Hint: utility-scale grid-connected only — Australia is huge and very sunny"
+    "solarNote": "Hint: utility-scale grid-connected only - Australia is huge and very sunny"
    },
    {
     "id": "sol100",
     "icon": "⚡🔋",
     "name": "Solar+battery for 100% electricity",
-    "desc": "Land needed for utility-scale solar+battery to power Australia's entire national grid 24/7 — the smallest sol100 in the game thanks to exceptional solar irradiance",
+    "desc": "Land needed for utility-scale solar+battery to power Australia's entire national grid 24/7 - the smallest sol100 in the game thanks to exceptional solar irradiance",
     "answer": 0.021,
     "color": "#BA7517",
     "max": 0.5,
@@ -136,29 +136,29 @@ LANDGAME.au = {
  "strings": {
   "en": {
    "h1": "<img src=\"https://flagcdn.com/32x24/au.png\" alt=\"\" style=\"height:0.75em;vertical-align:0.1em;margin-right:0.2em\"> How is Australian land actually used?",
-   "subtitle": "Inspired by <a href=\"https://www.youtube.com/shorts/CgeTvQPwNCg\" target=\"_blank\" style=\"color:var(--text-secondary)\">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Australian land for each category — sliders are capped at 100% total. Submit to see how you did and reveal the proportional area map.",
+   "subtitle": "Inspired by <a href=\"https://www.youtube.com/shorts/CgeTvQPwNCg\" target=\"_blank\" style=\"color:var(--text-secondary)\">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Australian land for each category - sliders are capped at 100% total. Submit to see how you did and reveal the proportional area map.",
    "disclaimer": "The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems.",
    "noteLabel": "Note",
    "contextLabel": "Country context",
-   "countryNote": "Australia's solar resource is genuinely exceptional — more than any other country in this game — and solar+battery is widely considered the backbone of Australia's energy future. Wind (particularly in southern states) and pumped hydro (Snowy 2.0) will also play important roles. Land use figures are approximate and sourced from official statistics.",
+   "countryNote": "Australia's solar resource is genuinely exceptional - more than any other country in this game - and solar+battery is widely considered the backbone of Australia's energy future. Wind (particularly in southern states) and pumped hydro (Snowy 2.0) will also play important roles. Land use figures are approximate and sourced from official statistics.",
    "submit": "Submit all guesses",
    "play_again": "Play again",
    "score": "Score",
    "land_used": "Land used",
    "remaining": "Remaining",
-   "map_guess": "Your guesses — proportional area map (updates as you slide)",
+   "map_guess": "Your guesses - proportional area map (updates as you slide)",
    "allocated": "/ 100% allocated",
    "reveal": "undefined",
    "out_of": "accuracy score",
-   "map_answer": "Actual Australian land use — proportional area map",
+   "map_answer": "Actual Australian land use - proportional area map",
    "grades": [
     [
      72,
-     "🏆 Outback expert — you know your continent!"
+     "🏆 Outback expert - you know your continent!"
     ],
     [
      53,
-     "🌿 Very strong — sharp sense of the Australian landscape."
+     "🌿 Very strong - sharp sense of the Australian landscape."
     ],
     [
      34,
@@ -182,9 +182,9 @@ LANDGAME.au = {
  "world": {
   "en": {
    "head": "🌍 What if Australia alone powered the whole world?",
-   "foot": "The dashed circle is illustrative — sized to the correct land area, but not an actual proposed siting. It overlaps existing borders for scale only.",
-   "fit": "Powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) using Australia's own solar conditions would need about <strong>{haM} hectares</strong> — <strong>{pct}%</strong> of Australia's land area, shown below as a circle of equivalent area.",
-   "overflow": "Powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) using Australia's own solar conditions would need about <strong>{haM} hectares</strong> — <strong>{mult}× the entire country</strong>. The circle below shows that area centred on Australia — it spills well beyond the country's own borders, illustrating that solar geography and climate matter as much as land availability."
+   "foot": "The dashed circle is illustrative - sized to the correct land area, but not an actual proposed siting. It overlaps existing borders for scale only.",
+   "fit": "Powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) using Australia's own solar conditions would need about <strong>{haM} hectares</strong> - <strong>{pct}%</strong> of Australia's land area, shown below as a circle of equivalent area.",
+   "overflow": "Powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) using Australia's own solar conditions would need about <strong>{haM} hectares</strong> - <strong>{mult}× the entire country</strong>. The circle below shows that area centred on Australia - it spills well beyond the country's own borders, illustrating that solar geography and climate matter as much as land availability."
   },
   "haStyle": "word",
   "millionWord": {

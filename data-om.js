@@ -1,6 +1,6 @@
 window.LANDGAME=window.LANDGAME||{};
 LANDGAME.om = {
- "title": "🇴🇲 How is Oman's land actually used? — Guessing Game",
+ "title": "🇴🇲 How is Oman's land actually used? - Guessing Game",
  "code": "om",
  "iso": "512",
  "alpha2": "om",
@@ -22,7 +22,7 @@ LANDGAME.om = {
     "id": "desert",
     "icon": "🏜️",
     "name": "الصحراء والسهول الحصوية الداخلية",
-    "desc": "امتداد شاسع من السهول الحصوية والرملية يغطي أكثر من أربعة أخماس مساحة عُمان، بما في ذلك جزء من الربع الخالي — أحد أكبر امتدادات الرمال المتصلة في العالم",
+    "desc": "امتداد شاسع من السهول الحصوية والرملية يغطي أكثر من أربعة أخماس مساحة عُمان، بما في ذلك جزء من الربع الخالي - أحد أكبر امتدادات الرمال المتصلة في العالم",
     "answer": 81.9624,
     "color": "#c4a96b",
     "max": 95,
@@ -33,7 +33,7 @@ LANDGAME.om = {
     "id": "mountain",
     "icon": "⛰️",
     "name": "الجبال",
-    "desc": "سلسلة جبال الحجر في الشمال، التي تصل قممها إلى نحو 3000 متر عند جبل شمس، وجبال ظفار في الجنوب — وهي الجبال الوحيدة في شبه الجزيرة العربية المتأثرة بالرياح الموسمية الصيفية",
+    "desc": "سلسلة جبال الحجر في الشمال، التي تصل قممها إلى نحو 3000 متر عند جبل شمس، وجبال ظفار في الجنوب - وهي الجبال الوحيدة في شبه الجزيرة العربية المتأثرة بالرياح الموسمية الصيفية",
     "answer": 15,
     "color": "#8a7860",
     "max": 25,
@@ -66,7 +66,7 @@ LANDGAME.om = {
     "id": "water",
     "icon": "💧",
     "name": "المسطحات المائية والسبخات الساحلية",
-    "desc": "الأودية الموسمية (الوديان) والخُورات الساحلية والسبخات الملحية — لا توجد أنهار دائمة في عُمان، وتعتمد البلاد بشكل شبه كامل على المياه الجوفية",
+    "desc": "الأودية الموسمية (الوديان) والخُورات الساحلية والسبخات الملحية - لا توجد أنهار دائمة في عُمان، وتعتمد البلاد بشكل شبه كامل على المياه الجوفية",
     "answer": 1.2,
     "color": "#378ADD",
     "max": 4,
@@ -77,7 +77,7 @@ LANDGAME.om = {
     "id": "golf",
     "icon": "⛳",
     "name": "ملاعب الغولف",
-    "desc": "ملعبان أو ثلاثة فقط في عُمان، أبرزها ملعب الموج في مسقط — رياضة الغولف لا تزال محدودة الانتشار مقارنة بجيران عُمان الخليجيين",
+    "desc": "ملعبان أو ثلاثة فقط في عُمان، أبرزها ملعب الموج في مسقط - رياضة الغولف لا تزال محدودة الانتشار مقارنة بجيران عُمان الخليجيين",
     "answer": 0.0006,
     "color": "#5DCAA5",
     "max": 0.01,
@@ -97,7 +97,7 @@ LANDGAME.om = {
     "answerHa": 2250,
     "dp": 3,
     "isSolar": true,
-    "solarNote": "تلميح: رغم التصريحات الطموحة، لم تتجاوز الطاقة الشمسية نسبة 4% من إجمالي توليد الكهرباء في عُمان بحلول 2023 — إذ لا يزال الغاز الأحفوري يشكل نحو 92% من مزيج الطاقة"
+    "solarNote": "تلميح: رغم التصريحات الطموحة، لم تتجاوز الطاقة الشمسية نسبة 4% من إجمالي توليد الكهرباء في عُمان بحلول 2023 - إذ لا يزال الغاز الأحفوري يشكل نحو 92% من مزيج الطاقة"
    },
    {
     "id": "sol100",
@@ -112,7 +112,7 @@ LANDGAME.om = {
     "dp": 3,
     "isSolar": true,
     "readOnly": true,
-    "solarNote": "تتمتع عُمان بواحدة من أعلى معدلات الإشعاع الشمسي المباشر في العالم، بمعدل يقارب 2100 كيلوواط ساعة لكل كيلوواط ذروة سنويًا. عند معدل 429 هكتارًا لكل تيراواط ساعة، يحتاج تزويد الشبكة بأكملها إلى 0.055% فقط من مساحة عُمان. لكن المفارقة الكبرى: تقدّر عُمان أنها ستحتاج إلى نحو 50 تيراواط ساعة من الكهرباء المتجددة لتحقيق أهدافها الخاصة بالهيدروجين الأخضر بحلول 2030 وحدها — وهي كمية تفوق كامل نظامها الكهربائي الحالي (نحو 40 تيراواط ساعة). فالتحدي ليس في الأرض أو الشمس، بل في بناء نظام طاقة متجددة أكبر مما هو قائم اليوم بالكامل، من الصفر تقريبًا"
+    "solarNote": "تتمتع عُمان بواحدة من أعلى معدلات الإشعاع الشمسي المباشر في العالم، بمعدل يقارب 2100 كيلوواط ساعة لكل كيلوواط ذروة سنويًا. عند معدل 429 هكتارًا لكل تيراواط ساعة، يحتاج تزويد الشبكة بأكملها إلى 0.055% فقط من مساحة عُمان. لكن المفارقة الكبرى: تقدّر عُمان أنها ستحتاج إلى نحو 50 تيراواط ساعة من الكهرباء المتجددة لتحقيق أهدافها الخاصة بالهيدروجين الأخضر بحلول 2030 وحدها - وهي كمية تفوق كامل نظامها الكهربائي الحالي (نحو 40 تيراواط ساعة). فالتحدي ليس في الأرض أو الشمس، بل في بناء نظام طاقة متجددة أكبر مما هو قائم اليوم بالكامل، من الصفر تقريبًا"
    }
   ],
   "en": [
@@ -120,7 +120,7 @@ LANDGAME.om = {
     "id": "desert",
     "icon": "🏜️",
     "name": "Desert & internal gravel plains",
-    "desc": "A vast expanse of gravel and sand plains covering over four-fifths of Oman, including part of the Rub' al Khali (Empty Quarter) — one of the largest contiguous sand deserts on Earth",
+    "desc": "A vast expanse of gravel and sand plains covering over four-fifths of Oman, including part of the Rub' al Khali (Empty Quarter) - one of the largest contiguous sand deserts on Earth",
     "answer": 81.9624,
     "color": "#c4a96b",
     "max": 95,
@@ -131,7 +131,7 @@ LANDGAME.om = {
     "id": "mountain",
     "icon": "⛰️",
     "name": "Mountains",
-    "desc": "The Hajar range in the north, reaching about 3,000m at Jabal Shams, and the Dhofar mountains in the south — the only mountains on the Arabian Peninsula affected by the summer monsoon",
+    "desc": "The Hajar range in the north, reaching about 3,000m at Jabal Shams, and the Dhofar mountains in the south - the only mountains on the Arabian Peninsula affected by the summer monsoon",
     "answer": 15,
     "color": "#8a7860",
     "max": 25,
@@ -164,7 +164,7 @@ LANDGAME.om = {
     "id": "water",
     "icon": "💧",
     "name": "Water bodies & coastal sabkha",
-    "desc": "Seasonal wadis, coastal khwars (lagoons) and salt flats (sabkha) — Oman has no permanent rivers, and relies almost entirely on groundwater",
+    "desc": "Seasonal wadis, coastal khwars (lagoons) and salt flats (sabkha) - Oman has no permanent rivers, and relies almost entirely on groundwater",
     "answer": 1.2,
     "color": "#378ADD",
     "max": 4,
@@ -175,7 +175,7 @@ LANDGAME.om = {
     "id": "golf",
     "icon": "⛳",
     "name": "Golf courses",
-    "desc": "Only two or three courses in Oman, most notably Al Mouj Golf in Muscat — the sport remains far less established here than in Oman's Gulf neighbours",
+    "desc": "Only two or three courses in Oman, most notably Al Mouj Golf in Muscat - the sport remains far less established here than in Oman's Gulf neighbours",
     "answer": 0.0006,
     "color": "#5DCAA5",
     "max": 0.01,
@@ -187,7 +187,7 @@ LANDGAME.om = {
     "id": "solar",
     "icon": "☀️🔋",
     "name": "Solar farms (current)",
-    "desc": "Grid-connected utility-scale solar, led by the 500 MW Ibri II plant — one of the region's largest — plus projects under construction at Manah and Duqm",
+    "desc": "Grid-connected utility-scale solar, led by the 500 MW Ibri II plant - one of the region's largest - plus projects under construction at Manah and Duqm",
     "answer": 0.007,
     "color": "#EF9F27",
     "max": 0.15,
@@ -195,7 +195,7 @@ LANDGAME.om = {
     "answerHa": 2250,
     "dp": 3,
     "isSolar": true,
-    "solarNote": "Hint: despite ambitious announcements, solar still supplied only about 4% of Oman's total electricity generation by 2023 — fossil gas still accounts for roughly 92% of the mix"
+    "solarNote": "Hint: despite ambitious announcements, solar still supplied only about 4% of Oman's total electricity generation by 2023 - fossil gas still accounts for roughly 92% of the mix"
    },
    {
     "id": "sol100",
@@ -210,29 +210,29 @@ LANDGAME.om = {
     "dp": 3,
     "isSolar": true,
     "readOnly": true,
-    "solarNote": "Oman has some of the highest direct solar irradiance on Earth, roughly 2,100 kWh/kWp/yr. At 429 ha/TWh, powering the whole grid needs just 0.055% of Oman's land. But here's the real paradox: Oman estimates it will need roughly 50 TWh of renewable electricity just to meet its own 2030 green hydrogen targets alone — more than its entire current electricity system (~40 TWh). The challenge isn't land or sunlight; it's building a renewable power system larger than what exists today, essentially from scratch"
+    "solarNote": "Oman has some of the highest direct solar irradiance on Earth, roughly 2,100 kWh/kWp/yr. At 429 ha/TWh, powering the whole grid needs just 0.055% of Oman's land. But here's the real paradox: Oman estimates it will need roughly 50 TWh of renewable electricity just to meet its own 2030 green hydrogen targets alone - more than its entire current electricity system (~40 TWh). The challenge isn't land or sunlight; it's building a renewable power system larger than what exists today, essentially from scratch"
    }
   ]
  },
  "strings": {
   "ar": {
    "h1": "<img src=\"https://flagcdn.com/32x24/om.png\" alt=\"\" style=\"height:0.75em;vertical-align:0.1em;margin-right:0.2em\"> كيف تُستخدم أراضي عُمان فعلاً؟",
-   "subtitle": "مستوحى من <a href=\"https://www.youtube.com/shorts/CgeTvQPwNCg\" target=\"_blank\" style=\"color:var(--text-secondary)\">فيديو قصير على يوتيوب لدكتور سايمون كلارك</a> (بالإنجليزية). خمّن نسبة أراضي عُمان لكل فئة — مجموع المحددات لا يتجاوز 100%. لا تزال عُمان تعتمد على المحروقات في نحو 75% من إيرادات الحكومة، لكنها تراهن بقوة على الطاقة الشمسية وطاقة الرياح وصادرات الهيدروجين الأخضر لإعادة تشكيل اقتصادها بحلول 2040.",
+   "subtitle": "مستوحى من <a href=\"https://www.youtube.com/shorts/CgeTvQPwNCg\" target=\"_blank\" style=\"color:var(--text-secondary)\">فيديو قصير على يوتيوب لدكتور سايمون كلارك</a> (بالإنجليزية). خمّن نسبة أراضي عُمان لكل فئة - مجموع المحددات لا يتجاوز 100%. لا تزال عُمان تعتمد على المحروقات في نحو 75% من إيرادات الحكومة، لكنها تراهن بقوة على الطاقة الشمسية وطاقة الرياح وصادرات الهيدروجين الأخضر لإعادة تشكيل اقتصادها بحلول 2040.",
    "disclaimer": "أرقام الطاقة الشمسية والبطاريات هي تجربة فكرية أُعدّت بمساعدة الذكاء الاصطناعي، وليست توصية سياسية. تشير جميع أرقام الطاقة الشمسية إلى أنظمة كبرى متصلة بالشبكة.",
    "noteLabel": "ملاحظة",
    "contextLabel": "سياق الدولة",
-   "countryNote": "تستهدف عُمان الوصول إلى 30% من الكهرباء المتجددة بحلول 2030 (مقارنة بـ4% فقط في 2023)، وتسعى لأن تصبح مُصدّرًا رئيسيًا للهيدروجين الأخضر بموجب استراتيجيتها الخاصة بالهيدروجين الأخضر، عبر مشاريع مثل Hyport Duqm ومزادات هيدروم الوطنية. تشير تحليلات مستقلة إلى أن أهداف عُمان للهيدروجين الأخضر بحلول 2030 وحدها ستحتاج إلى نحو 50 تيراواط ساعة من الكهرباء المتجددة — أي أكثر من كامل نظامها الكهربائي الحالي. مثّلت المحروقات نحو 75% من الإيرادات المالية الحكومية و68% من الصادرات في 2024. بيانات استخدام الأراضي من FAO/AQUASTAT والبنك الدولي؛ يُلاحظ أن جغرافية عُمان تهيمن عليها الصحراء (82%) والجبال (15%)، بينما تنحصر الزراعة والعمران والمياه في شريط ساحلي وواحات ضيقة. بيانات الكهرباء من الوكالة الدولية للطاقة وإنيرداتا ومصادر أكاديمية 2022–2024.",
+   "countryNote": "تستهدف عُمان الوصول إلى 30% من الكهرباء المتجددة بحلول 2030 (مقارنة بـ4% فقط في 2023)، وتسعى لأن تصبح مُصدّرًا رئيسيًا للهيدروجين الأخضر بموجب استراتيجيتها الخاصة بالهيدروجين الأخضر، عبر مشاريع مثل Hyport Duqm ومزادات هيدروم الوطنية. تشير تحليلات مستقلة إلى أن أهداف عُمان للهيدروجين الأخضر بحلول 2030 وحدها ستحتاج إلى نحو 50 تيراواط ساعة من الكهرباء المتجددة - أي أكثر من كامل نظامها الكهربائي الحالي. مثّلت المحروقات نحو 75% من الإيرادات المالية الحكومية و68% من الصادرات في 2024. بيانات استخدام الأراضي من FAO/AQUASTAT والبنك الدولي؛ يُلاحظ أن جغرافية عُمان تهيمن عليها الصحراء (82%) والجبال (15%)، بينما تنحصر الزراعة والعمران والمياه في شريط ساحلي وواحات ضيقة. بيانات الكهرباء من الوكالة الدولية للطاقة وإنيرداتا ومصادر أكاديمية 2022–2024.",
    "submit": "إرسال جميع الإجابات",
    "play_again": "العب مرة أخرى",
    "score": "النتيجة",
    "land_used": "الأرض المستخدمة",
    "remaining": "المتبقي",
-   "map_guess": "تخميناتك — خريطة مساحة تناسبية (تتحدث عند التمرير)",
-   "map_answer": "استخدام الأراضي الفعلي في عُمان — خريطة مساحة تناسبية",
+   "map_guess": "تخميناتك - خريطة مساحة تناسبية (تتحدث عند التمرير)",
+   "map_answer": "استخدام الأراضي الفعلي في عُمان - خريطة مساحة تناسبية",
    "allocated": "/ 100% مخصص",
    "reveal": "يُكشف بعد الإرسال.",
    "out_of": "نتيجة الدقة",
-   "sol100_reveal": "تتمتع عُمان بواحدة من أعلى معدلات الإشعاع الشمسي المباشر في العالم، بمعدل يقارب 2100 كيلوواط ساعة لكل كيلوواط ذروة سنويًا. عند معدل 429 هكتارًا لكل تيراواط ساعة، يحتاج تزويد الشبكة بأكملها إلى 0.055% فقط من مساحة عُمان. لكن المفارقة الكبرى: تقدّر عُمان أنها ستحتاج إلى نحو 50 تيراواط ساعة من الكهرباء المتجددة لتحقيق أهدافها الخاصة بالهيدروجين الأخضر بحلول 2030 وحدها — وهي كمية تفوق كامل نظامها الكهربائي الحالي (نحو 40 تيراواط ساعة). فالتحدي ليس في الأرض أو الشمس، بل في بناء نظام طاقة متجددة أكبر مما هو قائم اليوم بالكامل، من الصفر تقريبًا",
+   "sol100_reveal": "تتمتع عُمان بواحدة من أعلى معدلات الإشعاع الشمسي المباشر في العالم، بمعدل يقارب 2100 كيلوواط ساعة لكل كيلوواط ذروة سنويًا. عند معدل 429 هكتارًا لكل تيراواط ساعة، يحتاج تزويد الشبكة بأكملها إلى 0.055% فقط من مساحة عُمان. لكن المفارقة الكبرى: تقدّر عُمان أنها ستحتاج إلى نحو 50 تيراواط ساعة من الكهرباء المتجددة لتحقيق أهدافها الخاصة بالهيدروجين الأخضر بحلول 2030 وحدها - وهي كمية تفوق كامل نظامها الكهربائي الحالي (نحو 40 تيراواط ساعة). فالتحدي ليس في الأرض أو الشمس، بل في بناء نظام طاقة متجددة أكبر مما هو قائم اليوم بالكامل، من الصفر تقريبًا",
    "grades": [
     [
      86,
@@ -240,7 +240,7 @@ LANDGAME.om = {
     ],
     [
      64,
-     "🏜️ قوي جدًا — فهم دقيق لمدى هيمنة الصحراء على عُمان."
+     "🏜️ قوي جدًا - فهم دقيق لمدى هيمنة الصحراء على عُمان."
     ],
     [
      43,
@@ -262,22 +262,22 @@ LANDGAME.om = {
   },
   "en": {
    "h1": "<img src=\"https://flagcdn.com/32x24/om.png\" alt=\"\" style=\"height:0.75em;vertical-align:0.1em;margin-right:0.2em\"> How is Oman's land actually used?",
-   "subtitle": "Inspired by <a href=\"https://www.youtube.com/shorts/CgeTvQPwNCg\" target=\"_blank\" style=\"color:var(--text-secondary)\">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Omani land for each category — sliders are capped at 100% total. Oman still relies on hydrocarbons for around 75% of government revenue, but is betting heavily on solar, wind and green hydrogen exports to reshape its economy by 2040.",
+   "subtitle": "Inspired by <a href=\"https://www.youtube.com/shorts/CgeTvQPwNCg\" target=\"_blank\" style=\"color:var(--text-secondary)\">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Omani land for each category - sliders are capped at 100% total. Oman still relies on hydrocarbons for around 75% of government revenue, but is betting heavily on solar, wind and green hydrogen exports to reshape its economy by 2040.",
    "disclaimer": "The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar figures refer to utility-scale, grid-connected systems.",
    "noteLabel": "Note",
    "contextLabel": "Country context",
-   "countryNote": "Oman targets 30% renewable electricity by 2030 (up from just 4% in 2023) and aims to become a major green hydrogen exporter under its Green Hydrogen Strategy, with projects like Hyport Duqm and Hydrom's national auctions. Independent analysis suggests Oman's 2030 green hydrogen targets alone would require roughly 50 TWh of renewable electricity — exceeding its entire current electricity system. Hydrocarbons represented about 75% of government fiscal revenue and 68% of exports in 2024. Land use figures from FAO/AQUASTAT and World Bank; note that Oman's physiographic land is dominated by desert (82%) and mountains (15%), with agriculture, settlement and water confined to a narrow coastal and oasis fringe. Electricity figures from IEA, Enerdata and academic sources 2022–2024.",
+   "countryNote": "Oman targets 30% renewable electricity by 2030 (up from just 4% in 2023) and aims to become a major green hydrogen exporter under its Green Hydrogen Strategy, with projects like Hyport Duqm and Hydrom's national auctions. Independent analysis suggests Oman's 2030 green hydrogen targets alone would require roughly 50 TWh of renewable electricity - exceeding its entire current electricity system. Hydrocarbons represented about 75% of government fiscal revenue and 68% of exports in 2024. Land use figures from FAO/AQUASTAT and World Bank; note that Oman's physiographic land is dominated by desert (82%) and mountains (15%), with agriculture, settlement and water confined to a narrow coastal and oasis fringe. Electricity figures from IEA, Enerdata and academic sources 2022–2024.",
    "submit": "Submit all guesses",
    "play_again": "Play again",
    "score": "Score",
    "land_used": "Land used",
    "remaining": "Remaining",
-   "map_guess": "Your guesses — proportional area map (updates as you slide)",
-   "map_answer": "Actual Omani land use — proportional area map",
+   "map_guess": "Your guesses - proportional area map (updates as you slide)",
+   "map_answer": "Actual Omani land use - proportional area map",
    "allocated": "/ 100% allocated",
    "reveal": "Revealed after you submit.",
    "out_of": "accuracy score",
-   "sol100_reveal": "Oman has some of the highest direct solar irradiance on Earth, roughly 2,100 kWh/kWp/yr. At 429 ha/TWh, powering the whole grid needs just 0.055% of Oman's land. But here's the real paradox: Oman estimates it will need roughly 50 TWh of renewable electricity just to meet its own 2030 green hydrogen targets alone — more than its entire current electricity system (~40 TWh). The challenge isn't land or sunlight; it's building a renewable power system larger than what exists today, essentially from scratch",
+   "sol100_reveal": "Oman has some of the highest direct solar irradiance on Earth, roughly 2,100 kWh/kWp/yr. At 429 ha/TWh, powering the whole grid needs just 0.055% of Oman's land. But here's the real paradox: Oman estimates it will need roughly 50 TWh of renewable electricity just to meet its own 2030 green hydrogen targets alone - more than its entire current electricity system (~40 TWh). The challenge isn't land or sunlight; it's building a renewable power system larger than what exists today, essentially from scratch",
    "grades": [
     [
      86,
@@ -285,7 +285,7 @@ LANDGAME.om = {
     ],
     [
      64,
-     "🏜️ Very strong — sharp grasp of just how desert-dominated Oman really is."
+     "🏜️ Very strong - sharp grasp of just how desert-dominated Oman really is."
     ],
     [
      43,
@@ -309,15 +309,15 @@ LANDGAME.om = {
  "world": {
   "ar": {
    "head": "🌍 ماذا لو أمدّت عُمان وحدها العالم بالكهرباء؟",
-   "fit": "بفضل الظروف الشمسية الاستثنائية في عُمان (نحو 429 هكتار لكل تيراواط ساعة، من بين الأفضل على وجه الأرض)، فإن تغطية <strong>الطلب العالمي على الكهرباء</strong> بأكمله (نحو 31,000 تيراواط ساعة سنويًا) تحتاج إلى نحو <strong>{haM} مليون هكتار</strong> — أي <strong>{pct}% من مساحة عُمان</strong>، موضحة أدناه كدائرة بمساحة مكافئة. تقع هذه الدائرة داخل الصحراء الداخلية الشاسعة في عُمان.",
-   "stat2": "يجعل مزيج الإشعاع الشمسي الرائد عالميًا مع الداخل الصحراوي الواسع في عُمان هذه التجربة الفكرية من أكثر التجارب مصداقية فيزيائية في اللعبة — إلا أن طموحات عُمان المحلية في الهيدروجين الأخضر وحدها ستتجاوز بالفعل كامل نظامها الكهربائي الحالي. الفجوة بين الإمكانات الفيزيائية والبنية التحتية المُنشأة فعليًا — وليس أشعة الشمس أو الأرض — هي ما يفصل عُمان عن أن تصبح \"دولة كهربائية\" حقيقية مصدّرة للطاقة النظيفة.",
-   "foot": "الدائرة المنقّطة توضيحية فقط — بحجم المساحة الصحيحة، وليست موقعًا مقترحًا فعليًا. بالنظر إلى المورد الشمسي الاستثنائي لعُمان، فإن هذه التجربة الفكرية أكثر واقعية فيزيائيًا مقارنة بمعظم الدول الأخرى في اللعبة."
+   "fit": "بفضل الظروف الشمسية الاستثنائية في عُمان (نحو 429 هكتار لكل تيراواط ساعة، من بين الأفضل على وجه الأرض)، فإن تغطية <strong>الطلب العالمي على الكهرباء</strong> بأكمله (نحو 31,000 تيراواط ساعة سنويًا) تحتاج إلى نحو <strong>{haM} مليون هكتار</strong> - أي <strong>{pct}% من مساحة عُمان</strong>، موضحة أدناه كدائرة بمساحة مكافئة. تقع هذه الدائرة داخل الصحراء الداخلية الشاسعة في عُمان.",
+   "stat2": "يجعل مزيج الإشعاع الشمسي الرائد عالميًا مع الداخل الصحراوي الواسع في عُمان هذه التجربة الفكرية من أكثر التجارب مصداقية فيزيائية في اللعبة - إلا أن طموحات عُمان المحلية في الهيدروجين الأخضر وحدها ستتجاوز بالفعل كامل نظامها الكهربائي الحالي. الفجوة بين الإمكانات الفيزيائية والبنية التحتية المُنشأة فعليًا - وليس أشعة الشمس أو الأرض - هي ما يفصل عُمان عن أن تصبح \"دولة كهربائية\" حقيقية مصدّرة للطاقة النظيفة.",
+   "foot": "الدائرة المنقّطة توضيحية فقط - بحجم المساحة الصحيحة، وليست موقعًا مقترحًا فعليًا. بالنظر إلى المورد الشمسي الاستثنائي لعُمان، فإن هذه التجربة الفكرية أكثر واقعية فيزيائيًا مقارنة بمعظم الدول الأخرى في اللعبة."
   },
   "en": {
    "head": "🌍 What if Oman alone powered the whole world?",
-   "fit": "At Oman's exceptional solar conditions (~429 ha/TWh, among the best on Earth), powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) would need about <strong>{haM} million hectares</strong> — <strong>{pct}% of Oman's land area</strong>, shown below as a circle of equivalent area. That circle fits within Oman's own vast desert interior.",
-   "stat2": "Oman's combination of world-leading solar irradiance and a large desert interior makes this one of the most physically credible thought experiments in the game — yet Oman's own domestic green hydrogen ambitions alone would already exceed its entire current electricity system. The gap between physical potential and built infrastructure, not sunlight or land, is what stands between Oman and becoming a true clean-energy exporting electrostate.",
-   "foot": "The dashed circle is illustrative — sized to the correct land area, not an actual proposed siting. Given Oman's exceptional solar resource, this thought experiment is more physically grounded than for most countries in the game."
+   "fit": "At Oman's exceptional solar conditions (~429 ha/TWh, among the best on Earth), powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) would need about <strong>{haM} million hectares</strong> - <strong>{pct}% of Oman's land area</strong>, shown below as a circle of equivalent area. That circle fits within Oman's own vast desert interior.",
+   "stat2": "Oman's combination of world-leading solar irradiance and a large desert interior makes this one of the most physically credible thought experiments in the game - yet Oman's own domestic green hydrogen ambitions alone would already exceed its entire current electricity system. The gap between physical potential and built infrastructure, not sunlight or land, is what stands between Oman and becoming a true clean-energy exporting electrostate.",
+   "foot": "The dashed circle is illustrative - sized to the correct land area, not an actual proposed siting. Given Oman's exceptional solar resource, this thought experiment is more physically grounded than for most countries in the game."
   }
  }
 };

@@ -1,6 +1,6 @@
 window.LANDGAME=window.LANDGAME||{};
 LANDGAME.es = {
- "title": "🇪🇸 How is Spain's land actually used? — Guessing Game",
+ "title": "🇪🇸 How is Spain's land actually used? - Guessing Game",
  "code": "es",
  "iso": "724",
  "alpha2": "es",
@@ -88,7 +88,7 @@ LANDGAME.es = {
     "id": "olive",
     "icon": "🫒",
     "name": "Olivares y viñedos",
-    "desc": "Cultivos permanentes — España tiene el mayor olivar del mundo",
+    "desc": "Cultivos permanentes - España tiene el mayor olivar del mundo",
     "answer": 6.32,
     "color": "#c9a85c",
     "max": 15,
@@ -110,7 +110,7 @@ LANDGAME.es = {
     "id": "solar",
     "icon": "☀️🔋",
     "name": "Solar+batería (actual)",
-    "desc": "Parques fotovoltaicos de gran escala al suelo con almacenamiento (32 GW a finales de 2024) — conectados a la red",
+    "desc": "Parques fotovoltaicos de gran escala al suelo con almacenamiento (32 GW a finales de 2024) - conectados a la red",
     "answer": 0.14,
     "color": "#EF9F27",
     "max": 2,
@@ -204,7 +204,7 @@ LANDGAME.es = {
     "id": "olive",
     "icon": "🫒",
     "name": "Olive groves & vineyards",
-    "desc": "Permanent crops — Spain has the world's largest olive grove area",
+    "desc": "Permanent crops - Spain has the world's largest olive grove area",
     "answer": 6.32,
     "color": "#c9a85c",
     "max": 15,
@@ -253,7 +253,7 @@ LANDGAME.es = {
  "strings": {
   "es": {
    "h1": "<img src=\"https://flagcdn.com/32x24/es.png\" alt=\"\" style=\"height:0.75em;vertical-align:0.1em;margin-right:0.2em\"> ¿Cómo se usa el suelo en España?",
-   "subtitle": "Inspirado en <a href=\"https://www.youtube.com/shorts/CgeTvQPwNCg\" target=\"_blank\" style=\"color:var(--text-secondary)\">el vídeo de YouTube del Dr. Simon Clark</a> (en inglés). Adivina el porcentaje del territorio español para cada categoría — los controles están limitados al 100% en total.",
+   "subtitle": "Inspirado en <a href=\"https://www.youtube.com/shorts/CgeTvQPwNCg\" target=\"_blank\" style=\"color:var(--text-secondary)\">el vídeo de YouTube del Dr. Simon Clark</a> (en inglés). Adivina el porcentaje del territorio español para cada categoría - los controles están limitados al 100% en total.",
    "disclaimer": "Las cifras de solar+batería son un experimento mental generado con la ayuda de una IA, no una recomendación política. Todas las cifras se refieren a sistemas de gran escala conectados a la red. España tiene un excelente recurso eólico (especialmente en Galicia y Castilla), así como potencial hidráulico y geotérmico. El apagón del 28 de abril de 2025 ilustra la importancia de una gestión sólida de la red, independientemente de las fuentes de energía.",
    "noteLabel": "Nota",
    "contextLabel": "Contexto del país",
@@ -263,8 +263,8 @@ LANDGAME.es = {
    "score": "Puntuación",
    "land_used": "Territorio usado",
    "remaining": "Restante",
-   "map_guess": "Tus estimaciones — mapa proporcional (se actualiza al mover)",
-   "map_answer": "Uso real del suelo en España — mapa proporcional",
+   "map_guess": "Tus estimaciones - mapa proporcional (se actualiza al mover)",
+   "map_answer": "Uso real del suelo en España - mapa proporcional",
    "allocated": "/ 100% asignados",
    "reveal": "Revelado al enviar.",
    "out_of": "puntuación de precisión",
@@ -276,7 +276,7 @@ LANDGAME.es = {
     ],
     [
      54,
-     "🌿 Muy bien — tienes una buena visión del paisaje español."
+     "🌿 Muy bien - tienes una buena visión del paisaje español."
     ],
     [
      36,
@@ -284,7 +284,7 @@ LANDGAME.es = {
     ],
     [
      18,
-     "🌄 España es más verde de lo que parece — principalmente bosque y agricultura."
+     "🌄 España es más verde de lo que parece - principalmente bosque y agricultura."
     ],
     [
      0,
@@ -298,7 +298,7 @@ LANDGAME.es = {
   },
   "en": {
    "h1": "<img src=\"https://flagcdn.com/32x24/es.png\" alt=\"\" style=\"height:0.75em;vertical-align:0.1em;margin-right:0.2em\"> How is Spain's land actually used?",
-   "subtitle": "Inspired by <a href=\"https://www.youtube.com/shorts/CgeTvQPwNCg\" target=\"_blank\" style=\"color:var(--text-secondary)\">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Spanish land for each category — sliders are capped at 100% total.",
+   "subtitle": "Inspired by <a href=\"https://www.youtube.com/shorts/CgeTvQPwNCg\" target=\"_blank\" style=\"color:var(--text-secondary)\">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Spanish land for each category - sliders are capped at 100% total.",
    "disclaimer": "The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar+battery figures refer to utility-scale, grid-connected systems. Spain has excellent wind resources (especially in Galicia and Castile), plus hydro and geothermal potential. The April 28, 2025 blackout illustrated the importance of robust grid management, independent of energy sources. Land use figures are approximate and sourced from official statistics.",
    "noteLabel": "Note",
    "contextLabel": "Country context",
@@ -308,8 +308,8 @@ LANDGAME.es = {
    "score": "Score",
    "land_used": "Land used",
    "remaining": "Remaining",
-   "map_guess": "Your guesses — proportional area map (updates as you slide)",
-   "map_answer": "Actual Spanish land use — proportional area map",
+   "map_guess": "Your guesses - proportional area map (updates as you slide)",
+   "map_answer": "Actual Spanish land use - proportional area map",
    "allocated": "/ 100% allocated",
    "reveal": "Revealed after you submit.",
    "out_of": "accuracy score",
@@ -317,11 +317,11 @@ LANDGAME.es = {
    "grades": [
     [
      72,
-     "🏆 Land use expert — you know Spain's countryside in detail!"
+     "🏆 Land use expert - you know Spain's countryside in detail!"
     ],
     [
      54,
-     "🌿 Very strong — sharp sense of the Spanish landscape."
+     "🌿 Very strong - sharp sense of the Spanish landscape."
     ],
     [
      36,
@@ -329,7 +329,7 @@ LANDGAME.es = {
     ],
     [
      18,
-     "🌄 Spain is greener than it feels — mostly forest and farmland."
+     "🌄 Spain is greener than it feels - mostly forest and farmland."
     ],
     [
      0,
@@ -345,15 +345,15 @@ LANDGAME.es = {
  "world": {
   "es": {
    "head": "🌍 ¿Y si España sola abasteciera al mundo entero?",
-   "fit": "Abastecer toda la <strong>demanda eléctrica mundial</strong> (~31.000 TWh/año) usando las condiciones solares propias de España necesitaría unas <strong>{haM} hectáreas</strong> — el <strong>{pct}%</strong> del territorio español, representado abajo como un círculo de superficie equivalente.",
-   "overflow": "Abastecer toda la <strong>demanda eléctrica mundial</strong> (~31.000 TWh/año) usando las condiciones solares propias de España necesitaría unas <strong>{haM} hectáreas</strong> — <strong>{mult}× el territorio nacional</strong>. El círculo de abajo, centrado en España, se extiende ampliamente más allá de sus fronteras, mostrando que la geografía solar y el clima importan tanto como la disponibilidad de suelo.",
-   "foot": "El círculo punteado es ilustrativo — tiene el tamaño correcto, pero no es una ubicación realmente propuesta. Se superpone a fronteras existentes solo para dar escala."
+   "fit": "Abastecer toda la <strong>demanda eléctrica mundial</strong> (~31.000 TWh/año) usando las condiciones solares propias de España necesitaría unas <strong>{haM} hectáreas</strong> - el <strong>{pct}%</strong> del territorio español, representado abajo como un círculo de superficie equivalente.",
+   "overflow": "Abastecer toda la <strong>demanda eléctrica mundial</strong> (~31.000 TWh/año) usando las condiciones solares propias de España necesitaría unas <strong>{haM} hectáreas</strong> - <strong>{mult}× el territorio nacional</strong>. El círculo de abajo, centrado en España, se extiende ampliamente más allá de sus fronteras, mostrando que la geografía solar y el clima importan tanto como la disponibilidad de suelo.",
+   "foot": "El círculo punteado es ilustrativo - tiene el tamaño correcto, pero no es una ubicación realmente propuesta. Se superpone a fronteras existentes solo para dar escala."
   },
   "en": {
    "head": "🌍 What if Spain alone powered the whole world?",
-   "fit": "Powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) using Spain's own solar conditions would need about <strong>{haM} hectares</strong> — <strong>{pct}%</strong> of Spain's land area, shown below as a circle of equivalent area.",
-   "overflow": "Powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) using Spain's own solar conditions would need about <strong>{haM} hectares</strong> — <strong>{mult}× the entire country</strong>. The circle below shows that area centred on Spain — it spills well beyond the country's own borders, illustrating that solar geography and climate matter as much as land availability.",
-   "foot": "The dashed circle is illustrative — sized to the correct land area, but not an actual proposed siting. It overlaps existing borders for scale only."
+   "fit": "Powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) using Spain's own solar conditions would need about <strong>{haM} hectares</strong> - <strong>{pct}%</strong> of Spain's land area, shown below as a circle of equivalent area.",
+   "overflow": "Powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) using Spain's own solar conditions would need about <strong>{haM} hectares</strong> - <strong>{mult}× the entire country</strong>. The circle below shows that area centred on Spain - it spills well beyond the country's own borders, illustrating that solar geography and climate matter as much as land availability.",
+   "foot": "The dashed circle is illustrative - sized to the correct land area, but not an actual proposed siting. It overlaps existing borders for scale only."
   },
   "haStyle": "word",
   "millionWord": {

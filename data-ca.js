@@ -1,6 +1,6 @@
 window.LANDGAME=window.LANDGAME||{};
 LANDGAME.ca = {
- "title": "🇨🇦 How is Canada's land actually used? — Guessing Game",
+ "title": "🇨🇦 How is Canada's land actually used? - Guessing Game",
  "code": "ca",
  "iso": "124",
  "alpha2": "ca",
@@ -217,7 +217,7 @@ LANDGAME.ca = {
  "strings": {
   "en": {
    "h1": "<img src=\"https://flagcdn.com/32x24/ca.png\" alt=\"\" style=\"height:0.75em;vertical-align:0.1em;margin-right:0.2em\"> How is Canada's land actually used?",
-   "subtitle": "Inspired by <a href=\"https://www.youtube.com/shorts/CgeTvQPwNCg\" target=\"_blank\" style=\"color:var(--text-secondary)\">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Canadian land for each category — sliders are capped at 100% total. Canada is a top-5 global oil exporter, yet its own electricity grid is already about 85% non-emitting thanks to hydropower and nuclear.",
+   "subtitle": "Inspired by <a href=\"https://www.youtube.com/shorts/CgeTvQPwNCg\" target=\"_blank\" style=\"color:var(--text-secondary)\">Dr. Simon Clark's YouTube short</a>. Guess the percentage of Canadian land for each category - sliders are capped at 100% total. Canada is a top-5 global oil exporter, yet its own electricity grid is already about 85% non-emitting thanks to hydropower and nuclear.",
    "disclaimer": "The solar+battery figures are a thought experiment generated with the aid of an AI, not a policy recommendation. All solar figures refer to utility-scale, grid-connected systems. Land use figures from Natural Resources Canada, the Canadian Council of Forest Ministers and the World Bank/FAO; electricity figures from the Canada Energy Regulator and IEA, 2023-2025.",
    "noteLabel": "Note",
    "contextLabel": "Country context",
@@ -227,8 +227,8 @@ LANDGAME.ca = {
    "score": "Score",
    "land_used": "Land used",
    "remaining": "Remaining",
-   "map_guess": "Your guesses — proportional area map (updates as you slide)",
-   "map_answer": "Actual Canadian land use — proportional area map",
+   "map_guess": "Your guesses - proportional area map (updates as you slide)",
+   "map_answer": "Actual Canadian land use - proportional area map",
    "allocated": "/ 100% allocated",
    "reveal": "Revealed after you submit.",
    "out_of": "accuracy score",
@@ -240,7 +240,7 @@ LANDGAME.ca = {
     ],
     [
      64,
-     "🌲 Very strong — sharp grasp of just how much forest and tundra this country holds."
+     "🌲 Very strong - sharp grasp of just how much forest and tundra this country holds."
     ],
     [
      43,
@@ -262,7 +262,7 @@ LANDGAME.ca = {
   },
   "fr": {
    "h1": "<img src=\"https://flagcdn.com/32x24/ca.png\" alt=\"\" style=\"height:0.75em;vertical-align:0.1em;margin-right:0.2em\"> Comment le territoire du Canada est-il vraiment utilisé?",
-   "subtitle": "Inspiré par le <a href=\"https://www.youtube.com/shorts/CgeTvQPwNCg\" target=\"_blank\" style=\"color:var(--text-secondary)\">court extrait YouTube du Dr Simon Clark</a> (en anglais). Devinez le pourcentage du territoire canadien pour chaque catégorie — la somme des curseurs ne peut dépasser 100%. Le Canada figure parmi les cinq premiers exportateurs mondiaux de pétrole, et pourtant son propre réseau électrique est déjà non émetteur à environ 85% grâce à l'hydroélectricité et au nucléaire.",
+   "subtitle": "Inspiré par le <a href=\"https://www.youtube.com/shorts/CgeTvQPwNCg\" target=\"_blank\" style=\"color:var(--text-secondary)\">court extrait YouTube du Dr Simon Clark</a> (en anglais). Devinez le pourcentage du territoire canadien pour chaque catégorie - la somme des curseurs ne peut dépasser 100%. Le Canada figure parmi les cinq premiers exportateurs mondiaux de pétrole, et pourtant son propre réseau électrique est déjà non émetteur à environ 85% grâce à l'hydroélectricité et au nucléaire.",
    "disclaimer": "Les chiffres de solaire et de batteries constituent une expérience de pensée générée avec l'aide de l'IA, et non une recommandation politique. Tous les chiffres solaires concernent des installations de grande échelle connectées au réseau. Données d'occupation des sols de Ressources naturelles Canada, du Conseil canadien des ministres des forêts et de la Banque mondiale/FAO; données électriques de la Régie de l'énergie du Canada et de l'AIE, 2023-2025.",
    "noteLabel": "Remarque",
    "contextLabel": "Contexte du pays",
@@ -272,8 +272,8 @@ LANDGAME.ca = {
    "score": "Pointage",
    "land_used": "Terrain utilisé",
    "remaining": "Restant",
-   "map_guess": "Vos réponses — carte de superficie proportionnelle (mise à jour en glissant)",
-   "map_answer": "Utilisation réelle du territoire canadien — carte de superficie proportionnelle",
+   "map_guess": "Vos réponses - carte de superficie proportionnelle (mise à jour en glissant)",
+   "map_answer": "Utilisation réelle du territoire canadien - carte de superficie proportionnelle",
    "allocated": "/ 100% attribué",
    "reveal": "Révélé après l'envoi.",
    "out_of": "score de précision",
@@ -285,7 +285,7 @@ LANDGAME.ca = {
     ],
     [
      64,
-     "🌲 Très fort — excellente idée de la place qu'occupent la forêt et la toundra."
+     "🌲 Très fort - excellente idée de la place qu'occupent la forêt et la toundra."
     ],
     [
      43,
@@ -309,15 +309,15 @@ LANDGAME.ca = {
  "world": {
   "en": {
    "head": "🌍 What if Canada alone powered the whole world?",
-   "fit": "Using a hedged national-average estimate of Canada's solar yield (~900 ha/TWh, weighted toward the populated south), powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) would need about <strong>{haM} million hectares</strong> — just <strong>{pct}% of Canada's land area</strong>, shown below as a circle of equivalent area. Canada's sheer size means this fits comfortably, even with fairly ordinary sunshine.",
+   "fit": "Using a hedged national-average estimate of Canada's solar yield (~900 ha/TWh, weighted toward the populated south), powering all of <strong>global electricity demand</strong> (~31,000 TWh/yr) would need about <strong>{haM} million hectares</strong> - just <strong>{pct}% of Canada's land area</strong>, shown below as a circle of equivalent area. Canada's sheer size means this fits comfortably, even with fairly ordinary sunshine.",
    "stat2": "Unlike its smaller, similarly high-latitude neighbours like Denmark or the UK, Canada's vast land area means the numbers work out easily despite unremarkable solar conditions - the circle needed is a small fraction of the country. It's a reminder that total land area and per-hectare solar quality are entirely separate variables, and either one alone can carry a country's world-solar thought experiment.",
-   "foot": "The dashed circle is illustrative — sized to the correct land area, not an actual proposed siting."
+   "foot": "The dashed circle is illustrative - sized to the correct land area, not an actual proposed siting."
   },
   "fr": {
    "head": "🌍 Et si le Canada alimentait le monde entier en électricité?",
-   "fit": "Avec une estimation prudente du rendement solaire moyen national du Canada (environ 900 ha/TWh, pondérée vers le sud peuplé), couvrir l'ensemble de la <strong>demande électrique mondiale</strong> (environ 31 000 TWh/an) nécessiterait environ <strong>{haM} millions d'hectares</strong> — soit seulement <strong>{pct}% du territoire canadien</strong>, représenté ci-dessous par un cercle d'aire équivalente. L'immensité du Canada permet à cela de tenir aisément, même avec un ensoleillement plutôt ordinaire.",
+   "fit": "Avec une estimation prudente du rendement solaire moyen national du Canada (environ 900 ha/TWh, pondérée vers le sud peuplé), couvrir l'ensemble de la <strong>demande électrique mondiale</strong> (environ 31 000 TWh/an) nécessiterait environ <strong>{haM} millions d'hectares</strong> - soit seulement <strong>{pct}% du territoire canadien</strong>, représenté ci-dessous par un cercle d'aire équivalente. L'immensité du Canada permet à cela de tenir aisément, même avec un ensoleillement plutôt ordinaire.",
    "stat2": "Contrairement à ses voisins plus petits et à latitude comparable comme le Danemark ou le Royaume-Uni, l'immensité du territoire canadien permet aux chiffres de fonctionner aisément malgré des conditions solaires ordinaires - le cercle nécessaire ne représente qu'une infime fraction du pays. Un rappel que la superficie totale et la qualité solaire par hectare sont deux variables entièrement distinctes, et que l'une ou l'autre peut à elle seule porter l'expérience de pensée solaire mondiale d'un pays.",
-   "foot": "Le cercle en pointillé est purement illustratif — sa taille correspond à la surface exacte requise, mais il ne s'agit pas d'un emplacement réellement proposé."
+   "foot": "Le cercle en pointillé est purement illustratif - sa taille correspond à la surface exacte requise, mais il ne s'agit pas d'un emplacement réellement proposé."
   }
  }
 };
