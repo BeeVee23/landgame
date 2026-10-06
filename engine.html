@@ -1,4 +1,4 @@
-<!-- v6.3.6 -->
+<!-- v6.4.0 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -235,7 +235,7 @@ function toggleLang(){ currentLang=LANGS[(LANGS.indexOf(currentLang)+1)%LANGS.le
 
 function dpOf(cat){ return cat.dp!==undefined?cat.dp:(cat.isSolar?3:1); }
 // display precision for a value shown in results/legend: tiny values (<0.01) always get 4 decimals
-function dpFor(cat,v){ return v<0.01?4:dpOf(cat); }
+function dpFor(cat,v){ return v<0.01?Math.max(4,cat.dp||0):dpOf(cat); }
 function getVal(cat){
   if(cat.readOnly) return 0;
   const el=$('sl-'+cat.id);
@@ -398,7 +398,7 @@ function fmtAns(cat,dp){
 function haLabel(cat){
   const ha=cat.answerHa;
   if(!(ha>0)) return '';
-  return ' (~'+(ha>=1000000?(ha/1000000).toFixed(1)+'M':ha>=10000?Math.round(ha/1000)+'k':Math.round(ha).toLocaleString('en'))+' ha)';
+  return ' (~'+(ha>=1000000?(ha/1000000).toFixed(1)+'M':ha>=10000?Math.round(ha/1000)+'k':(ha<10?parseFloat(ha.toFixed(2)).toLocaleString('en'):Math.round(ha).toLocaleString('en')))+' ha)';
 }
 $('sub-btn').addEventListener('click',function(){
   if(submitted) return;

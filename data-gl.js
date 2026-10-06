@@ -13,8 +13,8 @@ LANDGAME.gl = {
  "langs": [
   "en"
  ],
- "dataInfo": "Data: <strong>2023–2024</strong> · Statistics Greenland (Grønlands Statistik) · NSIDC · Nukissiorfiit · FAO",
- "sources": "Sources: <a href=\"https://stat.gl/publ/en/GF/LAN/201301GF01EN.pdf\" target=\"_blank\">Statistics Greenland Land Use 2023</a> · <a href=\"https://nsidc.org/data/nsidc-0714/versions/1\" target=\"_blank\">NSIDC Ice Sheet Extent</a> · <a href=\"https://www.nukissiorfiit.gl/en/\" target=\"_blank\">Nukissiorfiit Annual Report 2024</a> · <a href=\"https://www.irena.org/Countries/Greenland\" target=\"_blank\">IRENA Greenland</a> · <a href=\"https://www.fao.org/faostat/\" target=\"_blank\">FAO</a> · Greenland total land area ~216.6M ha (2,166,086 km²).",
+ "dataInfo": "Data: <strong>2023–2024</strong> · Statistics Greenland (Grønlands Statistik) · NSIDC · Nukissiorfiit · FAO · OpenInfraMap",
+ "sources": "Sources: <a href=\"https://stat.gl/publ/en/GF/LAN/201301GF01EN.pdf\" target=\"_blank\">Statistics Greenland Land Use 2023</a> · <a href=\"https://nsidc.org/data/nsidc-0714/versions/1\" target=\"_blank\">NSIDC Ice Sheet Extent</a> · <a href=\"https://www.nukissiorfiit.gl/en/\" target=\"_blank\">Nukissiorfiit Annual Report 2024</a> · <a href=\"https://www.irena.org/Countries/Greenland\" target=\"_blank\">IRENA Greenland</a> · <a href=\"https://www.fao.org/faostat/\" target=\"_blank\">FAO</a> · <a href=\"https://openinframap.org/stats/area/Greenland/plants\" target=\"_blank\">OpenInfraMap: Greenland power plants (Igaliku solar farm, ~0.1 MW; crowd-sourced data)</a> · Greenland total land area ~216.6M ha (2,166,086 km²).",
  "cats": {
   "en": [
    {
@@ -72,6 +72,20 @@ LANDGAME.gl = {
     "step": 0.001,
     "answerHa": 43320,
     "dp": 3
+   },
+   {
+    "id": "solar",
+    "icon": "☀️🔋",
+    "name": "Solar farms (current)",
+    "desc": "Greenland's grid runs on hydropower and diesel, with solar a rarity - a handful of very small installations, such as a roughly 0.1 MW solar farm near Igaliku in the south, and a few off-grid village and cabin systems. Each is smaller than a football pitch",
+    "answer": 1e-7,
+    "color": "#EF9F27",
+    "max": 0.000001,
+    "step": 1e-7,
+    "answerHa": 0.25,
+    "dp": 7,
+    "isSolar": true,
+    "solarNote": "Hint: with about 87% of Greenland's electricity coming from hydropower, solar plays almost no part. Summer sun is plentiful, but the polar night removes it for weeks or months in winter - and the one solar farm we could find (about 0.1 MW, near Igaliku) is a rounding error in the grid."
    },
    {
     "id": "sol100",
